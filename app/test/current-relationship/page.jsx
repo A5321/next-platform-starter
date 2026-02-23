@@ -40,9 +40,26 @@ export default function CurrentRelationshipTest() {
       </form>
 
       {result && (
-        <pre style={{ marginTop: 24, background: "#f4f4f4", padding: 16 }}>
-          {JSON.stringify(result, null, 2)}
-        </pre>
+{result && (
+  <section style={{ marginTop: 24 }}>
+    <h2>Overall risk level: {result.overall_risk_level}</h2>
+
+    <h3>Indices</h3>
+    <ul>
+      <li>Reciprocity Score: {result.indices.reciprocity_score}</li>
+      <li>Initiative Balance Index: {result.indices.initiative_balance_index}</li>
+      <li>Emotional Stability Index: {result.indices.emotional_stability_index}</li>
+      <li>Boundary Violation Probability: {result.indices.boundary_violation_probability}</li>
+      <li>Communication Clarity Index: {result.indices.communication_clarity_index}</li>
+      <li>Pattern Recurrence Probability: {result.indices.pattern_recurrence_probability}</li>
+      <li>Long-Term Stability Forecast: {result.indices.long_term_stability_forecast}</li>
+    </ul>
+
+    <h3>Summary</h3>
+    <p>{result.summary}</p>
+  </section>
+)}
+
       )}
     </main>
   );
