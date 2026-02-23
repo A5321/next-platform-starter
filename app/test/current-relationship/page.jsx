@@ -106,91 +106,85 @@ export default function CurrentRelationshipTest() {
       </form>
 
       {result && (
-        <section style={{ marginTop: 24 }}>
+        <section style={{ marginTop: 24, lineHeight: 1.5 }}>
           <h2>Overall risk level: {result.overall_risk_level}</h2>
 
           <h3>Indices</h3>
-          <ul>
-            <li>Reciprocity Score: {result.indices.reciprocity_score}</li>
-            <li>
+
+          <p>
+            <strong>Reciprocity Score: {result.indices.reciprocity_score}</strong>
+            <br />
+            Measures how balanced emotional, practical, and time investment is
+            between people. 0 = one person carries most of the connection, 1 =
+            both show up in roughly comparable ways.
+          </p>
+
+          <p>
+            <strong>
               Initiative Balance Index: {result.indices.initiative_balance_index}
-            </li>
-            <li>
+            </strong>
+            <br />
+            Measures asymmetry in who initiates contact, conversations, or
+            emotional effort. 0 = almost all initiative comes from one side, 1 =
+            both sides regularly start and move things forward.
+          </p>
+
+          <p>
+            <strong>
               Emotional Stability Index: {result.indices.emotional_stability_index}
-            </li>
-            <li>
+            </strong>
+            <br />
+            Measures how stable or volatile the emotional tone and reactions are
+            over time. 0 = frequent sharp mood swings and sudden shifts, 1 =
+            mostly steady reactions with understandable changes.
+          </p>
+
+          <p>
+            <strong>
               Boundary Violation Probability:{" "}
               {result.indices.boundary_violation_probability}
-            </li>
-            <li>
+            </strong>
+            <br />
+            Measures how often personal limits, “no’s”, or agreements are ignored
+            or pushed through. 0 = boundaries are consistently respected, 1 =
+            boundaries are regularly tested, pressured, or overridden.
+          </p>
+
+          <p>
+            <strong>
               Communication Clarity Index:{" "}
               {result.indices.communication_clarity_index}
-            </li>
-            <li>
+            </strong>
+            <br />
+            Measures how directly people express needs, intentions, and interest
+            versus using mixed or hidden signals. 0 = high ambiguity, double
+            messages, or manipulation, 1 = mostly straightforward, transparent
+            communication.
+          </p>
+
+          <p>
+            <strong>
               Pattern Recurrence Probability:{" "}
               {result.indices.pattern_recurrence_probability}
-            </li>
-            <li>
+            </strong>
+            <br />
+            Estimates how likely it is that the same dynamic will continue or
+            appear again in future situations. 0 = low chance of repetition under
+            similar conditions, 1 = pattern is deeply entrenched and very likely
+            to repeat.
+          </p>
+
+          <p>
+            <strong>
               Long-Term Stability Forecast:{" "}
               {result.indices.long_term_stability_forecast}
-            </li>
-          </ul>
-
-          <h3>How to read these indices</h3>
-          <ol>
-            <li>
-              <strong>Reciprocity Score (How mutual the effort feels)</strong>
-              <br />
-              Measures how balanced emotional, practical, and time investment is
-              between people. 0 = one person carries most of the connection, 1 =
-              both show up in roughly comparable ways.
-            </li>
-            <li>
-              <strong>Initiative Balance Index (Who moves the connection forward)</strong>
-              <br />
-              Measures asymmetry in who initiates contact, conversations, or
-              emotional effort. 0 = almost all initiative comes from one side, 1 =
-              both sides regularly start and move things forward.
-            </li>
-            <li>
-              <strong>Emotional Stability Index (How predictable the emotional climate is)</strong>
-              <br />
-              Measures how stable or volatile the emotional tone and reactions are
-              over time. 0 = frequent sharp mood swings and sudden shifts, 1 =
-              mostly steady reactions with understandable changes.
-            </li>
-            <li>
-              <strong>Boundary Violation Probability (How likely it is that boundaries get crossed)</strong>
-              <br />
-              Measures how often personal limits, “no’s”, or agreements are ignored
-              or pushed through. 0 = boundaries are consistently respected, 1 =
-              boundaries are regularly tested, pressured, or overridden.
-            </li>
-            <li>
-              <strong>Communication Clarity Index (How clear the signals and intentions are)</strong>
-              <br />
-              Measures how directly people express needs, intentions, and interest
-              versus using mixed or hidden signals. 0 = high ambiguity, double
-              messages, or manipulation, 1 = mostly straightforward, transparent
-              communication.
-            </li>
-            <li>
-              <strong>Pattern Recurrence Probability (How likely this pattern is to repeat)</strong>
-              <br />
-              Estimates how likely it is that the same dynamic will continue or
-              appear again in future situations. 0 = low chance of repetition under
-              similar conditions, 1 = pattern is deeply entrenched and very likely
-              to repeat.
-            </li>
-            <li>
-              <strong>Long-Term Stability Forecast (How sustainable this dynamic looks over time)</strong>
-              <br />
-              Estimates how likely it is that the current way of relating can stay
-              healthy in the long run. 0 = very low chance of sustainable
-              stability, 1 = high chance that the dynamic can remain stable over
-              time.
-            </li>
-          </ol>
+            </strong>
+            <br />
+            Estimates how likely it is that the current way of relating can stay
+            healthy in the long run. 0 = very low chance of sustainable
+            stability, 1 = high chance that the dynamic can remain stable over
+            time.
+          </p>
 
           <h3>Summary</h3>
           <p>{result.summary}</p>
