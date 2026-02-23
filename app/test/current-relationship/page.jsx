@@ -60,6 +60,8 @@ export default function CurrentRelationshipTest() {
   const labelStyle = { display: "block", marginBottom: 8, fontWeight: 500 };
   const controlStyle = {
     width: "100%",
+    maxWidth: 900,          // можно 800, если хочешь чуть уже
+    boxSizing: "border-box",
     padding: "8px 10px",
     borderRadius: 6,
     border: "1px solid rgba(255,255,255,0.25)",
