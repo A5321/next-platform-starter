@@ -1,17 +1,59 @@
 export default function Home() {
   return (
-    <main style={{ maxWidth: 800, margin: "40px auto", padding: "0 16px" }}>
-      <h1>See your relationship patterns on one screen.</h1>
-      <p>
-        Choose a scenario, answer a few questions, and get a structured AI report
-        on your relationship dynamics.
-      </p>
+    <main
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#000000",
+        color: "#ffffff",
+        padding: "40px 16px",
+      }}
+    >
+      <div style={{ maxWidth: 800, width: "100%" }}>
+        <h1 style={{ fontSize: 36, marginBottom: 12 }}>
+          See your relationship patterns on one screen.
+        </h1>
+        <p style={{ marginBottom: 24, opacity: 0.9 }}>
+          Answer a few questions, add your story if you want, and get a structured
+          AI breakdown of how your current dynamic behaves.
+        </p>
 
-      <h2>Start a free checkup:</h2>
-      <ul>
-        <li><a href="/test/current-relationship">Current relationship checkup</a></li>
-        <li><a href="/test/repeating-pattern">Repeating breakup pattern</a></li>
-      </ul>
+        <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2>
+        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          <li style={{ marginBottom: 8 }}>
+            <a
+              href="/test/current-relationship"
+              style={{
+                display: "inline-block",
+                padding: "10px 16px",
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.3)",
+                textDecoration: "none",
+                color: "#ffffff",
+              }}
+            >
+              Current relationship checkup
+            </a>
+          </li>
+          <li style={{ marginBottom: 8 }}>
+            <a
+              href="/test/mixed-signals"
+              style={{
+                display: "inline-block",
+                padding: "10px 16px",
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.3)",
+                textDecoration: "none",
+                color: "#ffffff",
+              }}
+            >
+              Mixed signals / interest gap
+            </a>
+          </li>
+        </ul>
+      </div>
     </main>
   );
 }
