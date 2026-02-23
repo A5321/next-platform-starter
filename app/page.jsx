@@ -53,6 +53,29 @@ export default function Home() {
             </a>
           </li>
         </ul>
+        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          <li style={{ marginBottom: 8 }}>
+            <a ... href="/test/current-relationship">Current relationship checkup</a>
+          </li>
+          <li style={{ marginBottom: 8 }}>
+            <a ... href="/test/mixed-signals">Mixed signals / interest gap</a>
+          </li>
+          <li style={{ marginBottom: 8 }}>
+            <a
+              href="/test/repeating-breakup"
+              style={{
+                display: "inline-block",
+                padding: "10px 16px",
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.3)",
+                textDecoration: "none",
+                color: "#ffffff",
+              }}
+            >
+              Repeating breakup pattern
+            </a>
+          </li>
+        </ul>
       </div>
     </main>
   );
