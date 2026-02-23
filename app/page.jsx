@@ -1,16 +1,16 @@
 export default function Home() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#000000",
-        color: "#ffffff",
-        padding: "40px 16px",
-      }}
-    >
+   <main
+     style={{
+       minHeight: "100vh",
+       display: "flex",
+       alignItems: "flex-start",   // было "center"
+       justifyContent: "center",
+       backgroundColor: "#000000",
+       color: "#ffffff",
+       padding: "40px 16px",
+     }}
+   >
       <div style={{ maxWidth: 800, width: "100%" }}>
         <h1 style={{ fontSize: 36, marginBottom: 12 }}>
           See your relationship patterns on one screen.
