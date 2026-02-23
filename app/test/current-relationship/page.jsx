@@ -45,8 +45,8 @@ export default function CurrentRelationshipTest() {
     alignItems: "flex-start",
     justifyContent: "center",
     padding: "40px 16px",
+    backgroundColor: "#000000",
   };
-
   const cardStyle = {
     maxWidth: 900,
     width: "100%",
