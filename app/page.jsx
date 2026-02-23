@@ -52,14 +52,6 @@ export default function Home() {
               Mixed signals / interest gap
             </a>
           </li>
-        </ul>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          <li style={{ marginBottom: 8 }}>
-            <a ... href="/test/current-relationship">Current relationship checkup</a>
-          </li>
-          <li style={{ marginBottom: 8 }}>
-            <a ... href="/test/mixed-signals">Mixed signals / interest gap</a>
-          </li>
           <li style={{ marginBottom: 8 }}>
             <a
               href="/test/repeating-breakup"
