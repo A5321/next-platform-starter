@@ -48,6 +48,18 @@ Analyze the relationship narrative and answers objectively using this index fram
 7. Long-Term Stability Forecast (0–1)
 - How sustainable this dynamic looks over time if nothing changes.
 
+When scoring the indices, explicitly use the structured answers:
+- Initiative Balance Index must strongly reflect "who initiates more".
+- Emotional Stability Index must reflect perceived predictability.
+- Boundary Violation Probability must reflect how often boundaries feel crossed.
+- Pattern Recurrence Probability and Long-Term Stability should take into account how long the dynamic has been going on.
+
+Narrative handling:
+- Treat the narrative as a core data source, not decoration.
+- Pay special attention to concrete signals: physical reactions (e.g. headaches, nausea), substance use, aggressive or degrading language, and other striking behaviors.
+- If such extreme or unusual signals are present, they must significantly influence the indices (especially boundary, stability, and risk) and be referenced in the summary.
+- Do not ignore or smooth out these signals.
+
 Rules:
 - Do not give moral judgment.
 - Do not advise specific actions like "leave" or "stay".
@@ -68,17 +80,22 @@ Output format (JSON only):
     "pattern_recurrence_probability": 0.0,
     "long_term_stability_forecast": 0.0
   },
-  "summary": "3–5 sentences, neutral tone, explaining the structure of the dynamic."
+  "summary": "3–5 sentences, neutral tone, explaining the structure of the dynamic. The summary MUST reference at least 1–3 specific concrete details from the narrative when available (for example: physical symptoms after contact, substance use, style of speech, boundary crossings) and connect them to the indices."
 }
 `;
 
   const userContent = `
 Scenario: ${scenario}
 
-Answers:
-${JSON.stringify(answers, null, 2)}
+Structured answers:
+- Duration of this dynamic: ${answers?.duration || "not provided"}
+- Who initiates more: ${answers?.initiative || "not provided"}
+- Perceived predictability of their reactions: ${
+    answers?.predictability || "not provided"
+  }
+- How often boundaries feel crossed: ${answers?.boundaries || "not provided"}
 
-Narrative:
+Narrative (user's own words):
 ${narrative || "(no narrative provided)"}
 `;
 
