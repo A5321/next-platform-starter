@@ -148,9 +148,8 @@ export default function CurrentRelationshipTest() {
                 padding: "10px 18px",
                 borderRadius: 999,
                 border: "none",
-                background:
-                  "linear-gradient(135deg, #4fd1c5, #63b3ed)",
-                color: "#001019",
+                backgroundColor: "#ffffff",
+                color: "#000000",
                 fontWeight: 600,
                 cursor: loading ? "default" : "pointer",
                 opacity: loading ? 0.7 : 1,
