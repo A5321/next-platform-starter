@@ -39,7 +39,6 @@ export default function CurrentRelationshipTest() {
         <button type="submit">Analyze pattern</button>
       </form>
 
-      {result && (
 {result && (
   <section style={{ marginTop: 24 }}>
     <h2>Overall risk level: {result.overall_risk_level}</h2>
@@ -60,7 +59,6 @@ export default function CurrentRelationshipTest() {
   </section>
 )}
 
-      )}
     </main>
   );
 }
