@@ -35,7 +35,7 @@ export default function Home() {
     >
       <div style={{ maxWidth: 800, width: "100%" }}>
         <h1 style={{ fontSize: 36, marginBottom: 12 }}>
-          See your relationship patterns on one screen.
+          See your relationship patterns on one screen
         </h1>
         <p style={{ marginBottom: 24, opacity: 0.9 }}>
           Answer a few questions, add your story if you want, and get a structured
