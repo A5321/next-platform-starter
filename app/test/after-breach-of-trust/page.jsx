@@ -47,7 +47,6 @@ const pageStyle = {
   alignItems: "flex-start",
   justifyContent: "center",
   padding: "40px 16px",
-  // backgroundColor убираем здесь полностью
 };
 
 const cardStyle = {
@@ -59,7 +58,6 @@ const cardStyle = {
   boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
   backdropFilter: "blur(6px)",
 };
-
 
   const labelStyle = { display: "block", marginBottom: 8, fontWeight: 500 };
 
