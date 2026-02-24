@@ -21,16 +21,24 @@ export default function Home() {
     marginBottom: 10,
   };
 
-  return (
-    <main
+return (
+  <main
+    style={{
+      minHeight: "100vh",
+      display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "center",
+      padding: "40px 16px",
+    }}
+  >
+    <div
       style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "center",
-        backgroundColor: "#000000",
-        color: "#ffffff",
-        padding: "40px 16px",
+        maxWidth: 800,
+        width: "100%",
+        backgroundColor: "#000000",   // чёрная карточка
+        borderRadius: 12,
+        padding: 24,
+        boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
       }}
     >
       <div style={{ maxWidth: 800, width: "100%" }}>
