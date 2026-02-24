@@ -21,33 +21,32 @@ export default function Home() {
     marginBottom: 10,
   };
 
-return (
-  <main
-    style={{
-      minHeight: "100vh",
-      display: "flex",
-      alignItems: "flex-start",
-      justifyContent: "center",
-      padding: "40px 16px",
-    }}
-  >
-    <div
+  return (
+    <main
       style={{
-        maxWidth: 800,
-        width: "100%",
-        backgroundColor: "#000000",   // чёрная карточка
-        borderRadius: 12,
-        padding: 24,
-        boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "center",
+        padding: "40px 16px",
       }}
     >
-      <div style={{ maxWidth: 800, width: "100%" }}>
+      <div
+        style={{
+          maxWidth: 800,
+          width: "100%",
+          backgroundColor: "#000000",
+          borderRadius: 12,
+          padding: 24,
+          boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
+        }}
+      >
         <h1 style={{ fontSize: 36, marginBottom: 12 }}>
           See your relationship patterns on one screen
         </h1>
         <p style={{ marginBottom: 24, opacity: 0.9 }}>
-          Answer a few questions, add your story if you want, and get a structured
-          AI breakdown of how your current dynamic behaves.
+          Answer a few questions, add your story if you want, and get a
+          structured AI breakdown of how your current dynamic behaves.
         </p>
 
         <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2>
@@ -77,8 +76,8 @@ return (
             <a href="/test/repeating-breakup" style={buttonStyle}>
               Repeating breakup pattern
               <div style={descriptionStyle}>
-                Look at your breakups as a repeating structure, not just bad luck
-                or “wrong people”.
+                Look at your breakups as a repeating structure, not just bad
+                luck or “wrong people”.
               </div>
             </a>
           </li>
@@ -117,8 +116,8 @@ return (
             <a href="/test/after-breach-of-trust" style={buttonStyle}>
               After a serious breach of trust
               <div style={descriptionStyle}>
-                See whether the relationship is actually healing — or just frozen
-                around the wound.
+                See whether the relationship is actually healing — or just
+                frozen around the wound.
               </div>
             </a>
           </li>
