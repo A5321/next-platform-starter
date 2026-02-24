@@ -67,7 +67,7 @@ export default function Home() {
 
           <li style={itemStyle}>
             <a href="/test/repeating-breakup" style={buttonStyle}>
-              Repeating breakup pattern ---
+              Repeating breakup pattern
               <div style={descriptionStyle}>
                 Look at your breakups as a repeating structure, not just bad luck
                 or “wrong people”.
