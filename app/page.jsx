@@ -28,7 +28,7 @@ export default function Home() {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        backgroundColor: "#000000",
+        backgroundColor: "grey",
         color: "#ffffff",
         padding: "40px 16px",
       }}
