@@ -1,18 +1,8 @@
 import { NextResponse } from "next/server";
 
-export async function POST(req) {
-  const body = await req.json();
-  const { scenario, answers, narrative } = body;
+// ---------- PROMPTS & HELPERS ----------
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: "Missing OPENAI_API_KEY" },
-      { status: 500 }
-    );
-  }
-
-  const systemPrompt = `
+const COMMON_SYSTEM_PROMPT = `
 You are a structured interpersonal analysis engine.
 
 Analyze the relationship narrative and answers objectively using this index framework:
@@ -48,18 +38,6 @@ Analyze the relationship narrative and answers objectively using this index fram
 7. Long-Term Stability Forecast (0–1)
 - How sustainable this dynamic looks over time if nothing changes.
 
-When scoring the indices, explicitly use the structured answers:
-- Initiative Balance Index must strongly reflect "who initiates more".
-- Emotional Stability Index must reflect perceived predictability.
-- Boundary Violation Probability must reflect how often boundaries feel crossed.
-- Pattern Recurrence Probability and Long-Term Stability should take into account how long the dynamic has been going on.
-
-Narrative handling:
-- Treat the narrative as a core data source, not decoration.
-- Pay special attention to concrete signals: physical reactions (e.g. headaches, nausea), substance use, aggressive or degrading language, and other striking behaviors.
-- If such extreme or unusual signals are present, they must significantly influence the indices (especially boundary, stability, and risk) and be referenced in the summary.
-- Do not ignore or smooth out these signals.
-
 Rules:
 - Do not give moral judgment.
 - Do not advise specific actions like "leave" or "stay".
@@ -80,11 +58,65 @@ Output format (JSON only):
     "pattern_recurrence_probability": 0.0,
     "long_term_stability_forecast": 0.0
   },
-  "summary": "3–5 sentences, neutral tone, explaining the structure of the dynamic. The summary MUST reference at least 1–3 specific concrete details from the narrative when available (for example: physical symptoms after contact, substance use, style of speech, boundary crossings) and connect them to the indices."
+  "summary": "3–5 sentences..."
 }
 `;
 
-  const userContent = `
+const HYPER_PARENT_SYSTEM_PROMPT = `
+You are an interpersonal pattern analysis engine, focused on parent–child dynamics and their long-term effects.
+
+Analyze the answers and narrative for a hyper‑controlling parent pattern. Use this index framework:
+
+1. Parental Control Intensity (0–1)
+- How tightly the parent controlled the child's decisions, daily life, and overall direction.
+- 0 = mostly supportive guidance with respect for the child's path.
+- 1 = heavy control over most areas of life.
+
+2. Autonomy Restriction Level (0–1)
+- How much real freedom the child had to choose friends, hobbies, clothes, and schedule.
+- 0 = plenty of room to experiment even if the parent disagreed.
+- 1 = very little real choice, most decisions had to be "approved".
+
+3. Privacy Invasion Score (0–1)
+- How often the parent invaded physical and psychological privacy (room, phone, diaries, messages).
+- 0 = privacy mostly respected.
+- 1 = regular checking, reading, or entering without consent.
+
+4. Guilt/Shame Pressure Index (0–1)
+- How much guilt, shame, emotional blackmail, or threats were used to enforce obedience.
+- 0 = rare and mild.
+- 1 = strong, frequent emotional pressure.
+
+5. Current Relationship Echo Score (0–1)
+- How strongly this pattern is likely to replay in the person's adult relationships
+  (over‑adapting, tolerating control, or going into sharp rebellion).
+- 0 = almost no carry‑over.
+- 1 = strong echo in current dynamics.
+
+Rules:
+- Use the structured answers as the primary data source and refine with the narrative.
+- Do not give moral judgment.
+- Do not advise specific actions like "cut contact" or "forgive".
+- Use neutral, structural language.
+- Output MUST be valid JSON only.
+
+Output format:
+
+{
+  "overall_hypercontrol_level": "Low | Moderate | Elevated | High",
+  "indices": {
+    "parental_control_intensity": 0.0,
+    "autonomy_restriction_level": 0.0,
+    "privacy_invasion_score": 0.0,
+    "guilt_shame_pressure_index": 0.0,
+    "current_relationship_echo_score": 0.0
+  },
+  "summary": "3–5 sentences, neutral tone, explaining how the parent–child dynamic was organised and how it may echo in current relationships. The summary MUST reference at least 1–3 specific concrete details from the narrative when available."
+}
+`;
+
+function buildCommonUserContent(answers, narrative, scenario) {
+  return `
 Scenario: ${scenario}
 
 Structured answers:
@@ -98,6 +130,62 @@ Structured answers:
 Narrative (user's own words):
 ${narrative || "(no narrative provided)"}
 `;
+}
+
+function buildHyperParentUserContent(answers, narrative) {
+  return `
+Scenario: hyper_controlling_parent
+
+Structured answers:
+- Emotional tone from this parent: ${answers?.emotional_tone || "not provided"}
+- Level of autonomy in everyday decisions: ${answers?.autonomy || "not provided"}
+- How they treated your privacy: ${answers?.privacy || "not provided"}
+- Typical reaction when you didn't obey / disagreed: ${
+    answers?.punishment_pattern || "not provided"
+  }
+- How you feel this still affects your current relationships: ${
+    answers?.current_effect || "not provided"
+  }
+
+Narrative (user's own words):
+${narrative || "(no narrative provided)"}
+`;
+}
+
+function buildPromptAndUserContent(scenario, answers, narrative) {
+  if (scenario === "hyper_controlling_parent") {
+    return {
+      systemPrompt: HYPER_PARENT_SYSTEM_PROMPT,
+      userContent: buildHyperParentUserContent(answers, narrative),
+    };
+  }
+
+  // по умолчанию — старый общий чекап (current relationship, mixed, breakup)
+  return {
+    systemPrompt: COMMON_SYSTEM_PROMPT,
+    userContent: buildCommonUserContent(answers, narrative, scenario),
+  };
+}
+
+// ---------- MAIN HANDLER ----------
+
+export async function POST(req) {
+  const body = await req.json();
+  const { scenario, answers, narrative } = body;
+
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json(
+      { error: "Missing OPENAI_API_KEY" },
+      { status: 500 }
+    );
+  }
+
+  const { systemPrompt, userContent } = buildPromptAndUserContent(
+    scenario,
+    answers,
+    narrative
+  );
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
