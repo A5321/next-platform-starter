@@ -41,24 +41,24 @@ export default function SilentExitTest() {
     setLoading(false);
   }
 
-  const pageStyle = {
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    padding: "40px 16px",
-    backgroundColor: "#000000",
-  };
+const pageStyle = {
+  minHeight: "100vh",
+  display: "flex",
+  alignItems: "flex-start",
+  justifyContent: "center",
+  padding: "40px 16px",
+  // backgroundColor убираем здесь полностью
+};
 
-  const cardStyle = {
-    maxWidth: 900,
-    width: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
-    borderRadius: 12,
-    padding: 24,
-    boxShadow: "0 18px 45px rgba(0,0,0,0.35)",
-    backdropFilter: "blur(6px)",
-  };
+const cardStyle = {
+  maxWidth: 900,
+  width: "100%",
+  backgroundColor: "#000000",        // чёрная карточка
+  borderRadius: 12,
+  padding: 24,
+  boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
+  backdropFilter: "blur(6px)",
+};
 
   const labelStyle = { display: "block", marginBottom: 8, fontWeight: 500 };
 
