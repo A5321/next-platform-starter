@@ -220,60 +220,68 @@ const cardStyle = {
           </div>
         </form>
 
-        {result && (
-          <section style={{ marginTop: 32, lineHeight: 1.5 }}>
-            <h2 style={sectionTitleStyle}>
-              Emotional Presence Index: {result.overall_emotional_presence}
-            </h2>
+{result && result.indices && (
+  <section style={{ marginTop: 32, lineHeight: 1.5 }}>
+    <h2 style={sectionTitleStyle}>
+      Silent‑exit level: {result.overall_exit_pattern_level}
+    </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
+    <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <p>
-              <strong>
-                Emotional Presence Index:{" "}
-                {result.indices.emotional_presence_index}
-              </strong>
-              <br />
-              Shows how much each of you is still actually in the relationship
-              with attention and energy. 0 = almost checked out, 1 = fully
-              present.
-            </p>
+    <p>
+      <strong>
+        Presence Fade Index: {result.indices.presence_fade_index}
+      </strong>
+      <br />
+      Shows how much their everyday presence and initiative have faded.
+      0 = very present and engaged, 1 = strong disappearance pattern.
+    </p>
 
-            <p>
-              <strong>
-                Initiative Vitality Score:{" "}
-                {result.indices.initiative_vitality_score}
-              </strong>
-              <br />
-              Measures how alive mutual initiative still is. 0 = one‑sided
-              dragging, 1 = both actively reach toward each other.
-            </p>
+    <p>
+      <strong>
+        Emotional Withdrawal Score:{" "}
+        {result.indices.emotional_withdrawal_score}
+      </strong>
+      <br />
+      Reflects how emotionally shut down or disconnected they feel.
+      0 = emotionally responsive, 1 = strongly withdrawn or indifferent.
+    </p>
 
-            <p>
-              <strong>
-                Shared Future Engagement:{" "}
-                {result.indices.shared_future_engagement}
-              </strong>
-              <br />
-              Reflects how much the two of you still build or update a future
-              together. 0 = almost no shared future, 1 = ongoing, realistic
-              planning.
-            </p>
+    <p>
+      <strong>
+        Conflict Avoidance Index: {result.indices.conflict_avoidance_index}
+      </strong>
+      <br />
+      Captures how much hard topics and tensions are avoided instead of
+      talked through. 0 = conflicts are addressed, 1 = strong avoidance or
+      shutdown.
+    </p>
 
-            <p>
-              <strong>
-                Conflict Engagement Index:{" "}
-                {result.indices.conflict_engagement_index}
-              </strong>
-              <br />
-              Captures whether conflict is used to quietly exit or to stay in
-              contact. 0 = avoid / shut down, 1 = present and working through.
-            </p>
+    <p>
+      <strong>
+        Parallel Life Drift Score:{" "}
+        {result.indices.parallel_life_drift_score}
+      </strong>
+      <br />
+      Describes how parallel your lives have become. 0 = deeply
+      interwoven, 1 = almost separate lives under the same label.
+    </p>
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p>{result.summary}</p>
-          </section>
-        )}
+    <p>
+      <strong>
+        Closure Risk Index: {result.indices.closure_risk_index}
+      </strong>
+      <br />
+      Estimates how likely it is that things will end without a clear
+      closure talk. 0 = very unlikely, 1 = high risk of a quiet or abrupt
+      exit.
+    </p>
+
+    <h3 style={sectionTitleStyle}>Summary</h3>
+    <p>{result.summary}</p>
+  </section>
+)}
+
         <p
           style={{
             marginTop: 24,
