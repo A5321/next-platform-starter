@@ -272,6 +272,18 @@ const cardStyle = {
             <p>{result.summary}</p>
           </section>
         )}
+        <p
+          style={{
+            marginTop: 24,
+            fontSize: 11,
+            opacity: 0.6,
+            lineHeight: 1.4,
+          }}
+        >
+          This tool is not therapy, medical care, or legal advice. It cannot
+          diagnose anything or tell you what to do. You are fully responsible
+          for any decisions or actions you take based on these checkups.
+        </p>
       </div>
     </div>
   );
