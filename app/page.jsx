@@ -4,7 +4,6 @@ export default function Home() {
     padding: "10px 16px",
     borderRadius: 999,
     border: "1px solid rgba(255,255,255,0.3)",
-    backgroundColor: "#000000",
     textDecoration: "none",
     color: "#ffffff",
     width: 700,
@@ -29,7 +28,7 @@ export default function Home() {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        backgroundColor: "grey",
+        backgroundColor: "#000000",
         color: "#ffffff",
         padding: "40px 16px",
       }}
