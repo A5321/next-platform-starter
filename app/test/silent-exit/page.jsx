@@ -11,14 +11,13 @@ export default function SilentExitTest() {
     setLoading(true);
     setResult(null);
 
-    const formData = new FormData(e.currentTarget);
+const formData = new FormData(e.currentTarget);
 
-    const initiative_level = formData.get("initiative_level");
-    const emotional_sharing = formData.get("emotional_sharing");
-    const future_talk = formData.get("future_talk");
-    const time_together_quality = formData.get("time_together_quality");
-    const conflict_engagement = formData.get("conflict_engagement");
-    const narrative = formData.get("narrative");
+const daily_presence = formData.get("daily_presence");
+const emotional_engagement = formData.get("emotional_engagement");
+const conflict_handling = formData.get("conflict_handling");
+const shared_life_pattern = formData.get("shared_life_pattern");
+const silent_breakup_risk = formData.get("silent_breakup_risk");
 
     const res = await fetch("/api/analyze", {
       method: "POST",
@@ -26,11 +25,11 @@ export default function SilentExitTest() {
       body: JSON.stringify({
         scenario: "silent_exit",
         answers: {
-          initiative_level,
-          emotional_sharing,
-          future_talk,
-          time_together_quality,
-          conflict_engagement,
+  daily_presence,
+  emotional_engagement,
+  conflict_handling,
+  shared_life_pattern,
+  silent_breakup_risk,
         },
         narrative,
       }),
