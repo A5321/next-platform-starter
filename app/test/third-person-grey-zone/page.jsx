@@ -37,6 +37,9 @@ export default function ThirdPersonGreyZoneTest() {
     });
 
     const data = await res.json();
+    console.log("RESPONSE STATUS", res.status);
+    console.log("RESPONSE BODY", data);
+    
     setResult(data);
     setLoading(false);
   }
