@@ -18,6 +18,7 @@ const emotional_engagement = formData.get("emotional_engagement");
 const conflict_handling = formData.get("conflict_handling");
 const shared_life_pattern = formData.get("shared_life_pattern");
 const silent_breakup_risk = formData.get("silent_breakup_risk");
+const narrative = formData.get("narrative"); // ← вот этого не хватает
 
     const res = await fetch("/api/analyze", {
       method: "POST",
