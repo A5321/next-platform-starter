@@ -257,6 +257,12 @@ Rules:
 - Name patterns in neutral, descriptive language.
 - Output MUST be valid JSON only.
 
+If structured answers are present, you MUST vary each index according to them.
+It is NOT allowed to keep indices all clustered near 0 or all near 1 unless the answers clearly point there.
+When information is unclear, use mid-range values (0.3–0.7) instead of defaulting to 0.
+When the same user selects opposite ends of the scales across different runs,
+the indices MUST shift noticeably (at least 0.3 difference for each index).
+
 Output format:
 
 {
@@ -363,19 +369,19 @@ Scenario: after_breach_of_trust
 
 Structured answers:
 - What kind of breach of trust happened: ${
-    answers?.breach_type || "not provided"
+    answers?.type_of_breach || "not provided"
   }
 - How long ago did this breach happen: ${
     answers?.time_since_breach || "not provided"
   }
 - How has their behaviour been since (repair vs denial): ${
-    answers?.post_breach_behaviour || "not provided"
+    answers?.accountability || "not provided"
   }
 - How clear are new boundaries or agreements now: ${
-    answers?.new_boundaries_clarity || "not provided"
+    answers?.repair_behavior || "not provided"
   }
 - How safe does it feel in your body around them now: ${
-    answers?.felt_sense_safety || "not provided"
+    answers?.symptom_level || "not provided"
   }
 
 Narrative (user's own words):
