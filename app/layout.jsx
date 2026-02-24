@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Patternlens",
+  title: "Pattern Index",
   description: "AI relationship pattern analysis",
 };
 
