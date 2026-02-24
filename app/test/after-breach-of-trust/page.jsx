@@ -212,60 +212,69 @@ const cardStyle = {
           </div>
         </form>
 
-        {result && (
-          <section style={{ marginTop: 32, lineHeight: 1.5 }}>
-            <h2 style={sectionTitleStyle}>
-              Trust Recovery Index: {result.overall_trust_recovery}
-            </h2>
+{result && (
+  <section style={{ marginTop: 32, lineHeight: 1.5 }}>
+    <h2 style={sectionTitleStyle}>
+      Trust‑recovery level: {result.overall_trust_recovery_level}
+    </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
+    <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <p>
-              <strong>
-                Trust Recovery Index:{" "}
-                {result.indices.trust_recovery_index}
-              </strong>
-              <br />
-              Overall sense of whether the relationship is moving toward healing,
-              staying frozen, or slowly eroding. 0 = stuck / eroding, 1 =
-              strong, active recovery.
-            </p>
+    <p>
+      <strong>
+        Repair Effort Index: {result.indices.repair_effort_index}
+      </strong>
+      <br />
+      Shows how consistently the person who broke trust is engaging in
+      concrete repair over time. 0 = almost no visible repair, 1 = steady,
+      aligned actions.
+    </p>
 
-            <p>
-              <strong>
-                Accountability Depth Score:{" "}
-                {result.indices.accountability_depth_score}
-              </strong>
-              <br />
-              Measures how deeply responsibility is acknowledged without
-              minimising. 0 = mostly denial or spin, 1 = clear ownership.
-            </p>
+    <p>
+      <strong>
+        Accountability Depth Score:{" "}
+        {result.indices.accountability_depth_score}
+      </strong>
+      <br />
+      Reflects how fully they own the impact without defensiveness or
+      rushing you to move on. 0 = shallow or blaming, 1 = clear, grounded
+      ownership.
+    </p>
 
-            <p>
-              <strong>
-                Repair Action Consistency:{" "}
-                {result.indices.repair_action_consistency}
-              </strong>
-              <br />
-              Reflects how stable and long‑term the actual behaviour change has
-              been. 0 = almost no change, 1 = sustained, reliable effort.
-            </p>
+    <p>
+      <strong>
+        Boundary Reset Strength: {result.indices.boundary_reset_strength}
+      </strong>
+      <br />
+      Captures how solid new limits and agreements are after the breach.
+      0 = almost no real change, 1 = concrete new structures that are mostly
+      respected.
+    </p>
 
-            <p>
-              <strong>
-                Residual Symptom Load:{" "}
-                {result.indices.residual_symptom_load}
-              </strong>
-              <br />
-              Shows how much the breach still dominates daily life (checking,
-              anxiety, recurring fights). 0 = symptoms minimal, 1 = symptoms
-              dominate.
-            </p>
+    <p>
+      <strong>
+        Trust Regrowth Pace: {result.indices.trust_regrowth_pace}
+      </strong>
+      <br />
+      Describes the direction of trust over time. 0 = stalled or eroding,
+      1 = slow but noticeable rebuilding.
+    </p>
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p>{result.summary}</p>
-          </section>
-        )}
+    <p>
+      <strong>
+        Relapse Risk Index: {result.indices.relapse_risk_index}
+      </strong>
+      <br />
+      Estimates how likely a similar breach is to repeat under current
+      conditions. 0 = low risk with strong changes, 1 = high risk, many
+      things unchanged.
+    </p>
+
+    <h3 style={sectionTitleStyle}>Summary</h3>
+    <p>{result.summary}</p>
+  </section>
+)}
+
         <p
           style={{
             marginTop: 24,
