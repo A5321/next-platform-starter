@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
           fontFamily:
             "-apple-system,BlinkMacSystemFont,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif",
           background: "linear-gradient(#002b5c, #001020)",
-          color: "#fff",
+          color: "grey",
         }}
       >
         {children}
