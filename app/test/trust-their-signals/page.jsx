@@ -215,58 +215,69 @@ const cardStyle = {
           </div>
         </form>
 
-        {result && (
-          <section style={{ marginTop: 32, lineHeight: 1.5 }}>
-            <h2 style={sectionTitleStyle}>
-              Trust‑in‑signals level: {result.overall_trust_in_signals}
-            </h2>
+{result && (
+  <section style={{ marginTop: 32, lineHeight: 1.5 }}>
+    <h2 style={sectionTitleStyle}>
+      Trust‑in‑signals level: {result.overall_trust_in_signals}
+    </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
+    <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <p>
-              <strong>
-                Signal Trust Index: {result.indices.signal_trust_index}
-              </strong>
-              <br />
-              Overall sense of how safe it is to rely on their signals when you
-              make decisions. 0 = you can&apos;t lean on them at all, 1 = signals
-              are a solid base.
-            </p>
+    <p>
+      <strong>
+        Signal Trust Index: {result.indices.signal_trust_index}
+      </strong>
+      <br />
+      Overall sense of how safe it is to rely on their signals when you make
+      decisions about this relationship. 0 = you can&apos;t lean on them at
+      all, 1 = signals are a solid base.
+    </p>
 
-            <p>
-              <strong>
-                Conflict Clarity Score:{" "}
-                {result.indices.conflict_clarity_score}
-              </strong>
-              <br />
-              Measures how understandable their behavior is when things get
-              tense. 0 = chaos or manipulation, 1 = direct but human reactions.
-            </p>
+    <p>
+      <strong>
+        Conflict Clarity Score: {result.indices.conflict_clarity_score}
+      </strong>
+      <br />
+      Measures how understandable their behaviour is when things get tense.
+      0 = chaos, shutdowns, or manipulation, 1 = direct but human reactions.
+    </p>
 
-            <p>
-              <strong>
-                Intention Transparency Index:{" "}
-                {result.indices.intention_transparency_index}
-              </strong>
-              <br />
-              Shows how openly they talk about what they want with you. 0 =
-              everything in hints, 1 = mostly explicit.
-            </p>
+    <p>
+      <strong>
+        Intention Transparency Index:{" "}
+        {result.indices.intention_transparency_index}
+      </strong>
+      <br />
+      Shows how openly they talk about what they want with you. 0 =
+      everything in hints or shifting stories, 1 = mostly explicit and
+      consistent.
+    </p>
 
-            <p>
-              <strong>
-                Promise Reliability Score:{" "}
-                {result.indices.promise_reliability_score}
-              </strong>
-              <br />
-              Reflects how often words turn into consistent action. 0 = chronic
-              flakiness, 1 = strong follow‑through.
-            </p>
+    <p>
+      <strong>
+        Promise Reliability Score:{" "}
+        {result.indices.promise_reliability_score}
+      </strong>
+      <br />
+      Reflects how often their promises and plans actually hold. 0 = chronic
+      flakiness or quiet cancellations, 1 = strong follow‑through.
+    </p>
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p>{result.summary}</p>
-          </section>
-        )}
+    <p>
+      <strong>
+        Gaslighting Risk Index: {result.indices.gaslighting_risk_index}
+      </strong>
+      <br />
+      Captures how often their answers to your questions make you doubt your
+      own perception. 0 = almost no gaslighting pattern, 1 = strong, repeated
+      turning your concerns against you.
+    </p>
+
+    <h3 style={sectionTitleStyle}>Summary</h3>
+    <p>{result.summary}</p>
+  </section>
+)}
+
         <p
           style={{
             marginTop: 24,
