@@ -1,5 +1,5 @@
 export default function Home() {
-  const buttonStyle: React.CSSProperties = {
+  const buttonStyle = {
     display: "inline-block",
     padding: "10px 16px",
     borderRadius: 999,
@@ -11,13 +11,13 @@ export default function Home() {
     fontSize: 14,
   };
 
-  const descriptionStyle: React.CSSProperties = {
+  const descriptionStyle = {
     marginTop: 4,
     fontSize: 12,
     opacity: 0.8,
   };
 
-  const itemStyle: React.CSSProperties = {
+  const itemStyle = {
     marginBottom: 10,
   };
 
