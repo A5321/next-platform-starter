@@ -222,50 +222,70 @@ const cardStyle = {
               Overall hyper‑control level: {result.overall_hypercontrol_level}
             </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
+ <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <p>
-              <strong>
-                Parental Control Index:{" "}
-                {result.indices.parental_control_index}
-              </strong>
-              <br />
-              Measures how intensely decisions, choices, and daily life were
-              controlled. 0 = mostly supportive guidance, 1 = heavy control
-              over most areas of life.
-            </p>
+<p>
+  <strong>
+    Boundary Violation Probability:{" "}
+    {result.indices.boundary_violation_probability}
+  </strong>
+  <br />
+  Measures how often personal limits and “no’s” were ignored or pushed
+  through. 0 = boundaries were mostly respected, 1 = they were regularly
+  overridden.
+</p>
 
-            <p>
-              <strong>
-                Emotional Safety Score: {result.indices.emotional_safety_score}
-              </strong>
-              <br />
-              Reflects how safe it was to show feelings, needs, or disagreement.
-              0 = high risk of shame or attack, 1 = mostly safe, even if not
-              perfect.
-            </p>
+<p>
+  <strong>
+    Communication Clarity Index:{" "}
+    {result.indices.communication_clarity_index}
+  </strong>
+  <br />
+  How clear and direct communication around rules, expectations, and
+  conflicts felt. 0 = confusing, double messages, 1 = mostly
+  straightforward.
+</p>
 
-            <p>
-              <strong>
-                Boundary Respect Index:{" "}
-                {result.indices.boundary_respect_index}
-              </strong>
-              <br />
-              Shows how much your physical and psychological boundaries were
-              acknowledged. 0 = frequent invasions, 1 = boundaries usually
-              noticed and honored.
-            </p>
+<p>
+  <strong>
+    Emotional Stability Index:{" "}
+    {result.indices.emotional_stability_index}
+  </strong>
+  <br />
+  How stable the emotional tone was over time. 0 = sharp mood swings and
+  unpredictability, 1 = mostly steady and understandable.
+</p>
 
-            <p>
-              <strong>
-                Internalised Control Pattern:{" "}
-                {result.indices.internalised_control_pattern}
-              </strong>
-              <br />
-              Estimates how likely you are to repeat this pattern — either by
-              over‑controlling others or over‑adapting to control. 0 = low
-              carry‑over, 1 = strong internalisation.
-            </p>
+<p>
+  <strong>
+    Initiative Balance Index:{" "}
+    {result.indices.initiative_balance_index}
+  </strong>
+  <br />
+  How balanced initiative and effort were between you and the parent. 0 =
+  one side carried everything, 1 = effort was more evenly shared.
+</p>
+
+<p>
+  <strong>
+    Pattern Recurrence Probability:{" "}
+    {result.indices.pattern_recurrence_probability}
+  </strong>
+  <br />
+  How likely this pattern is to repeat in your current relationships. 0 =
+  low chance, 1 = very likely to replay under similar conditions.
+</p>
+
+<p>
+  <strong>
+    Long‑Term Stability Forecast:{" "}
+    {result.indices.long_term_stability_forecast}
+  </strong>
+  <br />
+  How sustainable this way of relating was in the long run. 0 = very low,
+  1 = high chance that the dynamic could remain stable.
+</p>
+
 
             <h3 style={sectionTitleStyle}>Summary</h3>
             <p>{result.summary}</p>
