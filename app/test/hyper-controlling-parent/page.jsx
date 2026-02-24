@@ -37,6 +37,7 @@ export default function HyperControllingParentTest() {
     });
 
     const data = await res.json();
+    console.log("RESULT", data);
     setResult(data);
     setLoading(false);
   }
