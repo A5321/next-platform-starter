@@ -278,6 +278,50 @@ Output format:
 }
 `;
 
+const SILENT_EXIT_SYSTEM_PROMPT = `
+You are an interpersonal pattern analysis engine focused on "silent exit" patterns in relationships: when one or both people quietly check out without an explicit breakup.
+
+Analyze the answers and narrative for a "Silent exit from the relationship" pattern.
+
+Always treat structured answers as the primary signal. If structured answers are present, you MUST vary each index according to them. It is NOT allowed to keep indices all clustered near 0 or all near 1 unless the answers clearly point there. When information is unclear, use mid-range values (0.3–0.7) instead of defaulting to 0. When the same user selects opposite ends of the scales across different runs, the indices MUST shift noticeably (at least 0.3 difference for each index).
+
+Indices (0–1):
+
+1. Presence Fade Index
+- How much the person's day-to-day presence, availability, and initiative have faded.
+- 0 = they are very present and engaged, 1 = strong pattern of disappearance or minimal contact.
+
+2. Emotional Withdrawal Score
+- How emotionally shut down or disconnected they seem in the relationship.
+- 0 = emotionally available and responsive, 1 = strongly withdrawn, flat, or indifferent.
+
+3. Conflict Avoidance Index
+- How much important topics and unresolved tensions are avoided instead of talked through.
+- 0 = conflicts and hard topics are addressed, 1 = avoidance, stonewalling, or "let's not talk about it".
+
+4. Parallel Life Drift Score
+- Degree to which you are living parallel lives (separate routines, plans, social worlds) while technically still together.
+- 0 = deeply interwoven daily lives, 1 = almost separate lives with minimal overlap.
+
+5. Closure Risk Index
+- How likely it is that the relationship will end (or has effectively ended) without a clear, mutual closure conversation.
+- 0 = very low risk of silent breakup, 1 = high risk of things just fading out or ending abruptly without clarity.
+
+Output format:
+
+{
+  "overall_exit_pattern_level": "Early signs | Quiet drift | Advanced exit | Relationship shell",
+  "indices": {
+    "presence_fade_index": 0.0,
+    "emotional_withdrawal_score": 0.0,
+    "conflict_avoidance_index": 0.0,
+    "parallel_life_drift_score": 0.0,
+    "closure_risk_index": 0.0
+  },
+  "summary": "3–5 sentences in neutral tone, naming the intensity of the silent-exit pattern, where the drift is most visible (presence, emotion, conflict, parallel lives, closure risk), and how the current pattern might feel from the inside. Reference 1–3 concrete details from the narrative when available."
+}
+`;
+
 function buildCommonUserContent(answers, narrative, scenario) {
   return `
 Scenario: ${scenario}
@@ -389,6 +433,32 @@ ${narrative || "(no narrative provided)"}
 `;
 }
 
+function buildSilentExitUserContent(answers, narrative) {
+  return `
+Scenario: silent_exit
+
+Structured answers (always prefer these over the narrative):
+- How present and available they are in daily life: ${
+    answers?.daily_presence || "not provided"
+  }
+- How emotionally engaged or withdrawn they seem: ${
+    answers?.emotional_engagement || "not provided"
+  }
+- How conflicts and hard topics are handled: ${
+    answers?.conflict_handling || "not provided"
+  }
+- How shared vs separate your routines and plans are: ${
+    answers?.shared_life_pattern || "not provided"
+  }
+- How likely it feels that things might just quietly end without a real talk: ${
+    answers?.silent_breakup_risk || "not provided"
+  }
+
+Narrative (user's own words):
+${narrative || "(no narrative provided)"}
+`;
+}
+
 function buildPromptAndUserContent(scenario, answers, narrative) {
   if (scenario === "hyper_controlling_parent") {
     return {
@@ -417,6 +487,14 @@ function buildPromptAndUserContent(scenario, answers, narrative) {
       userContent: buildAfterBreachUserContent(answers, narrative),
     };
   }
+
+  if (scenario === "silent_exit") {
+    return {
+      systemPrompt: SILENT_EXIT_SYSTEM_PROMPT,
+      userContent: buildSilentExitUserContent(answers, narrative),
+    };
+  }
+
 
   // по умолчанию — старый общий чекап (current relationship, mixed, breakup)
   return {
