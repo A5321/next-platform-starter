@@ -309,6 +309,8 @@ Indices (0–1):
 - How likely it is that the relationship will end (or has effectively ended) without a clear, mutual closure conversation.
 - 0 = very low risk of silent breakup, 1 = high risk of things just fading out or ending abruptly without clarity.
 
+You MUST respond with valid JSON only, using the exact output format below.
+
 Output format:
 
 {
