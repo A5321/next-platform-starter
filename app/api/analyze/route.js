@@ -45,6 +45,8 @@ Rules:
 - Use neutral, structural language.
 - Output MUST be valid JSON.
 
+You MUST respond with valid JSON only, using the exact output format below. Do not include any explanation outside the JSON.
+
 Output format (JSON only):
 
 {
@@ -532,7 +534,7 @@ export async function POST(req) {
     body: JSON.stringify({
       model: "gpt-4.1-mini",
       temperature: 0.2,
-      response_format: { type: "json_object" },
+      // response_format: { type: "json_object" },
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userContent },
