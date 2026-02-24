@@ -219,6 +219,59 @@ Output format:
 }
 `;
 
+const BREACH_OF_TRUST_SYSTEM_PROMPT = `
+You are an interpersonal pattern analysis engine focused on what happens AFTER a breach of trust in a close relationship.
+
+Analyze the answers and narrative for an "After a breach of trust" pattern. Focus on how repair is unfolding (or failing), not on moral judgment.
+
+Use this index framework (0–1 each):
+
+1. Repair Effort Index
+- How consistently the person who broke trust is showing up in concrete repair behaviours over time (not just words).
+- 0 = almost no visible repair, mostly minimising or moving on.
+- 1 = steady, observable effort that aligns with their words.
+
+2. Accountability Depth Score
+- How fully they acknowledge the impact of what happened without deflecting, blaming, or rushing you to "get over it".
+- 0 = shallow "sorry", defensiveness, or blame-shifting.
+- 1 = clear ownership, curiosity about your experience, willingness to sit with discomfort.
+
+3. Boundary Reset Strength
+- How clearly new boundaries, agreements, or guardrails have been set and actually held after the breach.
+- 0 = everything went back to "normal", boundaries are vague or ignored.
+- 1 = specific new limits and structures are in place and mostly respected.
+
+4. Trust Regrowth Pace
+- The trajectory of trust over time since the breach (stalled, declining, slowly improving, or meaningfully rebuilding).
+- 0 = trust feels frozen or keeps eroding.
+- 1 = gradual but noticeable regrowth, with both people tracking it.
+
+5. Relapse Risk Index
+- How likely it is that a similar breach (or adjacent pattern) will repeat, given current behaviour and structures.
+- 0 = strong systemic changes that reduce risk.
+- 1 = many conditions are unchanged; pattern feels likely to repeat.
+
+Rules:
+- Use structured answers as primary data, then refine with the narrative.
+- Do not tell them to stay, leave, forgive, or give moral verdicts.
+- Name patterns in neutral, descriptive language.
+- Output MUST be valid JSON only.
+
+Output format:
+
+{
+  "overall_trust_recovery_level": "Collapsed | Fragile | Unfolding | Grounded",
+  "indices": {
+    "repair_effort_index": 0.0,
+    "accountability_depth_score": 0.0,
+    "boundary_reset_strength": 0.0,
+    "trust_regrowth_pace": 0.0,
+    "relapse_risk_index": 0.0
+  },
+  "summary": "3–5 sentences, neutral tone, explaining how the repair process is unfolding, where it is blocked or supported (effort, accountability, boundaries, regrowth, relapse risk). Reference 1–3 specific concrete details from the narrative when available."
+}
+`;
+
 function buildCommonUserContent(answers, narrative, scenario) {
   return `
 Scenario: ${scenario}
@@ -304,6 +357,32 @@ ${narrative || "(no narrative provided)"}
 `;
 }
 
+function buildAfterBreachUserContent(answers, narrative) {
+  return `
+Scenario: after_breach_of_trust
+
+Structured answers:
+- What kind of breach of trust happened: ${
+    answers?.breach_type || "not provided"
+  }
+- How long ago did this breach happen: ${
+    answers?.time_since_breach || "not provided"
+  }
+- How has their behaviour been since (repair vs denial): ${
+    answers?.post_breach_behaviour || "not provided"
+  }
+- How clear are new boundaries or agreements now: ${
+    answers?.new_boundaries_clarity || "not provided"
+  }
+- How safe does it feel in your body around them now: ${
+    answers?.felt_sense_safety || "not provided"
+  }
+
+Narrative (user's own words):
+${narrative || "(no narrative provided)"}
+`;
+}
+
 function buildPromptAndUserContent(scenario, answers, narrative) {
   if (scenario === "hyper_controlling_parent") {
     return {
@@ -323,6 +402,13 @@ function buildPromptAndUserContent(scenario, answers, narrative) {
     return {
       systemPrompt: TRUST_SIGNALS_SYSTEM_PROMPT,
       userContent: buildTrustSignalsUserContent(answers, narrative),
+    };
+  }
+
+  if (scenario === "after_breach_of_trust") {
+    return {
+      systemPrompt: BREACH_OF_TRUST_SYSTEM_PROMPT,
+      userContent: buildAfterBreachUserContent(answers, narrative),
     };
   }
 
