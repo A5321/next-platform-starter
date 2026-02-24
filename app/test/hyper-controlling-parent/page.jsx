@@ -222,68 +222,57 @@ const cardStyle = {
               Overall hyper‑control level: {result.overall_hypercontrol_level}
             </h2>
 
- <h3 style={sectionTitleStyle}>Indices</h3>
+<h3 style={sectionTitleStyle}>Indices</h3>
 
 <p>
   <strong>
-    Boundary Violation Probability:{" "}
-    {result.indices.boundary_violation_probability}
+    Parental Control Intensity:{" "}
+    {result.indices.parental_control_intensity}
   </strong>
   <br />
-  Measures how often personal limits and “no’s” were ignored or pushed
-  through. 0 = boundaries were mostly respected, 1 = they were regularly
-  overridden.
+  Measures how tightly decisions, daily life, and your path were controlled.
+  0 = mostly supportive guidance, 1 = heavy control over most areas of life.
 </p>
 
 <p>
   <strong>
-    Communication Clarity Index:{" "}
-    {result.indices.communication_clarity_index}
+    Autonomy Restriction Level:{" "}
+    {result.indices.autonomy_restriction_level}
   </strong>
   <br />
-  How clear and direct communication around rules, expectations, and
-  conflicts felt. 0 = confusing, double messages, 1 = mostly
-  straightforward.
+  Reflects how much freedom you had to choose friends, hobbies, clothes, and
+  schedule. 0 = plenty of room to experiment, 1 = very little real choice.
 </p>
 
 <p>
   <strong>
-    Emotional Stability Index:{" "}
-    {result.indices.emotional_stability_index}
+    Privacy Invasion Score:{" "}
+    {result.indices.privacy_invasion_score}
   </strong>
   <br />
-  How stable the emotional tone was over time. 0 = sharp mood swings and
-  unpredictability, 1 = mostly steady and understandable.
+  Shows how often your physical and psychological privacy was crossed. 0 =
+  privacy mostly respected, 1 = regular checking, reading, or bursting in.
 </p>
 
 <p>
   <strong>
-    Initiative Balance Index:{" "}
-    {result.indices.initiative_balance_index}
+    Guilt/Shame Pressure Index:{" "}
+    {result.indices.guilt_shame_pressure_index}
   </strong>
   <br />
-  How balanced initiative and effort were between you and the parent. 0 =
-  one side carried everything, 1 = effort was more evenly shared.
+  Estimates how much guilt, shame, or threats were used to keep you in line.
+  0 = rare and mild, 1 = strong, frequent emotional pressure.
 </p>
 
 <p>
   <strong>
-    Pattern Recurrence Probability:{" "}
-    {result.indices.pattern_recurrence_probability}
+    Current Relationship Echo Score:{" "}
+    {result.indices.current_relationship_echo_score}
   </strong>
   <br />
-  How likely this pattern is to repeat in your current relationships. 0 =
-  low chance, 1 = very likely to replay under similar conditions.
-</p>
-
-<p>
-  <strong>
-    Long‑Term Stability Forecast:{" "}
-    {result.indices.long_term_stability_forecast}
-  </strong>
-  <br />
-  How sustainable this way of relating was in the long run. 0 = very low,
-  1 = high chance that the dynamic could remain stable.
+  Shows how strongly this pattern is likely to replay in your adult
+  relationships — by over‑adapting, tolerating control, or going into sharp
+  rebellion. 0 = almost no carry‑over, 1 = strong echo.
 </p>
 
 
