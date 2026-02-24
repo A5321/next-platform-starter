@@ -6,7 +6,7 @@ export default function Home() {
     border: "1px solid rgba(255,255,255,0.3)",
     textDecoration: "none",
     color: "#ffffff",
-    width: 450,
+    width: 500,
     textAlign: "left",
     fontSize: 14,
   };
