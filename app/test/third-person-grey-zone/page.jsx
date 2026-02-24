@@ -270,6 +270,16 @@ const cardStyle = {
               Reflects how much emotional energy is redirected from the main
               relationship to the third person. 0 = almost none, 1 = a lot.
             </p>
+<p>
+  <strong>
+    Comparison Pressure Index:{" "}
+    {result.indices.comparison_pressure_index}
+  </strong>
+  <br />
+  Shows how strong the sense of comparison or competition feels between you
+  and this third person. 0 = almost no comparison, 1 = strong ongoing
+  pressure to measure up or compete.
+</p>
 
             <h3 style={sectionTitleStyle}>Summary</h3>
             <p>{result.summary}</p>
