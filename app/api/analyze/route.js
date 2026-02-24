@@ -167,6 +167,58 @@ Output format:
 }
 `;
 
+const TRUST_SIGNALS_SYSTEM_PROMPT = `
+You are an interpersonal pattern analysis engine, focused on how readable and trustworthy a person's signals are in a relationship.
+
+Analyze the answers and narrative for a "Can you trust their signals?" pattern. Use this index framework:
+
+1. Signal Trust Index (0–1)
+- Overall sense of how safe it is to rely on this person's signals when making decisions.
+- 0 = signals feel unreliable or misleading.
+- 1 = signals feel like a solid base.
+
+2. Conflict Clarity Score (0–1)
+- How clear their behaviour and communication are when there is tension or conflict.
+- 0 = chaos, shutdowns, or manipulation.
+- 1 = direct but human reactions that can be understood over time.
+
+3. Intention Transparency Index (0–1)
+- How openly they communicate their intentions about the relationship (labels, future, position).
+- 0 = very vague or shifting stories.
+- 1 = mostly explicit and consistent.
+
+4. Promise Reliability Score (0–1)
+- How often their promises and stated plans actually turn into action.
+- 0 = chronic flakiness or quiet cancellations.
+- 1 = strong follow‑through with upfront communication when things change.
+
+5. Gaslighting Risk Index (0–1)
+- How much their responses to your questions make you doubt your own perception (deflection, blame‑shifting, making you feel "crazy").
+- 0 = almost no gaslighting pattern.
+- 1 = strong, repeated pattern of turning your questions against you.
+
+Rules:
+- Use the structured answers as the primary data source and refine with the narrative.
+- Do not give moral judgment.
+- Do not advise specific actions like "leave" or "stay".
+- Use neutral, structural language.
+- Output MUST be valid JSON only.
+
+Output format:
+
+{
+  "overall_trust_in_signals": "Low | Moderate | Elevated | High",
+  "indices": {
+    "signal_trust_index": 0.0,
+    "conflict_clarity_score": 0.0,
+    "intention_transparency_index": 0.0,
+    "promise_reliability_score": 0.0,
+    "gaslighting_risk_index": 0.0
+  },
+  "summary": "3–5 sentences, neutral tone, explaining how readable and trustworthy this person's signals are, and where the main distortions cluster (conflict, intentions, promises, gaslighting). The summary MUST reference at least 1–3 specific concrete details from the narrative when available."
+}
+`;
+
 function buildCommonUserContent(answers, narrative, scenario) {
   return `
 Scenario: ${scenario}
@@ -226,6 +278,32 @@ ${narrative || "(no narrative provided)"}
 `;
 }
 
+function buildTrustSignalsUserContent(answers, narrative) {
+  return `
+Scenario: trust_their_signals
+
+Structured answers:
+- Clarity of their signals in conflict: ${
+    answers?.clarity_in_conflict || "not provided"
+  }
+- How clearly they communicate intentions about this relationship: ${
+    answers?.clarity_about_intentions || "not provided"
+  }
+- Reliability of their promises and plans: ${
+    answers?.reliability_of_promises || "not provided"
+  }
+- How they react when you ask for clarity: ${
+    answers?.reaction_to_questions || "not provided"
+  }
+- Your body-level feeling about relying on their signals: ${
+    answers?.gut_feeling || "not provided"
+  }
+
+Narrative (user's own words):
+${narrative || "(no narrative provided)"}
+`;
+}
+
 function buildPromptAndUserContent(scenario, answers, narrative) {
   if (scenario === "hyper_controlling_parent") {
     return {
@@ -238,6 +316,13 @@ function buildPromptAndUserContent(scenario, answers, narrative) {
     return {
       systemPrompt: THIRD_PERSON_SYSTEM_PROMPT,
       userContent: buildThirdPersonUserContent(answers, narrative),
+    };
+  }
+
+  if (scenario === "trust_their_signals") {
+    return {
+      systemPrompt: TRUST_SIGNALS_SYSTEM_PROMPT,
+      userContent: buildTrustSignalsUserContent(answers, narrative),
     };
   }
 
