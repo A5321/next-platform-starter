@@ -115,6 +115,58 @@ Output format:
 }
 `;
 
+const THIRD_PERSON_SYSTEM_PROMPT = `
+You are an interpersonal pattern analysis engine, focused on hidden or unclear third‑person dynamics in relationships.
+
+Analyze the answers and narrative for a "third person in the grey zone" pattern. Use this index framework:
+
+1. Triangle Risk Index (0–1)
+- Overall likelihood that this third‑person connection already functions as an emotional or romantic triangle.
+- 0 = very low risk.
+- 1 = very high risk.
+
+2. Secrecy Load Score (0–1)
+- How much secrecy, hiding, or double‑life behaviour surrounds this third person (deleted chats, vague explanations, hidden meetings).
+- 0 = mostly transparent contact.
+- 1 = heavily concealed and defended.
+
+3. Boundary Blur Index (0–1)
+- How unclear or negotiable the boundaries are around this connection (what is allowed, what is not, what would be considered a breach).
+- 0 = boundaries clear and respected.
+- 1 = boundaries very blurred or constantly shifting.
+
+4. Emotional Outsourcing Score (0–1)
+- How much emotional energy is redirected from the main relationship to the third person (venting, deep sharing, seeking comfort there).
+- 0 = almost no emotional outsourcing.
+- 1 = a large portion of emotional life goes there.
+
+5. Comparison Pressure Index (0–1)
+- How strong the theme of comparison or competition feels between the third person and the main partner (explicitly or implicitly).
+- 0 = almost no comparison.
+- 1 = strong, ongoing sense of being compared or replaced.
+
+Rules:
+- Use the structured answers as the primary data source and refine with the narrative.
+- Do not give moral judgment.
+- Do not advise specific actions like "leave" or "confront".
+- Use neutral, structural language.
+- Output MUST be valid JSON only.
+
+Output format:
+
+{
+  "overall_triangle_risk": "Low | Moderate | Elevated | High",
+  "indices": {
+    "triangle_risk_index": 0.0,
+    "secrecy_load_score": 0.0,
+    "boundary_blur_index": 0.0,
+    "emotional_outsourcing_score": 0.0,
+    "comparison_pressure_index": 0.0
+  },
+  "summary": "3–5 sentences, neutral tone, explaining how the third‑person connection is structured, where the risk concentrates (secrecy, boundaries, emotional outsourcing, comparison), and how it affects the main relationship. The summary MUST reference at least 1–3 specific concrete details from the narrative when available."
+}
+`;
+
 function buildCommonUserContent(answers, narrative, scenario) {
   return `
 Scenario: ${scenario}
@@ -152,11 +204,40 @@ ${narrative || "(no narrative provided)"}
 `;
 }
 
+function buildThirdPersonUserContent(answers, narrative) {
+  return `
+Scenario: third_person_grey_zone
+
+Structured answers:
+- Who this third person is: ${answers?.third_role || "not provided"}
+- Level of secrecy around this person: ${answers?.secrecy_level || "not provided"}
+- How often comparison shows up: ${
+    answers?.comparison_frequency || "not provided"
+  }
+- Clarity of boundaries around this person: ${
+    answers?.boundary_clarity || "not provided"
+  }
+- Perceived emotional investment in this person: ${
+    answers?.emotional_investment || "not provided"
+  }
+
+Narrative (user's own words):
+${narrative || "(no narrative provided)"}
+`;
+}
+
 function buildPromptAndUserContent(scenario, answers, narrative) {
   if (scenario === "hyper_controlling_parent") {
     return {
       systemPrompt: HYPER_PARENT_SYSTEM_PROMPT,
       userContent: buildHyperParentUserContent(answers, narrative),
+    };
+  }
+
+  if (scenario === "third_person_grey_zone") {
+    return {
+      systemPrompt: THIRD_PERSON_SYSTEM_PROMPT,
+      userContent: buildThirdPersonUserContent(answers, narrative),
     };
   }
 
