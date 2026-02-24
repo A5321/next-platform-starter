@@ -45,7 +45,6 @@ const pageStyle = {
   alignItems: "flex-start",
   justifyContent: "center",
   padding: "40px 16px",
-  // backgroundColor убираем здесь полностью
 };
 
 const cardStyle = {
