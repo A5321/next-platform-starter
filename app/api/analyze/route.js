@@ -436,6 +436,29 @@ ${narrative || "(no narrative provided)"}
 `;
 }
 
+function buildRepeatingBreakupUserContent(answers, narrative) {
+  return `
+Scenario: repeating_breakup_pattern
+
+Structured answers (always prefer these over the narrative):
+- How many times a similar breakup has happened: ${
+    answers?.count || "not provided"
+  }
+- Who usually initiates the breakup: ${
+    answers?.whoLeaves || "not provided"
+  }
+- How the relationship usually feels just before it ends: ${
+    answers?.pace || "not provided"
+  }
+- What usually happens after the breakup: ${
+    answers?.postContact || "not provided"
+  }
+
+Narrative (user's own words):
+${narrative || "(no narrative provided)"}
+`;
+}
+
 function buildMixedSignalsUserContent(answers, narrative) {
   return `
 Scenario: mixed_signals_interest_gap
@@ -572,6 +595,14 @@ ${narrative || "(no narrative provided)"}
 }
 
 function buildPromptAndUserContent(scenario, answers, narrative) {
+
+  if (scenario === "repeating_breakup_pattern") {
+    return {
+      systemPrompt: REPEATING_BREAKUP_SYSTEM_PROMPT,
+      userContent: buildRepeatingBreakupUserContent(answers, narrative),
+    };
+  }
+
   if (scenario === "mixed_signals_interest_gap") {
     return {
       systemPrompt: MIXED_SIGNALS_SYSTEM_PROMPT,
