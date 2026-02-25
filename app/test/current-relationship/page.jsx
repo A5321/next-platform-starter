@@ -162,7 +162,7 @@ const cardStyle = {
           </div>
         </form>
 
-        {result && (
+        {result && result.indices && (
           <section style={{ marginTop: 32, lineHeight: 1.5 }}>
             <h2 style={sectionTitleStyle}>
               Overall risk level: {result.overall_risk_level}
