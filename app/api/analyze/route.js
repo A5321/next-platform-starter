@@ -64,6 +64,55 @@ Output format (JSON only):
 }
 `;
 
+const MIXED_SIGNALS_SYSTEM_PROMPT = `
+You are an interpersonal pattern analysis engine focused on "mixed signals / interest gap" dynamics.
+
+Your job is to read structured answers and the narrative and map how strong the mixed-signal pattern is, how asymmetric the interest is, and how much psychological impact this has.
+
+Always treat structured answers as the primary signal. If structured answers are present, you MUST vary each index according to them. When answers clearly cluster on the "low intensity" side, indices should usually fall in the 0.1–0.3 range. When answers clearly cluster on the "high intensity" side, indices should usually fall in the 0.7–0.9 range. When information is unclear or mid, use mid-range values (0.3–0.7) instead of defaulting to 0.5.
+
+Indices (0–1):
+
+1. Signal Clarity Index
+- How clear and readable the overall situation is (status, intentions, interest).
+- 0 = very unclear, contradictory, or constantly shifting.
+- 1 = very clear, even if the answer is "they are not that into me".
+
+2. Interest Gap Index
+- How big the gap is between how much the user invests and how much the other person invests.
+- 0 = interest and effort feel roughly matched.
+- 1 = strong gap: one person is much more into it than the other.
+
+3. Mixed Signal Volatility
+- How often and how sharply the person switches between warm and cold, engaged and distant.
+- 0 = almost no mixed signals, behaviour is consistent.
+- 1 = frequent, intense swings that are hard to predict.
+
+4. Anxiety Load Score
+- How much psychological weight this dynamic puts on the user (preoccupation, rumination, body-level tension).
+- 0 = low emotional impact, easy to park emotionally.
+- 1 = very high impact, takes a lot of mental and emotional space.
+
+5. Ghosting Drift Risk
+- How likely it is that this dynamic drifts into slow fading out, soft ghosting, or being kept on a back burner.
+- 0 = very low risk, behaviour is straightforward.
+- 1 = high risk of quiet fade-out, stringing along, or intermittent attention.
+
+Output format:
+
+{
+  "overall_mixed_signal_level": "Soft static | Mild pattern | Strong pattern | High-voltage pattern",
+  "indices": {
+    "signal_clarity_index": 0.0,
+    "interest_gap_index": 0.0,
+    "mixed_signal_volatility": 0.0,
+    "anxiety_load_score": 0.0,
+    "ghosting_drift_risk": 0.0
+  },
+  "summary": "3–5 sentences in neutral tone, explaining how intense the mixed-signal pattern is, where the main asymmetries sit (clarity, gap, volatility, anxiety, drift risk), and how this is likely to feel from the inside. Reference 1–3 concrete details from the structured answers and narrative when available."
+}
+`;
+
 const HYPER_PARENT_SYSTEM_PROMPT = `
 You are an interpersonal pattern analysis engine, focused on parent–child dynamics and their long-term effects.
 
@@ -343,6 +392,21 @@ ${narrative || "(no narrative provided)"}
 `;
 }
 
+function buildMixedSignalsUserContent(answers, narrative) {
+  return `
+Scenario: mixed_signals_interest_gap
+
+Structured answers (always prefer these over the narrative):
+- Clarity of status with this person: ${answers?.clarity || "not provided"}
+- Who initiates or reaches out more: ${answers?.outreach || "not provided"}
+- Frequency of mixed signals (warm–cold, vague plans, etc.): ${answers?.mixed || "not provided"}
+- Current emotional impact of this dynamic: ${answers?.impact || "not provided"}
+
+Narrative (user's own words):
+${narrative || "(no narrative provided)"}
+`;
+}
+
 function buildHyperParentUserContent(answers, narrative) {
   return `
 Scenario: hyper_controlling_parent
@@ -464,6 +528,13 @@ ${narrative || "(no narrative provided)"}
 }
 
 function buildPromptAndUserContent(scenario, answers, narrative) {
+  if (scenario === "mixed_signals_interest_gap") {
+    return {
+      systemPrompt: MIXED_SIGNALS_SYSTEM_PROMPT,
+      userContent: buildMixedSignalsUserContent(answers, narrative),
+    };
+  }
+
   if (scenario === "hyper_controlling_parent") {
     return {
       systemPrompt: HYPER_PARENT_SYSTEM_PROMPT,
