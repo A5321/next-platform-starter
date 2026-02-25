@@ -68,7 +68,7 @@ Output format (JSON only):
     "pattern_recurrence_probability": 0.0,
     "long_term_stability_forecast": 0.0
   },
-  "summary": "3–5 sentences..."
+  "summary": "3–5 sentences in neutral language that: (1) name the main patterns shown by the indices, (2) link them to the user’s specific situation, and (3) briefly describe how this dynamic is likely to feel from the inside."
 }
 `;
 
