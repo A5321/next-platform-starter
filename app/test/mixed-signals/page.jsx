@@ -164,92 +164,61 @@ const cardStyle = {
           </div>
         </form>
 
-        {result && (
+        {result && result.indices && (
           <section style={{ marginTop: 32, lineHeight: 1.5 }}>
             <h2 style={sectionTitleStyle}>
-              Overall risk level: {result.overall_risk_level}
+              Mixed‑signal level: {result.overall_mixed_signal_level}
             </h2>
 
             <h3 style={sectionTitleStyle}>Indices</h3>
 
             <p>
               <strong>
-                Reciprocity Score: {result.indices.reciprocity_score}
+                Signal Clarity Index: {result.indices.signal_clarity_index}
               </strong>
               <br />
-              Measures how balanced emotional, practical, and time investment is
-              between people. 0 = one person carries most of the connection, 1 =
-              both show up in roughly comparable ways.
+              Shows how readable the situation is. 0 = very unclear or
+              contradictory, 1 = very clear, even if the answer is “they&apos;re
+              not that into this”.
             </p>
 
             <p>
               <strong>
-                Initiative Balance Index:{" "}
-                {result.indices.initiative_balance_index}
+                Interest Gap Index: {result.indices.interest_gap_index}
               </strong>
               <br />
-              Measures asymmetry in who initiates contact, conversations, or
-              emotional effort. 0 = almost all initiative comes from one side, 1
-              = both sides regularly start and move things forward.
+              Measures how big the gap is between your investment and theirs.
+              0 = roughly matched interest, 1 = strong gap in who cares and
+              shows up.
             </p>
 
             <p>
               <strong>
-                Emotional Stability Index:{" "}
-                {result.indices.emotional_stability_index}
+                Mixed Signal Volatility:{" "}
+                {result.indices.mixed_signal_volatility}
               </strong>
               <br />
-              Measures how stable or volatile the emotional tone and reactions
-              are over time. 0 = frequent sharp mood swings and sudden shifts, 1
-              = mostly steady reactions with understandable changes.
+              Captures how often and how sharply they swing between warm and
+              cold. 0 = almost no mixed signals, 1 = frequent, intense flips.
             </p>
 
             <p>
               <strong>
-                Boundary Violation Probability:{" "}
-                {result.indices.boundary_violation_probability}
+                Anxiety Load Score: {result.indices.anxiety_load_score}
               </strong>
               <br />
-              Measures how often personal limits, “no’s”, or agreements are
-              ignored or pushed through. 0 = boundaries are consistently
-              respected, 1 = boundaries are regularly tested, pressured, or
-              overridden.
+              Reflects how heavy this dynamic sits on your mind and body.
+              0 = easy to park and forget, 1 = very preoccupying and tense.
             </p>
 
             <p>
               <strong>
-                Communication Clarity Index:{" "}
-                {result.indices.communication_clarity_index}
+                Ghosting Drift Risk: {result.indices.ghosting_drift_risk}
               </strong>
               <br />
-              Measures how directly people express needs, intentions, and
-              interest versus using mixed or hidden signals. 0 = high ambiguity,
-              double messages, or manipulation, 1 = mostly straightforward,
-              transparent communication.
-            </p>
-
-            <p>
-              <strong>
-                Pattern Recurrence Probability:{" "}
-                {result.indices.pattern_recurrence_probability}
-              </strong>
-              <br />
-              Estimates how likely it is that the same dynamic will continue or
-              appear again in future situations. 0 = low chance of repetition
-              under similar conditions, 1 = pattern is deeply entrenched and
-              very likely to repeat.
-            </p>
-
-            <p>
-              <strong>
-                Long-Term Stability Forecast:{" "}
-                {result.indices.long_term_stability_forecast}
-              </strong>
-              <br />
-              Estimates how likely it is that the current way of relating can
-              stay healthy in the long run. 0 = very low chance of sustainable
-              stability, 1 = high chance that the dynamic can remain stable over
-              time.
+              Estimates how likely this is to slide into soft ghosting,
+              on‑and‑off attention, or a quiet fade‑out. 0 = very unlikely,
+              1 = high risk.
             </p>
 
             <h3 style={sectionTitleStyle}>Summary</h3>
