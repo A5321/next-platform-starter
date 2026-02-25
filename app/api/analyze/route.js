@@ -38,6 +38,13 @@ Analyze the relationship narrative and answers objectively using this index fram
 7. Long-Term Stability Forecast (0–1)
 - How sustainable this dynamic looks over time if nothing changes.
 
+When you write the summary:
+
+- Always ground it in at least 2–3 concrete details from the structured answers and, if available, from the narrative (quote or paraphrase them).
+- Make sure the emotional tone of the summary matches the indices. If Emotional Stability Index is low, mention volatility or unpredictability; if Boundary Violation Probability is high, name that directly and link it to specific behaviours.
+- Do NOT claim things that contradict the indices. For example, do not say “stable emotional reactions” when Emotional Stability Index is under 0.5.
+- Prefer vivid but neutral descriptions over generic phrases like “the relationship shows balanced initiative and stable emotional reactions”.
+
 Rules:
 - Do not give moral judgment.
 - Do not advise specific actions like "leave" or "stay".
