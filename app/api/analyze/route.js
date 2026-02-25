@@ -62,6 +62,9 @@ Output format (JSON only):
   },
   "summary": "3–5 sentences..."
 }
+
+Do NOT wrap the JSON in backticks or markdown fences. Do NOT write ```json. Respond with raw JSON only.
+
 `;
 
 const REPEATING_BREAKUP_SYSTEM_PROMPT = `
