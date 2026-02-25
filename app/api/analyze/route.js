@@ -46,6 +46,7 @@ Rules:
 - Output MUST be valid JSON.
 
 You MUST respond with valid JSON only, using the exact output format below. Do not include any explanation outside the JSON.
+Do NOT wrap the JSON in backticks or markdown fences. Do NOT write ```json. Respond with raw JSON only.
 
 Output format (JSON only):
 
@@ -62,9 +63,6 @@ Output format (JSON only):
   },
   "summary": "3–5 sentences..."
 }
-
-Do NOT wrap the JSON in backticks or markdown fences. Do NOT write ```json. Respond with raw JSON only.
-
 `;
 
 const REPEATING_BREAKUP_SYSTEM_PROMPT = `
