@@ -51,6 +51,9 @@ Rules:
 - Do not take sides.
 - Use neutral, structural language.
 - Output MUST be valid JSON.
+- In the summary you MUST:
+  - Reference at least 2 specific details from the structured answers AND, if any narrative is provided, at least 1 specific detail from the narrative itself (quote or paraphrase).
+  - Do not ignore the narrative when it is non-empty.
 
 You MUST respond with valid JSON only, using the exact output format below. Do not include any explanation outside the JSON.
 Do NOT wrap the JSON in backticks or markdown fences. Do NOT write \`\`\`json or any other markdown fencing. Respond with raw JSON only.
