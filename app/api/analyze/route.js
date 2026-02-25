@@ -46,7 +46,7 @@ Rules:
 - Output MUST be valid JSON.
 
 You MUST respond with valid JSON only, using the exact output format below. Do not include any explanation outside the JSON.
-Do NOT wrap the JSON in backticks or markdown fences. Do NOT write ```json. Respond with raw JSON only.
+Do NOT wrap the JSON in backticks or markdown fences. Do NOT write \`\`\`json or any other markdown fencing. Respond with raw JSON only.
 
 Output format (JSON only):
 
