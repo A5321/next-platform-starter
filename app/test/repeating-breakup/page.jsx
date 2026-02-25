@@ -182,92 +182,64 @@ const cardStyle = {
           </div>
         </form>
 
-        {result && (
+        {result && result.indices && (
           <section style={{ marginTop: 32, lineHeight: 1.5 }}>
             <h2 style={sectionTitleStyle}>
-              Overall risk level: {result.overall_risk_level}
+              Breakup‑pattern intensity:{" "}
+              {result.overall_breakup_pattern_intensity}
             </h2>
 
             <h3 style={sectionTitleStyle}>Indices</h3>
 
             <p>
               <strong>
-                Reciprocity Score: {result.indices.reciprocity_score}
+                Pattern Entrenchment Index:{" "}
+                {result.indices.pattern_entrenchment_index}
               </strong>
               <br />
-              Measures how balanced emotional, practical, and time investment is
-              between people. 0 = one person carries most of the connection, 1 =
-              both show up in roughly comparable ways.
+              Shows how deeply this breakup arc repeats across relationships.
+              0 = one-off or rare, 1 = many similar endings over time.
             </p>
 
             <p>
               <strong>
-                Initiative Balance Index:{" "}
-                {result.indices.initiative_balance_index}
+                Exit Agency Balance: {result.indices.exit_agency_balance}
               </strong>
               <br />
-              Measures asymmetry in who initiates contact, conversations, or
-              emotional effort. 0 = almost all initiative comes from one side, 1
-              = both sides regularly start and move things forward.
+              Reflects how one-sided or shared the decision to end usually is.
+              0 = almost always one person ends it, 1 = more mutual or balanced
+              endings.
             </p>
 
             <p>
               <strong>
-                Emotional Stability Index:{" "}
-                {result.indices.emotional_stability_index}
+                Build‑up Awareness Score:{" "}
+                {result.indices.build_up_awareness_score}
               </strong>
               <br />
-              Measures how stable or volatile the emotional tone and reactions
-              are over time. 0 = frequent sharp mood swings and sudden shifts, 1
-              = mostly steady reactions with understandable changes.
+              Captures how much warning there usually is before the breakup.
+              0 = sudden implosions “out of nowhere”, 1 = clear trajectory and
+              signals.
             </p>
 
             <p>
               <strong>
-                Boundary Violation Probability:{" "}
-                {result.indices.boundary_violation_probability}
+                Post‑Breakup Fusion Risk:{" "}
+                {result.indices.post_breakup_fusion_risk}
               </strong>
               <br />
-              Measures how often personal limits, “no’s”, or agreements are
-              ignored or pushed through. 0 = boundaries are consistently
-              respected, 1 = boundaries are regularly tested, pressured, or
-              overridden.
+              Measures how entangled things stay after the breakup. 0 = clean
+              separation, 1 = lots of contact, on/off, or hovering.
             </p>
 
             <p>
               <strong>
-                Communication Clarity Index:{" "}
-                {result.indices.communication_clarity_index}
+                Next‑Cycle Probability:{" "}
+                {result.indices.next_cycle_probability}
               </strong>
               <br />
-              Measures how directly people express needs, intentions, and
-              interest versus using mixed or hidden signals. 0 = high ambiguity,
-              double messages, or manipulation, 1 = mostly straightforward,
-              transparent communication.
-            </p>
-
-            <p>
-              <strong>
-                Pattern Recurrence Probability:{" "}
-                {result.indices.pattern_recurrence_probability}
-              </strong>
-              <br />
-              Estimates how likely it is that the same dynamic will continue or
-              appear again in future situations. 0 = low chance of repetition
-              under similar conditions, 1 = pattern is deeply entrenched and
-              very likely to repeat.
-            </p>
-
-            <p>
-              <strong>
-                Long-Term Stability Forecast:{" "}
-                {result.indices.long_term_stability_forecast}
-              </strong>
-              <br />
-              Estimates how likely it is that the current way of relating can
-              stay healthy in the long run. 0 = very low chance of sustainable
-              stability, 1 = high chance that the dynamic can remain stable over
-              time.
+              Estimates how likely a similar breakup pattern is to repeat if
+              nothing structural changes. 0 = low chance, 1 = very likely.
             </p>
 
             <h3 style={sectionTitleStyle}>Summary</h3>
