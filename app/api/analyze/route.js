@@ -1,30 +1,23 @@
 import { NextResponse } from 'next/server';
-import fs from "fs";
-import path from "path";
+import { NextResponse } from "next/server";
+import { getStore } from "@netlify/blobs";
 
-function logVisit({ scenario, answers, parsed, headers }) {
+  async function logVisit({ scenario, answers, parsed, headers }) {
   try {
-    const logDir = path.join(process.cwd(), "logs");
-    const logFile = path.join(logDir, "visits.jsonl");
-
-    // создать директорию logs, если её нет
-    if (!fs.existsSync(logDir)) {
-      fs.mkdirSync(logDir, { recursive: true });
-    }
-
     const now = new Date().toISOString();
 
     const record = {
       timestamp: now,
       scenario,
       overall:
-        parsed.overallrisklevel ||
-        parsed.overallhypercontrollevel ||
-        parsed.overalltrianglerisk ||
-        parsed.overalltrustinsignals ||
-        parsed.overalltrustrecoverylevel ||
-        parsed.overallexitpatternlevel ||
-        parsed.overallemotionalpresence ||
+        parsed.overall_risk_level ||
+        parsed.overall_breakup_pattern_intensity ||
+        parsed.overall_mixed_signal_level ||
+        parsed.overall_hypercontrol_level ||
+        parsed.overall_triangle_risk ||
+        parsed.overall_trust_in_signals ||
+        parsed.overall_trust_recovery_level ||
+        parsed.overall_exit_pattern_level ||
         "unknown",
       country: headers.get("x-nf-geo-country") || null,
       tz: headers.get("x-nf-geo-timezone") || null,
@@ -32,11 +25,14 @@ function logVisit({ scenario, answers, parsed, headers }) {
       indices: parsed.indices || {},
     };
 
-    fs.appendFileSync(logFile, JSON.stringify(record) + "\n", "utf8");
-  } catch (e) {
-    console.error("LOG VISIT ERROR", e);
+    const store = getStore({ name: "visits-log", consistency: "eventual" });
+    const key = `visit-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+    await store.setJSON(key, record);
+    } catch (e) {
+      console.error("LOG VISIT ERROR", e);
+    }
   }
-}
 
 function baliIsoNow() {
   const now = new Date();
@@ -768,12 +764,15 @@ export async function POST(req) {
     );
   }
 
-  logVisit({
-    scenario,
-    answers,
-    parsed,
-    headers: req.headers,
-  });
+await logVisit({
+  scenario,
+  answers,
+  parsed,
+  headers: req.headers,
+});
+
+return NextResponse.json(parsed);
+
   
   return NextResponse.json(parsed);
 }
