@@ -1,8 +1,6 @@
-import { NextResponse } from 'next/server';
-import { NextResponse } from "next/server";
 import { getStore } from "@netlify/blobs";
 
-  async function logVisit({ scenario, answers, parsed, headers }) {
+async function logVisit({ scenario, answers, parsed, headers }) {
   try {
     const now = new Date().toISOString();
 
@@ -33,13 +31,6 @@ import { getStore } from "@netlify/blobs";
       console.error("LOG VISIT ERROR", e);
     }
   }
-
-function baliIsoNow() {
-  const now = new Date();
-  const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
-  const bali = new Date(utcMs + 8 * 60 * 60000);
-  return bali.toISOString();
-}
 
 // ---------- PROMPTS & HELPERS ----------
 
@@ -771,8 +762,5 @@ await logVisit({
   headers: req.headers,
 });
 
-return NextResponse.json(parsed);
-
-  
   return NextResponse.json(parsed);
 }
