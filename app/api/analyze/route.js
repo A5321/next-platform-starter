@@ -1,20 +1,43 @@
 import { NextResponse } from 'next/server';
+import fs from "fs";
+import path from "path";
 import Database from 'better-sqlite3';
 
-const db = new Database('patternindex.db');
+function logVisit({ scenario, answers, parsed, headers }) {
+  try {
+    const logDir = path.join(process.cwd(), "logs");
+    const logFile = path.join(logDir, "visits.jsonl");
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS visits (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    created_at TEXT NOT NULL,
-    scenario TEXT NOT NULL,
-    country TEXT,
-    tz TEXT,
-    answers_json TEXT NOT NULL,
-    indices_json TEXT NOT NULL,
-    overall_label TEXT NOT NULL
-  );
-`);
+    // создать директорию logs, если её нет
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir, { recursive: true });
+    }
+
+    const now = new Date().toISOString();
+
+    const record = {
+      timestamp: now,
+      scenario,
+      overall:
+        parsed.overallrisklevel ||
+        parsed.overallhypercontrollevel ||
+        parsed.overalltrianglerisk ||
+        parsed.overalltrustinsignals ||
+        parsed.overalltrustrecoverylevel ||
+        parsed.overallexitpatternlevel ||
+        parsed.overallemotionalpresence ||
+        "unknown",
+      country: headers.get("x-nf-geo-country") || null,
+      tz: headers.get("x-nf-geo-timezone") || null,
+      answers: answers || {},
+      indices: parsed.indices || {},
+    };
+
+    fs.appendFileSync(logFile, JSON.stringify(record) + "\n", "utf8");
+  } catch (e) {
+    console.error("LOG VISIT ERROR", e);
+  }
+}
 
 function baliIsoNow() {
   const now = new Date();
@@ -775,6 +798,13 @@ export async function POST(req) {
     JSON.stringify(parsed.indices || {}),
     overallLabel
   );
+
+  logVisit({
+    scenario,
+    answers,
+    parsed,
+    headers: req.headers,
+  });
   
   return NextResponse.json(parsed);
 }
