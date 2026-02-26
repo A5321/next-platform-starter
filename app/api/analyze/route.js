@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import fs from "fs";
 import path from "path";
-import Database from 'better-sqlite3';
 
 function logVisit({ scenario, answers, parsed, headers }) {
   try {
@@ -45,8 +44,6 @@ function baliIsoNow() {
   const bali = new Date(utcMs + 8 * 60 * 60000);
   return bali.toISOString();
 }
-
-import { NextResponse } from "next/server";
 
 // ---------- PROMPTS & HELPERS ----------
 
@@ -770,34 +767,6 @@ export async function POST(req) {
       { status: 500 }
     );
   }
-
-  const country = req.headers.get('x-nf-geo-country') || null;
-  const tz = req.headers.get('x-nf-geo-timezone') || 'Asia/Makassar';
-
-  const overallLabel =
-    parsed.overallrisklevel ||
-    parsed.overallhypercontrollevel ||
-    parsed.overalltrianglerisk ||
-    parsed.overalltrustinsignals ||
-    parsed.overalltrustrecoverylevel ||
-    parsed.overallexitpatternlevel ||
-    parsed.overallemotionalpresence ||
-    'unknown';
-
-  const stmt = db.prepare(`
-    INSERT INTO visits (created_at, scenario, country, tz, answers_json, indices_json, overall_label)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  stmt.run(
-    baliIsoNow(),
-    scenario,
-    country,
-    tz,
-    JSON.stringify(answers || {}),
-    JSON.stringify(parsed.indices || {}),
-    overallLabel
-  );
 
   logVisit({
     scenario,
