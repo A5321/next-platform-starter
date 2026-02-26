@@ -1,3 +1,28 @@
+import { NextResponse } from 'next/server';
+import Database from 'better-sqlite3';
+
+const db = new Database('patternindex.db');
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS visits (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created_at TEXT NOT NULL,
+    scenario TEXT NOT NULL,
+    country TEXT,
+    tz TEXT,
+    answers_json TEXT NOT NULL,
+    indices_json TEXT NOT NULL,
+    overall_label TEXT NOT NULL
+  );
+`);
+
+function baliIsoNow() {
+  const now = new Date();
+  const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+  const bali = new Date(utcMs + 8 * 60 * 60000);
+  return bali.toISOString();
+}
+
 import { NextResponse } from "next/server";
 
 // ---------- PROMPTS & HELPERS ----------
@@ -723,5 +748,33 @@ export async function POST(req) {
     );
   }
 
+  const country = req.headers.get('x-nf-geo-country') || null;
+  const tz = req.headers.get('x-nf-geo-timezone') || 'Asia/Makassar';
+
+  const overallLabel =
+    parsed.overallrisklevel ||
+    parsed.overallhypercontrollevel ||
+    parsed.overalltrianglerisk ||
+    parsed.overalltrustinsignals ||
+    parsed.overalltrustrecoverylevel ||
+    parsed.overallexitpatternlevel ||
+    parsed.overallemotionalpresence ||
+    'unknown';
+
+  const stmt = db.prepare(`
+    INSERT INTO visits (created_at, scenario, country, tz, answers_json, indices_json, overall_label)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  stmt.run(
+    baliIsoNow(),
+    scenario,
+    country,
+    tz,
+    JSON.stringify(answers || {}),
+    JSON.stringify(parsed.indices || {}),
+    overallLabel
+  );
+  
   return NextResponse.json(parsed);
 }
