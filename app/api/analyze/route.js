@@ -1,37 +1,4 @@
 import { NextResponse } from "next/server";
-import { getStore } from "@netlify/blobs";
-
-async function logVisit({ scenario, answers, parsed, headers }) {
-  try {
-    const now = new Date().toISOString();
-
-    const record = {
-      timestamp: now,
-      scenario,
-      overall:
-        parsed.overall_risk_level ||
-        parsed.overall_breakup_pattern_intensity ||
-        parsed.overall_mixed_signal_level ||
-        parsed.overall_hypercontrol_level ||
-        parsed.overall_triangle_risk ||
-        parsed.overall_trust_in_signals ||
-        parsed.overall_trust_recovery_level ||
-        parsed.overall_exit_pattern_level ||
-        "unknown",
-      country: headers.get("x-nf-geo-country") || null,
-      tz: headers.get("x-nf-geo-timezone") || null,
-      answers: answers || {},
-      indices: parsed.indices || {},
-    };
-
-    const store = getStore({ name: "visits-log", consistency: "eventual" });
-    const key = `visit-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-    await store.setJSON(key, record);
-  } catch (e) {
-    console.error("LOG VISIT ERROR", e);
-  }
-}
 
 // ---------- PROMPTS & HELPERS ----------
 
@@ -263,13 +230,6 @@ export async function POST(req) {
       { status: 500 }
     );
   }
-
-  await logVisit({
-    scenario,
-    answers,
-    parsed,
-    headers: req.headers,
-  });
 
   return NextResponse.json(parsed);
 }
