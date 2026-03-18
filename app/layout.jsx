@@ -4,7 +4,7 @@ import Script from "next/script";
 
 export const metadata = {
   title: "Pattern Index",
-  description: "Pattern Index tests",
+  description: "AI relationship pattern analysis",
 };
 
 export default function RootLayout({ children }) {
@@ -25,7 +25,17 @@ export default function RootLayout({ children }) {
           `}
         </Script>
       </head>
-      <body>{children}</body>
+      <body
+        style={{
+          margin: 0,
+          fontFamily:
+            "-apple-system,BlinkMacSystemFont,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif",
+          backgroundColor: "#111111",
+          color: "#ffffff",
+        }}
+      >
+        {children}
+      </body>
     </html>
   );
 }
