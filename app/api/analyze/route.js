@@ -667,61 +667,75 @@ function buildPromptAndUserContent(scenario, answers, narrative) {
 // ---------- MAIN HANDLER ----------
 
 export async function POST(req) {
-  const body = await req.json();
-  const { scenario, answers, narrative } = body;
-
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: "Missing OPENAI_API_KEY" },
-      { status: 500 }
-    );
-  }
-
-  const { systemPrompt, userContent } = buildPromptAndUserContent(
-    scenario,
-    answers,
-    narrative
-  );
-
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: "gpt-4.1-mini",
-      temperature: 0.2,
-      // response_format: { type: "json_object" },
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userContent },
-      ],
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    console.error("OpenAI error:", error);
-    return NextResponse.json(
-      { error: "OpenAI request failed" },
-      { status: 500 }
-    );
-  }
-
-  const data = await response.json();
-
-  let parsed;
   try {
-    parsed = JSON.parse(data.choices[0].message.content);
-  } catch (e) {
-    console.error("JSON parse error:", e, data);
+    const body = await req.json();
+    const { scenario, answers, narrative } = body;
+
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "Missing OPENAI_API_KEY" },
+        { status: 500 }
+      );
+    }
+
+    const { systemPrompt, userContent } = buildPromptAndUserContent(
+      scenario,
+      answers,
+      narrative
+    );
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-4.1-mini",
+        temperature: 0.2,
+        // response_format: { type: "json_object" },
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userContent },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("OpenAI error:", errorText);
+      return NextResponse.json(
+        {
+          error: "OpenAI request failed",
+          details: errorText,
+        },
+        { status: 500 }
+      );
+    }
+
+    const data = await response.json();
+
+    let parsed;
+    try {
+      parsed = JSON.parse(data.choices[0].message.content);
+    } catch (e) {
+      console.error("JSON parse error:", e, data);
+      return NextResponse.json(
+        { error: "Invalid JSON from OpenAI" },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json(parsed);
+  } catch (error) {
+    console.error("Handler error:", error);
     return NextResponse.json(
-      { error: "Invalid JSON from OpenAI" },
+      {
+        error: "Handler failed",
+        details: String(error?.message || error),
+      },
       { status: 500 }
     );
   }
-
-  return NextResponse.json(parsed);
 }
