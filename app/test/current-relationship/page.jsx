@@ -45,6 +45,7 @@ export default function CurrentRelationshipTest() {
 
     const data = await res.json();
     setResult(data);
+    localStorage.setItem("lastResult", JSON.stringify(data));
     setLoading(false);
   }
 
