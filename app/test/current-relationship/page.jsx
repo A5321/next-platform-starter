@@ -71,8 +71,6 @@ const cardStyle = {
 
   const sectionTitleStyle = { marginTop: 24, marginBottom: 8 };
 
-  const [paid, setPaid] = useState(false);
-
   return (
     <div style={pageStyle}>
       <div style={cardStyle}>
@@ -164,138 +162,111 @@ const cardStyle = {
           </div>
         </form>
 
-{result && result.indices && (
-  <section style={{ marginTop: 32, lineHeight: 1.5 }}>
-    <h2 style={sectionTitleStyle}>
-      Overall risk level: {result.overall_risk_level}
-    </h2>
+        {result && result.indices && (
+          <section style={{ marginTop: 32, lineHeight: 1.5 }}>
+            <h2 style={sectionTitleStyle}>
+              Overall risk level: {result.overall_risk_level}
+            </h2>
 
-    <h3 style={sectionTitleStyle}>Summary</h3>
-    <p>{result.summary}</p>
+            <h3 style={sectionTitleStyle}>Indices</h3>
 
-    <h3 style={sectionTitleStyle}>Key indices</h3>
+            <p>
+              <strong>
+                Reciprocity Score: {result.indices.reciprocity_score}
+              </strong>
+              <br />
+              Measures how balanced emotional, practical, and time investment is
+              between people. 0 = one person carries most of the connection, 1 =
+              both show up in roughly comparable ways.
+            </p>
 
-    {/* Бесплатно (2 индекса) */}
-    <p>
-      <strong>
-        Reciprocity Score: {result.indices.reciprocity_score}
-      </strong>
-      <br />
-      Measures how balanced emotional, practical, and time investment is
-      between people.
-    </p>
+            <p>
+              <strong>
+                Initiative Balance Index:{" "}
+                {result.indices.initiative_balance_index}
+              </strong>
+              <br />
+              Measures asymmetry in who initiates contact, conversations, or
+              emotional effort. 0 = almost all initiative comes from one side, 1
+              = both sides regularly start and move things forward.
+            </p>
 
-    <p>
-      <strong>
-        Initiative Balance Index: {result.indices.initiative_balance_index}
-      </strong>
-      <br />
-      Measures asymmetry in who initiates contact or effort.
-    </p>
+            <p>
+              <strong>
+                Emotional Stability Index:{" "}
+                {result.indices.emotional_stability_index}
+              </strong>
+              <br />
+              Measures how stable or volatile the emotional tone and reactions
+              are over time. 0 = frequent sharp mood swings and sudden shifts, 1
+              = mostly steady reactions with understandable changes.
+            </p>
 
-    {/* PAYWALL */}
-    {!paid && (
-      <div style={{ marginTop: 24 }}>
-        <div style={{ opacity: 0.6 }}>
-          <p>+ 5 more indices hidden</p>
-        </div>
+            <p>
+              <strong>
+                Boundary Violation Probability:{" "}
+                {result.indices.boundary_violation_probability}
+              </strong>
+              <br />
+              Measures how often personal limits, “no’s”, or agreements are
+              ignored or pushed through. 0 = boundaries are consistently
+              respected, 1 = boundaries are regularly tested, pressured, or
+              overridden.
+            </p>
 
-        <div
+            <p>
+              <strong>
+                Communication Clarity Index:{" "}
+                {result.indices.communication_clarity_index}
+              </strong>
+              <br />
+              Measures how directly people express needs, intentions, and
+              interest versus using mixed or hidden signals. 0 = high ambiguity,
+              double messages, or manipulation, 1 = mostly straightforward,
+              transparent communication.
+            </p>
+
+            <p>
+              <strong>
+                Pattern Recurrence Probability:{" "}
+                {result.indices.pattern_recurrence_probability}
+              </strong>
+              <br />
+              Estimates how likely it is that the same dynamic will continue or
+              appear again in future situations. 0 = low chance of repetition
+              under similar conditions, 1 = pattern is deeply entrenched and
+              very likely to repeat.
+            </p>
+
+            <p>
+              <strong>
+                Long-Term Stability Forecast:{" "}
+                {result.indices.long_term_stability_forecast}
+              </strong>
+              <br />
+              Estimates how likely it is that the current way of relating can
+              stay healthy in the long run. 0 = very low chance of sustainable
+              stability, 1 = high chance that the dynamic can remain stable over
+              time.
+            </p>
+
+            <h3 style={sectionTitleStyle}>Summary</h3>
+            <p>{result.summary}</p>
+          </section>
+        )}
+        <p
           style={{
-            marginTop: 12,
-            padding: 16,
-            border: "1px solid rgba(255,255,255,0.2)",
-            borderRadius: 8,
+            marginTop: 24,
+            fontSize: 11,
+            opacity: 0.6,
+            lineHeight: 1.4,
           }}
         >
-          <h3>Unlock full breakdown</h3>
-          <p>$3 one-time access</p>
-
-          <p style={{ fontSize: 12, opacity: 0.7 }}>
-            Includes full pattern structure, stability forecast,
-            and recurrence probability.
-          </p>
-
-          <div style={{ marginTop: 12 }}>
-            <div>USDT (TRC20):</div>
-            <code>ТВОЙ_АДРЕС</code>
-          </div>
-
-          <a
-            href="ТВОЙ_NOWPAYMENTS_LINK"
-            target="_blank"
-            style={{
-              display: "inline-block",
-              marginTop: 12,
-              padding: "10px 16px",
-              borderRadius: 999,
-              background: "#fff",
-              color: "#000",
-              textDecoration: "none",
-            }}
-          >
-            Pay with card / crypto
-          </a>
-
-          <div style={{ marginTop: 16 }}>
-            <button
-              onClick={() => setPaid(true)}
-              style={{
-                padding: "8px 14px",
-                borderRadius: 999,
-                border: "1px solid #fff",
-                background: "transparent",
-                color: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              I paid
-            </button>
-          </div>
-        </div>
+          This tool is not therapy, medical care, or legal advice. It cannot
+          diagnose anything or tell you what to do. You are fully responsible
+          for any decisions or actions you take based on these checkups.
+        </p>
       </div>
-    )}
-
-    {/* ПОЛНЫЙ РЕЗУЛЬТАТ */}
-    {paid && (
-      <>
-        <h3 style={sectionTitleStyle}>Full indices</h3>
-
-        <p>
-          <strong>
-            Emotional Stability Index:{" "}
-            {result.indices.emotional_stability_index}
-          </strong>
-        </p>
-
-        <p>
-          <strong>
-            Boundary Violation Probability:{" "}
-            {result.indices.boundary_violation_probability}
-          </strong>
-        </p>
-
-        <p>
-          <strong>
-            Communication Clarity Index:{" "}
-            {result.indices.communication_clarity_index}
-          </strong>
-        </p>
-
-        <p>
-          <strong>
-            Pattern Recurrence Probability:{" "}
-            {result.indices.pattern_recurrence_probability}
-          </strong>
-        </p>
-
-        <p>
-          <strong>
-            Long-Term Stability Forecast:{" "}
-            {result.indices.long_term_stability_forecast}
-          </strong>
-        </p>
-      </>
-    )}
-  </section>
-)}
+    </div>
+  );
+}
