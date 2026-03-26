@@ -200,62 +200,27 @@ const cardStyle = {
     </p>
 
     {/* ЕСЛИ НЕ ОПЛАЧЕНО → ПОКАЗЫВАЕМ PAYWALL */}
-    {!paid && (
-      <>
-        <div style={{ opacity: 0.5, marginTop: 16 }}>
-          <p>+ 5 more indices hidden</p>
-        </div>
 
-        <div
-          style={{
-            marginTop: 12,
-            padding: 16,
-            border: "1px solid rgba(255,255,255,0.2)",
-            borderRadius: 8,
-          }}
-        >
-          <h3>Unlock full breakdown</h3>
-          <p>$3 one-time access</p>
+{!paid && (
+  <div style={{ marginTop: 16 }}>
+    
+    <h3>Unlock full breakdown</h3>
+    <p>$11 one-time access</p>
 
-          <div style={{ marginTop: 12 }}>
-            <div>USDT (TRC20):</div>
-            <code>ТВОЙ_АДРЕС</code>
-          </div>
+    {/* ВОТ СЮДА */}
+    <a
+      href="https://nowpayments.io/payment/?iid=4450713191&source=button"
+      target="_blank"
+      rel="noreferrer noopener"
+    >
+      <img
+        src="https://nowpayments.io/images/embeds/payment-button-black.svg"
+        alt="Pay"
+      />
+    </a>
 
-          <a
-            href="ТВОЙ_NOWPAYMENTS_LINK"
-            target="_blank"
-            style={{
-              display: "inline-block",
-              marginTop: 12,
-              padding: "10px 16px",
-              borderRadius: 999,
-              background: "#ffffff",
-              color: "#000000",
-              textDecoration: "none",
-            }}
-          >
-            Pay with card / crypto
-          </a>
-
-          <div style={{ marginTop: 16 }}>
-            <button
-              onClick={() => setPaid(true)}
-              style={{
-                padding: "8px 14px",
-                borderRadius: 999,
-                border: "1px solid #fff",
-                background: "transparent",
-                color: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              I paid
-            </button>
-          </div>
-        </div>
-      </>
-    )}
+  </div>
+)}
 
     {/* ЕСЛИ ОПЛАЧЕНО → ПОКАЗЫВАЕМ ВСЁ */}
     {paid && (
