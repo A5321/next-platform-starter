@@ -9,6 +9,13 @@ export default function CurrentRelationshipTest() {
   const [paid, setPaid] = useState(false);
 
   useEffect(() => {
+    // 1. восстановить результат
+    const saved = localStorage.getItem("lastResult");
+    if (saved) {
+      setResult(JSON.parse(saved));
+    }
+
+    // 2. проверить оплату
     const params = new URLSearchParams(window.location.search);
     if (params.get("paid") === "true") {
       setPaid(true);
@@ -46,6 +53,7 @@ export default function CurrentRelationshipTest() {
     const data = await res.json();
     setResult(data);
     localStorage.setItem("lastResult", JSON.stringify(data));
+    const data = await res.json();
     setLoading(false);
   }
 
