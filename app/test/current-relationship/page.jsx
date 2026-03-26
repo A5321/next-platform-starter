@@ -206,7 +206,7 @@ const cardStyle = {
   <div style={{ marginTop: 16 }}>
     
     <h3>Unlock full breakdown</h3>
-    <p>$11 one-time access</p>
+    <p>$11 one-month access</p>
 
     {/* ВОТ СЮДА */}
     <a
