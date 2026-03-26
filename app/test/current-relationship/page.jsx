@@ -1,10 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function CurrentRelationshipTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [paid, setPaid] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("paid") === "true") {
+      setPaid(true);
+    }
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -162,98 +171,140 @@ const cardStyle = {
           </div>
         </form>
 
-        {result && result.indices && (
-          <section style={{ marginTop: 32, lineHeight: 1.5 }}>
-            <h2 style={sectionTitleStyle}>
-              Overall risk level: {result.overall_risk_level}
-            </h2>
+{result && result.indices && (
+  <section style={{ marginTop: 32, lineHeight: 1.5 }}>
+    
+    <h2 style={sectionTitleStyle}>
+      Overall risk level: {result.overall_risk_level}
+    </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
+    <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <p>
-              <strong>
-                Reciprocity Score: {result.indices.reciprocity_score}
-              </strong>
-              <br />
-              Measures how balanced emotional, practical, and time investment is
-              between people. 0 = one person carries most of the connection, 1 =
-              both show up in roughly comparable ways.
-            </p>
+    {/* ВСЕГДА ВИДНО (первые 2) */}
+    <p>
+      <strong>
+        Reciprocity Score: {result.indices.reciprocity_score}
+      </strong>
+      <br />
+      Measures how balanced emotional, practical, and time investment is
+      between people.
+    </p>
 
-            <p>
-              <strong>
-                Initiative Balance Index:{" "}
-                {result.indices.initiative_balance_index}
-              </strong>
-              <br />
-              Measures asymmetry in who initiates contact, conversations, or
-              emotional effort. 0 = almost all initiative comes from one side, 1
-              = both sides regularly start and move things forward.
-            </p>
+    <p>
+      <strong>
+        Initiative Balance Index:{" "}
+        {result.indices.initiative_balance_index}
+      </strong>
+      <br />
+      Measures asymmetry in who initiates contact.
+    </p>
 
-            <p>
-              <strong>
-                Emotional Stability Index:{" "}
-                {result.indices.emotional_stability_index}
-              </strong>
-              <br />
-              Measures how stable or volatile the emotional tone and reactions
-              are over time. 0 = frequent sharp mood swings and sudden shifts, 1
-              = mostly steady reactions with understandable changes.
-            </p>
+    {/* ЕСЛИ НЕ ОПЛАЧЕНО → ПОКАЗЫВАЕМ PAYWALL */}
+    {!paid && (
+      <>
+        <div style={{ opacity: 0.5, marginTop: 16 }}>
+          <p>+ 5 more indices hidden</p>
+        </div>
 
-            <p>
-              <strong>
-                Boundary Violation Probability:{" "}
-                {result.indices.boundary_violation_probability}
-              </strong>
-              <br />
-              Measures how often personal limits, “no’s”, or agreements are
-              ignored or pushed through. 0 = boundaries are consistently
-              respected, 1 = boundaries are regularly tested, pressured, or
-              overridden.
-            </p>
+        <div
+          style={{
+            marginTop: 12,
+            padding: 16,
+            border: "1px solid rgba(255,255,255,0.2)",
+            borderRadius: 8,
+          }}
+        >
+          <h3>Unlock full breakdown</h3>
+          <p>$3 one-time access</p>
 
-            <p>
-              <strong>
-                Communication Clarity Index:{" "}
-                {result.indices.communication_clarity_index}
-              </strong>
-              <br />
-              Measures how directly people express needs, intentions, and
-              interest versus using mixed or hidden signals. 0 = high ambiguity,
-              double messages, or manipulation, 1 = mostly straightforward,
-              transparent communication.
-            </p>
+          <div style={{ marginTop: 12 }}>
+            <div>USDT (TRC20):</div>
+            <code>ТВОЙ_АДРЕС</code>
+          </div>
 
-            <p>
-              <strong>
-                Pattern Recurrence Probability:{" "}
-                {result.indices.pattern_recurrence_probability}
-              </strong>
-              <br />
-              Estimates how likely it is that the same dynamic will continue or
-              appear again in future situations. 0 = low chance of repetition
-              under similar conditions, 1 = pattern is deeply entrenched and
-              very likely to repeat.
-            </p>
+          <a
+            href="ТВОЙ_NOWPAYMENTS_LINK"
+            target="_blank"
+            style={{
+              display: "inline-block",
+              marginTop: 12,
+              padding: "10px 16px",
+              borderRadius: 999,
+              background: "#ffffff",
+              color: "#000000",
+              textDecoration: "none",
+            }}
+          >
+            Pay with card / crypto
+          </a>
 
-            <p>
-              <strong>
-                Long-Term Stability Forecast:{" "}
-                {result.indices.long_term_stability_forecast}
-              </strong>
-              <br />
-              Estimates how likely it is that the current way of relating can
-              stay healthy in the long run. 0 = very low chance of sustainable
-              stability, 1 = high chance that the dynamic can remain stable over
-              time.
-            </p>
+          <div style={{ marginTop: 16 }}>
+            <button
+              onClick={() => setPaid(true)}
+              style={{
+                padding: "8px 14px",
+                borderRadius: 999,
+                border: "1px solid #fff",
+                background: "transparent",
+                color: "#fff",
+                cursor: "pointer",
+              }}
+            >
+              I paid
+            </button>
+          </div>
+        </div>
+      </>
+    )}
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p>{result.summary}</p>
-          </section>
-        )}
+    {/* ЕСЛИ ОПЛАЧЕНО → ПОКАЗЫВАЕМ ВСЁ */}
+    {paid && (
+      <>
+        <p>
+          <strong>
+            Emotional Stability Index:{" "}
+            {result.indices.emotional_stability_index}
+          </strong>
+          <br />
+          Measures how stable or volatile reactions are.
+        </p>
+
+        <p>
+          <strong>
+            Boundary Violation Probability:{" "}
+            {result.indices.boundary_violation_probability}
+          </strong>
+        </p>
+
+        <p>
+          <strong>
+            Communication Clarity Index:{" "}
+            {result.indices.communication_clarity_index}
+          </strong>
+        </p>
+
+        <p>
+          <strong>
+            Pattern Recurrence Probability:{" "}
+            {result.indices.pattern_recurrence_probability}
+          </strong>
+        </p>
+
+        <p>
+          <strong>
+            Long-Term Stability Forecast:{" "}
+            {result.indices.long_term_stability_forecast}
+          </strong>
+        </p>
+      </>
+    )}
+
+    <h3 style={sectionTitleStyle}>Summary</h3>
+    <p>{result.summary}</p>
+
+  </section>
+)}
+        
         <p
           style={{
             marginTop: 24,
