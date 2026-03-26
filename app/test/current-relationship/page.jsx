@@ -9,18 +9,18 @@ export default function CurrentRelationshipTest() {
   const [paid, setPaid] = useState(false);
 
   useEffect(() => {
-    // 1. восстановить результат
     const saved = localStorage.getItem("lastResult");
     if (saved) {
       setResult(JSON.parse(saved));
     }
+  }, []);
 
-    // 2. проверить оплату
+  useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("paid") === "true") {
       setPaid(true);
     }
-  }, []);
+  }, [typeof window !== "undefined" ? window.location.search : ""]);
 
   async function handleSubmit(e) {
     e.preventDefault();
