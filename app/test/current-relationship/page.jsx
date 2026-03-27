@@ -221,21 +221,11 @@ const cardStyle = {
     <h3>Unlock full breakdown</h3>
 
     {/* ВОТ СЮДА */}
-<a
-  href="/api/create-payment"
-  style={{
-    display: "inline-block",
-    marginTop: 12,
-    padding: "12px 18px",
-    borderRadius: 999,
-    background: "#ffffff",
-    color: "#000000",
-    textDecoration: "none",
-    fontWeight: 600,
-  }}
->
+<form action="/api/create-payment" method="POST">
+  <button type="submit">
   Unlock full analysis — $11/mo (usdt)
-</a>
+  </button>
+</form>
 
   </div>
 )}
