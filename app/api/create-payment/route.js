@@ -19,5 +19,5 @@ export async function GET() {
 
   const data = await response.json();
 
-  return Response.redirect(data.invoice_url);
+  return Response.redirect(data.invoice_url, 302);
 }
