@@ -12,8 +12,8 @@ export async function GET() {
       price_currency: "usd",
       order_id: "test_" + Date.now(),
       order_description: "PatternIndex access",
-      success_url: "https://patternindex.io/test/mixed-signals?access=sub",
-      cancel_url: "https://patternindex.io/test/mixed-signals",
+      success_url: "https://patternindex.io/test/current-relationship?access=sub",
+      cancel_url: "https://patternindex.io/test/current-relationship",
     }),
   });
 
