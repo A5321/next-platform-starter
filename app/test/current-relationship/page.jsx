@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function CurrentRelationshipTest() {
+export default function MixedSignalsTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [paid, setPaid] = useState(false);
+  const [hasAnalyzed, setHasAnalyzed] = useState(false);
 
 useEffect(() => {
   const params = new URLSearchParams(window.location.search);
