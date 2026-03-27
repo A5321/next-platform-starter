@@ -219,19 +219,23 @@ const cardStyle = {
   <div style={{ marginTop: 16 }}>
     
     <h3>Unlock full breakdown</h3>
-    <p>$11 one-month access</p>
 
     {/* ВОТ СЮДА */}
-    <a
-      href="https://nowpayments.io/payment/?iid=4450713191&source=button"
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      <img
-        src="https://nowpayments.io/images/embeds/payment-button-black.svg"
-        alt="Pay"
-      />
-    </a>
+<a
+  href="/api/create-payment"
+  style={{
+    display: "inline-block",
+    marginTop: 12,
+    padding: "12px 18px",
+    borderRadius: 999,
+    background: "#ffffff",
+    color: "#000000",
+    textDecoration: "none",
+    fontWeight: 600,
+  }}
+>
+  Unlock full analysis — $11/mo (usdt)
+</a>
 
   </div>
 )}
