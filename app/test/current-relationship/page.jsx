@@ -8,19 +8,23 @@ export default function CurrentRelationshipTest() {
   const [loading, setLoading] = useState(false);
   const [paid, setPaid] = useState(false);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("lastResult");
-    if (saved) {
-      setResult(JSON.parse(saved));
-    }
-  }, []);
+useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const access = params.get("access");
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("paid") === "true") {
-      setPaid(true);
+  const saved = localStorage.getItem("lastResult_mixed");
+
+  if (saved) {
+    setResult(JSON.parse(saved));
+  }
+
+  if (access === "one" || access === "sub") {
+    setPaid(true);
+    if (saved) {
+      setHasAnalyzed(true);
     }
-  }, [typeof window !== "undefined" ? window.location.search : ""]);
+  }
+}, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -52,7 +56,8 @@ export default function CurrentRelationshipTest() {
 
     const data = await res.json();
     setResult(data);
-    localStorage.setItem("lastResult", JSON.stringify(data));
+    localStorage.setItem("lastResult_mixed", JSON.stringify(data));
+    setHasAnalyzed(true);
     setLoading(false);
   }
 
@@ -179,7 +184,7 @@ const cardStyle = {
           </div>
         </form>
 
-{result && result.indices && (
+{hasAnalyzed && result && result.indices && (
   <section style={{ marginTop: 32, lineHeight: 1.5 }}>
     
     <h2 style={sectionTitleStyle}>
