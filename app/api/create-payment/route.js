@@ -1,4 +1,4 @@
-export async function GET() {
+export async function POST() {
   const apiKey = process.env.NOWPAYMENTS_API_KEY;
 
   const response = await fetch("https://api.nowpayments.io/v1/invoice", {
