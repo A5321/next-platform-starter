@@ -1,10 +1,31 @@
 "use client";
 
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function MixedSignalsTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [paid, setPaid] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    const access = params.get("access");
+
+    if (access === "one") {
+      setPaid(true);
+    }
+
+    if (access === "sub") {
+      setPaid(true);
+    }
+
+    const saved = localStorage.getItem("lastResult_mixed");
+    if (saved) {
+      setResult(JSON.parse(saved));
+    }
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -36,6 +57,7 @@ export default function MixedSignalsTest() {
 
     const data = await res.json();
     setResult(data);
+    localStorage.setItem("lastResult_mixed", JSON.stringify(data));
     setLoading(false);
   }
 
