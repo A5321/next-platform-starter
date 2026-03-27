@@ -7,25 +7,25 @@ export default function MixedSignalsTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [paid, setPaid] = useState(false);
+  const [hasAnalyzed, setHasAnalyzed] = useState(false);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const access = params.get("access");
 
-    const access = params.get("access");
+  const saved = localStorage.getItem("lastResult_mixed");
 
-    if (access === "one") {
-      setPaid(true);
-    }
+  if (saved) {
+    setResult(JSON.parse(saved));
+  }
 
-    if (access === "sub") {
-      setPaid(true);
-    }
-
-    const saved = localStorage.getItem("lastResult_mixed");
+  if (access === "one" || access === "sub") {
+    setPaid(true);
     if (saved) {
-      setResult(JSON.parse(saved));
+      setHasAnalyzed(true);
     }
-  }, []);
+  }
+}, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -58,6 +58,7 @@ export default function MixedSignalsTest() {
     const data = await res.json();
     setResult(data);
     localStorage.setItem("lastResult_mixed", JSON.stringify(data));
+    setHasAnalyzed(true);
     setLoading(false);
   }
 
@@ -186,7 +187,7 @@ const cardStyle = {
           </div>
         </form>
 
-        {result && result.indices && (
+        {hasAnalyzed && result && result.indices && (
           <section style={{ marginTop: 32, lineHeight: 1.5 }}>
             
             <h2 style={sectionTitleStyle}>
