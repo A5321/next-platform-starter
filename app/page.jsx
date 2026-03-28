@@ -53,6 +53,7 @@ export default function Home() {
         <p style={{ fontSize: 16, marginBottom: 12, opacity: 0.9 }}>
           <strong>Reciprocity Score: 0.4</strong><br></br>
           Measures how balanced emotional, practical, and time investment is between people.
+        </p>
         <p style={{ fontSize: 16, marginBottom: 12, opacity: 0.9 }}>
           <strong>Initiative Balance Index: 0.3</strong><br></br>
           Measures asymmetry in who initiates contact.
@@ -93,6 +94,7 @@ export default function Home() {
             </li>
           </ul>
         </p>
+      </div>
           
         <p style={{ fontSize: 20, marginBottom: 12, opacity: 0.9 }}>
           Other scenarios:
