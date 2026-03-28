@@ -48,7 +48,10 @@ const pageStyle = {
   alignItems: "flex-start",
   justifyContent: "center",
   padding: "40px 16px",
-  // backgroundColor убираем здесь полностью
+  backgroundImage: "url('/bgr.jpg')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
 };
 
 const cardStyle = {
