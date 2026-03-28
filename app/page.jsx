@@ -95,7 +95,7 @@ export default function Home() {
             <li style={itemStyle}>
               <center><strong>
                 <a href="/test/current-relationship" style={buttonStyle}>
-                  Start analysis>
+                  Start analysis
                 </a>
               </strong></center>
             </li>
