@@ -28,7 +28,10 @@ export default function Home() {
         alignItems: "flex-start",
         justifyContent: "center",
         padding: "20px 16px",
-        backgroundImage: "url('/bgr.jpg')", // сюда свою картинку
+        backgroundImage: `
+          linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+          url('/bg.jpg')
+        `,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
