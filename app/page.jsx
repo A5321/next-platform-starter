@@ -47,30 +47,25 @@ export default function Home() {
         <p style={{ fontSize: 24, marginBottom: 24, opacity: 0.9 }}>
           Answer a few questions and get a structured breakdown
         </p>
-        <p style={{ marginBottom: 24, opacity: 0.9 }}>
-          <strong>Example result:</strong><br></br>
-          Reciprocity Score: 0.4<br></br>
+        <p style={{ fontSize: 18, marginBottom: 24, opacity: 0.9 }}>
+          Example result:
+        </p>
+        <p style={{ fontSize: 12, marginBottom: 24, opacity: 0.9 }}>
+          <strong>Reciprocity Score: 0.4</strong><br></br>
           Measures how balanced emotional, practical, and time investment is between people.<br></br>
-          <br></br>
-          Initiative Balance Index: 0.3<br></br>
+          <strong>Initiative Balance Index: 0.3</strong><br></br>
           Measures asymmetry in who initiates contact.<br></br>
-          <br></br>
-          Emotional Stability Index: 0.2<br></br>
+          <strong>Emotional Stability Index: 0.2</strong><br></br>
           Measures how stable or volatile reactions are.<br></br>
-          <br></br>
-          Boundary Violation Probability: 0.1<br></br>
+          <strong>Boundary Violation Probability: 0.1</strong><br></br>
           Likelihood that your personal boundaries are being crossed or ignored in this dynamic.<br></br>
-          <br></br>
-          Communication Clarity Index: 0.5<br></br>
+          <strong>Communication Clarity Index: 0.5</strong><br></br>
           How clear, direct, and interpretable the other person’s signals and communication actually are.<br></br>
-          <br></br>
-          Pattern Recurrence Probability: 0.6<br></br>
+          <strong>Pattern Recurrence Probability: 0.6</strong><br></br>
           Likelihood that the current dynamic will repeat without change.<br></br>
-          <br></br>
-          Long-Term Stability Forecast: 0.4<br></br>
+          <strong>Long-Term Stability Forecast: 0.4</strong><br></br>
           Probability that the current relationship pattern will remain stable (or degrade) over time.<br></br>
-          <br></br>
-          Summary<br></br>
+          <strong>Summary</strong><br></br>
           The relationship shows an imbalance in initiative, with the user mostly driving the connection forward, and a low reciprocity score indicating uneven 
           emotional and time investment. Emotional stability is low, as the partner's reactions are described as very unpredictable, which may create a volatile 
           emotional climate. Boundaries are almost never crossed, suggesting respect in that area despite the unpredictability. 
