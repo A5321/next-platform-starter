@@ -94,12 +94,10 @@ export default function Home() {
             </li>
           </ul>
         </p>
-      </div>
           
         <p style={{ fontSize: 20, marginBottom: 12, opacity: 0.9 }}>
           Other scenarios:
         </p>
- 
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           <li style={itemStyle}>
             <a href="/test/current-relationship" style={buttonStyle}>
