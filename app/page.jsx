@@ -28,7 +28,7 @@ export default function Home() {
         alignItems: "flex-start",
         justifyContent: "center",
         padding: "20px 16px",
-        backgroundImage: "url('/bg.jpg')",
+        backgroundImage: "url('/bgr.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
