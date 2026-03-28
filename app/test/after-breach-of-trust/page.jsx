@@ -47,7 +47,10 @@ const pageStyle = {
   alignItems: "flex-start",
   justifyContent: "center",
   padding: "20px 16px",
-  backgroundImage: "url('/bgr.jpg')"
+  backgroundImage: "url('/bgr.jpg')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
 };
 
 const cardStyle = {
