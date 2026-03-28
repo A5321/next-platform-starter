@@ -87,7 +87,7 @@ export default function Home() {
           inconsistent and effortful from the user's perspective.
         </p>
           {/* <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2> */}
-        <p style={{ marginBottom: 12 }}>
+        <p style={{ marginBottom: 12, textAlign: "center" }}>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             <li style={itemStyle}>
               <a href="/test/current-relationship" style={buttonStyle}>
