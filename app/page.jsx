@@ -49,10 +49,33 @@ export default function Home() {
         </p>
         <p style={{ marginBottom: 24, opacity: 0.9 }}>
           <strong>Example result:</strong><br></br>
-          Reciprocity Score: 42<br></br>
-          Risk Level: High<br></br>
-          Summary:<br></br>
-          This pattern shows imbalance in effort and unstable signals.
+          Reciprocity Score: 0.4<br></br>
+          Measures how balanced emotional, practical, and time investment is between people.<br></br>
+          <br></br>
+          Initiative Balance Index: 0.3<br></br>
+          Measures asymmetry in who initiates contact.<br></br>
+          <br></br>
+          Emotional Stability Index: 0.2<br></br>
+          Measures how stable or volatile reactions are.<br></br>
+          <br></br>
+          Boundary Violation Probability: 0.1<br></br>
+          Likelihood that your personal boundaries are being crossed or ignored in this dynamic.<br></br>
+          <br></br>
+          Communication Clarity Index: 0.5<br></br>
+          How clear, direct, and interpretable the other person’s signals and communication actually are.<br></br>
+          <br></br>
+          Pattern Recurrence Probability: 0.6<br></br>
+          Likelihood that the current dynamic will repeat without change.<br></br>
+          <br></br>
+          Long-Term Stability Forecast: 0.4<br></br>
+          Probability that the current relationship pattern will remain stable (or degrade) over time.<br></br>
+          <br></br>
+          Summary<br></br>
+          The relationship shows an imbalance in initiative, with the user mostly driving the connection forward, and a low reciprocity score indicating uneven 
+          emotional and time investment. Emotional stability is low, as the partner's reactions are described as very unpredictable, which may create a volatile 
+          emotional climate. Boundaries are almost never crossed, suggesting respect in that area despite the unpredictability. 
+          Given the short duration of 0-3 months and these dynamics, the pattern may recur and the long-term stability appears uncertain, potentially feeling 
+          inconsistent and effortful from the user's perspective.
         </p>
         <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2>
 
