@@ -6,7 +6,7 @@ export default function Home() {
     border: "1px solid rgba(255,255,255,0.3)",
     textDecoration: "none",
     color: "#ffffff",
-    width: 700,
+    width: 800,
     textAlign: "left",
     fontSize: 14,
   };
@@ -44,8 +44,17 @@ export default function Home() {
         <h1 style={{ fontSize: 36, marginBottom: 12 }}>
           See your relationship patterns clearly
         </h1>
-        <p style={{ fontSize: 24, marginBottom: 12, opacity: 0.9 }}>
+        <p style={{ fontSize: 12, marginBottom: 12, opacity: 0.9 }}>
           Answer a few questions and get a structured breakdown
+        </p>
+        <p style={{ marginBottom: 12 }}>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            <li style={itemStyle}>
+              <a href="/test/current-relationship" style={buttonStyle}>
+                Start analysis
+              </a>
+            </li>
+          </ul>
         </p>
         <p style={{ fontSize: 20, marginBottom: 6, opacity: 0.9 }}>
           Example result:
@@ -85,16 +94,7 @@ export default function Home() {
           inconsistent and effortful from the user's perspective.
         </p>
           {/* <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2> */}
-        <p style={{ marginBottom: 24 }}>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            <li style={itemStyle}>
-              <a href="/test/current-relationship" style={buttonStyle}>
-                Start analysis
-              </a>
-            </li>
-          </ul>
-        </p>
-          
+         
         <p style={{ fontSize: 20, marginBottom: 12, opacity: 0.9 }}>
           Other scenarios:
         </p>
