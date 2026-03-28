@@ -6,8 +6,9 @@ export default function Home() {
     border: "1px solid rgba(255,255,255,0.3)",
     textDecoration: "none",
     color: "#ffffff",
-    width: 870,
-    textAlign: "left",
+    width: 600,
+    margin: "0 auto", // ВОТ ЭТО центрирует
+    textAlign: "center",
     fontSize: 14,
   };
 
@@ -29,19 +30,23 @@ export default function Home() {
         alignItems: "flex-start",
         justifyContent: "center",
         padding: "20px 16px",
+        backgroundImage: "url('/bg.jpg')", // сюда свою картинку
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div
         style={{
           maxWidth: 900,
           width: "100%",
-          backgroundColor: "#000000",
+          backgroundColor: "rgba(0,0,0,0.85)",
           borderRadius: 12,
           padding: 24,
           boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
         }}
       >
-        <h1 style={{ fontSize: 36, marginBottom: 6 }}>
+        <h1 style={{ fontSize: 36, marginTop: 0 }}>
           See your relationship patterns clearly
         </h1>
         <p style={{ fontSize: 24, marginBottom: 6, opacity: 0.9 }}>
