@@ -29,7 +29,7 @@ export default function Home() {
         alignItems: "flex-start",
         justifyContent: "center",
         padding: "20px 16px",
-        backgroundImage: "url('/bg.jpg')", // сюда свою картинку
+        backgroundImage: "url('/photo_2026-03-27_11-30-04.jpgg')", // сюда свою картинку
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
