@@ -99,6 +99,19 @@ const cardStyle = {
     <div style={pageStyle}>
       <div style={cardStyle}>
         <header style={{ marginBottom: 24 }}>
+          <a
+            href="/"
+            style={{
+              display: "inline-block",
+              marginBottom: 12,
+              color: "#ffffff",
+              textDecoration: "none",
+              opacity: 0.7,
+              fontSize: 14,
+            }}
+          >
+            ← Back to home
+          </a>
           <h1 style={{ margin: 0, fontSize: 32 }}>Mixed signals / interest gap</h1>
           <p style={{ marginTop: 8, opacity: 0.9 }}>
             When someone is warm and cold at the same time, it is often a pattern,
