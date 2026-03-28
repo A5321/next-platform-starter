@@ -44,11 +44,11 @@ export default function Home() {
         <h1 style={{ fontSize: 36, marginBottom: 12 }}>
           See your relationship patterns clearly
         </h1>
-        <p style={{ marginBottom: 24, opacity: 0.9 }}>
+        <p style={{ fontSize: 24, marginBottom: 24, opacity: 0.9 }}>
           Answer a few questions and get a structured breakdown
         </p>
         <p style={{ marginBottom: 24, opacity: 0.9 }}>
-          Example result:<br></br><br></br>
+          <strong>Example result:</strong><br></br>
           Reciprocity Score: 42<br></br>
           Risk Level: High<br></br>
           Summary:<br></br>
