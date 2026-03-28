@@ -28,10 +28,7 @@ export default function Home() {
         alignItems: "flex-start",
         justifyContent: "center",
         padding: "20px 16px",
-        backgroundImage: "
-          linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-          url('/bgr.jpg')
-          ",
+        backgroundImage: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/bgr.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
