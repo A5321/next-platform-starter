@@ -14,11 +14,17 @@ useEffect(() => {
   const access = params.get("access");
 
   const saved = localStorage.getItem("lastResult_mixed");
+  const paidLocal = localStorage.getItem("paid");
 
   if (saved) {
     setResult(JSON.parse(saved));
   }
 
+  if (paidLocal === "true") {
+    setPaid(true);
+    if (saved) setHasAnalyzed(true);
+  }
+  
   if (access === "one" || access === "sub") {
     setPaid(true);
     if (saved) {
@@ -229,15 +235,30 @@ const cardStyle = {
 
     {/* PAYPAL */}
     <div style={{ marginTop: 12 }}>
-      <form
-        action="https://www.paypal.com/ncp/payment/PERNBENX5NF8L"
-        method="post"
-        target="_blank"
-      >
-        <button type="submit">
-          Pay with PayPal — $11
-        </button>
-      </form>
+<div id="paypal-button-container-P-2YX04328D8518152ANHDXBJI"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AUyYoweDtm6I0lYi7HmyGdi2Q3SMBdOB-A8ZeAnx2oSlV2TnnZg3HsAN2UJeVqA-4SQgMMmwshaSC2Cd&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-2YX04328D8518152ANHDXBJI'
+        });
+      },
+      onApprove: function(data, actions) {
+        // 1. сохраняем факт оплаты
+        localStorage.setItem("paid", "true");
+        // 2. редиректим обратно в твой flow
+        window.location.href = "/test/current-relationship?access=sub";
+      }
+  }).render('#paypal-button-container-P-2YX04328D8518152ANHDXBJI'); // Renders the PayPal button
+</script>
     </div>
 
     {/* РУЧНОЕ ПОДТВЕРЖДЕНИЕ */}
