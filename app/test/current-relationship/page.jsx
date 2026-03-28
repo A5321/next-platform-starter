@@ -74,6 +74,7 @@ const pageStyle = {
   alignItems: "flex-start",
   justifyContent: "center",
   padding: "40px 16px",
+  backgroundImage: "url('/bgr.jpg')",
 };
 
 const cardStyle = {
