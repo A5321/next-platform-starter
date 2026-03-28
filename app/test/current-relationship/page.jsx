@@ -220,7 +220,6 @@ const cardStyle = {
     </p>
 
     {/* ЕСЛИ НЕ ОПЛАЧЕНО → ПОКАЗЫВАЕМ PAYWALL */}
-{/*
 {!paid && (
   <div style={{ marginTop: 16 }}>
     
@@ -268,10 +267,9 @@ const cardStyle = {
     
   </div>
 )}
-      */}
 
     {/* ЕСЛИ ОПЛАЧЕНО → ПОКАЗЫВАЕМ ВСЁ */}
-    {paid && (
+    {true && (
       <>
         <p>
           <strong>
