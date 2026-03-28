@@ -65,7 +65,7 @@ export default function Home() {
           <strong>Boundary Violation Probability: 0.1</strong><br></br>
           Likelihood that your personal boundaries are being crossed or ignored in this dynamic.
         </p>
-        <p style={{ fontSize: 16, marginBottom: 24, opacity: 0.9 }}>
+        <p style={{ fontSize: 16, marginBottom: 12, opacity: 0.9 }}>
           <strong>Communication Clarity Index: 0.5</strong><br></br>
           How clear, direct, and interpretable the other person’s signals and communication actually are.
         </p>
@@ -83,8 +83,21 @@ export default function Home() {
           Given the short duration of 0-3 months and these dynamics, the pattern may recur and the long-term stability appears uncertain, potentially feeling 
           inconsistent and effortful from the user's perspective.
         </p>
-        <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2>
-
+          {/* <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2> */}
+        <p style={{ marginBottom: 24 }}>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            <li style={itemStyle}>
+              <a href="/test/current-relationship" style={buttonStyle}>
+                Start analysis
+              </a>
+            </li>
+          </ul>
+        </p>
+          
+        <p style={{ fontSize: 20, marginBottom: 12, opacity: 0.9 }}>
+          Other scenarios:
+        </p>
+ 
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           <li style={itemStyle}>
             <a href="/test/current-relationship" style={buttonStyle}>
