@@ -47,15 +47,6 @@ export default function Home() {
         <p style={{ fontSize: 24, marginBottom: 12, opacity: 0.9 }}>
           Answer a few questions and get a structured breakdown
         </p>
-        <p style={{ marginBottom: 12 }}>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            <li style={itemStyle}>
-              <a href="/test/current-relationship" style={buttonStyle}>
-                Start analysis
-              </a>
-            </li>
-          </ul>
-        </p>
         <p style={{ fontSize: 20, marginBottom: 6, opacity: 0.9 }}>
           Example result:
         </p>
@@ -94,7 +85,15 @@ export default function Home() {
           inconsistent and effortful from the user's perspective.
         </p>
           {/* <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2> */}
-         
+        <p style={{ marginBottom: 12 }}>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            <li style={itemStyle}>
+              <a href="/test/current-relationship" style={buttonStyle}>
+                Start analysis
+              </a>
+            </li>
+          </ul>
+        </p>        
         <p style={{ fontSize: 20, marginBottom: 12, opacity: 0.9 }}>
           Other scenarios:
         </p>
