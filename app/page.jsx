@@ -93,11 +93,11 @@ export default function Home() {
         <p style={{ marginBottom: 12 }}>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             <li style={itemStyle}>
-              <center>
+              <center><strong>
                 <a href="/test/current-relationship" style={buttonStyle}>
-                  Start analysis
+                  Start analysis>
                 </a>
-              </center>
+              </strong></center>
             </li>
           </ul>
         </p>        
