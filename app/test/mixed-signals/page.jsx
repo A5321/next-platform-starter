@@ -215,29 +215,6 @@ const cardStyle = {
               0 = roughly matched interest, 1 = strong gap in who cares and
               shows up.
             </p>
-            
-    {/* ЕСЛИ НЕ ОПЛАЧЕНО → ПОКАЗЫВАЕМ PAYWALL */}
-
-{!paid && (
-  <div style={{ marginTop: 16 }}>
-    
-    <h3>Unlock full breakdown</h3>
-    <p>$11 one-month access</p>
-
-    {/* ВОТ СЮДА */}
-    <a
-      href="https://nowpayments.io/payment/?iid=4450713191&source=button"
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      <img
-        src="https://nowpayments.io/images/embeds/payment-button-black.svg"
-        alt="Pay"
-      />
-    </a>
-
-  </div>
-)}
 
     {/* ЕСЛИ ОПЛАЧЕНО → ПОКАЗЫВАЕМ ВСЁ */}
     {paid && (
