@@ -220,13 +220,33 @@ const cardStyle = {
     
     <h3>Unlock full breakdown</h3>
 
-    {/* ВОТ СЮДА */}
+    {/* NOWPAYMENTS */}
 <form action="/api/create-payment" method="POST">
   <button type="submit">
   Unlock full analysis — $11/mo (usdt)
   </button>
 </form>
 
+    {/* PAYPAL */}
+    <div style={{ marginTop: 12 }}>
+      <form
+        action="https://www.paypal.com/ncp/payment/PERNBENX5NF8L"
+        method="post"
+        target="_blank"
+      >
+        <button type="submit">
+          Pay with PayPal — $11
+        </button>
+      </form>
+    </div>
+
+    {/* РУЧНОЕ ПОДТВЕРЖДЕНИЕ */}
+    <div style={{ marginTop: 12 }}>
+      <button onClick={() => setPaid(true)}>
+        I paid
+      </button>
+    </div>
+    
   </div>
 )}
 
