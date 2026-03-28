@@ -6,8 +6,7 @@ export default function Home() {
     border: "1px solid rgba(255,255,255,0.3)",
     textDecoration: "none",
     color: "#ffffff",
-    width: 600,
-    margin: "0 auto", // ВОТ ЭТО центрирует
+    width: 800,
     textAlign: "center",
     fontSize: 14,
   };
