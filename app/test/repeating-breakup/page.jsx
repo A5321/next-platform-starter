@@ -44,7 +44,7 @@ const pageStyle = {
   display: "flex",
   alignItems: "flex-start",
   justifyContent: "center",
-  padding: "40px 16px",
+  padding: "20px 16px",
   backgroundImage: "url('/bgr.jpg')",
   backgroundSize: "cover",
   backgroundPosition: "center",
