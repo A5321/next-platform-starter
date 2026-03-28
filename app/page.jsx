@@ -41,7 +41,7 @@ export default function Home() {
           boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
         }}
       >
-        <h1 style={{ fontSize: 36, marginBottom: 12 }}>
+        <h1 style={{ fontSize: 36, marginBottom: 6 }}>
           See your relationship patterns clearly
         </h1>
         <p style={{ fontSize: 24, marginBottom: 6, opacity: 0.9 }}>
