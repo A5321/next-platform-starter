@@ -44,7 +44,7 @@ export default function Home() {
         <h1 style={{ fontSize: 36, marginBottom: 12 }}>
           See your relationship patterns clearly
         </h1>
-        <p style={{ fontSize: 12, marginBottom: 12, opacity: 0.9 }}>
+        <p style={{ fontSize: 24, marginBottom: 12, opacity: 0.9 }}>
           Answer a few questions and get a structured breakdown
         </p>
         <p style={{ marginBottom: 12 }}>
