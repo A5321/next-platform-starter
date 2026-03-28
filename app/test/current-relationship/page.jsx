@@ -219,57 +219,6 @@ const cardStyle = {
       Measures asymmetry in who initiates contact.
     </p>
 
-    {/* ЕСЛИ НЕ ОПЛАЧЕНО → ПОКАЗЫВАЕМ PAYWALL */}
-    {/*
-{!paid && (
-  <div style={{ marginTop: 16 }}>
-    
-    <h3>Unlock full breakdown</h3>
-
-    {/* NOWPAYMENTS */}
-<form action="/api/create-payment" method="POST">
-  <button type="submit">
-  Unlock full analysis — $11/mo (usdt)
-  </button>
-</form>
-
-    {/* PAYPAL */}
-    <div style={{ marginTop: 12 }}>
-      <form
-        action="https://www.paypal.com/ncp/payment/PERNBENX5NF8L"
-        method="post"
-        target="_blank"
-      >
-        <button type="submit">
-          Pay with PayPal — $11
-        </button>
-      </form>
-    </div>
-
-    {/* INSTRUCTION */}
-    <p style={{ marginTop: 8 }}>
-      After payment, return and click below
-    </p>
-
-    {/* MANUAL UNLOCK */}
-    <button onClick={() => {
-      localStorage.setItem("paid", "true");
-      setPaid(true);
-    }}>
-      I paid
-    </button>
-
-    {/* РУЧНОЕ ПОДТВЕРЖДЕНИЕ */}
-    <div style={{ marginTop: 12 }}>
-      <button onClick={() => setPaid(true)}>
-        I paid
-      </button>
-    </div>
-    
-  </div>
-)}
-    */}
-
     {/* ЕСЛИ ОПЛАЧЕНО → ПОКАЗЫВАЕМ ВСЁ */}
     {true && (
       <>
