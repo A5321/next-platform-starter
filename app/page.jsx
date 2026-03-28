@@ -33,7 +33,7 @@ export default function Home() {
     >
       <div
         style={{
-          maxWidth: 800,
+          maxWidth: 900,
           width: "100%",
           backgroundColor: "#000000",
           borderRadius: 12,
