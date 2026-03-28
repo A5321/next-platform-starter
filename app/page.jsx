@@ -42,13 +42,18 @@ export default function Home() {
         }}
       >
         <h1 style={{ fontSize: 36, marginBottom: 12 }}>
-          See your relationship patterns on one screen
+          See your relationship patterns clearly
         </h1>
         <p style={{ marginBottom: 24, opacity: 0.9 }}>
-          Answer a few questions, add your story if you want, and get a
-          structured AI breakdown of how your current dynamic behaves.
+          Answer a few questions and get a structured breakdown
         </p>
-
+        <p style={{ marginBottom: 24, opacity: 0.9 }}>
+          Example result:<br></br><br></br>
+          Reciprocity Score: 42<br></br>
+          Risk Level: High<br></br>
+          Summary:<br></br>
+          This pattern shows imbalance in effort and unstable signals.
+        </p>
         <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2>
 
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
