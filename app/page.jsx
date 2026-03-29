@@ -31,7 +31,7 @@ export default function Home() {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        padding: "20px 36px",
+        padding: "20px 12px",
         backgroundImage: "url('/bgr.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
