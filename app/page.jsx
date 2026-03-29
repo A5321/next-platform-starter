@@ -49,7 +49,7 @@ export default function Home() {
         }}
       >
         <h1 style={{ fontSize: 36, marginTop: 0 }}>
-          See your relationship patterns clearly
+          Your relationship patterns clearly
         </h1>
         <p style={{ fontSize: 24, marginBottom: 6, opacity: 0.9 }}>
           Answer a few questions and get a structured breakdown
