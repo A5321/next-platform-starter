@@ -108,8 +108,8 @@ export default function Home() {
             <a href="/test/you-are-an-option" style={buttonStyle}>
               You are an option checkup
               <div style={descriptionStyle}>
-                Check whether you're a real priority — 
-                or just kept around when it's convenient.
+               See if you're genuinely chosen — or just someone they return to 
+                when nothing better is happening.
               </div>
             </a>
           </li>
