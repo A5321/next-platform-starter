@@ -7,7 +7,7 @@ export default function Home() {
     textDecoration: "none",
     color: "#ffffff",
     width: "100%",
-    maxWidth: 400,
+    maxWidth: 360,
     textAlign: "center",
     display: "block",
     margin: "0 auto",
