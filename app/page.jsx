@@ -103,7 +103,17 @@ export default function Home() {
               </div>
             </a>
           </li>
-
+          
+          <li style={itemStyle}>
+            <a href="/test/you-are-an-option" style={buttonStyle}>
+              You are an option checkup
+              <div style={descriptionStyle}>
+                Check whether you're a real priority — 
+                or just kept around when it's convenient.
+              </div>
+            </a>
+          </li>
+          
           <li style={itemStyle}>
             <a href="/test/mixed-signals" style={buttonStyle}>
               Mixed signals / interest gap
