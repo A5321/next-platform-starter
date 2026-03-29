@@ -36,8 +36,9 @@ export default function Home() {
     >
       <div
         style={{
-          maxWidth: 900,
           width: "100%",
+          maxWidth: 800,
+          margin: "0 8px", // ← ВОТ ЭТО КЛЮЧ
           backgroundColor: "rgba(0,0,0,0.85)",
           borderRadius: 12,
           padding: 24,
