@@ -27,7 +27,7 @@ export default function Home() {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        padding: "20px 16px",
+        padding: "20px 24px",
         backgroundImage: "url('/bgr.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -38,7 +38,6 @@ export default function Home() {
         style={{
           width: "100%",
           maxWidth: 800,
-          margin: "0 8px", // ← ВОТ ЭТО КЛЮЧ
           backgroundColor: "rgba(0,0,0,0.85)",
           borderRadius: 12,
           padding: 24,
