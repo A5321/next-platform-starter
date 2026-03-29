@@ -77,8 +77,6 @@ export default function Home() {
           <strong>Summary</strong><br></br>
           The relationship shows an imbalance in initiative, with the user mostly driving the connection forward, and a low reciprocity score indicating uneven 
           emotional and time investment. Emotional stability is low, as the partner's reactions are described as very unpredictable... 
-          Given the short duration of 0-3 months and these dynamics, the pattern may recur and the long-term stability appears uncertain, potentially feeling 
-          inconsistent and effortful from the user's perspective.
         </p>
           {/* <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2> */}
         <p style={{ marginBottom: 12 }}>
