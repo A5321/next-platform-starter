@@ -496,6 +496,21 @@ ${narrative || "(no narrative provided)"}
 `;
 }
 
+function buildOptionUserContent(answers, narrative) {
+  return `
+Scenario: you_are_an_option
+
+Structured answers (always prefer these over the narrative):
+- How often they initiate contact or make plans: ${answers?.initiation || "not provided"}
+- How consistent their attention and communication are: ${answers?.consistency || "not provided"}
+- How often plans get cancelled, postponed, or stay vague: ${answers?.planning || "not provided"}
+- Whether the user feels like a priority or a backup option: ${answers?.priority || "not provided"}
+
+Narrative (user's own words):
+${narrative || "(no narrative provided)"}
+`;
+}
+
 function buildRepeatingBreakupUserContent(answers, narrative) {
   return `
 Scenario: repeating_breakup_pattern
@@ -702,6 +717,13 @@ function buildPromptAndUserContent(scenario, answers, narrative) {
     return {
       systemPrompt: SILENT_EXIT_SYSTEM_PROMPT,
       userContent: buildSilentExitUserContent(answers, narrative),
+    };
+  }
+
+  if (scenario === "you_are_an_option") {
+    return {
+      systemPrompt: OPTION_SYSTEM_PROMPT,
+      userContent: buildOptionUserContent(answers, narrative),
     };
   }
 
