@@ -45,6 +45,7 @@ export default function Home() {
           backgroundColor: "rgba(0,0,0,0.85)",
           borderRadius: 12,
           padding: 24,
+          boxSizing: "border-box",
           boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
         }}
       >
