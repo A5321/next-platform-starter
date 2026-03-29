@@ -7,7 +7,6 @@ export default function Home() {
     textDecoration: "none",
     color: "#ffffff",
     width: "100%",
-    maxWidth: 700,
     textAlign: "center",
     display: "block",
     margin: "0 auto",
@@ -36,6 +35,7 @@ export default function Home() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        overflowX: "hidden",
       }}
     >
       <div
