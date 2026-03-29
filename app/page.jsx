@@ -27,7 +27,7 @@ export default function Home() {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        padding: "20px 24px",
+        padding: "20px 36px",
         backgroundImage: "url('/bgr.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
