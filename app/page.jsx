@@ -81,21 +81,19 @@ export default function Home() {
         </p>
           {/* <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2> */}
         <p style={{ marginBottom: 12 }}>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            <li style={itemStyle}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <strong>
                 <a href="/test/current-relationship" style={buttonStyle}>
                   START ANALYSIS
                 </a>
               </strong>
-            </li>
-          </ul>
+            </div>
         </p>        
         <p style={{ fontSize: 20, marginBottom: 12, opacity: 0.9 }}>
           Other scenarios:
         </p>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          <li style={itemStyle}>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a href="/test/current-relationship" style={buttonStyle}>
               Current relationship checkup
               <div style={descriptionStyle}>
@@ -103,9 +101,9 @@ export default function Home() {
                 through isolated episodes.
               </div>
             </a>
-          </li>
+          </div>
           
-          <li style={itemStyle}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a href="/test/you-are-an-option" style={buttonStyle}>
               You are an option checkup
               <div style={descriptionStyle}>
@@ -113,9 +111,9 @@ export default function Home() {
                 when nothing better is happening.
               </div>
             </a>
-          </li>
+          </div>
           
-          <li style={itemStyle}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a href="/test/mixed-signals" style={buttonStyle}>
               Mixed signals / interest gap
               <div style={descriptionStyle}>
@@ -123,9 +121,9 @@ export default function Home() {
                 “busy right now”.
               </div>
             </a>
-          </li>
+          </div>
 
-          <li style={itemStyle}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a href="/test/repeating-breakup" style={buttonStyle}>
               Repeating breakup pattern
               <div style={descriptionStyle}>
@@ -133,9 +131,9 @@ export default function Home() {
                 luck or “wrong people”.
               </div>
             </a>
-          </li>
+          </div>
 
-          <li style={itemStyle}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a href="/test/hyper-controlling-parent" style={buttonStyle}>
               Hyper‑controlling parent pattern
               <div style={descriptionStyle}>
@@ -143,9 +141,9 @@ export default function Home() {
                 humiliation dressed up as “love”.
               </div>
             </a>
-          </li>
+          </div>
 
-          <li style={itemStyle}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a href="/test/third-person-grey-zone" style={buttonStyle}>
               Third person in the grey zone
               <div style={descriptionStyle}>
@@ -153,9 +151,9 @@ export default function Home() {
                 “just a friend” or a secret chat.
               </div>
             </a>
-          </li>
+          </div>
 
-          <li style={itemStyle}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a href="/test/trust-their-signals" style={buttonStyle}>
               Can you trust their signals?
               <div style={descriptionStyle}>
@@ -163,9 +161,9 @@ export default function Home() {
                 noise you’re decoding.
               </div>
             </a>
-          </li>
+          </div>
 
-          <li style={itemStyle}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a href="/test/after-breach-of-trust" style={buttonStyle}>
               After a serious breach of trust
               <div style={descriptionStyle}>
@@ -173,9 +171,9 @@ export default function Home() {
                 frozen around the wound.
               </div>
             </a>
-          </li>
+          </div>
 
-          <li style={itemStyle}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a href="/test/silent-exit" style={buttonStyle}>
               Silent exit from the relationship
               <div style={descriptionStyle}>
@@ -183,8 +181,8 @@ export default function Home() {
                 is already quietly checking out.
               </div>
             </a>
-          </li>
-        </ul>
+          </div>
+
         <p
           style={{
             marginTop: 24,
