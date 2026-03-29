@@ -6,7 +6,11 @@ export default function Home() {
     border: "1px solid rgba(255,255,255,0.3)",
     textDecoration: "none",
     color: "#ffffff",
-    width: 870,
+    width: "100%",
+    maxWidth: 400,
+    textAlign: "center",
+    display: "block",
+    margin: "0 auto",
     fontSize: 14,
   };
 
@@ -93,11 +97,11 @@ export default function Home() {
         <p style={{ marginBottom: 12 }}>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             <li style={itemStyle}>
-              <center><strong>
+              <strong>
                 <a href="/test/current-relationship" style={buttonStyle}>
                   START ANALYSIS
                 </a>
-              </strong></center>
+              </strong>
             </li>
           </ul>
         </p>        
