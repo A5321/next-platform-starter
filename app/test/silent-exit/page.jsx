@@ -295,20 +295,6 @@ const cardStyle = {
 
     <h3 style={sectionTitleStyle}>Summary</h3>
     <p>{result.summary}</p>
-
-    {/* PAYPAL */}
-    <div style={{ marginTop: 12 }}>
-      <form
-        action="https://www.paypal.com/ncp/payment/PERNBENX5NF8L"
-        method="post"
-        target="_blank"
-      >
-        <button type="submit">
-          Pay with PayPal — $11
-        </button>
-      </form>
-    </div>
-    
   </section>
 )}
 
