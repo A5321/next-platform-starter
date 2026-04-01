@@ -24,7 +24,7 @@ const narrative = formData.get("narrative"); // ← вот этого не хв�
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        scenario: "silent_exit",
+        scenario: "silent_exit-1",
         answers: {
   daily_presence,
   emotional_engagement,
