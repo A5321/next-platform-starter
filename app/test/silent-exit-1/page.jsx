@@ -236,6 +236,13 @@ const cardStyle = {
           </div>
         </form>
 
+    {/* NOWPAYMENTS */}
+    <p>
+      <a href="https://nowpayments.io/payment/?iid=5667972625">
+        https://nowpayments.io/payment/?iid=5667972625
+      </a>
+    </p>
+
 {result && result.indices && (
   <section style={{ marginTop: 32, lineHeight: 1.5 }}>
     <h2 style={sectionTitleStyle}>
@@ -291,13 +298,6 @@ const cardStyle = {
       Estimates how likely it is that things will end without a clear
       closure talk. 0 = very unlikely, 1 = high risk of a quiet or abrupt
       exit.
-    </p>
-
-    {/* NOWPAYMENTS */}
-    <p>
-      <a href="https://nowpayments.io/payment/?iid=5667972625">
-        https://nowpayments.io/payment/?iid=5667972625
-      </a>
     </p>
 
     <h3 style={sectionTitleStyle}>Summary</h3>
