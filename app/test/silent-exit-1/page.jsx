@@ -293,18 +293,12 @@ const cardStyle = {
       exit.
     </p>
 
-    {/* PAYPAL */}
-    <div style={{ marginTop: 12 }}>
-      <form
-        action="https://www.paypal.com/ncp/payment/PERNBENX5NF8L"
-        method="post"
-        target="_blank"
-      >
-        <button type="submit">
-          Pay with PayPal — $11
-        </button>
-      </form>
-    </div>
+    {/* NOWPAYMENTS */}
+    <p>
+      <a href="https://nowpayments.io/payment/?iid=5667972625">
+        https://nowpayments.io/payment/?iid=5667972625
+      </a>
+    </p>
 
     <h3 style={sectionTitleStyle}>Summary</h3>
     <p>{result.summary}</p>
