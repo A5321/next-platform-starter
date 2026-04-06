@@ -5,6 +5,7 @@ import { useState } from "react";
 export default function SilentExitTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [paid, setPaid] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -236,13 +237,6 @@ const cardStyle = {
           </div>
         </form>
 
-    {/* NOWPAYMENTS */}
-    <p>
-      <a href="https://nowpayments.io/payment/?iid=5667972625">
-        https://nowpayments.io/payment/?iid=5667972625
-      </a>
-    </p>
-
 {result && result.indices && (
   <section style={{ marginTop: 32, lineHeight: 1.5 }}>
     <h2 style={sectionTitleStyle}>
@@ -302,6 +296,99 @@ const cardStyle = {
 
     <h3 style={sectionTitleStyle}>Summary</h3>
     <p>{result.summary}</p>
+
+    {/* WHAT TO DO NEXT */}
+    <h3 style={sectionTitleStyle}>What to do next</h3>
+
+    {/* PREVIEW */}
+    <div style={{ opacity: 0.8, marginBottom: 12 }}>
+      <p>• reduce availability immediately</p>
+      <p>• stop reacting to their timing</p>
+      <p>• set one clear boundary</p>
+    </div>
+
+    {/* ЕСЛИ НЕ ОПЛАЧЕНО */}
+    {!paid && (
+      <div style={{ marginTop: 16 }}>
+        <p style={{ marginBottom: 12, fontWeight: 600 }}>
+          Get the full action plan — $3
+        </p>
+
+        <a
+          href="https://nowpayments.io/payment/?iid=5667972625"
+          target="_blank"
+          style={{
+            display: "inline-block",
+            padding: "10px 18px",
+            borderRadius: 999,
+            backgroundColor: "#FFD140",
+            color: "#000",
+            fontWeight: 600,
+            textDecoration: "none",
+          }}
+        >
+          Unlock protocol (crypto)
+        </a>
+      </div>
+    )}
+
+    {/* DEBUG BUTTON — ТОЛЬКО ДЛЯ ТЕСТА */}
+    <button
+      onClick={() => setPaid(true)}
+      style={{
+        marginTop: 12,
+        padding: "6px 12px",
+        borderRadius: 6,
+        border: "1px solid #555",
+        background: "transparent",
+        color: "#aaa",
+        cursor: "pointer",
+        fontSize: 12,
+      }}
+    >
+      [dev] simulate payment
+    </button>
+
+    <button
+      onClick={() => setPaid(false)}
+      style={{
+        marginTop: 8,
+        marginLeft: 8,
+        padding: "6px 10px",
+        borderRadius: 8,
+        border: "none",
+        backgroundColor: "#222",
+        color: "#aaa",
+        cursor: "pointer",
+      }}
+    >
+      Reset payment
+    </button>
+
+    {/* ЕСЛИ ОПЛАЧЕНО */}
+    {paid && (
+      <div style={{ marginTop: 16, lineHeight: 1.6 }}>
+        <p><strong>You are not being chosen.</strong></p>
+
+        <p><strong>1. Stabilize</strong><br/>
+        inhale 4 → hold 2 → exhale 6 (5 cycles)</p>
+
+        <p><strong>2. Cut availability</strong><br/>
+        no instant replies, no emotional labor</p>
+
+        <p><strong>3. Reality check</strong><br/>
+        watch behavior, ignore words</p>
+
+        <p><strong>4. Boundary</strong><br/>
+        "I’m not interested in inconsistency"</p>
+
+        <p><strong>5. Observe</strong><br/>
+        no chasing, no fixing</p>
+
+        <p><strong>6. Exit if no change</strong></p>
+      </div>
+    )}
+    
   </section>
 )}
 
