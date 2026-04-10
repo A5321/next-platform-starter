@@ -306,10 +306,10 @@ export default function MetaAwarenessArticlePage() {
               The “arbiter” is your meta-awareness, not a new separate self. Default-mode processes generate a large part of your spontaneous thoughts. Practice does not try to shut that down completely; it trains the part of you that can see the stream clearly enough to decide what to feed and what to let go.
             </p>
 
-            <div style={relatedSectionStyle}>
-              <div style={relatedTitleStyle}>More in Inner Silence</div>
+            {/* <div style={relatedSectionStyle}> */}
+            {/* <div style={relatedTitleStyle}>More in Inner Silence</div> */}
 
-            </div>
+            {/* </div> */}
           </article>
         </div>
       </div>
