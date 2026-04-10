@@ -100,6 +100,7 @@ const filterBarStyle = {
 };
 
 const activeFilterStyle = {
+  display: "inline-block",
   padding: "10px 14px",
   borderRadius: "999px",
   background: "#10131a",
@@ -107,9 +108,11 @@ const activeFilterStyle = {
   fontSize: "13px",
   fontWeight: 700,
   border: "1px solid #10131a",
+  textDecoration: "none",
 };
 
 const filterStyle = {
+  display: "inline-block",
   padding: "10px 14px",
   borderRadius: "999px",
   background: "#ffffff",
@@ -117,6 +120,7 @@ const filterStyle = {
   fontSize: "13px",
   fontWeight: 600,
   border: "1px solid rgba(16,19,26,0.12)",
+  textDecoration: "none",
 };
 
 const gridStyle = {
@@ -189,8 +193,21 @@ const readMoreStyle = {
   fontWeight: 700,
 };
 
-export default function ArticlesPage() {
-  const selectedCategory = "all";
+const emptyStateStyle = {
+  background: "#ffffff",
+  border: "1px solid rgba(16,19,26,0.08)",
+  borderRadius: "20px",
+  padding: "28px",
+  color: "#465065",
+  boxShadow: "0 14px 40px rgba(16,19,26,0.05)",
+};
+
+export default function ArticlesPage({ searchParams }) {
+  const rawCategory = searchParams?.category;
+  const selectedCategory =
+    typeof rawCategory === "string" && categories.includes(rawCategory)
+      ? rawCategory
+      : "all";
 
   const visibleArticles =
     selectedCategory === "all"
@@ -225,45 +242,62 @@ export default function ArticlesPage() {
         </section>
 
         <div style={filterBarStyle}>
-          {categories.map((category) => (
-            <span
-              key={category}
-              style={category === "all" ? activeFilterStyle : filterStyle}
-            >
-              {category === "all" ? "All" : categoryLabels[category]}
-            </span>
-          ))}
+          {categories.map((category) => {
+            const isActive = category === selectedCategory;
+            const href =
+              category === "all"
+                ? "/articles"
+                : `/articles?category=${category}`;
+
+            return (
+              <Link
+                key={category}
+                href={href}
+                style={isActive ? activeFilterStyle : filterStyle}
+              >
+                {category === "all" ? "All" : categoryLabels[category]}
+              </Link>
+            );
+          })}
         </div>
 
-        <section style={gridStyle}>
-          {visibleArticles.map((article) => (
-            <article key={article.slug} style={cardStyle}>
-              <div style={categoryStyle}>{categoryLabels[article.category]}</div>
+        {visibleArticles.length > 0 ? (
+          <section style={gridStyle}>
+            {visibleArticles.map((article) => (
+              <article key={article.slug} style={cardStyle}>
+                <div style={categoryStyle}>
+                  {categoryLabels[article.category]}
+                </div>
 
-              <Link href={`/articles/${article.slug}`} style={titleStyle}>
-                {article.title}
-              </Link>
+                <Link href={`/articles/${article.slug}`} style={titleStyle}>
+                  {article.title}
+                </Link>
 
-              <div style={metaStyle}>
-                {article.contentType} · {article.readTime}
-              </div>
+                <div style={metaStyle}>
+                  {article.contentType} · {article.readTime}
+                </div>
 
-              <p style={excerptStyle}>{article.excerpt}</p>
+                <p style={excerptStyle}>{article.excerpt}</p>
 
-              <div style={tagsStyle}>
-                {article.tags.map((tag) => (
-                  <span key={tag} style={tagStyle}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
+                <div style={tagsStyle}>
+                  {article.tags.map((tag) => (
+                    <span key={tag} style={tagStyle}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
 
-              <Link href={`/articles/${article.slug}`} style={readMoreStyle}>
-                Read article
-              </Link>
-            </article>
-          ))}
-        </section>
+                <Link href={`/articles/${article.slug}`} style={readMoreStyle}>
+                  Read article
+                </Link>
+              </article>
+            ))}
+          </section>
+        ) : (
+          <div style={emptyStateStyle}>
+            No articles in this category yet.
+          </div>
+        )}
       </div>
     </main>
   );
