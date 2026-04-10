@@ -70,7 +70,7 @@ const articleStyle = {
   padding: "32px",
   boxShadow: "0 14px 40px rgba(16,19,26,0.05)",
   width: "100%",
-  maxWidth: "100%",
+  maxWidth: "960px",
 };
 
 const metaStyle = {
