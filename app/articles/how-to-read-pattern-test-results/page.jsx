@@ -181,12 +181,19 @@ export default function ReadResultsArticlePage() {
 
         <div style={articleWrapStyle}>
           <article style={articleStyle}>
-            <div style={metaStyle}>Guides · April 10, 2026 · 5 min read</div>
+            <div style={categoryStyle}>Patterns</div>
+            <div style={metaStyle}>guide · April 10, 2026 · 5 min read</div>
 
             <h1 style={titleStyle}>How to read pattern test results without overreacting</h1>
             <p style={descriptionStyle}>
               A practical method for interpreting pattern scores without turning one result into a final verdict.
             </p>
+
+            <div style={tagsStyle}>
+              <span style={tagStyle}>interpretation</span>
+              <span style={tagStyle}>self-observation</span>
+              <span style={tagStyle}>relationship-dynamics</span>
+            </div>
 
             <p style={leadStyle}>
               Pattern test results are most useful when they help you organize perception.
@@ -199,6 +206,15 @@ export default function ReadResultsArticlePage() {
               If a score feels sharp or confronting, resist the urge to convert it instantly into a conclusion.
               The first job of a result is not to tell you what to do, but to tell you what to examine more carefully.
             </p>
+            <div style={relatedSectionStyle}>
+              <div style={relatedTitleStyle}>More in Patterns</div>
+              <Link
+                href="/articles/what-reciprocity-imbalance-looks-like"
+                style={relatedLinkStyle}
+              >
+                What reciprocity imbalance actually looks like
+              </Link>
+            </div>
 
             <h2 style={h2Style}>Ask three follow-up questions</h2>
             <p style={paragraphStyle}>
