@@ -202,8 +202,9 @@ const emptyStateStyle = {
   boxShadow: "0 14px 40px rgba(16,19,26,0.05)",
 };
 
-export default function ArticlesPage({ searchParams }) {
-  const rawCategory = searchParams?.category;
+export default async function ArticlesPage({ searchParams }) {
+  const resolvedSearchParams = await searchParams;
+  const rawCategory = resolvedSearchParams?.category;
   const selectedCategory =
     typeof rawCategory === "string" && categories.includes(rawCategory)
       ? rawCategory
