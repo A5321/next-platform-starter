@@ -1,23 +1,14 @@
 // app/articles/page.jsx
 import Link from "next/link";
+import { articles, categoryLabels } from "./articlesData";
 
-const articles = [
-  {
-    href: "/articles/what-reciprocity-imbalance-looks-like",
-    category: "Interpretation",
-    title: "What reciprocity imbalance actually looks like",
-    excerpt:
-      "How to separate a temporary asymmetry from a relationship that is structurally one-sided.",
-    readTime: "6 min read",
-  },
-  {
-    href: "/articles/how-to-read-pattern-test-results",
-    category: "Guides",
-    title: "How to read pattern test results without overreacting",
-    excerpt:
-      "A practical method for interpreting pattern scores without turning one result into a final verdict.",
-    readTime: "5 min read",
-  },
+const categories = [
+  "all",
+  "neurophysiology",
+  "biohacking",
+  "lucid-dreaming",
+  "inner-silence",
+  "patterns",
 ];
 
 const pageStyle = {
@@ -76,7 +67,7 @@ const activeNavLinkStyle = {
 };
 
 const heroStyle = {
-  marginBottom: "32px",
+  marginBottom: "28px",
 };
 
 const eyebrowStyle = {
@@ -101,6 +92,33 @@ const leadStyle = {
   maxWidth: "44rem",
 };
 
+const filterBarStyle = {
+  display: "flex",
+  gap: "10px",
+  flexWrap: "wrap",
+  margin: "28px 0 36px",
+};
+
+const activeFilterStyle = {
+  padding: "10px 14px",
+  borderRadius: "999px",
+  background: "#10131a",
+  color: "#ffffff",
+  fontSize: "13px",
+  fontWeight: 700,
+  border: "1px solid #10131a",
+};
+
+const filterStyle = {
+  padding: "10px 14px",
+  borderRadius: "999px",
+  background: "#ffffff",
+  color: "#10131a",
+  fontSize: "13px",
+  fontWeight: 600,
+  border: "1px solid rgba(16,19,26,0.12)",
+};
+
 const gridStyle = {
   display: "grid",
   gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
@@ -115,12 +133,13 @@ const cardStyle = {
   boxShadow: "0 14px 40px rgba(16,19,26,0.05)",
 };
 
-const metaStyle = {
+const categoryStyle = {
+  display: "inline-block",
   fontSize: "12px",
   letterSpacing: "0.08em",
   textTransform: "uppercase",
-  color: "#667085",
-  marginBottom: "10px",
+  color: "#4e5fce",
+  marginBottom: "12px",
 };
 
 const titleStyle = {
@@ -140,6 +159,28 @@ const excerptStyle = {
   margin: "0 0 16px",
 };
 
+const metaStyle = {
+  fontSize: "13px",
+  color: "#667085",
+  marginBottom: "12px",
+};
+
+const tagsStyle = {
+  display: "flex",
+  gap: "8px",
+  flexWrap: "wrap",
+  marginBottom: "16px",
+};
+
+const tagStyle = {
+  display: "inline-block",
+  fontSize: "12px",
+  color: "#344054",
+  background: "#f2f4f7",
+  borderRadius: "999px",
+  padding: "6px 10px",
+};
+
 const readMoreStyle = {
   display: "inline-block",
   color: "#10131a",
@@ -149,6 +190,13 @@ const readMoreStyle = {
 };
 
 export default function ArticlesPage() {
+  const selectedCategory = "all";
+
+  const visibleArticles =
+    selectedCategory === "all"
+      ? articles
+      : articles.filter((article) => article.category === selectedCategory);
+
   return (
     <main style={pageStyle}>
       <div style={containerStyle}>
@@ -169,24 +217,48 @@ export default function ArticlesPage() {
 
         <section style={heroStyle}>
           <div style={eyebrowStyle}>Articles</div>
-          <h1 style={h1Style}>Context for the patterns behind the scores</h1>
+          <h1 style={h1Style}>Browse by topic, not just by date</h1>
           <p style={leadStyle}>
-            Read practical articles that explain reciprocity, mixed signals, instability, trust,
-            and other recurring dynamics that show up in pattern-based tests.
+            The article library is organized by core themes so readers can move
+            between broad domains and specific recurring ideas.
           </p>
         </section>
 
+        <div style={filterBarStyle}>
+          {categories.map((category) => (
+            <span
+              key={category}
+              style={category === "all" ? activeFilterStyle : filterStyle}
+            >
+              {category === "all" ? "All" : categoryLabels[category]}
+            </span>
+          ))}
+        </div>
+
         <section style={gridStyle}>
-          {articles.map((article) => (
-            <article key={article.href} style={cardStyle}>
-              <div style={metaStyle}>
-                {article.category} · {article.readTime}
-              </div>
-              <Link href={article.href} style={titleStyle}>
+          {visibleArticles.map((article) => (
+            <article key={article.slug} style={cardStyle}>
+              <div style={categoryStyle}>{categoryLabels[article.category]}</div>
+
+              <Link href={`/articles/${article.slug}`} style={titleStyle}>
                 {article.title}
               </Link>
+
+              <div style={metaStyle}>
+                {article.contentType} · {article.readTime}
+              </div>
+
               <p style={excerptStyle}>{article.excerpt}</p>
-              <Link href={article.href} style={readMoreStyle}>
+
+              <div style={tagsStyle}>
+                {article.tags.map((tag) => (
+                  <span key={tag} style={tagStyle}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <Link href={`/articles/${article.slug}`} style={readMoreStyle}>
                 Read article
               </Link>
             </article>
