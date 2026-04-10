@@ -1,200 +1,312 @@
-export default function Home() {
-  const buttonStyle = {
-    display: "inline-block",
-    padding: "10px 16px",
-    borderRadius: 999,
-    border: "1px solid rgba(255,255,255,0.3)",
-    textDecoration: "none",
-    color: "#ffffff",
-    width: "100%",
-    textAlign: "center",
-    display: "block",
-    margin: "0 auto",
-    fontSize: 14,
-  };
+// app/page.jsx
+import Link from "next/link";
 
-  const descriptionStyle = {
-    marginTop: 4,
-    fontSize: 12,
-    opacity: 0.8,
-  };
+const tests = [
+  {
+    href: "/test/current-relationship",
+    title: "Current relationship checkup",
+    description:
+      "See how your current dynamic behaves on a structural level, not through isolated episodes.",
+  },
+  {
+    href: "/test/you-are-an-option",
+    title: "You are an option checkup",
+    description:
+      "See if you're genuinely chosen or just someone they return to when nothing better is happening.",
+  },
+  {
+    href: "/test/mixed-signals",
+    title: "Mixed signals interest gap",
+    description:
+      "Map how consistent their interest really is, beyond words and busy right now.",
+  },
+];
 
-  const itemStyle = {
-    marginBottom: 10,
-  };
+const articles = [
+  {
+    href: "/articles/what-reciprocity-imbalance-looks-like",
+    title: "What reciprocity imbalance actually looks like",
+    description:
+      "How to tell the difference between a temporary asymmetry and a deeply one-sided relationship pattern.",
+  },
+  {
+    href: "/articles/how-to-read-pattern-test-results",
+    title: "How to read pattern test results without overreacting",
+    description:
+      "A practical guide to interpreting scores without turning one result into a final verdict.",
+  },
+];
 
+const pageStyle = {
+  minHeight: "100vh",
+  background:
+    "radial-gradient(circle at top, rgba(77, 113, 255, 0.15), transparent 28%), #0f1115",
+  color: "#f5f7fb",
+};
+
+const containerStyle = {
+  width: "100%",
+  maxWidth: "1120px",
+  margin: "0 auto",
+  padding: "24px 16px 64px",
+  boxSizing: "border-box",
+};
+
+const navStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "16px",
+  marginBottom: "56px",
+};
+
+const brandStyle = {
+  fontSize: "18px",
+  fontWeight: 700,
+  letterSpacing: "0.08em",
+  textDecoration: "none",
+  color: "#ffffff",
+};
+
+const navLinksStyle = {
+  display: "flex",
+  gap: "12px",
+  flexWrap: "wrap",
+};
+
+const navLinkStyle = {
+  color: "#cfd6e4",
+  textDecoration: "none",
+  fontSize: "14px",
+  padding: "10px 14px",
+  border: "1px solid rgba(255,255,255,0.12)",
+  borderRadius: "999px",
+};
+
+const heroStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+  gap: "24px",
+  alignItems: "stretch",
+  marginBottom: "32px",
+};
+
+const heroCardStyle = {
+  background: "rgba(255,255,255,0.04)",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: "20px",
+  padding: "28px",
+  boxShadow: "0 18px 50px rgba(0,0,0,0.22)",
+};
+
+const eyebrowStyle = {
+  fontSize: "12px",
+  letterSpacing: "0.14em",
+  textTransform: "uppercase",
+  color: "#9db0ff",
+  marginBottom: "14px",
+};
+
+const h1Style = {
+  fontSize: "clamp(38px, 7vw, 72px)",
+  lineHeight: 1,
+  margin: "0 0 18px",
+};
+
+const leadStyle = {
+  fontSize: "18px",
+  lineHeight: 1.6,
+  color: "#d5dbea",
+  margin: 0,
+  maxWidth: "38ch",
+};
+
+const sectionGridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+  gap: "24px",
+  marginTop: "32px",
+};
+
+const sectionCardStyle = {
+  background: "rgba(255,255,255,0.04)",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: "20px",
+  padding: "28px",
+};
+
+const sectionTitleStyle = {
+  fontSize: "28px",
+  margin: "0 0 12px",
+};
+
+const sectionTextStyle = {
+  fontSize: "15px",
+  lineHeight: 1.7,
+  color: "#cfd6e4",
+  marginBottom: "18px",
+};
+
+const listStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
+};
+
+const itemStyle = {
+  padding: "14px 16px",
+  borderRadius: "16px",
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(255,255,255,0.06)",
+};
+
+const itemTitleStyle = {
+  display: "block",
+  color: "#ffffff",
+  textDecoration: "none",
+  fontSize: "16px",
+  fontWeight: 600,
+  marginBottom: "6px",
+};
+
+const itemDescriptionStyle = {
+  fontSize: "14px",
+  lineHeight: 1.6,
+  color: "#b6c0d4",
+  margin: 0,
+};
+
+const ctaRowStyle = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "12px",
+  marginTop: "24px",
+};
+
+const primaryButtonStyle = {
+  display: "inline-block",
+  padding: "12px 18px",
+  borderRadius: "999px",
+  background: "#ffffff",
+  color: "#0f1115",
+  textDecoration: "none",
+  fontSize: "14px",
+  fontWeight: 700,
+};
+
+const secondaryButtonStyle = {
+  display: "inline-block",
+  padding: "12px 18px",
+  borderRadius: "999px",
+  border: "1px solid rgba(255,255,255,0.12)",
+  color: "#ffffff",
+  textDecoration: "none",
+  fontSize: "14px",
+  fontWeight: 600,
+};
+
+export default function HomePage() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "center",
-        padding: "20px 12px",
-        backgroundImage: "url('/bgr.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        overflowX: "hidden",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 800,
-          backgroundColor: "rgba(0,0,0,0.85)",
-          borderRadius: 12,
-          padding: 24,
-          boxSizing: "border-box",
-          boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
-        }}
-      >
-        <h1 style={{ fontSize: 36, marginTop: 0 }}>
-          Your relationship patterns clearly
-        </h1>
-        <p style={{ fontSize: 24, marginBottom: 6, opacity: 0.9 }}>
-          Answer a few questions and get a structured breakdown
-        </p>
-        <p style={{ fontSize: 20, opacity: 0.9 }}>
-          Example result:
-        </p>
-        <p style={{ fontSize: 14, opacity: 0.9 }}>
-          <strong>Reciprocity Score: 0.4</strong><br></br>
-          Measures how balanced emotional, practical, and time investment is between people.
-        </p>
-        <p style={{ fontSize: 14, opacity: 0.9 }}>
-          <strong>Initiative Balance Index: 0.3</strong><br></br>
-          Measures asymmetry in who initiates contact.
-        </p>
-        <p style={{ fontSize: 14, opacity: 0.9 }}>
-          <strong>Emotional Stability Index: 0.2</strong><br></br>
-          Measures how stable or volatile reactions are.
-        </p>
-        <p style={{ fontSize: 14, opacity: 0.9 }}>
-          <strong>Long-Term Stability Forecast: 0.4</strong><br></br>
-          Probability that the current relationship pattern will remain stable (or degrade) over time.<br></br>
-        </p>
-        <p style={{ fontSize: 14, opacity: 0.9 }}>
-          <strong>Summary</strong><br></br>
-          The relationship shows an imbalance in initiative, with the user mostly driving the connection forward, and a low reciprocity score indicating uneven 
-          emotional and time investment. Emotional stability is low, as the partner's reactions are described as very unpredictable... 
-        </p>
-          {/* <h2 style={{ fontSize: 22, marginBottom: 12 }}>Start a free checkup:</h2> */}
-        <p style={{ marginBottom: 12 }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <strong>
-                <a href="/test/current-relationship" style={buttonStyle}>
-                  START ANALYSIS
-                </a>
-              </strong>
+    <main style={pageStyle}>
+      <div style={containerStyle}>
+        <header style={navStyle}>
+          <Link href="/" style={brandStyle}>
+            PATTERN INDEX
+          </Link>
+
+          <nav style={navLinksStyle}>
+            <Link href="/tests" style={navLinkStyle}>
+              TESTS
+            </Link>
+            <Link href="/articles" style={navLinkStyle}>
+              ARTICLES
+            </Link>
+          </nav>
+        </header>
+
+        <section style={heroStyle}>
+          <div style={heroCardStyle}>
+            <div style={eyebrowStyle}>Behavioral pattern tests</div>
+            <h1 style={h1Style}>Understand the pattern, not just the episode.</h1>
+            <p style={leadStyle}>
+              Pattern Index combines structured tests and practical articles to
+              help people read relationship dynamics with more clarity and less noise.
+            </p>
+
+            <div style={ctaRowStyle}>
+              <Link href="/tests" style={primaryButtonStyle}>
+                Explore tests
+              </Link>
+              <Link href="/articles" style={secondaryButtonStyle}>
+                Read articles
+              </Link>
             </div>
-        </p>        
-        <p style={{ fontSize: 20, marginBottom: 12, opacity: 0.9 }}>
-          Other scenarios:
-        </p>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/test/current-relationship" style={buttonStyle}>
-              Current relationship checkup
-              <div style={descriptionStyle}>
-                See how your current dynamic behaves on a structural level, not
-                through isolated episodes.
-              </div>
-            </a>
-          </div>
-          
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/test/you-are-an-option" style={buttonStyle}>
-              You are an option checkup
-              <div style={descriptionStyle}>
-               See if you're genuinely chosen — or just someone they return to 
-                when nothing better is happening.
-              </div>
-            </a>
-          </div>
-          
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/test/mixed-signals" style={buttonStyle}>
-              Mixed signals / interest gap
-              <div style={descriptionStyle}>
-                Map how consistent their interest really is, beyond words and
-                “busy right now”.
-              </div>
-            </a>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/test/repeating-breakup" style={buttonStyle}>
-              Repeating breakup pattern
-              <div style={descriptionStyle}>
-                Look at your breakups as a repeating structure, not just bad
-                luck or “wrong people”.
-              </div>
-            </a>
+          <div style={heroCardStyle}>
+            <div style={eyebrowStyle}>What you can do here</div>
+            <p style={{ ...sectionTextStyle, marginBottom: "14px" }}>
+              Use TESTS when you need a fast structured checkup.
+            </p>
+            <p style={{ ...sectionTextStyle, marginBottom: "14px" }}>
+              Use ARTICLES when you want context, interpretation, and examples.
+            </p>
+            <p style={{ ...sectionTextStyle, marginBottom: 0 }}>
+              Both sections should work together: articles explain patterns, and
+              tests help readers check whether those patterns show up in their own situation.
+            </p>
+          </div>
+        </section>
+
+        <section style={sectionGridStyle}>
+          <div style={sectionCardStyle}>
+            <h2 style={sectionTitleStyle}>TESTS</h2>
+            <p style={sectionTextStyle}>
+              Structured checkups for recurring relationship and family dynamics.
+            </p>
+
+            <div style={listStyle}>
+              {tests.map((item) => (
+                <div key={item.href} style={itemStyle}>
+                  <Link href={item.href} style={itemTitleStyle}>
+                    {item.title}
+                  </Link>
+                  <p style={itemDescriptionStyle}>{item.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div style={ctaRowStyle}>
+              <Link href="/tests" style={primaryButtonStyle}>
+                Open all tests
+              </Link>
+            </div>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/test/hyper-controlling-parent" style={buttonStyle}>
-              Hyper‑controlling parent pattern
-              <div style={descriptionStyle}>
-                Check if what you grew up with was care — or control, guilt, and
-                humiliation dressed up as “love”.
-              </div>
-            </a>
-          </div>
+          <div style={sectionCardStyle}>
+            <h2 style={sectionTitleStyle}>ARTICLES</h2>
+            <p style={sectionTextStyle}>
+              Editorial guides that explain the meaning behind the scores and patterns.
+            </p>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/test/third-person-grey-zone" style={buttonStyle}>
-              Third person in the grey zone
-              <div style={descriptionStyle}>
-                See how much risk of a triangle you’re living with through
-                “just a friend” or a secret chat.
-              </div>
-            </a>
-          </div>
+            <div style={listStyle}>
+              {articles.map((item) => (
+                <div key={item.href} style={itemStyle}>
+                  <Link href={item.href} style={itemTitleStyle}>
+                    {item.title}
+                  </Link>
+                  <p style={itemDescriptionStyle}>{item.description}</p>
+                </div>
+              ))}
+            </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/test/trust-their-signals" style={buttonStyle}>
-              Can you trust their signals?
-              <div style={descriptionStyle}>
-                Test how readable this person really is: clear pattern or just
-                noise you’re decoding.
-              </div>
-            </a>
+            <div style={ctaRowStyle}>
+              <Link href="/articles" style={primaryButtonStyle}>
+                Open all articles
+              </Link>
+            </div>
           </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/test/after-breach-of-trust" style={buttonStyle}>
-              After a serious breach of trust
-              <div style={descriptionStyle}>
-                See whether the relationship is actually healing — or just
-                frozen around the wound.
-              </div>
-            </a>
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a href="/test/silent-exit" style={buttonStyle}>
-              Silent exit from the relationship
-              <div style={descriptionStyle}>
-                Check if you’re still in a living relationship, or if one of you
-                is already quietly checking out.
-              </div>
-            </a>
-          </div>
-
-        <p
-          style={{
-            marginTop: 24,
-            fontSize: 11,
-            opacity: 0.6,
-            lineHeight: 1.4,
-          }}
-        >
-          This tool is not therapy, medical care, or legal advice. It cannot
-          diagnose anything or tell you what to do. You are fully responsible
-          for any decisions or actions you take based on these checkups.
-        </p>
+        </section>
       </div>
     </main>
   );
