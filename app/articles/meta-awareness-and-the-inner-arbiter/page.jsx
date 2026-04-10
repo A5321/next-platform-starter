@@ -307,19 +307,8 @@ export default function MetaAwarenessArticlePage() {
             </p>
 
             <div style={relatedSectionStyle}>
-              <div style={relatedTitleStyle}>More in Patterns</div>
-              <Link
-                href="/articles/what-reciprocity-imbalance-looks-like"
-                style={relatedLinkStyle}
-              >
-                What reciprocity imbalance actually looks like
-              </Link>
-              <Link
-                href="/articles/how-to-read-pattern-test-results"
-                style={relatedLinkStyle}
-              >
-                How to read pattern test results without overreacting
-              </Link>
+              <div style={relatedTitleStyle}>More in Inner Silence</div>
+
             </div>
           </article>
         </div>
