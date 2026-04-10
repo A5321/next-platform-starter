@@ -126,8 +126,8 @@ export const articles = [
   title: "Meta-awareness and the inner arbiter: noticing thoughts without drowning in them",
   excerpt:
     "What the “arbiter” actually is when you notice a thought and decide whether to let it play or to cut it, and how this relates to default mode and inner silence practice.",
-  category: "patterns",
-  tags: ["meta-awareness", "inner-dialogue", "patterns"],
+  category: "inner-silence",
+  tags: ["meta-awareness", "inner-dialogue", "inner-silence"],
   contentType: "explainer",
   date: "April 10, 2026",
   readTime: "8 min read",
