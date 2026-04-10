@@ -111,6 +111,10 @@ const articles = {
   },
 };
 
+export function generateStaticParams() {
+  return Object.keys(articles).map((slug) => ({ slug }));
+}
+
 const pageStyle = {
   minHeight: "100vh",
   background: "#f5f7fb",
