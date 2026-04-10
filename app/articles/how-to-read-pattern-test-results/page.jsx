@@ -81,6 +81,55 @@ const metaStyle = {
   marginBottom: "12px",
 };
 
+const categoryStyle = {
+  display: "inline-block",
+  fontSize: "12px",
+  letterSpacing: "0.12em",
+  textTransform: "uppercase",
+  color: "#4e5fce",
+  marginBottom: "10px",
+};
+
+const tagsStyle = {
+  display: "flex",
+  gap: "8px",
+  flexWrap: "wrap",
+  margin: "0 0 24px",
+};
+
+const tagStyle = {
+  display: "inline-block",
+  fontSize: "12px",
+  color: "#344054",
+  background: "#f2f4f7",
+  borderRadius: "999px",
+  padding: "6px 10px",
+};
+
+const relatedSectionStyle = {
+  marginTop: "40px",
+  paddingTop: "24px",
+  borderTop: "1px solid rgba(16,19,26,0.08)",
+};
+
+const relatedTitleStyle = {
+  fontSize: "13px",
+  textTransform: "uppercase",
+  letterSpacing: "0.1em",
+  color: "#667085",
+  marginBottom: "14px",
+};
+
+const relatedLinkStyle = {
+  display: "block",
+  color: "#10131a",
+  textDecoration: "none",
+  fontSize: "18px",
+  fontWeight: 700,
+  lineHeight: 1.4,
+  marginBottom: "10px",
+};
+
 const titleStyle = {
   fontSize: "clamp(34px, 6vw, 56px)",
   lineHeight: 1.04,
