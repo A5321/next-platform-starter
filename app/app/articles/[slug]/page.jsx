@@ -269,8 +269,8 @@ const buttonStyle = {
   fontWeight: 700,
 };
 
-export default async function ArticlePage({ params }) {
-  const { slug } = await params;
+export default function ArticlePage({ params }) {
+  const { slug } = params;
   const article = articles[slug];
 
   if (!article) {
