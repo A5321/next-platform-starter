@@ -81,6 +81,55 @@ const metaStyle = {
   marginBottom: "12px",
 };
 
+const categoryStyle = {
+  display: "inline-block",
+  fontSize: "12px",
+  letterSpacing: "0.12em",
+  textTransform: "uppercase",
+  color: "#4e5fce",
+  marginBottom: "10px",
+};
+
+const tagsStyle = {
+  display: "flex",
+  gap: "8px",
+  flexWrap: "wrap",
+  margin: "0 0 24px",
+};
+
+const tagStyle = {
+  display: "inline-block",
+  fontSize: "12px",
+  color: "#344054",
+  background: "#f2f4f7",
+  borderRadius: "999px",
+  padding: "6px 10px",
+};
+
+const relatedSectionStyle = {
+  marginTop: "40px",
+  paddingTop: "24px",
+  borderTop: "1px solid rgba(16,19,26,0.08)",
+};
+
+const relatedTitleStyle = {
+  fontSize: "13px",
+  textTransform: "uppercase",
+  letterSpacing: "0.1em",
+  color: "#667085",
+  marginBottom: "14px",
+};
+
+const relatedLinkStyle = {
+  display: "block",
+  color: "#10131a",
+  textDecoration: "none",
+  fontSize: "18px",
+  fontWeight: 700,
+  lineHeight: 1.4,
+  marginBottom: "10px",
+};
+
 const titleStyle = {
   fontSize: "clamp(34px, 6vw, 56px)",
   lineHeight: 1.04,
@@ -181,12 +230,19 @@ export default function ReciprocityArticlePage() {
 
         <div style={articleWrapStyle}>
           <article style={articleStyle}>
-            <div style={metaStyle}>Interpretation · April 10, 2026 · 6 min read</div>
+          <div style={categoryStyle}>Patterns</div>
+          <div style={metaStyle}>explainer · April 10, 2026 · 6 min read</div>
 
-            <h1 style={titleStyle}>What reciprocity imbalance actually looks like</h1>
-            <p style={descriptionStyle}>
-              How to separate a temporary asymmetry from a pattern where one person carries the relationship almost alone.
-            </p>
+          <h1 style={titleStyle}>What reciprocity imbalance actually looks like</h1>
+          <p style={descriptionStyle}>
+            How to separate a temporary asymmetry from a pattern where one person carries the relationship almost alone.
+          </p>
+
+          <div style={tagsStyle}>
+            <span style={tagStyle}>relationships</span>
+            <span style={tagStyle}>reciprocity</span>
+            <span style={tagStyle}>signal-reading</span>
+          </div>
 
             <p style={leadStyle}>
               Reciprocity imbalance does not mean every relationship must look perfectly equal every day.
@@ -217,7 +273,18 @@ export default function ReciprocityArticlePage() {
             <p style={paragraphStyle}>
               A single test result should not be treated as a verdict. It is more useful as a structured prompt:
               what repeats, what changes after repair attempts, and who is consistently carrying the relational work?
-            </p>
+            </p>          
+            <div style={relatedSectionStyle}>
+              <div style={relatedTitleStyle}>More in Patterns</div>
+              <Link
+                href="/articles/how-to-read-pattern-test-results"
+                style={relatedLinkStyle}
+              >
+                How to read pattern test results without overreacting
+              </Link>
+            </div>
+            
+          
           </article>
 
           <aside style={asideStyle}>
