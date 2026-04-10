@@ -69,7 +69,8 @@ const articleStyle = {
   borderRadius: "24px",
   padding: "32px",
   boxShadow: "0 14px 40px rgba(16,19,26,0.05)",
-  maxWidth: "760px",
+  width: "100%",
+  maxWidth: "100%",
 };
 
 const metaStyle = {
