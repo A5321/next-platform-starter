@@ -191,12 +191,11 @@ export default function MetaAwarenessArticlePage() {
 
           <article style={articleStyle}>
             <Link
-              href="/articles?category=patterns"
+              href="/articles?category=inner-silence"
               style={categoryStyle}
             >
-              Patterns
+              Inner Silence
             </Link>
-
             <div style={metaStyle}>
               explainer · April 10, 2026 · 8 min read
             </div>
