@@ -255,15 +255,6 @@ export default function ReadResultsArticlePage() {
               If a score feels sharp or confronting, resist the urge to convert it instantly into a conclusion.
               The first job of a result is not to tell you what to do, but to tell you what to examine more carefully.
             </p>
-            <div style={relatedSectionStyle}>
-              <div style={relatedTitleStyle}>More in Patterns</div>
-              <Link
-                href="/articles/what-reciprocity-imbalance-looks-like"
-                style={relatedLinkStyle}
-              >
-                What reciprocity imbalance actually looks like
-              </Link>
-            </div>
 
             <h2 style={h2Style}>Ask three follow-up questions</h2>
             <p style={paragraphStyle}>
@@ -285,6 +276,15 @@ export default function ReadResultsArticlePage() {
               "The test highlighted a pattern I should verify against repeated behavior,
               consistency, and response to accountability."
             </p>
+            <div style={relatedSectionStyle}>
+              <div style={relatedTitleStyle}>More in Patterns</div>
+              <Link
+                href="/articles/what-reciprocity-imbalance-looks-like"
+                style={relatedLinkStyle}
+              >
+                What reciprocity imbalance actually looks like
+              </Link>
+            </div>
           </article>
 
           <aside style={asideStyle}>
