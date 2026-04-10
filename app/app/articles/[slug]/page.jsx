@@ -277,7 +277,6 @@ export default function ArticlePage({ params }) {
     notFound();
   }
 
-  const isWideLayout = true;
   return (
     <main style={pageStyle}>
       <div style={containerStyle}>
