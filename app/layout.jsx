@@ -1,10 +1,10 @@
 // app/layout.jsx
-
 import Script from "next/script";
 
 export const metadata = {
   title: "Pattern Index",
-  description: "AI relationship pattern analysis",
+  description:
+    "Pattern Index offers behavioral pattern tests and editorial articles about relationship dynamics, reciprocity, mixed signals, trust, and emotional stability.",
 };
 
 export default function RootLayout({ children }) {
@@ -29,9 +29,9 @@ export default function RootLayout({ children }) {
         style={{
           margin: 0,
           fontFamily:
-            "-apple-system,BlinkMacSystemFont,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif",
-          backgroundColor: "#111111",
-          color: "#ffffff",
+            "-apple-system, BlinkMacSystemFont, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+          backgroundColor: "#0f1115",
+          color: "#f5f7fb",
         }}
       >
         {children}
