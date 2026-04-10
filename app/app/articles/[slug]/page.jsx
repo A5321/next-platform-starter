@@ -168,8 +168,8 @@ const activeNavLinkStyle = {
 
 const articleWrapStyle = {
   display: "grid",
-  gridTemplateColumns: "minmax(0, 760px) 280px",
-  gap: "32px",
+  gridTemplateColumns: "minmax(0, 1fr)",
+  gap: "24px",
   alignItems: "start",
 };
 
@@ -277,6 +277,7 @@ export default async function ArticlePage({ params }) {
     notFound();
   }
 
+  const isWideLayout = true;
   return (
     <main style={pageStyle}>
       <div style={containerStyle}>
