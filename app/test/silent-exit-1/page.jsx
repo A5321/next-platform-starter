@@ -111,54 +111,59 @@ useEffect(() => {
         label: "paypal",
         height: 42,
       },
-      createOrder: async (_, actions) => {
-        setPayError("");
-        const cleanEmail = ensureEmail();
+ createOrder: async (_, actions) => {
+      setPayError("");
+
+      return actions.order.create({
+        purchase_units: [
+          {
+            amount: { value: "3.00", currency_code: "USD" },
+            custom_id: "silent-exit-1-single",
+            description: "Silent Exit 1 protocol access",
+          },
+        ],
+      });
+    },
+    onApprove: async (data, actions) => {
+      try {
+        const cleanEmail = email.trim().toLowerCase();
         if (!cleanEmail) {
-          throw new Error("Missing email");
+          setPayError("Enter your email before confirming payment.");
+          return;
         }
 
-        return actions.order.create({
-          purchase_units: [
-            {
-              amount: { value: "3.00", currency_code: "USD" },
-              custom_id: "silent-exit-1-single",
-              description: "Silent Exit 1 protocol access",
-            },
-          ],
+        setPaying(true);
+        setPayError("");
+
+        await actions.order.capture();
+
+        const res = await fetch("/api/paypal/confirm", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            orderId: data.orderID,
+            intent: "single",
+            scope: "silent-exit-1",
+            email: cleanEmail,
+          }),
         });
-      },
-      onApprove: async (data, actions) => {
-        try {
-          setPaying(true);
-          setPayError("");
 
-          await actions.order.capture();
+        const json = await res.json();
 
-          const res = await fetch("/api/paypal/confirm", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              orderId: data.orderID,
-              intent: "single",
-              scope: "silent-exit-1",
-              email: email.trim().toLowerCase(),
-            }),
-          });
-
-          const json = await res.json();
-
-          if (!res.ok || !json.success) {
-            throw new Error(json.error || "Payment confirmation failed");
-          }
-
-          setPaid(true);
-        } catch (err) {
-          setPayError(err.message || "Payment failed");
-        } finally {
-          setPaying(false);
+        if (!res.ok || !json.success) {
+          throw new Error(json.error || "Payment confirmation failed");
         }
-      },
+
+        setPaid(true);
+      } catch (err) {
+        setPayError(err.message || "Payment failed");
+      } finally {
+        setPaying(false);
+      }
+    },
+    // ...
+  })
+  .render(paypalSingleRef.current);
       onError: (err) => {
         console.error(err);
         setPayError("PayPal error. Try again.");
