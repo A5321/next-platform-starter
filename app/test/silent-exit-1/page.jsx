@@ -1,11 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function SilentExitTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [paid, setPaid] = useState(false);
+  const [email, setEmail] = useState("");
+  const [paying, setPaying] = useState(false);
+  const [payError, setPayError] = useState("");
+
+  const paypalSingleRef = useRef(null);
+  const paypalFullRef = useRef(null);
+  const paypalRenderedRef = useRef(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -79,6 +86,149 @@ const cardStyle = {
 
   const sectionTitleStyle = { marginTop: 24, marginBottom: 8 };
 
+useEffect(() => {
+  if (!result) return;
+  if (!window.paypal) return;
+  if (!paypalSingleRef.current || !paypalFullRef.current) return;
+  if (paypalRenderedRef.current) return;
+
+  paypalRenderedRef.current = true;
+
+  const ensureEmail = () => {
+    const clean = email.trim().toLowerCase();
+    if (!clean) {
+      setPayError("Enter your email before payment.");
+      return null;
+    }
+    return clean;
+  };
+
+  window.paypal
+    .Buttons({
+      style: {
+        layout: "vertical",
+        shape: "rect",
+        label: "paypal",
+        height: 42,
+      },
+      createOrder: async (_, actions) => {
+        setPayError("");
+        const cleanEmail = ensureEmail();
+        if (!cleanEmail) {
+          throw new Error("Missing email");
+        }
+
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: { value: "3.00", currency_code: "USD" },
+              custom_id: "silent-exit-1-single",
+              description: "Silent Exit 1 protocol access",
+            },
+          ],
+        });
+      },
+      onApprove: async (data, actions) => {
+        try {
+          setPaying(true);
+          setPayError("");
+
+          await actions.order.capture();
+
+          const res = await fetch("/api/paypal/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              orderId: data.orderID,
+              intent: "single",
+              scope: "silent-exit-1",
+              email: email.trim().toLowerCase(),
+            }),
+          });
+
+          const json = await res.json();
+
+          if (!res.ok || !json.success) {
+            throw new Error(json.error || "Payment confirmation failed");
+          }
+
+          setPaid(true);
+        } catch (err) {
+          setPayError(err.message || "Payment failed");
+        } finally {
+          setPaying(false);
+        }
+      },
+      onError: (err) => {
+        console.error(err);
+        setPayError("PayPal error. Try again.");
+      },
+    })
+    .render(paypalSingleRef.current);
+
+  window.paypal
+    .Buttons({
+      style: {
+        layout: "vertical",
+        shape: "rect",
+        label: "paypal",
+        height: 42,
+      },
+      createOrder: async (_, actions) => {
+        setPayError("");
+        const cleanEmail = ensureEmail();
+        if (!cleanEmail) {
+          throw new Error("Missing email");
+        }
+
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: { value: "10.00", currency_code: "USD" },
+              custom_id: "patternindex-full-30d",
+              description: "PatternIndex full site access for 30 days",
+            },
+          ],
+        });
+      },
+      onApprove: async (data, actions) => {
+        try {
+          setPaying(true);
+          setPayError("");
+
+          await actions.order.capture();
+
+          const res = await fetch("/api/paypal/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              orderId: data.orderID,
+              intent: "full",
+              email: email.trim().toLowerCase(),
+            }),
+          });
+
+          const json = await res.json();
+
+          if (!res.ok || !json.success) {
+            throw new Error(json.error || "Payment confirmation failed");
+          }
+
+          setPaid(true);
+        } catch (err) {
+          setPayError(err.message || "Payment failed");
+        } finally {
+          setPaying(false);
+        }
+      },
+      onError: (err) => {
+        console.error(err);
+        setPayError("PayPal error. Try again.");
+      },
+    })
+    .render(paypalFullRef.current);
+}, [result, email]);
+  
   return (
     <div style={pageStyle}>
       <div style={cardStyle}>
