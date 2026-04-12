@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.9.0"
+    "@neondatabase/serverless": "^0.9.0",
     "@netlify/blobs": "^10.7.0",
     "blobshape": "^1.0.0",
     "bright": "^1.0.0",
