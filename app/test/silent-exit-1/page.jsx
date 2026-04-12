@@ -458,29 +458,109 @@ useEffect(() => {
     </div>
 
     {/* ЕСЛИ НЕ ОПЛАЧЕНО */}
-    {!paid && (
-      <div style={{ marginTop: 16 }}>
-        <p style={{ marginBottom: 12, fontWeight: 600 }}>
-          Get the full action plan — $3
+{result && (
+  <div style={{ marginTop: 24 }}>
+    <h3 style={{ marginBottom: 12 }}>What to do next</h3>
+
+    <ul style={{ paddingLeft: 18, marginBottom: 18, lineHeight: 1.7 }}>
+      <li>reduce availability immediately</li>
+      <li>stop reacting to their timing</li>
+      <li>set one clear boundary</li>
+    </ul>
+
+    {!paid ? (
+      <div
+        style={{
+          marginTop: 16,
+          padding: 16,
+          border: "1px solid rgba(255,255,255,0.16)",
+          borderRadius: 10,
+          background: "rgba(255,255,255,0.03)",
+        }}
+      >
+        <p style={{ marginBottom: 12 }}>
+          Get full protocol access for this test — $3
         </p>
 
-        <a
-          href="https://nowpayments.io/payment/?iid=5667972625"
-          target="_blank"
+        <label style={{ display: "block", marginBottom: 8 }}>
+          Your email
+        </label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
           style={{
-            display: "inline-block",
-            padding: "10px 18px",
-            borderRadius: 999,
-            backgroundColor: "#FFD140",
-            color: "#000",
-            fontWeight: 600,
-            textDecoration: "none",
+            ...controlStyle,
+            marginBottom: 12,
+          }}
+        />
+
+        <div style={{ marginBottom: 12 }}>
+          <button
+            type="button"
+            onClick={() => setPaid(true)}
+            style={{
+              padding: "10px 14px",
+              borderRadius: 8,
+              border: "1px solid rgba(255,255,255,0.2)",
+              background: "#111",
+              color: "#fff",
+            }}
+          >
+            Unlock protocol (crypto test)
+          </button>
+        </div>
+
+        <div style={{ marginBottom: 10 }}>
+          <div ref={paypalSingleRef} />
+        </div>
+
+        <div
+          style={{
+            margin: "16px 0 10px",
+            paddingTop: 12,
+            borderTop: "1px solid rgba(255,255,255,0.08)",
           }}
         >
-          Unlock protocol (crypto)
-        </a>
+          <p style={{ marginBottom: 10 }}>
+            Full access to all site materials for 30 days — $10
+          </p>
+          <div ref={paypalFullRef} />
+        </div>
+
+        {paying && (
+          <p style={{ marginTop: 12, opacity: 0.8 }}>
+            Processing payment...
+          </p>
+        )}
+
+        {payError && (
+          <p style={{ marginTop: 12, color: "#ff8c8c" }}>
+            {payError}
+          </p>
+        )}
+      </div>
+    ) : (
+      <div style={{ marginTop: 20 }}>
+        <p><strong>You are not being chosen.</strong></p>
+
+        <p><strong>1. Stabilize</strong><br />inhale 4 → hold 2 → exhale 6 (5 cycles)</p>
+        <p><strong>2. Cut availability</strong><br />no instant replies, no emotional labor</p>
+        <p><strong>3. Reality check</strong><br />watch behavior, ignore words</p>
+        <p><strong>4. Boundary</strong><br />"I’m not interested in inconsistency"</p>
+        <p><strong>5. Observe</strong><br />no chasing, no fixing</p>
+        <p><strong>6. Exit if no change</strong></p>
       </div>
     )}
+
+    <p style={{ marginTop: 20, fontSize: 12, opacity: 0.7 }}>
+      This tool is not therapy, medical care, or legal advice. It cannot diagnose
+      anything or tell you what to do. You are fully responsible for any decisions
+      or actions you take based on these checkups.
+    </p>
+  </div>
+)}
 
     {/* DEBUG BUTTON — ТОЛЬКО ДЛЯ ТЕСТА */}
     <button
