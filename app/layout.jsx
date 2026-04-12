@@ -25,6 +25,10 @@ export default function RootLayout({ children }) {
           `}
         </Script>
       </head>
+        <Script
+          src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD`}
+          strategy="afterInteractive"
+        />
       <body
         style={{
           margin: 0,
@@ -35,10 +39,6 @@ export default function RootLayout({ children }) {
         }}
       >
         {children}
-        <Script
-          src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD`}
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
