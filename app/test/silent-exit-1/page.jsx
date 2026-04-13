@@ -13,6 +13,7 @@ export default function SilentExitTest() {
 
   const paypalSingleRef = useRef(null);
   //const paypalFullRef = useRef(null);
+  const emailRef = useRef("");
   const paypalRenderedRef = useRef(false);
 
   async function handleSubmit(e) {
@@ -122,43 +123,43 @@ useEffect(() => {
           ],
         });
       },
-      onApprove: async (data, actions) => {
-        try {
-          const cleanEmail = email.trim().toLowerCase();
-          if (!cleanEmail) {
-            setPayError("Enter your email before confirming payment.");
-            return;
-          }
+onApprove: async (data, actions) => {
+  try {
+    const cleanEmail = (emailRef.current || "").trim().toLowerCase();
+    if (!cleanEmail) {
+      setPayError("Enter your email before confirming payment.");
+      return;
+    }
 
-          setPaying(true);
-          setPayError("");
+    setPaying(true);
+    setPayError("");
 
-          await actions.order.capture();
+    await actions.order.capture();
 
-          const res = await fetch("/api/paypal/confirm", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              orderId: data.orderID,
-              intent: "single",
-              scope: "silent-exit-1",
-              email: cleanEmail,
-            }),
-          });
+    const res = await fetch("/api/paypal/confirm", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        orderId: data.orderID,
+        intent: "single",
+        scope: "silent-exit-1",
+        email: cleanEmail,
+      }),
+    });
 
-          const json = await res.json();
+    const json = await res.json();
 
-          if (!res.ok || !json.success) {
-            throw new Error(json.error || "Payment confirmation failed");
-          }
+    if (!res.ok || !json.success) {
+      throw new Error(json.error || "Payment confirmation failed");
+    }
 
-          setPaid(true);
-        } catch (err) {
-          setPayError(err.message || "Payment failed");
-        } finally {
-          setPaying(false);
-        }
-      },
+    setPaid(true);
+  } catch (err) {
+    setPayError(err.message || "Payment failed");
+  } finally {
+    setPaying(false);
+  }
+},
       onError: (err) => {
         console.error(err);
         setPayError("PayPal error. Try again.");
@@ -389,19 +390,21 @@ return (
               </p>
 
               <label style={labelStyle}>Your email</label>
-              <input
-                key={result.summary}
-                type="email"
-                name="unlock_email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setPayError("");
-                }}
-                placeholder="you@example.com"
-                style={{ ...controlStyle, marginBottom: 12 }}
-              />
+<input
+  key={result.summary}
+  type="email"
+  name="unlock_email"
+  autoComplete="email"
+  value={email}
+  onChange={(e) => {
+    const val = e.target.value;
+    setEmail(val);
+    emailRef.current = val;
+    setPayError("");
+  }}
+  placeholder="you@example.com"
+  style={{ ...controlStyle, marginBottom: 12 }}
+/>
 
               <div style={{ marginBottom: 10 }}>
                 <div ref={paypalSingleRef} />
