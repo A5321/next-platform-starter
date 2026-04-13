@@ -12,7 +12,7 @@ export default function SilentExitTest() {
   const [payError, setPayError] = useState("");
 
   const paypalSingleRef = useRef(null);
-  const paypalFullRef = useRef(null);
+  //const paypalFullRef = useRef(null);
   const paypalRenderedRef = useRef(false);
 
   async function handleSubmit(e) {
@@ -93,144 +93,79 @@ export default function SilentExitTest() {
     marginBottom: 8,
   };
 
-  useEffect(() => {
-    if (!result) return;
-    if (typeof window === "undefined") return;
-    if (!window.paypal) return;
-    if (!paypalSingleRef.current || !paypalFullRef.current) return;
-    if (paypalRenderedRef.current) return;
+useEffect(() => {
+  if (!result) return;
+  if (typeof window === "undefined") return;
+  if (!window.paypal) return;
+  if (!paypalSingleRef.current) return;
+  if (paypalRenderedRef.current) return;
 
-    paypalRenderedRef.current = true;
+  paypalRenderedRef.current = true;
 
-    // 3$ — разовый доступ к silent-exit-1
-    window.paypal
-      .Buttons({
-        style: {
-          layout: "vertical",
-          shape: "rect",
-          label: "paypal",
-          height: 42,
-        },
-        createOrder: async (_, actions) => {
-          setPayError("");
-          return actions.order.create({
-            purchase_units: [
-              {
-                amount: { value: "3.00", currency_code: "USD" },
-                custom_id: "silent-exit-1-single",
-                description: "Silent Exit 1 protocol access",
-              },
-            ],
-          });
-        },
-        onApprove: async (data, actions) => {
-          try {
-            const cleanEmail = email.trim().toLowerCase();
-            if (!cleanEmail) {
-              setPayError("Enter your email before confirming payment.");
-              return;
-            }
-
-            setPaying(true);
-            setPayError("");
-
-            await actions.order.capture();
-
-            const res = await fetch("/api/paypal/confirm", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                orderId: data.orderID,
-                intent: "single",
-                scope: "silent-exit-1",
-                email: cleanEmail,
-              }),
-            });
-
-            const json = await res.json();
-
-            if (!res.ok || !json.success) {
-              throw new Error(json.error || "Payment confirmation failed");
-            }
-
-            setPaid(true);
-          } catch (err) {
-            setPayError(err.message || "Payment failed");
-          } finally {
-            setPaying(false);
+  window.paypal
+    .Buttons({
+      style: {
+        layout: "vertical",
+        shape: "rect",
+        label: "paypal",
+        height: 42,
+      },
+      createOrder: async (_, actions) => {
+        setPayError("");
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: { value: "3.00", currency_code: "USD" },
+              custom_id: "silent-exit-1-single",
+              description: "Silent Exit 1 protocol access",
+            },
+          ],
+        });
+      },
+      onApprove: async (data, actions) => {
+        try {
+          const cleanEmail = email.trim().toLowerCase();
+          if (!cleanEmail) {
+            setPayError("Enter your email before confirming payment.");
+            return;
           }
-        },
-        onError: (err) => {
-          console.error(err);
-          setPayError("PayPal error. Try again.");
-        },
-      })
-      .render(paypalSingleRef.current);
 
-    // 10$ — доступ ко всему сайту на 30 дней
-    window.paypal
-      .Buttons({
-        style: {
-          layout: "vertical",
-          shape: "rect",
-          label: "paypal",
-          height: 42,
-        },
-        createOrder: async (_, actions) => {
+          setPaying(true);
           setPayError("");
-          return actions.order.create({
-            purchase_units: [
-              {
-                amount: { value: "10.00", currency_code: "USD" },
-                custom_id: "patternindex-full-30d",
-                description: "PatternIndex full site access for 30 days",
-              },
-            ],
+
+          await actions.order.capture();
+
+          const res = await fetch("/api/paypal/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              orderId: data.orderID,
+              intent: "single",
+              scope: "silent-exit-1",
+              email: cleanEmail,
+            }),
           });
-        },
-        onApprove: async (data, actions) => {
-          try {
-            const cleanEmail = email.trim().toLowerCase();
-            if (!cleanEmail) {
-              setPayError("Enter your email before confirming payment.");
-              return;
-            }
 
-            setPaying(true);
-            setPayError("");
+          const json = await res.json();
 
-            await actions.order.capture();
-
-            const res = await fetch("/api/paypal/confirm", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                orderId: data.orderID,
-                intent: "full",
-                email: cleanEmail,
-              }),
-            });
-
-            const json = await res.json();
-
-            if (!res.ok || !json.success) {
-              throw new Error(json.error || "Payment confirmation failed");
-            }
-
-            setPaid(true);
-          } catch (err) {
-            setPayError(err.message || "Payment failed");
-          } finally {
-            setPaying(false);
+          if (!res.ok || !json.success) {
+            throw new Error(json.error || "Payment confirmation failed");
           }
-        },
-        onError: (err) => {
-          console.error(err);
-          setPayError("PayPal error. Try again.");
-        },
-      })
-      .render(paypalFullRef.current);
-  }, [result]); // вместо [result, email]
+
+          setPaid(true);
+        } catch (err) {
+          setPayError(err.message || "Payment failed");
+        } finally {
+          setPaying(false);
+        }
+      },
+      onError: (err) => {
+        console.error(err);
+        setPayError("PayPal error. Try again.");
+      },
+    })
+    .render(paypalSingleRef.current);
+}, [result]); // email из зависимостей убираем
 
   return (
     <div style={pageStyle}>
@@ -480,19 +415,6 @@ export default function SilentExitTest() {
 
                 <div style={{ marginBottom: 10 }}>
                   <div ref={paypalSingleRef} />
-                </div>
-
-                <div
-                  style={{
-                    margin: "16px 0 10px",
-                    paddingTop: 12,
-                    borderTop: "1px solid rgba(255,255,255,0.08)",
-                  }}
-                >
-                  <p style={{ marginBottom: 10 }}>
-                    Full access to all site materials for 30 days — $10
-                  </p>
-                  <div ref={paypalFullRef} />
                 </div>
 
                 {paying && (
