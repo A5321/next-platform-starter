@@ -230,7 +230,7 @@ export default function SilentExitTest() {
         },
       })
       .render(paypalFullRef.current);
-  }, [result, email]);
+  }, [result]); // вместо [result, email]
 
   return (
     <div style={pageStyle}>
