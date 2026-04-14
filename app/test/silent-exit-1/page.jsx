@@ -46,6 +46,9 @@ export default function SilentExitTest() {
     });
 
     const data = await res.json();
+    setPaid(false);
+    setPayError("");
+    emailRef.current = emailRef.current || "";
     setResult(data);
     setLoading(false);
   }
