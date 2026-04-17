@@ -340,6 +340,7 @@ Full exit from the dopamine loop usually takes around 1 month with consistent da
               <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
                 <p style={{ marginBottom: 12 }}>Get full protocol access for this test — $3</p>
 
+                {/*
                 <label style={labelStyle}>Your email</label>
                 <input
                   key={result.summary}
@@ -354,6 +355,7 @@ Full exit from the dopamine loop usually takes around 1 month with consistent da
                   placeholder="you@example.com"
                   style={{ ...controlStyle, marginBottom: 12 }}
                 />
+                */}
 
                 <div style={{ marginBottom: 10 }}>
                   <div ref={paypalSingleRef} />
