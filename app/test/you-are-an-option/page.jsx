@@ -195,7 +195,8 @@ export default function YouAreOptionTest() {
           </div>
         </form>
 
-        {hasAnalyzed && result && result.indices && (
+        {/* {hasAnalyzed && result && result.indices && ( */}
+        {result && (
           <section style={{ marginTop: 32, lineHeight: 1.5 }}>
             <h2 style={sectionTitleStyle}>
               Status: {result.overall_option_status}
