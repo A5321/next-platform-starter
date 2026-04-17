@@ -120,7 +120,7 @@ onApprove: async (data, actions) => {
       .render(paypalSingleRef.current);
   }, [result]);
 
-  // Копирование всего протокола в буфер — полностью оригинальный текст
+  // Копирование всего протокола в буфер — ТОЧНОЕ СОДЕРЖАНИЕ из документа
   const copyProtocol = async () => {
     const protocolText = `"Wall" Protocol
 Goal: to stop the automatic “rescuer/backup” response, bring your body and mind back to yourself, and only then decide if and how you respond to her.
@@ -428,101 +428,141 @@ All those 30 days you’ll need to come back to this protocol daily: Breathing, 
             ) : (
               <div style={{ marginTop: 30 }}>
                 <h2 style={{ marginBottom: 16, color: "#fff" }}>“Wall” Protocol</h2>
-                <p style={{ fontStyle: "italic", marginBottom: 24 }}>
-                  Goal: to stop the automatic “rescuer/backup” response, bring your body and mind back to yourself, and only then decide if and how you respond to her.<br />
-                  <strong>Formula:</strong> Breathing → Separating responsibility → Grounding → Hormone reduction.
-                </p>
+                
+                <div style={{ fontSize: "15.2px", lineHeight: "1.75", color: "#ddd", whiteSpace: "pre-wrap" }}>
+{`"Wall" Protocol
+Goal: to stop the automatic “rescuer/backup” response, bring your body and mind back to yourself, and only then decide if and how you respond to her.
+Formula: Breathing → Separating responsibility → Grounding → Hormone reduction.
 
-                <div style={{ fontSize: "15.2px", lineHeight: "1.75", color: "#ddd" }}>
-                  
-                  <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>Block 1. 4–6 Breathing with feet on the floor</h3>
-                  <p><strong>Goal:</strong> shift into a parasympathetic state.</p>
-                  <p><strong>When:</strong> every morning and immediately after her message/call, while your hands want to “reply like always”.</p>
-                  <p><strong>How:</strong></p>
-                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
-                    <li>Sit upright, feet flat on the floor, feel the pressure of your heels and toes.</li>
-                    <li>Do 10–15 breathing cycles:<br />
-                      ◦ inhale for a count of 4 through the nose,<br />
-                      ◦ short pause for 1–2 counts,<br />
-                      ◦ exhale for a count of 6 through the mouth.
-                    </li>
-                  </ul>
-                  <p><strong>Why:</strong> lengthening the exhale lowers overall sympathetic arousal; grounding your feet into the floor signals to the body “I’m here, I’m stable”, not “I’m about to rush in and rescue her”.</p>
+Block 1. 4–6 Breathing with feet on the floor
+Goal: shift into a parasympathetic state.
+When: every morning and immediately after her message/call, while your hands want to “reply like always”.
+How:
+    • Sit upright, feet flat on the floor, feel the pressure of your heels and toes.
+    • Do 10–15 breathing cycles:
+        ◦ inhale for a count of 4 through the nose,
+        ◦ short pause for 1–2 counts,
+        ◦ exhale for a count of 6 through the mouth.
+Why:
+    • lengthening the exhale lowers overall sympathetic arousal;
+    • grounding your feet into the floor signals to the body “I’m here, I’m stable”, not “I’m about to rush in and rescue her”.
 
-                  <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>Block 2. Separating responsibility</h3>
-                  <p><strong>Goal:</strong> separate her chaos from your life. You’re not rejecting empathy, but you stop confusing her crises with your job to “fix everything immediately”.</p>
-                  <p><strong>When:</strong> every morning after breathing.</p>
-                  <p>Steps:</p>
-                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
-                    <li>Imagine a glass wall between you.</li>
-                    <li>On one side of the wall is her side: her life, her decisions, her crises, her consequences.</li>
-                    <li>On the other side is yours: your body, time, money, plans, energy.</li>
-                  </ul>
-                  <p style={{ fontStyle: "italic", margin: "12px 0" }}>
-                    “She didn’t choose me when she could.<br />
-                    She is in her own world — her decisions, habits, actions, her responsibility are there.<br />
-                    My responsibility is only here.”
-                  </p>
+Block 2. Separating responsibility
+Goal: separate her chaos from your life. You’re not rejecting empathy, but you stop confusing her crises with your job to “fix everything immediately”.
+When: every morning after breathing.
+Steps:
+    • Imagine a glass wall between you.
+    • On one side of the wall is her side: her life, her decisions, her crises, her consequences.
+    • On the other side is yours: your body, time, money, plans, energy.
+Say slowly, clearly, and thoughtfully:
+“She didn’t choose me when she could.
+She is in her own world — her decisions, habits, actions, her responsibility are there.
+My responsibility is only here.”
+The idea is simple: you see clearly which part is actually yours, and which isn’t.
 
-                  <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>Block 3. Grounding + walking (15 minutes)</h3>
-                  <p><strong>Goal:</strong> bring focus back to your body, your space, your tasks.</p>
-                  <p><strong>When:</strong> after the “separating responsibility” step.</p>
-                  <p><strong>Steps:</strong></p>
-                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
-                    <li>Walk for 10–15 minutes at a calm pace (apartment, street, hallway), ideally barefoot.</li>
-                    <li>During the walk keep a light 4–6 breathing rhythm, but more freely (don’t count every breath).</li>
-                    <li>While walking, consciously lean on 5 anchors:<br />
-                      ◦ 5 things you can see;<br />
-                      ◦ 4 sounds you can hear;<br />
-                      ◦ 3 sensations in your body (how your feet touch the floor, how your shoulders move, how the air feels on your skin);<br />
-                      ◦ 2 smells or tastes;<br />
-                      ◦ 1 thought: “What do I want to do for myself today?”
-                    </li>
-                  </ul>
+Block 3. Grounding + walking (15 minutes)
+Goal: bring focus back to your body, your space, your tasks.
+When: after the “separating responsibility” step.
+Steps:
+    • Walk for 10–15 minutes at a calm pace (apartment, street, hallway), ideally barefoot.
+    • During the walk keep a light 4–6 breathing rhythm, but more freely (don’t count every breath).
+    • While walking, consciously lean on 5 anchors:
+        ◦ 5 things you can see;
+        ◦ 4 sounds you can hear;
+        ◦ 3 sensations in your body (how your feet touch the floor, how your shoulders move, how the air feels on your skin);
+        ◦ 2 smells or tastes;
+        ◦ 1 thought: “What do I want to do for myself today?”
 
-                  <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>Block 4. Hormone reduction: adrenaline and cortisol</h3>
-                  <p><strong>4.1. Adrenaline:</strong> when you feel anger / a surge / “boiling inside”</p>
-                  <p><strong>Goal:</strong> give your body a controlled outlet for adrenaline.</p>
-                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
-                    <li>Hand squeeze: clench your fists as hard as you can for 20 seconds, release fully for 20 seconds; repeat 3 times.</li>
-                    <li>Full-body tension: stand up straight, press your feet into the floor; on the inhale, tense your whole body as much as possible for 30 seconds; then on the exhale let everything go at once.</li>
-                  </ul>
+Block 4. Hormone reduction: adrenaline and cortisol
+4.1. Adrenaline: when you feel anger / a surge / “boiling inside”
+Goal: give your body a controlled outlet for adrenaline, instead of dumping it on her or into another round of self‑destruction.
+Adrenaline = the body preparing to fight or run.
+Typical signs:
+    • tight jaw, urge to clench your teeth;
+    • arms/shoulders feel “charged”, urge to hit something or write a harsh message;
+    • choppy breathing, urge to pace around the room.
+Actions:
+Hand squeeze:
+    • clench your fists as hard as you can for 20 seconds,
+    • release fully for 20 seconds;
+    • repeat 3 times.
+Full‑body tension:
+    • stand up straight, press your feet into the floor;
+    • on the inhale, tense your whole body as much as possible: legs, arms, back, core, jaw and face muscles;
+    • hold the tension for 30 seconds;
+    • then on the exhale let everything go at once.
 
-                  <p><strong>4.2. Cortisol:</strong> when you feel burned out / hopeless / “empty”</p>
-                  <p><strong>Goal:</strong> lower cortisol so you can focus, stay collected, and actually function in your life and work.</p>
-                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
-                    <li>Moderate-intensity physical exercise for 15–30 minutes (brisk walking, squats, push-ups, interval circuits).</li>
-                    <li>Sauna / hot steam room — if available and medically safe.</li>
-                    <li>Cold exposure (cold shower, ice bath, cold compress on the body) — done mindfully.</li>
-                  </ul>
+4.2. Cortisol: when you feel burned out / hopeless / “empty”
+Goal: lower cortisol so you can focus, stay collected, and actually function in your life and work.
+Cortisol = chronic stress, exhaustion, “I’m wrung out”.
+Typical signs:
+    • heaviness and emptiness, like you “don’t even have energy to be angry”;
+    • brain fog, hard to focus;
+    • constant anxiety, especially in the evening;
+    • cravings for sugar/coffee/“one more dose of her drama” just to feel something.
+What helps lower cortisol (you can combine these on different days):
+    • Moderate‑intensity physical exercise for 15–30 minutes:
+brisk walking, squats, push‑ups, interval circuits — anything that genuinely raises your heart rate.
+    • Sauna / hot steam room — if available and medically safe.
+    • Cold exposure (cold shower, ice bath, cold compress on the body) — also done mindfully, without macho heroics.
+In the context of the “Wall” protocol the logic is:
+    • first: breathing + wall + grounding;
+    • then, if you feel wired or drained, you add the right unloading block (adrenaline or cortisol).
 
-                  <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>5. Fast interception during the day</h3>
-                  <p><strong>When:</strong> any time a new wave hits — you hear her voice in your head, see photos, open the chat, feel the pull to text or check.</p>
-                  
-                  <p><strong>5.1. Mini 4–6 breathing</strong></p>
-                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
-                    <li>5–10 cycles: inhale for 4 counts through the nose, short pause for 1–2 counts, exhale for 6 counts through the mouth.</li>
-                  </ul>
+5. Fast interception during the day
+When: any time a new wave hits — you hear her voice in your head, see photos, open the chat, feel the pull to text or check. The waves will come in phases of 20–30 minutes. At first it may happen several times a day, then less often, and eventually they fade; what remains is just memory — good, bad, or none at all.
+5.1. Mini 4–6 breathing
+    • 5–10 cycles:
+        ◦ inhale for 4 counts through the nose;
+        ◦ short pause for 1–2 counts;
+        ◦ exhale for 6 counts through the mouth.
+Important: make sure your exhale is consciously slower than your inhale.
+5.2. “Unhooking” phrases
+Option A (long, for deeper awareness):
+“She didn’t choose me when she could.
+She is in her own world — her decisions, habits, actions, her responsibility are there.
+My responsibility is only here.”
+Option B (short, for quick triggers):
+“This is not about the future. This is only about attachment.”
+How to use:
+    • choose based on the situation and how much time you have;
+    • say it out loud, in a whisper, or silently 2–3 times in a row, slowly and clearly;
+    • each time: on the exhale — the phrase, on the inhale — just 4–6 breathing.
+Goal: pull the situation out of the fantasy about “our future” and back into “my body and my choices right now”.
 
-                  <p><strong>5.2. “Unhooking” phrases</strong></p>
-                  <p>Option A (long):</p>
-                  <p style={{ fontStyle: "italic", margin: "8px 0" }}>
-                    “She didn’t choose me when she could.<br />
-                    She is in her own world — her decisions, habits, actions, her responsibility are there.<br />
-                    My responsibility is only here.”
-                  </p>
-                  <p>Option B (short):</p>
-                  <p style={{ fontStyle: "italic" }}>“This is not about the future. This is only about attachment.”</p>
+5.3. “Don’t answer until you’re out of the wave”
+Rule:
+    • Don’t answer calls or messages until you feel the hormone wave has passed.
+    • Ideally, wait 1–2 days until your head feels clear, not foggy.
+You can frame it like this:
+“If she writes or calls:
+    • first — breathing, visualization, grounding, hormone unloading,
+    • then — at least 24–48 hours of pause,
+    • only after that decide whether to answer or not.”
+A “right now” reply is almost always a reply from the dopamine loop, not from a clear choice.
 
-                  <p><strong>5.3. “Don’t answer until you’re out of the wave”</strong></p>
-                  <p>Don’t answer calls or messages until you feel the hormone wave has passed. Ideally wait 24–48 hours.</p>
+5.4. If you still wrote or answered
+Mini‑protocol for a slip:
+Notice the fact:
+“Okay, I did write/answer. This is not a failure.
+It’s a signal that the load is higher than I thought.”
+Right after sending:
+    • go back to 4–6 breathing for 5–10 cycles.
+Do not continue the conversation.
+    • don’t spin it into a long back‑and‑forth,
+    • don’t go into explanations and emotional rescue mode.
+Say clearly (out loud or in your head):
+“This is not about the future.
+This is about attachment.”
+Then:
+    • return to the Wall protocol and keep doing it for the month as planned.
+Meaning: a slip is part of the process, not a reason to abandon climbing out.
 
-                  <p><strong>5.4. If you still wrote or answered</strong></p>
-                  <p>Mini-protocol for a slip: Breathe 4–6, say “This is not about the future. This is about attachment.” and return to the protocol.</p>
-
-                  <p style={{ marginTop: 24, fontStyle: "italic" }}>
-                    A full exit from this dopamine loop usually takes around a month with complete cutoff of contact and daily practice of the Wall protocol.
-                  </p>
+How long it takes to exit the dopamine loop
+A full exit from this dopamine loop usually takes around a month, provided there is complete cutoff of contact — no meetings, no calls, no messages, no watching her stories, no checking if she watched yours.
+All those 30 days you’ll need to come back to this protocol daily: Breathing, Wall, Grounding, Hormone unloading.
+    • The first 7–10 days will be the hardest.
+    • Then the pull will get weaker, but will come back in waves — that’s normal, just follow the “Fast interception during the day” block when it hits again.`}
                 </div>
 
                 <button
