@@ -205,6 +205,30 @@ const secondaryButtonStyle = {
   fontWeight: 600,
 };
 
+const footerStyle = {
+  marginTop: "40px",
+  paddingTop: "24px",
+  borderTop: "1px solid rgba(255,255,255,0.12)",
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "16px",
+  justifyContent: "space-between",
+  alignItems: "center",
+  fontSize: "12px",
+  color: "#8f9ab5",
+};
+
+const footerLinksStyle = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "12px",
+};
+
+const footerLinkStyle = {
+  color: "#cfd6e4",
+  textDecoration: "none",
+};
+
 export default function HomePage() {
   return (
     <main style={pageStyle}>
@@ -307,6 +331,24 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        <footer style={footerStyle}>
+          <div>© {new Date().getFullYear()} Pattern Index</div>
+
+          <nav style={footerLinksStyle}>
+            <Link href="/terms-of-service" style={footerLinkStyle}>
+              Terms of Service
+            </Link>
+            <Link href="/prices" style={footerLinkStyle}>
+              Prices
+            </Link>
+            <Link href="/refund-policy" style={footerLinkStyle}>
+              Refund policy
+            </Link>
+            <Link href="/privacy-policy" style={footerLinkStyle}>
+              Privacy Policy
+            </Link>
+          </nav>
+        </footer>
       </div>
     </main>
   );
