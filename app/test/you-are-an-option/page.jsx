@@ -193,7 +193,7 @@ If you still wrote or answered:
   • Say: “This is not about the future. This is about attachment.”
   • Return to the daily Wall protocol.
 
-Full exit from the dopamine loop usually takes around 1 month with consistent daily practice and complete no-contact.";
+Full exit from the dopamine loop usually takes around 1 month with consistent daily practice and complete no-contact.`;
 
     try {
       await navigator.clipboard.writeText(protocolText);
