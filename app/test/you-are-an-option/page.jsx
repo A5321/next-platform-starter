@@ -81,43 +81,37 @@ export default function YouAreOptionTest() {
             ],
           });
         },
-        onApprove: async (data, actions) => {
-          try {
-            const cleanEmail = (emailRef.current || "").trim().toLowerCase();
-            if (!cleanEmail) {
-              setPayError("Enter your email before confirming payment.");
-              return;
-            }
+onApprove: async (data, actions) => {
+  try {
+    setPaying(true);
+    setPayError("");
 
-            setPaying(true);
-            setPayError("");
+    await actions.order.capture();
 
-            await actions.order.capture();
+    const res = await fetch("/api/paypal/confirm", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        orderId: data.orderID,
+        intent: "single",
+        scope: "you-are-an-option",
+        email: emailRef.current?.trim() || "user@paypal.com", // минимальный fallback
+      }),
+    });
 
-            const res = await fetch("/api/paypal/confirm", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                orderId: data.orderID,
-                intent: "single",
-                scope: "you-are-an-option",
-                email: cleanEmail,
-              }),
-            });
+    const json = await res.json();
 
-            const json = await res.json();
+    if (!res.ok || !json.success) {
+      throw new Error(json.error || "Payment confirmation failed");
+    }
 
-            if (!res.ok || !json.success) {
-              throw new Error(json.error || "Payment confirmation failed");
-            }
-
-            setPaid(true);
-          } catch (err) {
-            setPayError(err.message || "Payment failed");
-          } finally {
-            setPaying(false);
-          }
-        },
+    setPaid(true);
+  } catch (err) {
+    setPayError(err.message || "Payment failed");
+  } finally {
+    setPaying(false);
+  }
+},
         onError: (err) => {
           console.error(err);
           setPayError("PayPal error. Try again.");
