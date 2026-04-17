@@ -120,10 +120,9 @@ onApprove: async (data, actions) => {
       .render(paypalSingleRef.current);
   }, [result]);
 
-  // Копирование всего протокола в буфер
+  // Копирование всего протокола в буфер — полностью оригинальный текст
   const copyProtocol = async () => {
     const protocolText = `"Wall" Protocol
-
 Goal: to stop the automatic “rescuer/backup” response, bring your body and mind back to yourself, and only then decide if and how you respond to her.
 Formula: Breathing → Separating responsibility → Grounding → Hormone reduction.
 
@@ -131,69 +130,137 @@ Block 1. 4–6 Breathing with feet on the floor
 Goal: shift into a parasympathetic state.
 When: every morning and immediately after her message/call, while your hands want to “reply like always”.
 How:
-  • Sit upright, feet flat on the floor, feel the pressure of your heels and toes.
-  • Do 10–15 breathing cycles:
-      ◦ inhale for a count of 4 through the nose,
-      ◦ short pause for 1–2 counts,
-      ◦ exhale for a count of 6 through the mouth.
+    • Sit upright, feet flat on the floor, feel the pressure of your heels and toes.
+    • Do 10–15 breathing cycles:
+        ◦ inhale for a count of 4 through the nose,
+        ◦ short pause for 1–2 counts,
+        ◦ exhale for a count of 6 through the mouth.
 Why:
-  • lengthening the exhale lowers overall sympathetic arousal;
-  • grounding your feet into the floor signals to the body “I’m here, I’m stable”, not “I’m about to rush in and rescue her”.
+    • lengthening the exhale lowers overall sympathetic arousal;
+    • grounding your feet into the floor signals to the body “I’m here, I’m stable”, not “I’m about to rush in and rescue her”.
 
 Block 2. Separating responsibility
 Goal: separate her chaos from your life. You’re not rejecting empathy, but you stop confusing her crises with your job to “fix everything immediately”.
 When: every morning after breathing.
 Steps:
-  • Imagine a glass wall between you.
-  • On one side of the wall is her side: her life, her decisions, her crises, her consequences.
-  • On the other side is yours: your body, time, money, plans, energy.
+    • Imagine a glass wall between you.
+    • On one side of the wall is her side: her life, her decisions, her crises, her consequences.
+    • On the other side is yours: your body, time, money, plans, energy.
 Say slowly, clearly, and thoughtfully:
 “She didn’t choose me when she could.
 She is in her own world — her decisions, habits, actions, her responsibility are there.
 My responsibility is only here.”
+The idea is simple: you see clearly which part is actually yours, and which isn’t.
 
 Block 3. Grounding + walking (15 minutes)
 Goal: bring focus back to your body, your space, your tasks.
 When: after the “separating responsibility” step.
 Steps:
-  • Walk for 10–15 minutes at a calm pace (apartment, street, hallway), ideally barefoot.
-  • During the walk keep a light 4–6 breathing rhythm, but more freely.
-  • While walking, consciously lean on 5 anchors:
-      ◦ 5 things you can see;
-      ◦ 4 sounds you can hear;
-      ◦ 3 sensations in your body (how your feet touch the floor, how your shoulders move, how the air feels on your skin);
-      ◦ 2 smells or tastes;
-      ◦ 1 thought: “What do I want to do for myself today?”
+    • Walk for 10–15 minutes at a calm pace (apartment, street, hallway), ideally barefoot.
+    • During the walk keep a light 4–6 breathing rhythm, but more freely (don’t count every breath).
+    • While walking, consciously lean on 5 anchors:
+        ◦ 5 things you can see;
+        ◦ 4 sounds you can hear;
+        ◦ 3 sensations in your body (how your feet touch the floor, how your shoulders move, how the air feels on your skin);
+        ◦ 2 smells or tastes;
+        ◦ 1 thought: “What do I want to do for myself today?”
 
-Block 4. Hormone reduction
-4.1. Adrenaline (when you feel anger / surge / “boiling inside”)
-  • Hand squeeze: clench your fists as hard as you can for 20 seconds, release fully for 20 seconds; repeat 3 times.
-  • Full-body tension: tense your whole body as much as possible for 30 seconds on inhale, then release on exhale.
+Block 4. Hormone reduction: adrenaline and cortisol
+4.1. Adrenaline: when you feel anger / a surge / “boiling inside”
+Goal: give your body a controlled outlet for adrenaline, instead of dumping it on her or into another round of self‑destruction.
+Adrenaline = the body preparing to fight or run.
+Typical signs:
+    • tight jaw, urge to clench your teeth;
+    • arms/shoulders feel “charged”, urge to hit something or write a harsh message;
+    • choppy breathing, urge to pace around the room.
+Actions:
+Hand squeeze:
+    • clench your fists as hard as you can for 20 seconds,
+    • release fully for 20 seconds;
+    • repeat 3 times.
+Full‑body tension:
+    • stand up straight, press your feet into the floor;
+    • on the inhale, tense your whole body as much as possible: legs, arms, back, core, jaw and face muscles;
+    • hold the tension for 30 seconds;
+    • then on the exhale let everything go at once.
 
-4.2. Cortisol (when you feel burned out / hopeless / “empty”)
-  • Moderate-intensity physical exercise for 15–30 minutes (brisk walking, squats, push-ups, etc.).
-  • Cold shower or sauna (if available and safe).
+4.2. Cortisol: when you feel burned out / hopeless / “empty”
+Goal: lower cortisol so you can focus, stay collected, and actually function in your life and work.
+Cortisol = chronic stress, exhaustion, “I’m wrung out”.
+Typical signs:
+    • heaviness and emptiness, like you “don’t even have energy to be angry”;
+    • brain fog, hard to focus;
+    • constant anxiety, especially in the evening;
+    • cravings for sugar/coffee/“one more dose of her drama” just to feel something.
+What helps lower cortisol (you can combine these on different days):
+    • Moderate‑intensity physical exercise for 15–30 minutes:
+brisk walking, squats, push‑ups, interval circuits — anything that genuinely raises your heart rate.
+    • Sauna / hot steam room — if available and medically safe.
+    • Cold exposure (cold shower, ice bath, cold compress on the body) — also done mindfully, without macho heroics.
+In the context of the “Wall” protocol the logic is:
+    • first: breathing + wall + grounding;
+    • then, if you feel wired or drained, you add the right unloading block (adrenaline or cortisol).
 
 5. Fast interception during the day
-When a new wave hits (urge to text, check chat, etc.):
-  • Mini 4–6 breathing (5–10 cycles)
-  • Unhooking phrase:
-    “She didn’t choose me when she could. My responsibility is only here.”
-    or short: “This is not about the future. This is only about attachment.”
-  • Don’t answer until the wave has passed (ideally wait 24–48 hours).
+When: any time a new wave hits — you hear her voice in your head, see photos, open the chat, feel the pull to text or check. The waves will come in phases of 20–30 minutes. At first it may happen several times a day, then less often, and eventually they fade; what remains is just memory — good, bad, or none at all.
+5.1. Mini 4–6 breathing
+    • 5–10 cycles:
+        ◦ inhale for 4 counts through the nose;
+        ◦ short pause for 1–2 counts;
+        ◦ exhale for 6 counts through the mouth.
+Important: make sure your exhale is consciously slower than your inhale.
+5.2. “Unhooking” phrases
+Option A (long, for deeper awareness):
+“She didn’t choose me when she could.
+She is in her own world — her decisions, habits, actions, her responsibility are there.
+My responsibility is only here.”
+Option B (short, for quick triggers):
+“This is not about the future. This is only about attachment.”
+How to use:
+    • choose based on the situation and how much time you have;
+    • say it out loud, in a whisper, or silently 2–3 times in a row, slowly and clearly;
+    • each time: on the exhale — the phrase, on the inhale — just 4–6 breathing.
+Goal: pull the situation out of the fantasy about “our future” and back into “my body and my choices right now”.
 
-If you still wrote or answered:
-  • Breathe 4–6 for 5–10 cycles.
-  • Say: “This is not about the future. This is about attachment.”
-  • Return to the daily Wall protocol.
+5.3. “Don’t answer until you’re out of the wave”
+Rule:
+    • Don’t answer calls or messages until you feel the hormone wave has passed.
+    • Ideally, wait 1–2 days until your head feels clear, not foggy.
+You can frame it like this:
+“If she writes or calls:
+    • first — breathing, visualization, grounding, hormone unloading,
+    • then — at least 24–48 hours of pause,
+    • only after that decide whether to answer or not.”
+A “right now” reply is almost always a reply from the dopamine loop, not from a clear choice.
 
-Full exit from the dopamine loop usually takes around 1 month with consistent daily practice and complete no-contact.`;
+5.4. If you still wrote or answered
+Mini‑protocol for a slip:
+Notice the fact:
+“Okay, I did write/answer. This is not a failure.
+It’s a signal that the load is higher than I thought.”
+Right after sending:
+    • go back to 4–6 breathing for 5–10 cycles.
+Do not continue the conversation.
+    • don’t spin it into a long back‑and‑forth,
+    • don’t go into explanations and emotional rescue mode.
+Say clearly (out loud or in your head):
+“This is not about the future.
+This is about attachment.”
+Then:
+    • return to the Wall protocol and keep doing it for the month as planned.
+Meaning: a slip is part of the process, not a reason to abandon climbing out.
+
+How long it takes to exit the dopamine loop
+A full exit from this dopamine loop usually takes around a month, provided there is complete cutoff of contact — no meetings, no calls, no messages, no watching her stories, no checking if she watched yours.
+All those 30 days you’ll need to come back to this protocol daily: Breathing, Wall, Grounding, Hormone unloading.
+    • The first 7–10 days will be the hardest.
+    • Then the pull will get weaker, but will come back in waves — that’s normal, just follow the “Fast interception during the day” block when it hits again.`;
 
     try {
       await navigator.clipboard.writeText(protocolText);
-      alert("✅ Protocol copied to clipboard! You can now paste it anywhere.");
+      alert("✅ Full Wall Protocol copied to clipboard!");
     } catch (err) {
-      alert("Failed to copy. Please select and copy manually.");
+      alert("Failed to copy. Please select the text manually.");
     }
   };
 
