@@ -367,45 +367,94 @@ Full exit from the dopamine loop usually takes around 1 month with consistent da
                 </p>
 
                 <div style={{ fontSize: "15.2px", lineHeight: "1.75", color: "#ddd" }}>
+                  
                   <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>Block 1. 4–6 Breathing with feet on the floor</h3>
                   <p><strong>Goal:</strong> shift into a parasympathetic state.</p>
-                  <p><strong>When:</strong> every morning and immediately after her message/call.</p>
+                  <p><strong>When:</strong> every morning and immediately after her message/call, while your hands want to “reply like always”.</p>
                   <p><strong>How:</strong></p>
-                  <ul style={{ paddingLeft: "20px", margin: "8px 0" }}>
-                    <li>Sit upright, feet flat on the floor.</li>
-                    <li>Do 10–15 breathing cycles: inhale 4 — pause 1–2 — exhale 6.</li>
+                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
+                    <li>Sit upright, feet flat on the floor, feel the pressure of your heels and toes.</li>
+                    <li>Do 10–15 breathing cycles:<br />
+                      ◦ inhale for a count of 4 through the nose,<br />
+                      ◦ short pause for 1–2 counts,<br />
+                      ◦ exhale for a count of 6 through the mouth.
+                    </li>
                   </ul>
-                  <p><strong>Why:</strong> Lengthening the exhale calms the nervous system. Grounding feet signals stability.</p>
+                  <p><strong>Why:</strong> lengthening the exhale lowers overall sympathetic arousal; grounding your feet into the floor signals to the body “I’m here, I’m stable”, not “I’m about to rush in and rescue her”.</p>
 
                   <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>Block 2. Separating responsibility</h3>
-                  <p><strong>Goal:</strong> separate her chaos from your life.</p>
+                  <p><strong>Goal:</strong> separate her chaos from your life. You’re not rejecting empathy, but you stop confusing her crises with your job to “fix everything immediately”.</p>
                   <p><strong>When:</strong> every morning after breathing.</p>
-                  <p>Imagine a glass wall. On her side — her life and consequences. On your side — your time, energy and choices.</p>
+                  <p>Steps:</p>
+                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
+                    <li>Imagine a glass wall between you.</li>
+                    <li>On one side of the wall is her side: her life, her decisions, her crises, her consequences.</li>
+                    <li>On the other side is yours: your body, time, money, plans, energy.</li>
+                  </ul>
                   <p style={{ fontStyle: "italic", margin: "12px 0" }}>
                     “She didn’t choose me when she could.<br />
-                    She is in her own world — her responsibility is there.<br />
+                    She is in her own world — her decisions, habits, actions, her responsibility are there.<br />
                     My responsibility is only here.”
                   </p>
 
                   <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>Block 3. Grounding + walking (15 minutes)</h3>
-                  <p><strong>When:</strong> after separating responsibility.</p>
-                  <p>Walk calmly 10–15 minutes (ideally barefoot). Keep light 4–6 breathing.</p>
-                  <p>Use 5-4-3-2-1 grounding anchors while walking.</p>
-
-                  <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>Block 4. Hormone reduction</h3>
-                  <p><strong>Adrenaline (anger / surge):</strong> Hand squeeze (20s on / 20s off ×3) or full-body tension 30s.</p>
-                  <p><strong>Cortisol (burnout / emptiness):</strong> Moderate exercise 15–30 min, cold shower or sauna (if safe).</p>
-
-                  <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>5. Fast interception during the day</h3>
-                  <p>When the urge to text or check appears:</p>
-                  <ul style={{ paddingLeft: "20px" }}>
-                    <li>Mini 4–6 breathing</li>
-                    <li>Unhooking phrase (repeat 2–3 times)</li>
-                    <li>Wait at least 24–48 hours before replying</li>
+                  <p><strong>Goal:</strong> bring focus back to your body, your space, your tasks.</p>
+                  <p><strong>When:</strong> after the “separating responsibility” step.</p>
+                  <p><strong>Steps:</strong></p>
+                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
+                    <li>Walk for 10–15 minutes at a calm pace (apartment, street, hallway), ideally barefoot.</li>
+                    <li>During the walk keep a light 4–6 breathing rhythm, but more freely (don’t count every breath).</li>
+                    <li>While walking, consciously lean on 5 anchors:<br />
+                      ◦ 5 things you can see;<br />
+                      ◦ 4 sounds you can hear;<br />
+                      ◦ 3 sensations in your body (how your feet touch the floor, how your shoulders move, how the air feels on your skin);<br />
+                      ◦ 2 smells or tastes;<br />
+                      ◦ 1 thought: “What do I want to do for myself today?”
+                    </li>
                   </ul>
 
-                  <p style={{ marginTop: 20, fontStyle: "italic" }}>
-                    A full exit from the dopamine loop usually takes around 1 month with daily practice and complete no-contact.
+                  <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>Block 4. Hormone reduction: adrenaline and cortisol</h3>
+                  <p><strong>4.1. Adrenaline:</strong> when you feel anger / a surge / “boiling inside”</p>
+                  <p><strong>Goal:</strong> give your body a controlled outlet for adrenaline.</p>
+                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
+                    <li>Hand squeeze: clench your fists as hard as you can for 20 seconds, release fully for 20 seconds; repeat 3 times.</li>
+                    <li>Full-body tension: stand up straight, press your feet into the floor; on the inhale, tense your whole body as much as possible for 30 seconds; then on the exhale let everything go at once.</li>
+                  </ul>
+
+                  <p><strong>4.2. Cortisol:</strong> when you feel burned out / hopeless / “empty”</p>
+                  <p><strong>Goal:</strong> lower cortisol so you can focus, stay collected, and actually function in your life and work.</p>
+                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
+                    <li>Moderate-intensity physical exercise for 15–30 minutes (brisk walking, squats, push-ups, interval circuits).</li>
+                    <li>Sauna / hot steam room — if available and medically safe.</li>
+                    <li>Cold exposure (cold shower, ice bath, cold compress on the body) — done mindfully.</li>
+                  </ul>
+
+                  <h3 style={{ margin: "28px 0 12px", color: "#fff" }}>5. Fast interception during the day</h3>
+                  <p><strong>When:</strong> any time a new wave hits — you hear her voice in your head, see photos, open the chat, feel the pull to text or check.</p>
+                  
+                  <p><strong>5.1. Mini 4–6 breathing</strong></p>
+                  <ul style={{ paddingLeft: "20px", margin: "8px 0 16px" }}>
+                    <li>5–10 cycles: inhale for 4 counts through the nose, short pause for 1–2 counts, exhale for 6 counts through the mouth.</li>
+                  </ul>
+
+                  <p><strong>5.2. “Unhooking” phrases</strong></p>
+                  <p>Option A (long):</p>
+                  <p style={{ fontStyle: "italic", margin: "8px 0" }}>
+                    “She didn’t choose me when she could.<br />
+                    She is in her own world — her decisions, habits, actions, her responsibility are there.<br />
+                    My responsibility is only here.”
+                  </p>
+                  <p>Option B (short):</p>
+                  <p style={{ fontStyle: "italic" }}>“This is not about the future. This is only about attachment.”</p>
+
+                  <p><strong>5.3. “Don’t answer until you’re out of the wave”</strong></p>
+                  <p>Don’t answer calls or messages until you feel the hormone wave has passed. Ideally wait 24–48 hours.</p>
+
+                  <p><strong>5.4. If you still wrote or answered</strong></p>
+                  <p>Mini-protocol for a slip: Breathe 4–6, say “This is not about the future. This is about attachment.” and return to the protocol.</p>
+
+                  <p style={{ marginTop: 24, fontStyle: "italic" }}>
+                    A full exit from this dopamine loop usually takes around a month with complete cutoff of contact and daily practice of the Wall protocol.
                   </p>
                 </div>
 
