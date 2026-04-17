@@ -1,24 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function YouAreOptionTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [hasAnalyzed, setHasAnalyzed] = useState(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("lastResult_option");
-    if (saved) {
-      setResult(JSON.parse(saved));
-      setHasAnalyzed(true);
-    }
-  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    setResult(null);
+    setResult(null); // очищаем предыдущий результат
 
     const formData = new FormData(e.currentTarget);
 
@@ -45,8 +36,6 @@ export default function YouAreOptionTest() {
 
     const data = await res.json();
     setResult(data);
-    localStorage.setItem("lastResult_option", JSON.stringify(data));
-    setHasAnalyzed(true);
     setLoading(false);
   }
 
@@ -114,7 +103,6 @@ export default function YouAreOptionTest() {
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16 }}>
-          
           <div>
             <label style={labelStyle}>
               How often do they initiate contact or make plans?
@@ -195,7 +183,6 @@ export default function YouAreOptionTest() {
           </div>
         </form>
 
-        {/* {hasAnalyzed && result && result.indices && ( */}
         {result && (
           <section style={{ marginTop: 32, lineHeight: 1.5 }}>
             <h2 style={sectionTitleStyle}>
@@ -209,27 +196,23 @@ export default function YouAreOptionTest() {
                 Priority Position Index: {result.indices.priority_position_index}
               </strong>
             </p>
-
             <p>
               <strong>
                 Attention Consistency Score:{" "}
                 {result.indices.attention_consistency_score}
               </strong>
             </p>
-
             <p>
               <strong>
                 Cancellation Rate: {result.indices.cancellation_rate}
               </strong>
             </p>
-
             <p>
               <strong>
                 Emotional Uncertainty Load:{" "}
                 {result.indices.emotional_uncertainty_load}
               </strong>
             </p>
-
             <p>
               <strong>
                 Option Trap Risk: {result.indices.option_trap_risk}
