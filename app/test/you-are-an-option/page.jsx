@@ -295,10 +295,13 @@ useEffect(() => {
 
             {!paid ? (
               <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
-                <p style={{ marginBottom: 12 }}>
-                  Get full protocol access — $3 
-                  {protocolTier && ` (${protocolTier === "hard" ? "Wall Protocol" : "Stabilization Protocol"})`}
-                </p>
+                {protocolTier && (
+                  <p style={{ marginBottom: 12, fontWeight: 600 }}>
+                    Recommended: <strong>
+                      {protocolTier === "hard" ? "Wall Protocol (Hard)" : "Stabilization Protocol (Soft)"}
+                    </strong> — $3
+                  </p>
+                )}
                 <div ref={paypalSingleRef} />
                 {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
                 {payError && <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>}
