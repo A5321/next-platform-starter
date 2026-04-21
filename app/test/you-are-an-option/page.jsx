@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 // Правильные относительные импорты (от app/test/you-are-an-option/ до lib/)
-import { youAreAnOptionProtocols } from "../../../../lib/protocols/youAreAnOption";
-import { getProtocolTier } from "../../../../lib/protocolTiers";
+import { youAreAnOptionProtocols } from "../../../lib/protocols/youAreAnOption";
+import { getProtocolTier } from "../../../lib/protocolTiers";
 
 export default function YouAreOptionTest() {
   const [result, setResult] = useState(null);
