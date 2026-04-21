@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { youAreAnOptionProtocols } from "../../../lib/protocols/youAreAnOption";
-import { getProtocolTier } from "../../../lib/protocolTiers";
+
+// Правильные относительные импорты (от app/test/you-are-an-option/ до lib/)
+import { youAreAnOptionProtocols } from "../../../../lib/protocols/youAreAnOption";
+import { getProtocolTier } from "../../../../lib/protocolTiers";
 
 export default function YouAreOptionTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [paid, setPaid] = useState(false);
-  const [protocolTier, setProtocolTier] = useState(null); // ← новый стейт
+  const [protocolTier, setProtocolTier] = useState(null);
 
   const [email, setEmail] = useState("");
   const [paying, setPaying] = useState(false);
@@ -47,7 +49,6 @@ export default function YouAreOptionTest() {
     const data = await res.json();
     setResult(data);
 
-    // Определяем tier сразу после анализа
     if (data) {
       const tier = getProtocolTier("you-are-an-option", data);
       setProtocolTier(tier);
@@ -56,11 +57,11 @@ export default function YouAreOptionTest() {
     setLoading(false);
   }
 
-  // PayPal
+  // PayPal кнопка
   useEffect(() => {
-    if (!result || !protocolTier) return;
-    if (typeof window === "undefined" || !window.paypal) return;
-    if (!paypalSingleRef.current || paypalRenderedRef.current) return;
+    if (!result || !protocolTier || typeof window === "undefined" || !window.paypal || !paypalSingleRef.current || paypalRenderedRef.current) {
+      return;
+    }
 
     paypalRenderedRef.current = true;
 
@@ -114,73 +115,174 @@ export default function YouAreOptionTest() {
       .render(paypalSingleRef.current);
   }, [result, protocolTier]);
 
-  // Получаем нужный протокол из библиотеки
-  const currentProtocol = protocolTier && youAreAnOptionProtocols[protocolTier];
+  const currentProtocol = protocolTier && youAreAnOptionProtocols?.[protocolTier];
 
   const copyProtocol = async () => {
     if (!currentProtocol) return;
 
-    // Формируем красивый текст для копирования (можно улучшить позже)
-    let protocolText = `"${currentProtocol.title}"\n\n`;
-    protocolText += `${currentProtocol.subtitle}\n\n`;
-    protocolText += `${currentProtocol.intro}\n\n`;
+    let protocolText = `"${currentProtocol.title}"\n\n${currentProtocol.subtitle}\n\n${currentProtocol.intro}\n\n`;
 
-    currentProtocol.blocks.forEach((block, index) => {
-      protocolText += `${block.title}\n`;
-      protocolText += `Goal: ${block.goal}\n`;
-      if (block.when) protocolText += `When: ${block.when}\n`;
-      protocolText += "\n";
-
+    currentProtocol.blocks.forEach((block) => {
+      protocolText += `${block.title}\nGoal: ${block.goal}\n`;
+      if (block.when) protocolText += `When: ${block.when}\n\n`;
       if (block.items) {
-        block.items.forEach((item) => {
-          protocolText += `• ${item}\n`;
-        });
+        block.items.forEach((item) => protocolText += `• ${item}\n`);
       }
       protocolText += "\n";
     });
 
-    if (currentProtocol.closing) {
-      protocolText += currentProtocol.closing;
-    }
+    if (currentProtocol.closing) protocolText += currentProtocol.closing;
 
     try {
       await navigator.clipboard.writeText(protocolText);
-      alert(`✅ "${currentProtocol.title}" скопирован в буфер обмена!`);
-    } catch (err) {
+      alert(`✅ ${currentProtocol.title} скопирован!`);
+    } catch {
       alert("Не удалось скопировать. Выделите текст вручную.");
     }
   };
 
-  // ... (стили pageStyle, cardStyle и т.д. остаются без изменений)
+  // === Стили (обязательно определяем здесь) ===
+  const pageStyle = {
+    minHeight: "100vh",
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    padding: "20px 16px",
+    backgroundImage: "url('/bgr.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  };
+
+  const cardStyle = {
+    maxWidth: 900,
+    width: "100%",
+    backgroundColor: "#000000",
+    borderRadius: 12,
+    padding: 24,
+    boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
+    backdropFilter: "blur(6px)",
+  };
+
+  const labelStyle = { display: "block", marginBottom: 8, fontWeight: 500 };
+  const controlStyle = {
+    width: "100%",
+    boxSizing: "border-box",
+    padding: "8px 10px",
+    borderRadius: 6,
+    border: "1px solid rgba(255,255,255,0.25)",
+    backgroundColor: "rgba(3, 20, 40, 0.85)",
+    color: "#fff",
+  };
+  const sectionTitleStyle = { marginTop: 24, marginBottom: 8 };
 
   return (
     <div style={pageStyle}>
       <div style={cardStyle}>
-        {/* Header и форма — без изменений */}
+        <header style={{ marginBottom: 24 }}>
+          <a href="/" style={{ display: "inline-block", marginBottom: 12, color: "#ffffff", textDecoration: "none", opacity: 0.7, fontSize: 14 }}>
+            ← Back to home
+          </a>
+          <h1 style={{ margin: 0, fontSize: 32 }}>Are you just an option?</h1>
+          <p style={{ marginTop: 8, opacity: 0.9 }}>
+            Check if you are a priority — or just kept around when convenient.
+          </p>
+        </header>
+
+        <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16 }}>
+          <div>
+            <label style={labelStyle}>How often do they initiate contact or make plans?</label>
+            <select name="initiation" style={controlStyle}>
+              <option value="rarely">Rarely</option>
+              <option value="sometimes">Sometimes</option>
+              <option value="often">Often</option>
+              <option value="very_often">Very often</option>
+            </select>
+          </div>
+
+          <div>
+            <label style={labelStyle}>How consistent is their attention and communication?</label>
+            <select name="consistency" style={controlStyle}>
+              <option value="very_inconsistent">Very inconsistent</option>
+              <option value="somewhat_inconsistent">Somewhat inconsistent</option>
+              <option value="mostly_consistent">Mostly consistent</option>
+              <option value="very_consistent">Very consistent</option>
+            </select>
+          </div>
+
+          <div>
+            <label style={labelStyle}>How often do plans get cancelled, postponed, or stay vague?</label>
+            <select name="planning" style={controlStyle}>
+              <option value="very_often">Very often</option>
+              <option value="often">Often</option>
+              <option value="sometimes">Sometimes</option>
+              <option value="rarely">Rarely</option>
+            </select>
+          </div>
+
+          <div>
+            <label style={labelStyle}>Do you feel like a priority or more like a backup option?</label>
+            <select name="priority" style={controlStyle}>
+              <option value="clearly_backup">Clearly a backup</option>
+              <option value="leaning_backup">Leaning backup</option>
+              <option value="unclear">Unclear</option>
+              <option value="mostly_priority">Mostly a priority</option>
+            </select>
+          </div>
+
+          <div>
+            <label style={labelStyle}>Your story (optional)</label>
+            <textarea
+              name="narrative"
+              rows={5}
+              style={{ ...controlStyle, resize: "vertical" }}
+              placeholder="Describe a recent situation that feels typical for this dynamic..."
+            />
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                padding: "10px 18px",
+                borderRadius: 999,
+                border: "none",
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                fontWeight: 600,
+                cursor: loading ? "default" : "pointer",
+                opacity: loading ? 0.7 : 1,
+              }}
+            >
+              {loading ? "Analyzing..." : "Analyze pattern"}
+            </button>
+          </div>
+        </form>
 
         {result && (
           <section style={{ marginTop: 32, lineHeight: 1.5 }}>
-            <h2>Status: {result.overall_option_status}</h2>
+            <h2 style={sectionTitleStyle}>Status: {result.overall_option_status}</h2>
 
-            <h3>Indices</h3>
-            {/* ... все индексы без изменений */}
+            <h3 style={sectionTitleStyle}>Indices</h3>
+            <p><strong>Priority Position Index:</strong> {result.indices.priority_position_index}</p>
+            <p><strong>Attention Consistency Score:</strong> {result.indices.attention_consistency_score}</p>
+            <p><strong>Cancellation Rate:</strong> {result.indices.cancellation_rate}</p>
+            <p><strong>Emotional Uncertainty Load:</strong> {result.indices.emotional_uncertainty_load}</p>
+            <p><strong>Option Trap Risk:</strong> {result.indices.option_trap_risk}</p>
 
-            <h3>Summary</h3>
+            <h3 style={sectionTitleStyle}>Summary</h3>
             <p style={{ marginBottom: 24 }}>{result.summary}</p>
 
             {!paid ? (
               <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
                 <p style={{ marginBottom: 12 }}>
-                  Get full protocol access — $3
+                  Get full protocol access — $3 
                   {protocolTier && ` (${protocolTier === "hard" ? "Wall Protocol" : "Stabilization Protocol"})`}
                 </p>
-
-                <div style={{ marginBottom: 10 }}>
-                  <div ref={paypalSingleRef} />
-                </div>
-
-                {paying && <p>Processing payment...</p>}
-                {payError && <p style={{ color: "#ff8c8c" }}>{payError}</p>}
+                <div ref={paypalSingleRef} />
+                {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
+                {payError && <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>}
               </div>
             ) : (
               <div style={{ marginTop: 30 }}>
@@ -199,15 +301,13 @@ export default function YouAreOptionTest() {
                           <h3>{block.title}</h3>
                           <p><strong>Goal:</strong> {block.goal}</p>
                           {block.when && <p><strong>When:</strong> {block.when}</p>}
-                          
                           {block.items && (
-                            <ul style={{ paddingLeft: 20 }}>
+                            <ul style={{ paddingLeft: 20, marginTop: 8 }}>
                               {block.items.map((item, i) => (
                                 <li key={i}>{item}</li>
                               ))}
                             </ul>
                           )}
-
                           {block.why && (
                             <div style={{ marginTop: 12 }}>
                               <strong>Why:</strong>
@@ -245,15 +345,11 @@ export default function YouAreOptionTest() {
                 >
                   📋 Copy full protocol to clipboard
                 </button>
-
-                <p style={{ marginTop: 16, fontSize: 13, opacity: 0.75, textAlign: "center" }}>
-                  Save it and practice daily.
-                </p>
               </div>
             )}
 
             <p style={{ marginTop: 40, fontSize: 12, opacity: 0.7 }}>
-              This tool is not therapy, medical care, or legal advice...
+              This tool is not therapy, medical care, or legal advice. You are fully responsible for any decisions or actions you take.
             </p>
           </section>
         )}
