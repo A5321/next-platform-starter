@@ -290,22 +290,37 @@ useEffect(() => {
             <p><strong>Emotional Uncertainty Load:</strong> {result.indices.emotional_uncertainty_load}</p>
             <p><strong>Option Trap Risk:</strong> {result.indices.option_trap_risk}</p>
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p style={{ marginBottom: 24 }}>{result.summary}</p>
+<h3 style={sectionTitleStyle}>Summary</h3>
+<p style={{ marginBottom: 24 }}>{result.summary}</p>
 
-            {!paid ? (
-              <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
-                {protocolTier && (
-                  <p style={{ marginBottom: 12, fontWeight: 600 }}>
-                    Recommended: <strong>
-                      {protocolTier === "hard" ? "Wall Protocol (Hard)" : "Stabilization Protocol (Soft)"}
-                    </strong> — $3
-                  </p>
-                )}
-                <div ref={paypalSingleRef} />
-                {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
-                {payError && <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>}
-              </div>
+{protocolTier === "none" ? (
+  <div style={{ 
+    marginTop: 24, 
+    padding: 20, 
+    border: "1px solid rgba(0, 255, 100, 0.3)", 
+    borderRadius: 10, 
+    background: "rgba(0, 255, 100, 0.05)",
+    color: "#aaffaa"
+  }}>
+    <strong>✅ Ваш случай выглядит стабильным.</strong><br />
+    Протокол не требуется. Продолжайте наслаждаться отношениями!
+  </div>
+) : (
+  <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
+    <p style={{ marginBottom: 12, fontWeight: 600 }}>
+      Recommended: <strong>
+        {protocolTier === "hard" ? "Wall Protocol (Hard)" : "Stabilization Protocol (Soft)"}
+      </strong> — $3
+    </p>
+
+    <div style={{ marginBottom: 10 }}>
+      <div ref={paypalSingleRef} />
+    </div>
+
+    {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
+    {payError && <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>}
+  </div>
+)}
             ) : (
               <div style={{ marginTop: 30 }}>
                 <h2 style={{ marginBottom: 16, color: "#fff" }}>
