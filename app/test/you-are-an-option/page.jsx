@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { youAreAnOptionProtocols } from "@/lib/protocols/youAreAnOption"; // ← добавь импорт
-import { getProtocolTier } from "@/lib/protocolTiers"; // ← добавь импорт
+import { youAreAnOptionProtocols } from "../../../../lib/protocols/youAreAnOption";
+import { getProtocolTier } from "../../../../lib/protocolTiers";
 
 export default function YouAreOptionTest() {
   const [result, setResult] = useState(null);
