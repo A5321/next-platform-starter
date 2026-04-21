@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { protocolsByScope } from "@/lib/protocols";
-import { getProtocolTier } from "@/lib/protocolTiers";
+import { getProtocolTier } from "@/app/lib/protocolTiers";
+import { protocolsByScope } from "@/app/lib/protocols";
 
 export default function YouAreOptionTest() {
   const [result, setResult] = useState(null);
