@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { getProtocolTier } from "@/app/lib/protocolTiers";
+import { getProtocolTier } from "@/app/lib/protocolTierFix";
 import { protocolsByScope } from "@/app/lib/protocols";
 
 export default function YouAreOptionTest() {
