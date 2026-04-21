@@ -321,69 +321,6 @@ useEffect(() => {
     {payError && <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>}
   </div>
 )}
-            ) : (
-              <div style={{ marginTop: 30 }}>
-                <h2 style={{ marginBottom: 16, color: "#fff" }}>
-                  {currentProtocol?.title || "Protocol"}
-                </h2>
-
-                <div style={{ fontSize: "15.2px", lineHeight: "1.75", color: "#ddd", whiteSpace: "pre-wrap" }}>
-                  {currentProtocol ? (
-                    <>
-                      <p><strong>{currentProtocol.subtitle}</strong></p>
-                      <p>{currentProtocol.intro}</p>
-
-                      {currentProtocol.blocks.map((block, idx) => (
-                        <div key={idx} style={{ marginTop: 24 }}>
-                          <h3>{block.title}</h3>
-                          <p><strong>Goal:</strong> {block.goal}</p>
-                          {block.when && <p><strong>When:</strong> {block.when}</p>}
-                          {block.items && (
-                            <ul style={{ paddingLeft: 20, marginTop: 8 }}>
-                              {block.items.map((item, i) => (
-                                <li key={i}>{item}</li>
-                              ))}
-                            </ul>
-                          )}
-                          {block.why && (
-                            <div style={{ marginTop: 12 }}>
-                              <strong>Why:</strong>
-                              <ul style={{ paddingLeft: 20 }}>
-                                {block.why.map((w, i) => <li key={i}>{w}</li>)}
-                              </ul>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-
-                      {currentProtocol.closing && (
-                        <p style={{ marginTop: 32, fontStyle: "italic" }}>{currentProtocol.closing}</p>
-                      )}
-                    </>
-                  ) : (
-                    <p>Protocol not found.</p>
-                  )}
-                </div>
-
-                <button
-                  onClick={copyProtocol}
-                  style={{
-                    marginTop: 32,
-                    padding: "14px 24px",
-                    borderRadius: 8,
-                    border: "none",
-                    backgroundColor: "#ffffff",
-                    color: "#000",
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    width: "100%",
-                    fontSize: "16px",
-                  }}
-                >
-                  📋 Copy full protocol to clipboard
-                </button>
-              </div>
-            )}
 
             <p style={{ marginTop: 40, fontSize: 12, opacity: 0.7 }}>
               This tool is not therapy, medical care, or legal advice. You are fully responsible for any decisions or actions you take.
