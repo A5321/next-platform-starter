@@ -2,6 +2,28 @@
 
 import { useEffect, useRef, useState } from "react";
 
+function getProtocolTier(scope, result) {
+  if (!result || !result.indices) return "none";
+
+  if (scope === "you-are-an-option") {
+    const optionTrapRisk = Number(result.indices.option_trap_risk || 0);
+    const uncertainty = Number(result.indices.emotional_uncertainty_load || 0);
+    const consistency = Number(result.indices.attention_consistency_score || 0);
+
+    if (optionTrapRisk >= 70 || uncertainty >= 70 || consistency <= 35) {
+      return "hard";
+    }
+
+    if (optionTrapRisk >= 45 || uncertainty >= 45 || consistency <= 55) {
+      return "soft";
+    }
+
+    return "none";
+  }
+
+  return "none";
+}
+
 export default function YouAreOptionTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
