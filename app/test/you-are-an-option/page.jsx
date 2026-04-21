@@ -302,8 +302,8 @@ useEffect(() => {
     background: "rgba(0, 255, 100, 0.05)",
     color: "#aaffaa"
   }}>
-    <strong>✅ Ваш случай выглядит стабильным.</strong><br />
-    Протокол не требуется. Продолжайте наслаждаться отношениями!
+    <strong>✅ Your case looks stable.</strong><br />
+    No protocol is required. Keep enjoying the relationship!
   </div>
 ) : (
   <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
