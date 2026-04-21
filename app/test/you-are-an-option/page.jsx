@@ -344,27 +344,57 @@ useEffect(() => {
           {currentProtocol ? (
             <>
               <p><strong>{currentProtocol.subtitle}</strong></p>
-              <p style={{ marginTop: 16 }}>{currentProtocol.intro}</p>
+              <p style={{ marginTop: 16, marginBottom: 24 }}>{currentProtocol.intro}</p>
 
               {currentProtocol.blocks.map((block, idx) => (
-                <div key={idx} style={{ marginTop: 28 }}>
-                  <h3 style={{ color: "#fff", marginBottom: 8 }}>{block.title}</h3>
-                  <p><strong>Goal:</strong> {block.goal}</p>
-                  {block.when && <p><strong>When:</strong> {block.when}</p>}
-                  
-                  {block.items && (
-                    <ul style={{ paddingLeft: 20, marginTop: 12 }}>
-                      {block.items.map((item, i) => (
-                        <li key={i} style={{ marginBottom: 6 }}>{item}</li>
-                      ))}
-                    </ul>
+                <div key={idx} style={{ marginTop: 32 }}>
+                  <h3 style={{ color: "#fff", marginBottom: 12, fontSize: "18px" }}>{block.title}</h3>
+        
+                  {block.goal && (
+                    <p><strong>Goal:</strong> {block.goal}</p>
+                  )}
+                  {block.when && (
+                    <p><strong>When:</strong> {block.when}</p>
                   )}
 
+                  {block.items && (
+                    <div style={{ marginTop: 16 }}>
+                      <ul style={{ 
+                        paddingLeft: "24px", 
+                        margin: 0,
+                        listStyleType: "disc" 
+                      }}>
+                        {block.items.map((item, i) => {
+                          // Простая обработка вложенности по тире и отступам
+                          const trimmed = item.trim();
+                          if (trimmed.startsWith('—') || trimmed.startsWith('-')) {
+                            return (
+                              <li key={i} style={{ 
+                                marginBottom: 8, 
+                                paddingLeft: "8px",
+                                listStyleType: "circle" 
+                              }}>
+                                {trimmed.replace(/^—\s*/, '').replace(/^- /, '')}
+                              </li>
+                            );
+                          }
+                          return (
+                            <li key={i} style={{ marginBottom: 10 }}>
+                              {trimmed}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  )}
+          
                   {block.why && (
-                    <div style={{ marginTop: 12 }}>
+                    <div style={{ marginTop: 16 }}>
                       <strong>Why:</strong>
-                      <ul style={{ paddingLeft: 20 }}>
-                        {block.why.map((w, i) => <li key={i}>{w}</li>)}
+                      <ul style={{ paddingLeft: "24px", marginTop: 8 }}>
+                        {block.why.map((w, i) => (
+                          <li key={i} style={{ marginBottom: 6 }}>{w}</li>
+                        ))}
                       </ul>
                     </div>
                   )}
@@ -372,7 +402,15 @@ useEffect(() => {
               ))}
 
               {currentProtocol.closing && (
-                <p style={{ marginTop: 32, fontStyle: "italic", color: "#aaa" }}>
+                <p style={{ 
+                  marginTop: 40, 
+                  padding: "16px 20px", 
+                  background: "rgba(255,255,255,0.05)", 
+                  borderLeft: "4px solid #4ade80",
+                  fontStyle: "italic",
+                  color: "#ccc",
+                  lineHeight: 1.6
+                }}>
                   {currentProtocol.closing}
                 </p>
               )}
