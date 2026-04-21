@@ -57,63 +57,82 @@ export default function YouAreOptionTest() {
     setLoading(false);
   }
 
-  // PayPal кнопка
-  useEffect(() => {
-    if (!result || !protocolTier || typeof window === "undefined" || !window.paypal || !paypalSingleRef.current || paypalRenderedRef.current) {
-      return;
-    }
+// PayPal рендер — исправленная версия
+useEffect(() => {
+  if (!result || !protocolTier) return;
+  if (typeof window === "undefined" || !window.paypal) return;
+  if (!paypalSingleRef.current) return;
 
-    paypalRenderedRef.current = true;
+  // Важно: сбрасываем флаг при каждом новом результате
+  // чтобы кнопка перерисовывалась после нового анализа
+  paypalRenderedRef.current = false;
 
-    window.paypal
-      .Buttons({
-        style: { layout: "vertical", shape: "rect", label: "paypal", height: 42 },
-        createOrder: async (_, actions) => {
+  // Удаляем старые кнопки, если они есть (чтобы не дублировались)
+  if (paypalSingleRef.current.hasChildNodes()) {
+    paypalSingleRef.current.innerHTML = "";
+  }
+
+  window.paypal
+    .Buttons({
+      style: {
+        layout: "vertical",
+        shape: "rect",
+        label: "paypal",
+        height: 42,
+      },
+      createOrder: async (_, actions) => {
+        setPayError("");
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: { value: "3.00", currency_code: "USD" },
+              custom_id: "you-are-option-single",
+              description: `You Are An Option — ${protocolTier === "hard" ? "Wall" : "Stabilization"} Protocol`,
+            },
+          ],
+        });
+      },
+      onApprove: async (data, actions) => {
+        try {
+          setPaying(true);
           setPayError("");
-          return actions.order.create({
-            purchase_units: [
-              {
-                amount: { value: "3.00", currency_code: "USD" },
-                custom_id: "you-are-option-single",
-                description: `You Are An Option — ${protocolTier === "hard" ? "Wall" : "Stabilization"} Protocol`,
-              },
-            ],
+          await actions.order.capture();
+
+          const res = await fetch("/api/paypal/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              orderId: data.orderID,
+              intent: "single",
+              scope: "you-are-an-option",
+              email: emailRef.current?.trim() || "user@paypal.com",
+            }),
           });
-        },
-        onApprove: async (data, actions) => {
-          try {
-            setPaying(true);
-            setPayError("");
-            await actions.order.capture();
 
-            const res = await fetch("/api/paypal/confirm", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                orderId: data.orderID,
-                intent: "single",
-                scope: "you-are-an-option",
-                email: emailRef.current?.trim() || "user@paypal.com",
-              }),
-            });
-
-            const json = await res.json();
-            if (!res.ok || !json.success) throw new Error(json.error || "Payment failed");
-
-            setPaid(true);
-          } catch (err) {
-            setPayError(err.message || "Payment failed");
-          } finally {
-            setPaying(false);
+          const json = await res.json();
+          if (!res.ok || !json.success) {
+            throw new Error(json.error || "Payment confirmation failed");
           }
-        },
-        onError: (err) => {
+
+          setPaid(true);
+        } catch (err) {
           console.error(err);
-          setPayError("PayPal error. Try again.");
-        },
-      })
-      .render(paypalSingleRef.current);
-  }, [result, protocolTier]);
+          setPayError(err.message || "Payment failed");
+        } finally {
+          setPaying(false);
+        }
+      },
+      onError: (err) => {
+        console.error(err);
+        setPayError("PayPal error. Try again.");
+      },
+    })
+    .render(paypalSingleRef.current)
+    .catch((err) => {
+      console.error("PayPal render error:", err);
+      setPayError("Failed to render PayPal buttons. Please refresh the page.");
+    });
+}, [result, protocolTier]);   // зависимости оставляем
 
   const currentProtocol = protocolTier && youAreAnOptionProtocols?.[protocolTier];
 
