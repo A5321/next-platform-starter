@@ -296,16 +296,27 @@ useEffect(() => {
 {protocolTier === "none" ? (
   <div style={{ 
     marginTop: 24, 
-    padding: 20, 
-    border: "1px solid rgba(0, 255, 100, 0.3)", 
-    borderRadius: 10, 
-    background: "rgba(0, 255, 100, 0.05)",
-    color: "#aaffaa"
+    padding: 24, 
+    border: "1px solid rgba(74, 222, 128, 0.4)", 
+    borderRadius: 12, 
+    background: "rgba(74, 222, 128, 0.08)",
+    color: "#86efac",
+    lineHeight: 1.6
   }}>
-    <strong>✅ Your case looks stable.</strong><br />
-    No protocol is required. Keep enjoying the relationship!
+    <p style={{ fontSize: "18px", marginBottom: 8 }}>
+      ✅ <strong>Your situation looks pretty stable.</strong>
+    </p>
+    <p>
+      This is a healthy middle ground — not perfect, but far from being treated as an option.<br />
+      You don’t need any special protocol right now.
+    </p>
+    <p style={{ marginTop: 16, opacity: 0.9 }}>
+      Keep communicating openly and enjoy the connection as it is.
+    </p>
   </div>
 ) : (
+  // ... блок оплаты остаётся без изменений
+)} : (
   <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
     <p style={{ marginBottom: 12, fontWeight: 600 }}>
       Recommended: <strong>
