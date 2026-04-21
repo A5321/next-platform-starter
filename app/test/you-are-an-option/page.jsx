@@ -316,7 +316,6 @@ useEffect(() => {
   </div>
 ) : (
   // ... блок оплаты остаётся без изменений
-) : (
   <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
     <p style={{ marginBottom: 12, fontWeight: 600 }}>
       Recommended: <strong>
