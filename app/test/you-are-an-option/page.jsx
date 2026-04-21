@@ -68,6 +68,7 @@ useEffect(() => {
   paypalRenderedRef.current = false;
 
   // Удаляем старые кнопки, если они есть (чтобы не дублировались)
+  paypalRenderedRef.current = false;   // ← добавь эту строку в начало useEffect
   if (paypalSingleRef.current.hasChildNodes()) {
     paypalSingleRef.current.innerHTML = "";
   }
@@ -279,64 +280,138 @@ useEffect(() => {
           </div>
         </form>
 
-        {result && (
-          <section style={{ marginTop: 32, lineHeight: 1.5 }}>
-            <h2 style={sectionTitleStyle}>Status: {result.overall_option_status}</h2>
+{result && (
+  <section style={{ marginTop: 32, lineHeight: 1.5 }}>
+    <h2 style={sectionTitleStyle}>Status: {result.overall_option_status}</h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
-            <p><strong>Priority Position Index:</strong> {result.indices.priority_position_index}</p>
-            <p><strong>Attention Consistency Score:</strong> {result.indices.attention_consistency_score}</p>
-            <p><strong>Cancellation Rate:</strong> {result.indices.cancellation_rate}</p>
-            <p><strong>Emotional Uncertainty Load:</strong> {result.indices.emotional_uncertainty_load}</p>
-            <p><strong>Option Trap Risk:</strong> {result.indices.option_trap_risk}</p>
+    <h3 style={sectionTitleStyle}>Indices</h3>
+    <p><strong>Priority Position Index:</strong> {result.indices.priority_position_index}</p>
+    <p><strong>Attention Consistency Score:</strong> {result.indices.attention_consistency_score}</p>
+    <p><strong>Cancellation Rate:</strong> {result.indices.cancellation_rate}</p>
+    <p><strong>Emotional Uncertainty Load:</strong> {result.indices.emotional_uncertainty_load}</p>
+    <p><strong>Option Trap Risk:</strong> {result.indices.option_trap_risk}</p>
 
-<h3 style={sectionTitleStyle}>Summary</h3>
-<p style={{ marginBottom: 24 }}>{result.summary}</p>
+    <h3 style={sectionTitleStyle}>Summary</h3>
+    <p style={{ marginBottom: 24 }}>{result.summary}</p>
 
-{protocolTier === "none" ? (
-  <div style={{ 
-    marginTop: 24, 
-    padding: 24, 
-    border: "1px solid rgba(74, 222, 128, 0.4)", 
-    borderRadius: 12, 
-    background: "rgba(74, 222, 128, 0.08)",
-    color: "#86efac",
-    lineHeight: 1.6
-  }}>
-    <p style={{ fontSize: "18px", marginBottom: 8 }}>
-      ✅ <strong>Your situation looks pretty stable.</strong>
+    {protocolTier === "none" ? (
+      <div style={{ 
+        marginTop: 24, 
+        padding: 24, 
+        border: "1px solid #4ade80", 
+        borderRadius: 12, 
+        background: "rgba(16, 185, 129, 0.1)",
+        color: "#86efac"
+      }}>
+        <h3 style={{ margin: "0 0 12px 0", color: "#4ade80" }}>✅ Good news</h3>
+        <p style={{ fontSize: "17px", lineHeight: 1.55 }}>
+          Your case looks stable.<br />
+          You’re not stuck in the “option zone”.
+        </p>
+        <p style={{ marginTop: 12, opacity: 0.95 }}>
+          No protocol needed — just keep doing what you’re doing and enjoy the relationship.
+        </p>
+      </div>
+    ) : !paid ? (
+      <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
+        <p style={{ marginBottom: 12, fontWeight: 600 }}>
+          Recommended: <strong>
+            {protocolTier === "hard" ? "Wall Protocol (Hard)" : "Stabilization Protocol (Soft)"}
+          </strong> — $3
+        </p>
+
+        <div style={{ minHeight: "50px" }} ref={paypalSingleRef} />
+
+        {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
+        {payError && <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>}
+      </div>
+    ) : (
+      // ← Здесь показываем протокол после оплаты
+      <div style={{ marginTop: 30 }}>
+        <h2 style={{ marginBottom: 16, color: "#fff" }}>
+          {currentProtocol?.title || "Protocol"}
+        </h2>
+
+        <div style={{ 
+          fontSize: "15.2px", 
+          lineHeight: "1.75", 
+          color: "#ddd", 
+          whiteSpace: "pre-wrap",
+          background: "rgba(255,255,255,0.03)",
+          padding: "20px",
+          borderRadius: 10
+        }}>
+          {currentProtocol ? (
+            <>
+              <p><strong>{currentProtocol.subtitle}</strong></p>
+              <p style={{ marginTop: 16 }}>{currentProtocol.intro}</p>
+
+              {currentProtocol.blocks.map((block, idx) => (
+                <div key={idx} style={{ marginTop: 28 }}>
+                  <h3 style={{ color: "#fff", marginBottom: 8 }}>{block.title}</h3>
+                  <p><strong>Goal:</strong> {block.goal}</p>
+                  {block.when && <p><strong>When:</strong> {block.when}</p>}
+                  
+                  {block.items && (
+                    <ul style={{ paddingLeft: 20, marginTop: 12 }}>
+                      {block.items.map((item, i) => (
+                        <li key={i} style={{ marginBottom: 6 }}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {block.why && (
+                    <div style={{ marginTop: 12 }}>
+                      <strong>Why:</strong>
+                      <ul style={{ paddingLeft: 20 }}>
+                        {block.why.map((w, i) => <li key={i}>{w}</li>)}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {currentProtocol.closing && (
+                <p style={{ marginTop: 32, fontStyle: "italic", color: "#aaa" }}>
+                  {currentProtocol.closing}
+                </p>
+              )}
+            </>
+          ) : (
+            <p>Protocol not found. Please contact support.</p>
+          )}
+        </div>
+
+        <button
+          onClick={copyProtocol}
+          style={{
+            marginTop: 32,
+            padding: "14px 24px",
+            borderRadius: 8,
+            border: "none",
+            backgroundColor: "#ffffff",
+            color: "#000",
+            fontWeight: 600,
+            cursor: "pointer",
+            width: "100%",
+            fontSize: "16px",
+          }}
+        >
+          📋 Copy full protocol to clipboard
+        </button>
+
+        <p style={{ marginTop: 16, fontSize: 13, opacity: 0.75, textAlign: "center" }}>
+          Save it and practice daily for the next 30 days.
+        </p>
+      </div>
+    )}
+
+    <p style={{ marginTop: 40, fontSize: 12, opacity: 0.7 }}>
+      This tool is not therapy, medical care, or legal advice. You are fully responsible for any decisions or actions you take.
     </p>
-    <p>
-      This is a healthy middle ground — not perfect, but far from being treated as an option.<br />
-      You don’t need any special protocol right now.
-    </p>
-    <p style={{ marginTop: 16, opacity: 0.9 }}>
-      Keep communicating openly and enjoy the connection as it is.
-    </p>
-  </div>
-) : (
-  // ... блок оплаты остаётся без изменений
-  <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
-    <p style={{ marginBottom: 12, fontWeight: 600 }}>
-      Recommended: <strong>
-        {protocolTier === "hard" ? "Wall Protocol (Hard)" : "Stabilization Protocol (Soft)"}
-      </strong> — $3
-    </p>
-
-    <div style={{ marginBottom: 10 }}>
-      <div ref={paypalSingleRef} />
-    </div>
-
-    {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
-    {payError && <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>}
-  </div>
+  </section>
 )}
 
-            <p style={{ marginTop: 40, fontSize: 12, opacity: 0.7 }}>
-              This tool is not therapy, medical care, or legal advice. You are fully responsible for any decisions or actions you take.
-            </p>
-          </section>
-        )}
       </div>
     </div>
   );
