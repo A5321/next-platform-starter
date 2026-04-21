@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { protocolsByScope } from "@/app/lib/protocols";
 
 function getProtocolTier(scope, result) {
   if (!result || !result.indices) return "none";
