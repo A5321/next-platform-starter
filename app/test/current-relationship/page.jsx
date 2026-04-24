@@ -328,18 +328,26 @@ export default function CurrentRelationshipTest() {
 
             <p>
               <strong>Boundary Violation Probability: {result.indices.boundary_violation_probability}</strong>
+              <br />
+              Estimates how likely it is that personal limits are being crossed or ignored in this dynamic
             </p>
 
             <p>
               <strong>Communication Clarity Index: {result.indices.communication_clarity_index}</strong>
+              <br />
+              Measures how direct, honest, and unambiguous communication tends to be between both people
             </p>
 
             <p>
               <strong>Pattern Recurrence Probability: {result.indices.pattern_recurrence_probability}</strong>
+              <br />
+              Estimates how likely the current dynamic is to repeat itself without deliberate change
             </p>
 
             <p>
               <strong>Long-Term Stability Forecast: {result.indices.long_term_stability_forecast}</strong>
+              <br />
+              Predicts how sustainable this dynamic is over time based on current patterns
             </p>
 
             <h3 style={sectionTitleStyle}>Summary</h3>
