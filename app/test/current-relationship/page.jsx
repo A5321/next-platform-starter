@@ -1,50 +1,51 @@
 "use client";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export default function MixedSignalsTest() {
+import { currentRelationshipProtocols } from "../../../lib/protocols/currentRelationshipProtocols";
+import { getProtocolTier } from "../../../lib/protocolTiers";
+
+export default function CurrentRelationshipTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [paid, setPaid] = useState(false);
-  const [hasAnalyzed, setHasAnalyzed] = useState(false);
+  const [protocolTier, setProtocolTier] = useState(null);
 
-useEffect(() => {
-  const params = new URLSearchParams(window.location.search);
-  const access = params.get("access");
+  const [paying, setPaying] = useState(false);
+  const [payError, setPayError] = useState("");
 
-  const saved = localStorage.getItem("lastResult_mixed");
-  const paidLocal = localStorage.getItem("paid");
+  const paypalSingleRef = useRef(null);
+  const paypalRenderedRef = useRef(false);
 
-  if (saved) {
-    setResult(JSON.parse(saved));
-  }
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const access = params.get("access");
 
-  if (paidLocal === "true") {
-    setPaid(true);
-    if (saved) setHasAnalyzed(true);
-  }
-  
-  if (access === "one" || access === "sub") {
-    setPaid(true);
+    const saved = localStorage.getItem("lastResult_current_relationship");
+    const paidLocal = localStorage.getItem("paid_current_relationship");
+
     if (saved) {
-      setHasAnalyzed(true);
+      const parsed = JSON.parse(saved);
+      setResult(parsed);
+      const tier = getProtocolTier("current-relationship", parsed);
+      setProtocolTier(tier);
     }
-  }
-}, []);
+
+    if (paidLocal === "true" || access === "one" || access === "sub") {
+      setPaid(true);
+    }
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setResult(null);
+    setPaid(false);
+    setProtocolTier(null);
+    setPayError("");
+    paypalRenderedRef.current = false;
 
     const formData = new FormData(e.currentTarget);
-
-    const duration = formData.get("duration");
-    const initiative = formData.get("initiative");
-    const predictability = formData.get("predictability");
-    const boundaries = formData.get("boundaries");
-    const narrative = formData.get("narrative");
 
     const res = await fetch("/api/analyze", {
       method: "POST",
@@ -52,48 +53,157 @@ useEffect(() => {
       body: JSON.stringify({
         scenario: "current_relationship",
         answers: {
-          duration,
-          initiative,
-          predictability,
-          boundaries,
+          duration: formData.get("duration"),
+          initiative: formData.get("initiative"),
+          predictability: formData.get("predictability"),
+          boundaries: formData.get("boundaries"),
         },
-        narrative,
+        narrative: formData.get("narrative"),
       }),
     });
 
     const data = await res.json();
     setResult(data);
-    localStorage.setItem("lastResult_mixed", JSON.stringify(data));
-    setHasAnalyzed(true);
+    localStorage.setItem("lastResult_current_relationship", JSON.stringify(data));
+
+    const tier = getProtocolTier("current-relationship", data);
+    setProtocolTier(tier);
+
     setLoading(false);
   }
 
-const pageStyle = {
-  minHeight: "100vh",
-  display: "flex",
-  alignItems: "flex-start",
-  justifyContent: "center",
-  padding: "20px 16px",
-  backgroundImage: "url('/bgr.jpg')",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-};
+  // PayPal render
+  useEffect(() => {
+    if (!result || !protocolTier || protocolTier === "none") return;
+    if (paid) return;
+    if (typeof window === "undefined" || !window.paypal) return;
+    if (!paypalSingleRef.current) return;
 
-const cardStyle = {
-  maxWidth: 900,
-  width: "100%",
-  backgroundColor: "#000000",        // чёрная карточка
-  borderRadius: 12,
-  padding: 24,
-  boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
-  backdropFilter: "blur(6px)",
-};
+    paypalRenderedRef.current = false;
+    if (paypalSingleRef.current.hasChildNodes()) {
+      paypalSingleRef.current.innerHTML = "";
+    }
+
+    window.paypal
+      .Buttons({
+        style: {
+          layout: "vertical",
+          shape: "rect",
+          label: "paypal",
+          height: 42,
+        },
+        createOrder: async (_, actions) => {
+          setPayError("");
+          return actions.order.create({
+            purchase_units: [
+              {
+                amount: { value: "3.00", currency_code: "USD" },
+                custom_id: "current-relationship-single",
+                description: `Current Relationship Checkup — ${
+                  protocolTier === "hard" ? "Exit" : "Stabilization"
+                } Protocol`,
+              },
+            ],
+          });
+        },
+        onApprove: async (data, actions) => {
+          try {
+            setPaying(true);
+            setPayError("");
+            await actions.order.capture();
+
+            const res = await fetch("/api/paypal/confirm", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                orderId: data.orderID,
+                intent: "single",
+                scope: "current-relationship",
+                email: "user@paypal.com",
+              }),
+            });
+
+            const json = await res.json();
+            if (!res.ok || !json.success) {
+              throw new Error(json.error || "Payment confirmation failed");
+            }
+
+            localStorage.setItem("paid_current_relationship", "true");
+            setPaid(true);
+          } catch (err) {
+            console.error(err);
+            setPayError(err.message || "Payment failed");
+          } finally {
+            setPaying(false);
+          }
+        },
+        onError: (err) => {
+          console.error(err);
+          setPayError("PayPal error. Try again.");
+        },
+      })
+      .render(paypalSingleRef.current)
+      .catch((err) => {
+        console.error("PayPal render error:", err);
+        setPayError("Failed to render PayPal buttons. Please refresh the page.");
+      });
+  }, [result, protocolTier, paid]);
+
+  const currentProtocol =
+    protocolTier && protocolTier !== "none"
+      ? currentRelationshipProtocols?.[protocolTier]
+      : null;
+
+  const copyProtocol = async () => {
+    if (!currentProtocol) return;
+
+    let text = `"${currentProtocol.title}"\n\n${currentProtocol.subtitle}\n\n${currentProtocol.intro}\n\n`;
+
+    currentProtocol.blocks.forEach((block) => {
+      text += `${block.title}\nGoal: ${block.goal}\n`;
+      if (block.when) text += `When: ${block.when}\n\n`;
+      if (block.items) block.items.forEach((item) => (text += `• ${item}\n`));
+      if (block.why) block.why.forEach((w) => (text += `  → ${w}\n`));
+      text += "\n";
+    });
+
+    if (currentProtocol.closing) text += currentProtocol.closing;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      alert(`✅ ${currentProtocol.title} copied!`);
+    } catch {
+      alert("Could not copy. Please select the text manually.");
+    }
+  };
+
+  // === Styles ===
+  const pageStyle = {
+    minHeight: "100vh",
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    padding: "20px 16px",
+    backgroundImage: "url('/bgr.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  };
+
+  const cardStyle = {
+    maxWidth: 900,
+    width: "100%",
+    backgroundColor: "#000000",
+    borderRadius: 12,
+    padding: 24,
+    boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
+    backdropFilter: "blur(6px)",
+  };
 
   const labelStyle = { display: "block", marginBottom: 8, fontWeight: 500 };
   const controlStyle = {
     width: "100%",
-    maxWidth: 900,          // можно 800, если хочешь чуть уже
+    maxWidth: 900,
     boxSizing: "border-box",
     padding: "8px 10px",
     borderRadius: 6,
@@ -101,7 +211,6 @@ const cardStyle = {
     backgroundColor: "rgba(3, 20, 40, 0.85)",
     color: "#fff",
   };
-
   const sectionTitleStyle = { marginTop: 24, marginBottom: 8 };
 
   return (
@@ -130,9 +239,7 @@ const cardStyle = {
 
         <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16 }}>
           <div>
-            <label style={labelStyle}>
-              How long has this dynamic been going on?
-            </label>
+            <label style={labelStyle}>How long has this dynamic been going on?</label>
             <select name="duration" style={controlStyle}>
               <option value="0-3 months">0–3 months</option>
               <option value="3-12 months">3–12 months</option>
@@ -142,9 +249,7 @@ const cardStyle = {
           </div>
 
           <div>
-            <label style={labelStyle}>
-              Who initiates contact or repair more often?
-            </label>
+            <label style={labelStyle}>Who initiates contact or repair more often?</label>
             <select name="initiative" style={controlStyle}>
               <option value="mostly_me">Mostly me</option>
               <option value="mostly_them">Mostly them</option>
@@ -153,14 +258,10 @@ const cardStyle = {
           </div>
 
           <div>
-            <label style={labelStyle}>
-              How predictable do their reactions feel?
-            </label>
+            <label style={labelStyle}>How predictable do their reactions feel?</label>
             <select name="predictability" style={controlStyle}>
               <option value="very_unpredictable">Very unpredictable</option>
-              <option value="somewhat_unpredictable">
-                Somewhat unpredictable
-              </option>
+              <option value="somewhat_unpredictable">Somewhat unpredictable</option>
               <option value="mostly_predictable">Mostly predictable</option>
               <option value="very_predictable">Very predictable</option>
             </select>
@@ -208,94 +309,262 @@ const cardStyle = {
           </div>
         </form>
 
-{hasAnalyzed && result && result.indices && (
-  <section style={{ marginTop: 32, lineHeight: 1.5 }}>
-    
-    <h2 style={sectionTitleStyle}>
-      Overall risk level: {result.overall_risk_level}
-    </h2>
+        {result && result.indices && (
+          <section style={{ marginTop: 32, lineHeight: 1.5 }}>
+            <h2 style={sectionTitleStyle}>
+              Overall risk level: {result.overall_risk_level}
+            </h2>
 
-    <h3 style={sectionTitleStyle}>Indices</h3>
+            <h3 style={sectionTitleStyle}>Indices</h3>
 
-    {/* ВСЕГДА ВИДНО (первые 2) */}
-    <p>
-      <strong>
-        Reciprocity Score: {result.indices.reciprocity_score}
-      </strong>
-      <br />
-      Measures how balanced emotional, practical, and time investment is
-      between people.
-    </p>
+            <p>
+              <strong>Reciprocity Score: {result.indices.reciprocity_score}</strong>
+              <br />
+              Measures how balanced emotional, practical, and time investment is between people.
+            </p>
 
-    <p>
-      <strong>
-        Initiative Balance Index:{" "}
-        {result.indices.initiative_balance_index}
-      </strong>
-      <br />
-      Measures asymmetry in who initiates contact.
-    </p>
+            <p>
+              <strong>Initiative Balance Index: {result.indices.initiative_balance_index}</strong>
+              <br />
+              Measures asymmetry in who initiates contact.
+            </p>
 
-    {/* ЕСЛИ ОПЛАЧЕНО → ПОКАЗЫВАЕМ ВСЁ */}
-    {true && (
-      <>
-        <p>
-          <strong>
-            Emotional Stability Index:{" "}
-            {result.indices.emotional_stability_index}
-          </strong>
-          <br />
-          Measures how stable or volatile reactions are.
-        </p>
+            <p>
+              <strong>Emotional Stability Index: {result.indices.emotional_stability_index}</strong>
+              <br />
+              Measures how stable or volatile reactions are.
+            </p>
 
-        <p>
-          <strong>
-            Boundary Violation Probability:{" "}
-            {result.indices.boundary_violation_probability}
-          </strong>
-        </p>
+            <p>
+              <strong>Boundary Violation Probability: {result.indices.boundary_violation_probability}</strong>
+            </p>
 
-        <p>
-          <strong>
-            Communication Clarity Index:{" "}
-            {result.indices.communication_clarity_index}
-          </strong>
-        </p>
+            <p>
+              <strong>Communication Clarity Index: {result.indices.communication_clarity_index}</strong>
+            </p>
 
-        <p>
-          <strong>
-            Pattern Recurrence Probability:{" "}
-            {result.indices.pattern_recurrence_probability}
-          </strong>
-        </p>
+            <p>
+              <strong>Pattern Recurrence Probability: {result.indices.pattern_recurrence_probability}</strong>
+            </p>
 
-        <p>
-          <strong>
-            Long-Term Stability Forecast:{" "}
-            {result.indices.long_term_stability_forecast}
-          </strong>
-        </p>
-      </>
-    )}
+            <p>
+              <strong>Long-Term Stability Forecast: {result.indices.long_term_stability_forecast}</strong>
+            </p>
 
-    <h3 style={sectionTitleStyle}>Summary</h3>
-    <p>{result.summary}</p>
+            <h3 style={sectionTitleStyle}>Summary</h3>
+            <p style={{ marginBottom: 24 }}>{result.summary}</p>
 
-  </section>
-)}
-        
-        <p
-          style={{
-            marginTop: 24,
-            fontSize: 11,
-            opacity: 0.6,
-            lineHeight: 1.4,
-          }}
-        >
-          This tool is not therapy, medical care, or legal advice. It cannot
-          diagnose anything or tell you what to do. You are fully responsible
-          for any decisions or actions you take based on these checkups.
-        </p>
+            {/* Protocol section */}
+            {protocolTier === "none" ? (
+              <div
+                style={{
+                  marginTop: 24,
+                  padding: 24,
+                  border: "1px solid #4ade80",
+                  borderRadius: 12,
+                  background: "rgba(16, 185, 129, 0.1)",
+                  color: "#86efac",
+                }}
+              >
+                <h3 style={{ margin: "0 0 12px 0", color: "#4ade80" }}>✅ Good news</h3>
+                <p style={{ fontSize: "17px", lineHeight: 1.55 }}>
+                  Your dynamic looks stable.
+                  <br />
+                  No significant patterns of concern detected.
+                </p>
+                <p style={{ marginTop: 12, opacity: 0.95 }}>
+                  No protocol needed — keep doing what you're doing.
+                </p>
+              </div>
+            ) : !paid ? (
+              <div
+                style={{
+                  marginTop: 16,
+                  padding: 16,
+                  border: "1px solid rgba(255,255,255,0.16)",
+                  borderRadius: 10,
+                  background: "rgba(255,255,255,0.03)",
+                }}
+              >
+                <p style={{ marginBottom: 12, fontWeight: 600 }}>
+                  Recommended:{" "}
+                  <strong>
+                    {protocolTier === "hard"
+                      ? "Exit Protocol (Hard)"
+                      : "Stabilization Protocol (Soft)"}
+                  </strong>{" "}
+                  — $3
+                </p>
+
+                <div style={{ minHeight: "50px" }} ref={paypalSingleRef} />
+
+                {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
+                {payError && (
+                  <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>
+                )}
+              </div>
+            ) : (
+              <div style={{ marginTop: 30 }}>
+                <h2 style={{ marginBottom: 16, color: "#fff" }}>
+                  {currentProtocol?.title || "Protocol"}
+                </h2>
+
+                <div
+                  style={{
+                    fontSize: "15.2px",
+                    lineHeight: "1.75",
+                    color: "#ddd",
+                    whiteSpace: "pre-wrap",
+                    background: "rgba(255,255,255,0.03)",
+                    padding: "20px",
+                    borderRadius: 10,
+                  }}
+                >
+                  {currentProtocol ? (
+                    <>
+                      <p>
+                        <strong>{currentProtocol.subtitle}</strong>
+                      </p>
+                      <p style={{ marginTop: 16, marginBottom: 24 }}>
+                        {currentProtocol.intro}
+                      </p>
+
+                      {currentProtocol.blocks.map((block, idx) => (
+                        <div key={idx} style={{ marginTop: 32 }}>
+                          <h3
+                            style={{
+                              color: "#fff",
+                              marginBottom: 12,
+                              fontSize: "18px",
+                            }}
+                          >
+                            {block.title}
+                          </h3>
+
+                          {block.goal && (
+                            <p>
+                              <strong>Goal:</strong> {block.goal}
+                            </p>
+                          )}
+                          {block.when && (
+                            <p>
+                              <strong>When:</strong> {block.when}
+                            </p>
+                          )}
+
+                          {block.items && (
+                            <div style={{ marginTop: 16 }}>
+                              <ul
+                                style={{
+                                  paddingLeft: "24px",
+                                  margin: 0,
+                                  listStyleType: "disc",
+                                }}
+                              >
+                                {block.items.map((item, i) => {
+                                  const trimmed = item.trim();
+                                  if (
+                                    trimmed.startsWith("—") ||
+                                    trimmed.startsWith("-")
+                                  ) {
+                                    return (
+                                      <li
+                                        key={i}
+                                        style={{
+                                          marginBottom: 8,
+                                          paddingLeft: "8px",
+                                          listStyleType: "circle",
+                                        }}
+                                      >
+                                        {trimmed
+                                          .replace(/^—\s*/, "")
+                                          .replace(/^- /, "")}
+                                      </li>
+                                    );
+                                  }
+                                  return (
+                                    <li key={i} style={{ marginBottom: 10 }}>
+                                      {trimmed}
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            </div>
+                          )}
+
+                          {block.why && (
+                            <div style={{ marginTop: 16 }}>
+                              <strong>Why:</strong>
+                              <ul style={{ paddingLeft: "24px", marginTop: 8 }}>
+                                {block.why.map((w, i) => (
+                                  <li key={i} style={{ marginBottom: 6 }}>
+                                    {w}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+
+                      {currentProtocol.closing && (
+                        <p
+                          style={{
+                            marginTop: 40,
+                            padding: "16px 20px",
+                            background: "rgba(255,255,255,0.05)",
+                            borderLeft: "4px solid #4ade80",
+                            fontStyle: "italic",
+                            color: "#ccc",
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          {currentProtocol.closing}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <p>Protocol not found. Please contact support.</p>
+                  )}
+                </div>
+
+                <button
+                  onClick={copyProtocol}
+                  style={{
+                    marginTop: 32,
+                    padding: "14px 24px",
+                    borderRadius: 8,
+                    border: "none",
+                    backgroundColor: "#ffffff",
+                    color: "#000",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    width: "100%",
+                    fontSize: "16px",
+                  }}
+                >
+                  📋 Copy full protocol to clipboard
+                </button>
+
+                <p
+                  style={{
+                    marginTop: 16,
+                    fontSize: 13,
+                    opacity: 0.75,
+                    textAlign: "center",
+                  }}
+                >
+                  Save it and practice daily.
+                </p>
+              </div>
+            )}
+
+            <p style={{ marginTop: 40, fontSize: 12, opacity: 0.7 }}>
+              This tool is not therapy, medical care, or legal advice. You are
+              fully responsible for any decisions or actions you take.
+            </p>
+          </section>
+        )}
       </div>
     </div>
   );
