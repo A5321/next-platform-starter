@@ -20,16 +20,7 @@ export default function CurrentRelationshipTest() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const access = params.get("access");
-
-    const saved = localStorage.getItem("lastResult_current_relationship");
     const paidLocal = localStorage.getItem("paid_current_relationship");
-
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      setResult(parsed);
-      const tier = getProtocolTier("current-relationship", parsed);
-      setProtocolTier(tier);
-    }
 
     if (paidLocal === "true" || access === "one" || access === "sub") {
       setPaid(true);
