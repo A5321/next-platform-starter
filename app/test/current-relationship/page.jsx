@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-import { currentRelationshipProtocols } from "../../../lib/protocols/currentRelationshipProtocols";
+import { currentRelationshipProtocols } from "../../../lib/protocols/currentRelationship";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 
 export default function CurrentRelationshipTest() {
