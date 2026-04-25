@@ -21,9 +21,17 @@ export default function CurrentRelationshipTest() {
     const params = new URLSearchParams(window.location.search);
     const access = params.get("access");
     const paidLocal = localStorage.getItem("paid_current_relationship");
+    const isPaid = paidLocal === "true" || access === "one" || access === "sub";
 
-    if (paidLocal === "true" || access === "one" || access === "sub") {
+    if (isPaid) {
       setPaid(true);
+      const saved = localStorage.getItem("lastResult_current_relationship");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setResult(parsed);
+        const tier = getProtocolTier("current-relationship", parsed);
+        setProtocolTier(tier);
+      }
     }
   }, []);
 
