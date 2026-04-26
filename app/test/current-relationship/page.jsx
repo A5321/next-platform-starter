@@ -461,41 +461,41 @@ export default function CurrentRelationshipTest() {
 
                           {block.items && (
                             <div style={{ marginTop: 16 }}>
-                              <ul
-                                style={{
-                                  paddingLeft: "24px",
-                                  margin: 0,
-                                  listStyleType: "disc",
-                                }}
-                              >
-                                {block.items.map((item, i) => {
-                                  const trimmed = item.trim();
-                                  if (
-                                    trimmed.startsWith("—") ||
-                                    trimmed.startsWith("-")
-                                  ) {
-                                    return (
-                                      <li
-                                        key={i}
-                                        style={{
-                                          marginBottom: 8,
-                                          paddingLeft: "8px",
-                                          listStyleType: "circle",
-                                        }}
-                                      >
-                                        {trimmed
-                                          .replace(/^—\s*/, "")
-                                          .replace(/^- /, "")}
-                                      </li>
-                                    );
-                                  }
+                              {block.items.map((item, i) => {
+                                if (item.type === "subheader") {
                                   return (
-                                    <li key={i} style={{ marginBottom: 10 }}>
-                                      {trimmed}
-                                    </li>
+                                    <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#fff" }}>
+                                      {item.text}
+                                    </div>
                                   );
-                                })}
-                              </ul>
+                                }
+                                if (item.type === "sub") {
+                                  return (
+                                    <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#ccc" }}>
+                                      {"— " + item.text}
+                                    </div>
+                                  );
+                                }
+                                if (item.type === "quote") {
+                                  return (
+                                    <div key={i} style={{
+                                      margin: "10px 0",
+                                      padding: "10px 16px",
+                                      borderLeft: "3px solid rgba(255,255,255,0.3)",
+                                      color: "#ddd",
+                                      fontStyle: "italic",
+                                      lineHeight: 1.6,
+                                    }}>
+                                      {item.text}
+                                    </div>
+                                  );
+                                }
+                                return (
+                                  <div key={i} style={{ marginBottom: 8, color: "#ddd" }}>
+                                    {item.text}
+                                  </div>
+                                );
+                              })}
                             </div>
                           )}
 
