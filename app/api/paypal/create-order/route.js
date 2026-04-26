@@ -82,7 +82,6 @@ export async function POST(req) {
           brand_name: "Pattern Index",
           user_action: "PAY_NOW",
           shipping_preference: "NO_SHIPPING",
-          locale: "en_US",
         },
       }),
     });
