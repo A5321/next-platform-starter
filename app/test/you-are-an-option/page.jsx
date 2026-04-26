@@ -20,6 +20,24 @@ export default function YouAreOptionTest() {
   const emailRef = useRef("");
   const paypalRenderedRef = useRef(false);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const access = params.get("access");
+    const paidLocal = localStorage.getItem("paid_you_are_an_option");
+    const isPaid = paidLocal === "true" || access === "one" || access === "sub";
+
+    if (isPaid) {
+      setPaid(true);
+      const saved = localStorage.getItem("lastResult_you_are_an_option");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setResult(parsed);
+        const tier = getProtocolTier("you-are-an-option", parsed);
+        setProtocolTier(tier);
+      }
+    }
+  }, []);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
@@ -48,6 +66,7 @@ export default function YouAreOptionTest() {
 
     const data = await res.json();
     setResult(data);
+    localStorage.setItem("lastResult_you_are_an_option", JSON.stringify(data));
 
     if (data) {
       const tier = getProtocolTier("you-are-an-option", data);
@@ -115,7 +134,8 @@ useEffect(() => {
             throw new Error(json.error || "Payment confirmation failed");
           }
 
-          setPaid(true);
+          localStorage.setItem("paid_you_are_an_option", "true");
+          window.location.reload();
         } catch (err) {
           console.error(err);
           setPayError(err.message || "Payment failed");
