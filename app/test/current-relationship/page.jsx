@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { currentRelationshipProtocols } from "../../../lib/protocols/currentRelationship";
 import { getProtocolTier } from "../../../lib/protocolTiers";
@@ -11,17 +11,19 @@ export default function CurrentRelationshipTest() {
   const [paid, setPaid] = useState(false);
   const [protocolTier, setProtocolTier] = useState(null);
 
+  const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
-  const [redirecting, setRedirecting] = useState(false);
+
+  const paypalSingleRef = useRef(null);
+  const paypalRenderedRef = useRef(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
     const access = params.get("access");
-    const cancelled = params.get("cancelled");
     const paidLocal = localStorage.getItem("paid_current_relationship");
+    const isPaid = paidLocal === "true" || access === "one" || access === "sub";
 
-    if (paidLocal === "true" || access === "one" || access === "sub") {
+    if (isPaid) {
       setPaid(true);
       const saved = localStorage.getItem("lastResult_current_relationship");
       if (saved) {
@@ -30,54 +32,8 @@ export default function CurrentRelationshipTest() {
         const tier = getProtocolTier("current-relationship", parsed);
         setProtocolTier(tier);
       }
-      return;
-    }
-
-    if (cancelled) {
-      setPayError("Payment cancelled. You can try again.");
-      return;
-    }
-
-    if (token) {
-      const saved = localStorage.getItem("lastResult_current_relationship");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setResult(parsed);
-        const tier = getProtocolTier("current-relationship", parsed);
-        setProtocolTier(tier);
-      }
-      confirmPayment(token);
     }
   }, []);
-
-  async function confirmPayment(orderId) {
-    try {
-      setRedirecting(true);
-      const res = await fetch("/api/paypal/confirm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          orderId,
-          intent: "single",
-          scope: "current-relationship",
-        }),
-      });
-
-      const json = await res.json();
-      if (!res.ok || !json.success) {
-        throw new Error(json.error || "Payment confirmation failed");
-      }
-
-      localStorage.setItem("paid_current_relationship", "true");
-      setPaid(true);
-      window.history.replaceState({}, "", window.location.pathname);
-    } catch (err) {
-      console.error(err);
-      setPayError(err.message || "Payment confirmation failed. Contact support.");
-    } finally {
-      setRedirecting(false);
-    }
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -86,6 +42,8 @@ export default function CurrentRelationshipTest() {
     setPaid(false);
     setProtocolTier(null);
     setPayError("");
+    paypalRenderedRef.current = false;
+
     const formData = new FormData(e.currentTarget);
 
     const res = await fetch("/api/analyze", {
@@ -113,7 +71,82 @@ export default function CurrentRelationshipTest() {
     setLoading(false);
   }
 
+  // PayPal render
+  useEffect(() => {
+    if (!result || !protocolTier || protocolTier === "none") return;
+    if (paid) return;
+    if (typeof window === "undefined" || !window.paypal) return;
+    if (!paypalSingleRef.current) return;
 
+    paypalRenderedRef.current = false;
+    if (paypalSingleRef.current.hasChildNodes()) {
+      paypalSingleRef.current.innerHTML = "";
+    }
+
+    window.paypal
+      .Buttons({
+        style: {
+          layout: "vertical",
+          shape: "rect",
+          label: "paypal",
+          height: 42,
+        },
+        createOrder: async (_, actions) => {
+          setPayError("");
+          return actions.order.create({
+            purchase_units: [
+              {
+                amount: { value: "3.00", currency_code: "USD" },
+                custom_id: "current-relationship-single",
+                description: `Current Relationship Checkup — ${
+                  protocolTier === "hard" ? "Exit" : "Stabilization"
+                } Protocol`,
+              },
+            ],
+          });
+        },
+        onApprove: async (data, actions) => {
+          try {
+            setPaying(true);
+            setPayError("");
+            await actions.order.capture();
+
+            const res = await fetch("/api/paypal/confirm", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                orderId: data.orderID,
+                intent: "single",
+                scope: "current-relationship",
+                email: "user@paypal.com",
+              }),
+            });
+
+            const json = await res.json();
+            if (!res.ok || !json.success) {
+              throw new Error(json.error || "Payment confirmation failed");
+            }
+
+            localStorage.setItem("paid_current_relationship", "true");
+            window.location.reload();
+          } catch (err) {
+            console.error(err);
+            setPayError(err.message || "Payment failed");
+          } finally {
+            setPaying(false);
+          }
+        },
+        onError: (err) => {
+          console.error(err);
+          setPayError("PayPal error. Try again.");
+        },
+      })
+      .render(paypalSingleRef.current)
+      .catch((err) => {
+        console.error("PayPal render error:", err);
+        setPayError("Failed to render PayPal buttons. Please refresh the page.");
+      });
+  }, [result, protocolTier, paid]);
 
   const currentProtocol =
     protocolTier && protocolTier !== "none"
@@ -350,10 +383,6 @@ export default function CurrentRelationshipTest() {
                   No protocol needed — keep doing what you're doing.
                 </p>
               </div>
-            ) : redirecting ? (
-              <div style={{ marginTop: 24, opacity: 0.8 }}>
-                <p>Confirming payment...</p>
-              </div>
             ) : !paid ? (
               <div
                 style={{
@@ -364,51 +393,19 @@ export default function CurrentRelationshipTest() {
                   background: "rgba(255,255,255,0.03)",
                 }}
               >
-                <p style={{ marginBottom: 16, fontWeight: 600 }}>
+                <p style={{ marginBottom: 12, fontWeight: 600 }}>
                   Recommended:{" "}
                   <strong>
                     {protocolTier === "hard"
-                      ? "Exit Protocol"
-                      : "Stabilization Protocol"}
+                      ? "Exit Protocol (Hard)"
+                      : "Stabilization Protocol (Soft)"}
                   </strong>{" "}
                   — $3
                 </p>
 
-                <button
-                  onClick={async () => {
-                    setPayError("");
-                    try {
-                      const res = await fetch("/api/paypal/create-order", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                          scope: "current-relationship",
-                          tier: protocolTier,
-                        }),
-                      });
-                      const json = await res.json();
-                      if (!res.ok || !json.success) {
-                        throw new Error(json.error || "Could not create order");
-                      }
-                      window.location.href = json.approvalUrl;
-                    } catch (err) {
-                      setPayError(err.message || "Something went wrong. Try again.");
-                    }
-                  }}
-                  style={{
-                    padding: "12px 24px",
-                    borderRadius: 999,
-                    border: "none",
-                    backgroundColor: "#ffffff",
-                    color: "#000000",
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    fontSize: "15px",
-                  }}
-                >
-                  Get protocol — $3
-                </button>
+                <div style={{ minHeight: "50px" }} ref={paypalSingleRef} />
 
+                {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
                 {payError && (
                   <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>
                 )}
