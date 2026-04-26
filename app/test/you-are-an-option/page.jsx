@@ -379,47 +379,42 @@ useEffect(() => {
 
                   {block.items && (
                     <div style={{ marginTop: 16 }}>
-                      {(() => {
-                        const items = block.items;
-                        const result = [];
-                        let i = 0;
-                        while (i < items.length) {
-                          const trimmed = items[i].trim();
-                          if (!trimmed) { i++; continue; }
-                          const isSubItem = trimmed.startsWith("—") || trimmed.startsWith("•");
-                          if (isSubItem) {
-                            i++; continue; // handled by parent
-                          }
-                          // Check if next items are sub-items
-                          const subItems = [];
-                          let j = i + 1;
-                          while (j < items.length && (items[j].trim().startsWith("—") || items[j].trim().startsWith("•"))) {
-                            subItems.push(items[j].trim().replace(/^[—•]\s*/, ""));
-                            j++;
-                          }
-                          if (subItems.length > 0) {
-                            result.push(
-                              <div key={i} style={{ marginBottom: 12 }}>
-                                <div style={{ marginBottom: 6, fontStyle: "italic", opacity: 0.85 }}>{trimmed}</div>
-                                <ul style={{ paddingLeft: "20px", margin: 0, listStyleType: "circle" }}>
-                                  {subItems.map((sub, si) => (
-                                    <li key={si} style={{ marginBottom: 6 }}>{sub}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            );
-                            i = j;
-                          } else {
-                            result.push(
-                              <div key={i} style={{ marginBottom: 10, paddingLeft: "4px" }}>
-                                {"• " + trimmed}
-                              </div>
-                            );
-                            i++;
-                          }
+                      {block.items.map((item, i) => {
+                        if (item.type === "subheader") {
+                          return (
+                            <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#fff" }}>
+                              {item.text}
+                            </div>
+                          );
                         }
-                        return result;
-                      })()}
+                        if (item.type === "sub") {
+                          return (
+                            <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#ccc" }}>
+                              {"— " + item.text}
+                            </div>
+                          );
+                        }
+                        if (item.type === "quote") {
+                          return (
+                            <div key={i} style={{
+                              margin: "10px 0",
+                              padding: "10px 16px",
+                              borderLeft: "3px solid rgba(255,255,255,0.3)",
+                              color: "#ddd",
+                              fontStyle: "italic",
+                              lineHeight: 1.6,
+                            }}>
+                              {item.text}
+                            </div>
+                          );
+                        }
+                        // type === "text" (default)
+                        return (
+                          <div key={i} style={{ marginBottom: 8, color: "#ddd" }}>
+                            {item.text}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
           
