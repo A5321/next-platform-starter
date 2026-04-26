@@ -78,9 +78,16 @@ export async function POST(req) {
     const scope = (body.scope || "").trim();
     const email = (body.email || "").trim().toLowerCase();
 
-    if (!orderId || !intent || !email) {
+    if (!orderId || !intent) {
       return NextResponse.json(
-        { success: false, error: "Missing orderId, intent or email" },
+        { success: false, error: "Missing orderId or intent" },
+        { status: 400 }
+      );
+    }
+
+    if (intent === "full" && !email) {
+      return NextResponse.json(
+        { success: false, error: "Missing email for full access" },
         { status: 400 }
       );
     }
@@ -182,9 +189,11 @@ export async function POST(req) {
       );
     }
 
+    const userEmail = email || `anon_${orderId}@paypal.local`;
+
     const userRows = await sql`
       INSERT INTO users (email)
-      VALUES (${email})
+      VALUES (${userEmail})
       ON CONFLICT (email)
       DO UPDATE SET email = EXCLUDED.email
       RETURNING id
