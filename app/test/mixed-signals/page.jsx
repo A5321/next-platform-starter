@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-import { mixedSignalsProtocols } from "../../../lib/protocols/mixedSignals";
+import { mixedSignalsProtocols } from "../../../lib/protocols/Mixedsignals";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 
 export default function MixedSignalsTest() {
