@@ -21,16 +21,15 @@ export default function CurrentRelationshipTest() {
     const cancelled = params.get("cancelled");
     const paidLocal = localStorage.getItem("paid_current_relationship");
 
-    const saved = localStorage.getItem("lastResult_current_relationship");
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      setResult(parsed);
-      const tier = getProtocolTier("current-relationship", parsed);
-      setProtocolTier(tier);
-    }
-
     if (paidLocal === "true" || access === "one" || access === "sub") {
       setPaid(true);
+      const saved = localStorage.getItem("lastResult_current_relationship");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setResult(parsed);
+        const tier = getProtocolTier("current-relationship", parsed);
+        setProtocolTier(tier);
+      }
       return;
     }
 
@@ -40,6 +39,13 @@ export default function CurrentRelationshipTest() {
     }
 
     if (token) {
+      const saved = localStorage.getItem("lastResult_current_relationship");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setResult(parsed);
+        const tier = getProtocolTier("current-relationship", parsed);
+        setProtocolTier(tier);
+      }
       confirmPayment(token);
     }
   }, []);
