@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { repeatingBreakupProtocols } from "../../../lib/protocols/repeatingBreakup";
+import { repeatingBreakupProtocols } from "../../../lib/protocols/Repeatingbreakup";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 
 export default function RepeatingBreakupTest() {
