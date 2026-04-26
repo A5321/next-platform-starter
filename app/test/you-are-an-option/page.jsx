@@ -305,11 +305,26 @@ useEffect(() => {
     <h2 style={sectionTitleStyle}>Status: {result.overall_option_status}</h2>
 
     <h3 style={sectionTitleStyle}>Indices</h3>
-    <p><strong>Priority Position Index:</strong> {result.indices.priority_position_index}</p>
-    <p><strong>Attention Consistency Score:</strong> {result.indices.attention_consistency_score}</p>
-    <p><strong>Cancellation Rate:</strong> {result.indices.cancellation_rate}</p>
-    <p><strong>Emotional Uncertainty Load:</strong> {result.indices.emotional_uncertainty_load}</p>
-    <p><strong>Option Trap Risk:</strong> {result.indices.option_trap_risk}</p>
+    <p><strong>Priority Position Index: {result.indices.priority_position_index}</strong>
+      <br />
+      Measures how consistently you are treated as a priority rather than a fallback option.
+    </p>
+    <p><strong>Attention Consistency Score: {result.indices.attention_consistency_score}</strong>
+      <br />
+      Measures how stable and reliable their attention and communication are over time.
+    </p>
+    <p><strong>Cancellation Rate: {result.indices.cancellation_rate}</strong>
+      <br />
+      Estimates how often plans are cancelled, postponed, or kept deliberately vague.
+    </p>
+    <p><strong>Emotional Uncertainty Load: {result.indices.emotional_uncertainty_load}</strong>
+      <br />
+      Measures how much emotional ambiguity and unpredictability you are carrying in this dynamic.
+    </p>
+    <p><strong>Option Trap Risk: {result.indices.option_trap_risk}</strong>
+      <br />
+      Estimates the likelihood that the current pattern will continue without leading to real commitment.
+    </p>
 
     <h3 style={sectionTitleStyle}>Summary</h3>
     <p style={{ marginBottom: 24 }}>{result.summary}</p>
