@@ -379,32 +379,47 @@ useEffect(() => {
 
                   {block.items && (
                     <div style={{ marginTop: 16 }}>
-                      <ul style={{ 
-                        paddingLeft: "24px", 
-                        margin: 0,
-                        listStyleType: "disc" 
-                      }}>
-                        {block.items.map((item, i) => {
-                          // Простая обработка вложенности по тире и отступам
-                          const trimmed = item.trim();
-                          if (trimmed.startsWith('—') || trimmed.startsWith('-')) {
-                            return (
-                              <li key={i} style={{ 
-                                marginBottom: 8, 
-                                paddingLeft: "8px",
-                                listStyleType: "circle" 
-                              }}>
-                                {trimmed.replace(/^—\s*/, '').replace(/^- /, '')}
-                              </li>
-                            );
+                      {(() => {
+                        const items = block.items;
+                        const result = [];
+                        let i = 0;
+                        while (i < items.length) {
+                          const trimmed = items[i].trim();
+                          if (!trimmed) { i++; continue; }
+                          const isSubItem = trimmed.startsWith("—") || trimmed.startsWith("•");
+                          if (isSubItem) {
+                            i++; continue; // handled by parent
                           }
-                          return (
-                            <li key={i} style={{ marginBottom: 10 }}>
-                              {trimmed}
-                            </li>
-                          );
-                        })}
-                      </ul>
+                          // Check if next items are sub-items
+                          const subItems = [];
+                          let j = i + 1;
+                          while (j < items.length && (items[j].trim().startsWith("—") || items[j].trim().startsWith("•"))) {
+                            subItems.push(items[j].trim().replace(/^[—•]\s*/, ""));
+                            j++;
+                          }
+                          if (subItems.length > 0) {
+                            result.push(
+                              <div key={i} style={{ marginBottom: 12 }}>
+                                <div style={{ marginBottom: 6, fontStyle: "italic", opacity: 0.85 }}>{trimmed}</div>
+                                <ul style={{ paddingLeft: "20px", margin: 0, listStyleType: "circle" }}>
+                                  {subItems.map((sub, si) => (
+                                    <li key={si} style={{ marginBottom: 6 }}>{sub}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            );
+                            i = j;
+                          } else {
+                            result.push(
+                              <div key={i} style={{ marginBottom: 10, paddingLeft: "4px" }}>
+                                {"• " + trimmed}
+                              </div>
+                            );
+                            i++;
+                          }
+                        }
+                        return result;
+                      })()}
                     </div>
                   )}
           
