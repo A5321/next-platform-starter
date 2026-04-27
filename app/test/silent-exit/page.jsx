@@ -1,15 +1,90 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { silentExitProtocols } from "../../../lib/protocols/silentExit";
+import { getProtocolTier } from "../../../lib/protocolTiers";
 
 export default function SilentExitTest() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [paid, setPaid] = useState(false);
+  const [protocolTier, setProtocolTier] = useState(null);
+  const [paying, setPaying] = useState(false);
+  const [payError, setPayError] = useState("");
+  const paypalSingleRef = useRef(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const access = params.get("access");
+    const paidLocal = localStorage.getItem("paid_silent_exit");
+    const isPaid = paidLocal === "true" || access === "one" || access === "sub";
+    if (isPaid) {
+      setPaid(true);
+      const saved = localStorage.getItem("lastResult_silent_exit");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setResult(parsed);
+        const tier = getProtocolTier("silent-exit", parsed);
+        setProtocolTier(tier);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!result || !protocolTier || protocolTier === "none") return;
+    if (paid) return;
+    if (typeof window === "undefined" || !window.paypal) return;
+    if (!paypalSingleRef.current) return;
+    if (paypalSingleRef.current.hasChildNodes()) paypalSingleRef.current.innerHTML = "";
+
+    window.paypal.Buttons({
+      style: { layout: "vertical", shape: "rect", label: "paypal", height: 42 },
+      createOrder: async (_, actions) => {
+        setPayError("");
+        return actions.order.create({
+          purchase_units: [{
+            amount: { value: "3.00", currency_code: "USD" },
+            custom_id: "silent-exit-single",
+            description: `Silent Exit — ${protocolTier === "hard" ? "Exit" : "Awareness"} Protocol`,
+          }],
+        });
+      },
+      onApprove: async (data, actions) => {
+        try {
+          setPaying(true);
+          setPayError("");
+          await actions.order.capture();
+          const res = await fetch("/api/paypal/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ orderId: data.orderID, intent: "single", scope: "silent-exit", email: "user@paypal.com" }),
+          });
+          const json = await res.json();
+          if (!res.ok || !json.success) throw new Error(json.error || "Payment confirmation failed");
+          localStorage.setItem("paid_silent_exit", "true");
+          window.location.reload();
+        } catch (err) {
+          console.error(err);
+          setPayError(err.message || "Payment failed");
+        } finally {
+          setPaying(false);
+        }
+      },
+      onError: (err) => {
+        console.error(err);
+        setPayError("PayPal error. Try again.");
+      },
+    }).render(paypalSingleRef.current).catch(() => setPayError("Failed to render PayPal buttons. Please refresh."));
+  }, [result, protocolTier, paid]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setResult(null);
+    setPaid(false);
+    setProtocolTier(null);
+    setPayError("");
+    localStorage.removeItem("paid_silent_exit");
 
 const formData = new FormData(e.currentTarget);
 
@@ -38,6 +113,9 @@ const narrative = formData.get("narrative");
 
     const data = await res.json();
     setResult(data);
+    localStorage.setItem("lastResult_silent_exit", JSON.stringify(data));
+    const tier = getProtocolTier("silent-exit", data);
+    setProtocolTier(tier);
     setLoading(false);
   }
 
@@ -237,68 +315,171 @@ const cardStyle = {
         </form>
 
 {result && result.indices && (
-  <section style={{ marginTop: 32, lineHeight: 1.5 }}>
-    <h2 style={sectionTitleStyle}>
-      Silent‑exit level: {result.overall_exit_pattern_level}
-    </h2>
+          <section style={{ marginTop: 32, lineHeight: 1.5 }}>
+            <h2 style={sectionTitleStyle}>
+              Silent‑exit level: {result.overall_exit_pattern_level}
+            </h2>
 
-    <h3 style={sectionTitleStyle}>Indices</h3>
+            <h3 style={sectionTitleStyle}>Indices</h3>
 
-    <p>
-      <strong>
-        Presence Fade Index: {result.indices.presence_fade_index}
-      </strong>
-      <br />
-      Shows how much their everyday presence and initiative have faded.
-      0 = very present and engaged, 1 = strong disappearance pattern.
-    </p>
+            <p>
+              <strong>Presence Fade Index: {result.indices.presence_fade_index}</strong>
+              <br />
+              Shows how much their everyday presence and initiative have faded. 0 = very present and engaged, 1 = strong disappearance pattern.
+            </p>
+            <p>
+              <strong>Emotional Withdrawal Score: {result.indices.emotional_withdrawal_score}</strong>
+              <br />
+              Reflects how emotionally shut down or disconnected they feel. 0 = emotionally responsive, 1 = strongly withdrawn or indifferent.
+            </p>
+            <p>
+              <strong>Conflict Avoidance Index: {result.indices.conflict_avoidance_index}</strong>
+              <br />
+              Captures how much hard topics and tensions are avoided instead of talked through. 0 = conflicts are addressed, 1 = strong avoidance or shutdown.
+            </p>
+            <p>
+              <strong>Parallel Life Drift Score: {result.indices.parallel_life_drift_score}</strong>
+              <br />
+              Describes how parallel your lives have become. 0 = deeply interwoven, 1 = almost separate lives under the same label.
+            </p>
+            <p>
+              <strong>Closure Risk Index: {result.indices.closure_risk_index}</strong>
+              <br />
+              Estimates how likely it is that things will end without a clear closure talk. 0 = very unlikely, 1 = high risk of a quiet or abrupt exit.
+            </p>
 
-    <p>
-      <strong>
-        Emotional Withdrawal Score:{" "}
-        {result.indices.emotional_withdrawal_score}
-      </strong>
-      <br />
-      Reflects how emotionally shut down or disconnected they feel.
-      0 = emotionally responsive, 1 = strongly withdrawn or indifferent.
-    </p>
+            <h3 style={sectionTitleStyle}>Summary</h3>
+            <p style={{ marginBottom: 24 }}>{result.summary}</p>
 
-    <p>
-      <strong>
-        Conflict Avoidance Index: {result.indices.conflict_avoidance_index}
-      </strong>
-      <br />
-      Captures how much hard topics and tensions are avoided instead of
-      talked through. 0 = conflicts are addressed, 1 = strong avoidance or
-      shutdown.
-    </p>
-
-    <p>
-      <strong>
-        Parallel Life Drift Score:{" "}
-        {result.indices.parallel_life_drift_score}
-      </strong>
-      <br />
-      Describes how parallel your lives have become. 0 = deeply
-      interwoven, 1 = almost separate lives under the same label.
-    </p>
-
-    <p>
-      <strong>
-        Closure Risk Index: {result.indices.closure_risk_index}
-      </strong>
-      <br />
-      Estimates how likely it is that things will end without a clear
-      closure talk. 0 = very unlikely, 1 = high risk of a quiet or abrupt
-      exit.
-    </p>
-
-    <h3 style={sectionTitleStyle}>Summary</h3>
-    <p>{result.summary}</p>
-  </section>
-)}
-
-        <p
+            {protocolTier === "none" ? (
+              <div style={{
+                marginTop: 24, padding: 24,
+                border: "1px solid #4ade80", borderRadius: 12,
+                background: "rgba(16, 185, 129, 0.1)", color: "#86efac",
+              }}>
+                <h3 style={{ margin: "0 0 12px 0", color: "#4ade80" }}>✅ Good news</h3>
+                <p style={{ fontSize: "17px", lineHeight: 1.55 }}>
+                  No significant silent exit pattern detected.<br />
+                  The connection looks present and engaged.
+                </p>
+                <p style={{ marginTop: 12, opacity: 0.95 }}>
+                  No protocol needed — keep doing what you're doing.
+                </p>
+              </div>
+            ) : !paid ? (
+              <div style={{
+                marginTop: 16, padding: 16,
+                border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10,
+                background: "rgba(255,255,255,0.03)",
+              }}>
+                <p style={{ marginBottom: 12, fontWeight: 600 }}>
+                  Recommended:{" "}
+                  <strong>
+                    {protocolTier === "hard" ? "Exit Protocol" : "Awareness Protocol"}
+                  </strong>{" "}
+                  — $3
+                </p>
+                <div style={{ minHeight: "50px" }} ref={paypalSingleRef} />
+                {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
+                {payError && <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>}
+              </div>
+            ) : (
+              <div style={{ marginTop: 30 }}>
+                <h2 style={{ marginBottom: 16, color: "#fff" }}>
+                  {silentExitProtocols[protocolTier]?.title || "Protocol"}
+                </h2>
+                <div style={{
+                  fontSize: "15.2px", lineHeight: "1.75", color: "#ddd",
+                  background: "rgba(255,255,255,0.03)", padding: "20px", borderRadius: 10,
+                }}>
+                  {silentExitProtocols[protocolTier] && (() => {
+                    const p = silentExitProtocols[protocolTier];
+                    return (
+                      <>
+                        <p><strong>{p.subtitle}</strong></p>
+                        <p style={{ marginTop: 16, marginBottom: 24 }}>{p.intro}</p>
+                        {p.blocks.map((block, idx) => (
+                          <div key={idx} style={{ marginTop: 32 }}>
+                            <h3 style={{ color: "#fff", marginBottom: 12, fontSize: "18px" }}>{block.title}</h3>
+                            {block.goal && <p><strong>Goal:</strong> {block.goal}</p>}
+                            {block.when && <p><strong>When:</strong> {block.when}</p>}
+                            {block.items && (
+                              <div style={{ marginTop: 16 }}>
+                                {block.items.map((item, i) => {
+                                  if (item.type === "subheader") return (
+                                    <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#fff" }}>{item.text}</div>
+                                  );
+                                  if (item.type === "sub") return (
+                                    <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#ccc" }}>{"— " + item.text}</div>
+                                  );
+                                  if (item.type === "quote") return (
+                                    <div key={i} style={{
+                                      margin: "10px 0", padding: "10px 16px",
+                                      borderLeft: "3px solid rgba(255,255,255,0.3)",
+                                      color: "#ddd", fontStyle: "italic", lineHeight: 1.6,
+                                    }}>{item.text}</div>
+                                  );
+                                  return <div key={i} style={{ marginBottom: 8, color: "#ddd" }}>{item.text}</div>;
+                                })}
+                              </div>
+                            )}
+                            {block.why && (
+                              <div style={{ marginTop: 16 }}>
+                                <strong>Why:</strong>
+                                <ul style={{ paddingLeft: "24px", marginTop: 8 }}>
+                                  {block.why.map((w, i) => <li key={i} style={{ marginBottom: 6 }}>{w}</li>)}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                        {p.closing && (
+                          <p style={{
+                            marginTop: 40, padding: "16px 20px",
+                            background: "rgba(255,255,255,0.05)",
+                            borderLeft: "4px solid #4ade80",
+                            fontStyle: "italic", color: "#ccc", lineHeight: 1.6,
+                          }}>{p.closing}</p>
+                        )}
+                      </>
+                    );
+                  })()}
+                </div>
+                <button
+                  onClick={async () => {
+                    const p = silentExitProtocols[protocolTier];
+                    if (!p) return;
+                    let text = p.title + "\n\n" + p.subtitle + "\n\n" + p.intro + "\n\n";
+                    p.blocks.forEach(b => {
+                      text += b.title + "\n";
+                      if (b.goal) text += "Goal: " + b.goal + "\n";
+                      if (b.when) text += "When: " + b.when + "\n\n";
+                      if (b.items) b.items.forEach(item => { text += "  " + item.text + "\n"; });
+                      if (b.why) b.why.forEach(w => { text += "  → " + w + "\n"; });
+                      text += "\n";
+                    });
+                    if (p.closing) text += p.closing;
+                    try {
+                      await navigator.clipboard.writeText(text);
+                      alert("✅ " + p.title + " copied!");
+                    } catch { alert("Could not copy. Please select the text manually."); }
+                  }}
+                  style={{
+                    marginTop: 32, padding: "14px 24px", borderRadius: 8,
+                    border: "none", backgroundColor: "#ffffff", color: "#000",
+                    fontWeight: 600, cursor: "pointer", width: "100%", fontSize: "16px",
+                  }}
+                >
+                  📋 Copy full protocol to clipboard
+                </button>
+                <p style={{ marginTop: 16, fontSize: 13, opacity: 0.75, textAlign: "center" }}>
+                  Save it and practice daily.
+                </p>
+              </div>
+            )}
+          </section>
+        )}
+                <p
           style={{
             marginTop: 24,
             fontSize: 11,
