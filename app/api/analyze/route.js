@@ -648,20 +648,20 @@ function buildSilentExitUserContent(answers, narrative) {
 Scenario: silent_exit
 
 Structured answers (always prefer these over the narrative):
-- How present and available they are in daily life: ${
-    answers?.daily_presence || "not provided"
+- Who invests more initiative into contact and shared plans: ${
+    answers?.initiative_level || "not provided"
   }
-- How emotionally engaged or withdrawn they seem: ${
-    answers?.emotional_engagement || "not provided"
+- How much meaningful emotional sharing is left: ${
+    answers?.emotional_sharing || "not provided"
   }
-- How conflicts and hard topics are handled: ${
-    answers?.conflict_handling || "not provided"
+- How conversations about the future together look: ${
+    answers?.future_talk || "not provided"
   }
-- How shared vs separate your routines and plans are: ${
-    answers?.shared_life_pattern || "not provided"
+- What time spent together feels like: ${
+    answers?.time_together_quality || "not provided"
   }
-- How likely it feels that things might just quietly end without a real talk: ${
-    answers?.silent_breakup_risk || "not provided"
+- What happens with conflict and difficult topics: ${
+    answers?.conflict_engagement || "not provided"
   }
 
 Narrative (user's own words):
