@@ -43,6 +43,7 @@ export default function CurrentRelationshipTest() {
     setProtocolTier(null);
     setPayError("");
     paypalRenderedRef.current = false;
+    localStorage.removeItem("paid_current_relationship");
 
     const formData = new FormData(e.currentTarget);
 
