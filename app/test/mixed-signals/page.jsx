@@ -100,6 +100,10 @@ export default function MixedSignalsTest() {
     e.preventDefault();
     setLoading(true);
     setResult(null);
+    setPaid(false);
+    setProtocolTier(null);
+    setPayError("");
+    localStorage.removeItem("paid_mixed_signals");
 
     const formData = new FormData(e.currentTarget);
 
