@@ -82,6 +82,10 @@ export default function ThirdPersonGreyZoneTest() {
     e.preventDefault();
     setLoading(true);
     setResult(null);
+    setPaid(false);
+    setProtocolTier(null);
+    setPayError("");
+    localStorage.removeItem("paid_third_person");
 
     const formData = new FormData(e.currentTarget);
 
