@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 // Правильные относительные импорты (от app/test/you-are-an-option/ до lib/)
 import { youAreAnOptionProtocols } from "../../../lib/protocols/youAreAnOption";
 import { getProtocolTier } from "../../../lib/protocolTiers";
+import EmailCapture from "../../../components/EmailCapture";
 
 export default function YouAreOptionTest() {
   const [result, setResult] = useState(null);
@@ -328,6 +329,11 @@ useEffect(() => {
 
     <h3 style={sectionTitleStyle}>Summary</h3>
     <p style={{ marginBottom: 24 }}>{result.summary}</p>
+
+    <EmailCapture 
+      testName="Current Relationship Checkup" 
+      resultLevel={result.overall_risk_level} 
+    />
 
     {protocolTier === "none" ? (
       <div style={{ 
