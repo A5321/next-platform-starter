@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { thirdPersonProtocols } from "../../../lib/protocols/Thirdperson";
 import { getProtocolTier } from "../../../lib/protocolTiers";
+import EmailCapture from "../../../components/EmailCapture";
 
 export default function ThirdPersonGreyZoneTest() {
   const [result, setResult] = useState(null);
@@ -354,6 +355,11 @@ const cardStyle = {
 
             <h3 style={sectionTitleStyle}>Summary</h3>
             <p style={{ marginBottom: 24 }}>{result.summary}</p>
+
+            <EmailCapture 
+              testName="Current Relationship Checkup" 
+              resultLevel={result.overall_risk_level} 
+            />
 
             {protocolTier === "none" ? (
               <div style={{
