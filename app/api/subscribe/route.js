@@ -6,6 +6,8 @@ export async function POST(req) {
     const email = (body.email || "").trim().toLowerCase();
     const testName = (body.testName || "Pattern Index").trim();
     const resultLevel = (body.resultLevel || "").trim();
+    const protocolScope = (body.protocolScope || "").trim();
+    const protocolTier = (body.protocolTier || "").trim();
 
     if (!email || !email.includes("@")) {
       return NextResponse.json(
@@ -24,6 +26,106 @@ export async function POST(req) {
       );
     }
 
+    // If protocolScope and protocolTier are provided — send protocol email
+    if (protocolScope && protocolTier) {
+      let protocolData = null;
+      try {
+        const mod = await import(`../../../lib/protocols/${protocolScope.replace(/-([a-z])/g, (_, c) => c.toUpperCase())}`);
+        const exports = Object.values(mod);
+        const protocolsObj = exports[0];
+        protocolData = protocolsObj?.[protocolTier] || null;
+      } catch (e) {
+        console.error("Protocol import error:", e.message);
+      }
+
+      if (protocolData) {
+        let blocksHtml = "";
+        protocolData.blocks.forEach((block) => {
+          blocksHtml += `<div style="margin-top: 28px;">
+            <h3 style="margin: 0 0 8px 0; font-size: 17px; color: #fff;">${block.title}</h3>
+            ${block.goal ? `<p style="margin: 0 0 6px 0; font-size: 14px; color: #888;"><strong style="color: #aaa;">Goal:</strong> ${block.goal}</p>` : ""}
+            ${block.when ? `<p style="margin: 0 0 10px 0; font-size: 14px; color: #888;"><strong style="color: #aaa;">When:</strong> ${block.when}</p>` : ""}
+            ${block.items ? block.items.map(item => {
+              if (item.type === "subheader") return `<p style="margin: 10px 0 4px 0; font-size: 15px; font-weight: 600; color: #ddd;">${item.text}</p>`;
+              if (item.type === "sub") return `<p style="margin: 4px 0; padding-left: 16px; font-size: 14px; color: #aaa;">— ${item.text}</p>`;
+              if (item.type === "quote") return `<div style="margin: 10px 0; padding: 10px 16px; border-left: 3px solid #4ade80; color: #ccc; font-style: italic; font-size: 14px; line-height: 1.6;">${item.text}</div>`;
+              return `<p style="margin: 6px 0; font-size: 14px; color: #ccc;">${item.text}</p>`;
+            }).join("") : ""}
+            ${block.why ? block.why.map(w => `<p style="margin: 4px 0; font-size: 13px; color: #777; font-style: italic;">→ ${w}</p>`).join("") : ""}
+          </div>`;
+        });
+
+        const protocolHtml = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body style="margin: 0; padding: 0; background-color: #0a0a0a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0a0a0a; padding: 40px 20px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%; background-color: #111; border-radius: 12px; overflow: hidden;">
+        <tr>
+          <td style="padding: 32px 40px 24px 40px; border-bottom: 1px solid #222;">
+            <p style="margin: 0; font-size: 13px; color: #666; text-transform: uppercase; letter-spacing: 1px;">Pattern Index</p>
+            <h1 style="margin: 8px 0 0 0; font-size: 22px; color: #fff; font-weight: 600;">${protocolData.title}</h1>
+            <p style="margin: 8px 0 0 0; font-size: 14px; color: #888;">${protocolData.subtitle}</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 32px 40px;">
+            <p style="margin: 0 0 24px 0; color: #ccc; font-size: 15px; line-height: 1.7;">${protocolData.intro}</p>
+            ${blocksHtml}
+            ${protocolData.closing ? `<div style="margin-top: 36px; padding: 16px 20px; background: rgba(255,255,255,0.04); border-left: 4px solid #4ade80; color: #aaa; font-style: italic; font-size: 14px; line-height: 1.6;">${protocolData.closing}</div>` : ""}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 24px 40px; border-top: 1px solid #222;">
+            <p style="margin: 0; color: #555; font-size: 13px; line-height: 1.5;">
+              Questions? Reply to this email.<br />
+              You received this because you purchased a protocol on patternindex.io.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+        const sendRes = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "Pattern Index <hello@patternindex.io>",
+            to: [email],
+            reply_to: "info@patternindex.io",
+            subject: `Your protocol: ${protocolData.title}`,
+            html: protocolHtml,
+          }),
+        });
+
+        if (!sendRes.ok) {
+          const err = await sendRes.text();
+          console.error("Resend protocol error:", err);
+          return NextResponse.json({ success: false, error: err }, { status: 500 });
+        }
+
+        // Save to audience
+        if (adminKey) {
+          fetch("https://api.resend.com/contacts", {
+            method: "POST",
+            headers: { Authorization: `Bearer ${adminKey}`, "Content-Type": "application/json" },
+            body: JSON.stringify({ email, unsubscribed: false }),
+          }).catch((e) => console.error("Audience error:", e));
+        }
+
+        return NextResponse.json({ success: true });
+      }
+    }
+
+    // Default: send result summary email
     const resultLine = resultLevel
       ? `<p style="margin: 0 0 16px 0; color: #aaa; font-size: 15px;">Your result: <strong style="color: #fff;">${resultLevel}</strong></p>`
       : "";
