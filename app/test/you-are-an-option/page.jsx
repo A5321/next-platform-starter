@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { youAreAnOptionProtocols } from "../../../lib/protocols/youAreAnOption";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
+import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
 export default function YouAreOptionTest() {
   const [result, setResult] = useState(null);
@@ -372,6 +373,12 @@ useEffect(() => {
         <h2 style={{ marginBottom: 16, color: "#fff" }}>
           {currentProtocol?.title || "Protocol"}
         </h2>
+
+        <ProtocolEmailCapture
+          protocolScope="you-are-an-option"
+          protocolTier={protocolTier}
+          protocolTitle={currentProtocol?.title}
+        />
 
         <div style={{ 
           fontSize: "15.2px", 
