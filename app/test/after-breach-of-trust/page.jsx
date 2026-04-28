@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { afterBreachProtocols } from "../../../lib/protocols/afterBreach";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
+import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
 export default function AfterBreachOfTrustTest() {
   const [result, setResult] = useState(null);
@@ -384,6 +385,13 @@ const cardStyle = {
                 <h2 style={{ marginBottom: 16, color: "#fff" }}>
                   {afterBreachProtocols[protocolTier]?.title || "Protocol"}
                 </h2>
+
+                <ProtocolEmailCapture
+                  protocolScope="after-breach-of-trust"
+                  protocolTier={protocolTier}
+                  protocolTitle={afterBreachProtocols[protocolTier]?.title}
+                />
+                
                 <div style={{
                   fontSize: "15.2px", lineHeight: "1.75", color: "#ddd",
                   background: "rgba(255,255,255,0.03)", padding: "20px", borderRadius: 10,
