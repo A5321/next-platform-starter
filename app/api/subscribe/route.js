@@ -15,6 +15,8 @@ export async function POST(req) {
     }
 
     const apiKey = process.env.RESEND_API_KEY;
+    const adminKey = process.env.RESEND_ADMIN_KEY;
+
     if (!apiKey) {
       return NextResponse.json(
         { success: false, error: "Email service not configured" },
@@ -94,7 +96,7 @@ export async function POST(req) {
               <table cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="background-color: #fff; border-radius: 8px; padding: 14px 28px;">
-                    <a href="https://patternindex.io/tests" style="color: #000; text-decoration: none; font-size: 16px; font-weight: 600;">
+                    <a href="https://patternindex.io" style="color: #000; text-decoration: none; font-size: 16px; font-weight: 600;">
                       See all tests → patternindex.io
                     </a>
                   </td>
@@ -143,6 +145,19 @@ export async function POST(req) {
         { success: false, error: err },
         { status: 500 }
       );
+    }
+
+    // Save contact to Resend Audience (non-blocking)
+    const audienceId = process.env.RESEND_AUDIENCE_ID;
+    if (audienceId) {
+      fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${adminKey || apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, unsubscribed: false }),
+      }).catch((err) => console.error("Audience add error:", err));
     }
 
     return NextResponse.json({ success: true });
