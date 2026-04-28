@@ -423,6 +423,12 @@ export default function CurrentRelationshipTest() {
                   {currentProtocol?.title || "Protocol"}
                 </h2>
 
+                <ProtocolEmailCapture
+                  protocolScope="current-relationship"
+                  protocolTier={protocolTier}
+                  protocolTitle={currentProtocol?.title}
+                />
+
                 <div
                   style={{
                     fontSize: "15.2px",
