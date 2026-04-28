@@ -114,7 +114,7 @@ export async function POST(req) {
 
         // Save to audience
         if (adminKey) {
-          fetch("https://api.resend.com/contacts", {
+          await fetch("https://api.resend.com/contacts", {
             method: "POST",
             headers: { Authorization: `Bearer ${adminKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({ email, unsubscribed: false }),
