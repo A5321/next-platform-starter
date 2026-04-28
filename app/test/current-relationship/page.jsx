@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 
 import { currentRelationshipProtocols } from "../../../lib/protocols/currentRelationship";
 import { getProtocolTier } from "../../../lib/protocolTiers";
+import EmailCapture from "../../../components/EmailCapture";
 
 export default function CurrentRelationshipTest() {
   const [result, setResult] = useState(null);
@@ -362,9 +363,6 @@ export default function CurrentRelationshipTest() {
             <h3 style={sectionTitleStyle}>Summary</h3>
             <p style={{ marginBottom: 24 }}>{result.summary}</p>
 
-            import EmailCapture from "../../../components/EmailCapture";
-
-            // В JSX, после Summary, перед протоколом:
             <EmailCapture 
               testName="Current Relationship Checkup" 
               resultLevel={result.overall_risk_level} 
