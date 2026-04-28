@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { currentRelationshipProtocols } from "../../../lib/protocols/currentRelationship";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
+import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
 export default function CurrentRelationshipTest() {
   const [result, setResult] = useState(null);
