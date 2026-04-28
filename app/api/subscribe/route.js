@@ -140,7 +140,7 @@ export async function POST(req) {
       const err = await res.text();
       console.error("Resend error:", err);
       return NextResponse.json(
-        { success: false, error: "Failed to send email" },
+        { success: false, error: err },
         { status: 500 }
       );
     }
