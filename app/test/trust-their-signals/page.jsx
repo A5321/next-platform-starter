@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { trustSignalsProtocols } from "../../../lib/protocols/trustSignals";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
+import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
 export default function TrustTheirSignalsTest() {
   const [result, setResult] = useState(null);
@@ -389,6 +390,14 @@ const cardStyle = {
                 <h2 style={{ marginBottom: 16, color: "#fff" }}>
                   {trustSignalsProtocols[protocolTier]?.title || "Protocol"}
                 </h2>
+
+                <ProtocolEmailCapture
+                  protocolScope="trust-their-signals
+"
+                  protocolTier={protocolTier}
+                  protocolTitle={trustSignalsProtocols[protocolTier]?.title}
+                />
+                
                 <div style={{
                   fontSize: "15.2px", lineHeight: "1.75", color: "#ddd",
                   background: "rgba(255,255,255,0.03)", padding: "20px", borderRadius: 10,
