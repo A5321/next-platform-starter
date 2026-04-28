@@ -147,17 +147,23 @@ export async function POST(req) {
       );
     }
 
-    // Save contact to Resend Audience (non-blocking)
+    // Save contact to Resend Audience
     const audienceId = process.env.RESEND_AUDIENCE_ID;
+    console.log("audienceId:", audienceId);
+    console.log("adminKey present:", !!adminKey);
     if (audienceId) {
-      fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
+      const audienceRes = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${adminKey || apiKey}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, unsubscribed: false }),
-      }).catch((err) => console.error("Audience add error:", err));
+      });
+      const audienceData = await audienceRes.json();
+      console.log("Audience response:", JSON.stringify(audienceData));
+    } else {
+      console.log("No audienceId — skipping contact save");
     }
 
     return NextResponse.json({ success: true });
