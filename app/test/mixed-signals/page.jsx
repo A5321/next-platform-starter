@@ -359,7 +359,7 @@ const cardStyle = {
                 </h2>
 
                 <ProtocolEmailCapture
-                  protocolScope="current-relationship"
+                  protocolScope="mixed-signals"
                   protocolTier={protocolTier}
                   protocolTitle={currentProtocol?.title}
                 />
