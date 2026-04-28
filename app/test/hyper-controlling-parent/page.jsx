@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { hyperParentProtocols } from "../../../lib/protocols/hyperParent";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
+import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
 export default function HyperControllingParentTest() {
   const [result, setResult] = useState(null);
@@ -390,7 +391,7 @@ const cardStyle = {
                 <ProtocolEmailCapture
                   protocolScope="hyper-controlling-parent"
                   protocolTier={protocolTier}
-                  protocolTitle={currentProtocol?.title}
+                  protocolTitle={hyperParentProtocols[protocolTier]?.title}
                 />
                 
                 <div style={{
