@@ -362,6 +362,14 @@ export default function CurrentRelationshipTest() {
             <h3 style={sectionTitleStyle}>Summary</h3>
             <p style={{ marginBottom: 24 }}>{result.summary}</p>
 
+            import EmailCapture from "../../../components/EmailCapture";
+
+            // В JSX, после Summary, перед протоколом:
+            <EmailCapture 
+              testName="Current Relationship Checkup" 
+              resultLevel={result.overall_risk_level} 
+            />
+
             {/* Protocol section */}
             {protocolTier === "none" ? (
               <div
