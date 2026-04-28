@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { repeatingBreakupProtocols } from "../../../lib/protocols/Repeatingbreakup";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
+import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
 export default function RepeatingBreakupTest() {
   const [result, setResult] = useState(null);
@@ -367,7 +368,7 @@ const cardStyle = {
                 <ProtocolEmailCapture
                   protocolScope="repeating-breakup"
                   protocolTier={protocolTier}
-                  protocolTitle={currentProtocol?.title}
+                  protocolTitle={repeatingBreakupProtocols[protocolTier]?.title}
                 />
                 
                 <div style={{
