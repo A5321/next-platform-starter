@@ -14,7 +14,7 @@ export async function POST(req) {
       );
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
+    const apiKey = process.env.RESEND_ADMIN_KEY;
     if (!apiKey) {
       return NextResponse.json(
         { success: false, error: "Email service not configured" },
