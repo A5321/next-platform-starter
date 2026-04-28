@@ -128,7 +128,7 @@ export async function POST(req) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Pattern Index <hello@send.patternindex.io>",
+        from: "Pattern Index <hello@patternindex.io>",
         to: [email],
         reply_to: "info@patternindex.io",
         subject: "Your pattern result + what to do next",
