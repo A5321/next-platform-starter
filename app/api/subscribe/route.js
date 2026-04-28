@@ -94,7 +94,7 @@ export async function POST(req) {
               <table cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="background-color: #fff; border-radius: 8px; padding: 14px 28px;">
-                    <a href="https://patternindex.io" style="color: #000; text-decoration: none; font-size: 16px; font-weight: 600;">
+                    <a href="https://patternindex.io/tests" style="color: #000; text-decoration: none; font-size: 16px; font-weight: 600;">
                       See all tests → patternindex.io
                     </a>
                   </td>
