@@ -388,7 +388,7 @@ const cardStyle = {
                 </h2>
 
                 <ProtocolEmailCapture
-                  protocolScope="current-relationship"
+                  protocolScope="hyper-controlling-parent"
                   protocolTier={protocolTier}
                   protocolTitle={currentProtocol?.title}
                 />
