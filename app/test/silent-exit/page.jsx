@@ -394,6 +394,13 @@ const cardStyle = {
                 <h2 style={{ marginBottom: 16, color: "#fff" }}>
                   {silentExitProtocols[protocolTier]?.title || "Protocol"}
                 </h2>
+
+                <ProtocolEmailCapture
+                  protocolScope="silent-exit"
+                  protocolTier={protocolTier}
+                  protocolTitle={currentProtocol?.title}
+                />
+                
                 <div style={{
                   fontSize: "15.2px", lineHeight: "1.75", color: "#ddd",
                   background: "rgba(255,255,255,0.03)", padding: "20px", borderRadius: 10,
