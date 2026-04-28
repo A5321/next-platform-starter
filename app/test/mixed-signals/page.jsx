@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { mixedSignalsProtocols } from "../../../lib/protocols/Mixedsignals";
 import { getProtocolTier } from "../../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
+import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
 export default function MixedSignalsTest() {
   const [result, setResult] = useState(null);
@@ -361,7 +362,7 @@ const cardStyle = {
                 <ProtocolEmailCapture
                   protocolScope="mixed-signals"
                   protocolTier={protocolTier}
-                  protocolTitle={currentProtocol?.title}
+                  protocolTitle={mixedSignalsProtocols[protocolTier]?.title}
                 />
                 
                 <div style={{
