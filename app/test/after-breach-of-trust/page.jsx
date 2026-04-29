@@ -45,7 +45,7 @@ export default function AfterBreachOfTrustTest() {
         setPayError("");
         return actions.order.create({
           purchase_units: [{
-            amount: { value: "3.00", currency_code: "USD" },
+            amount: { value: "15.00", currency_code: "USD" },
             custom_id: "after-breach-single",
             description: `After Breach of Trust — ${protocolTier === "hard" ? "Exit" : "Stabilization"} Protocol`,
           }],
