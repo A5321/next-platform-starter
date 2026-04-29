@@ -13,9 +13,13 @@ export default function HyperControllingParentTest() {
   const [protocolTier, setProtocolTier] = useState(null);
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
   const paypalSingleRef = useRef(null);
 
   useEffect(() => {
+    const emailLocal = localStorage.getItem("email_submitted_hyper_parent");
+    if (emailLocal === "true") setEmailSubmitted(true);
+
     const params = new URLSearchParams(window.location.search);
     const access = params.get("access");
     const paidLocal = localStorage.getItem("paid_hyper_parent");
@@ -87,6 +91,8 @@ export default function HyperControllingParentTest() {
     setProtocolTier(null);
     setPayError("");
     localStorage.removeItem("paid_hyper_parent");
+    localStorage.removeItem("email_submitted_hyper_parent");
+    setEmailSubmitted(false);
 
     const formData = new FormData(e.currentTarget);
 
@@ -317,41 +323,83 @@ const cardStyle = {
               Overall hyper‑control level: {result.overall_hypercontrol_level}
             </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
-
-            <p>
-              <strong>Parental Control Intensity: {result.indices.parental_control_intensity}</strong>
-              <br />
-              Measures how tightly decisions, daily life, and your path were controlled. 0 = mostly supportive guidance, 1 = heavy control over most areas of life.
-            </p>
-            <p>
-              <strong>Autonomy Restriction Level: {result.indices.autonomy_restriction_level}</strong>
-              <br />
-              Reflects how much freedom you had to choose friends, hobbies, clothes, and schedule. 0 = plenty of room to experiment, 1 = very little real choice.
-            </p>
-            <p>
-              <strong>Privacy Invasion Score: {result.indices.privacy_invasion_score}</strong>
-              <br />
-              Shows how often your physical and psychological privacy was crossed. 0 = privacy mostly respected, 1 = regular checking, reading, or bursting in.
-            </p>
-            <p>
-              <strong>Guilt/Shame Pressure Index: {result.indices.guilt_shame_pressure_index}</strong>
-              <br />
-              Estimates how much guilt, shame, or threats were used to keep you in line. 0 = rare and mild, 1 = strong, frequent emotional pressure.
-            </p>
-            <p>
-              <strong>Current Relationship Echo Score: {result.indices.current_relationship_echo_score}</strong>
-              <br />
-              Shows how strongly this pattern is likely to replay in your adult relationships. 0 = almost no carry‑over, 1 = strong echo.
+            <p style={{ marginBottom: 24, color: "#ccc", fontSize: 16, lineHeight: 1.6 }}>
+              {result.summary.split(".")[0]}.
             </p>
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p style={{ marginBottom: 24 }}>{result.summary}</p>
+            {!emailSubmitted ? (
+              <>
+                <div style={{ position: "relative", marginBottom: 24 }}>
+                  <div style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none", opacity: 0.6 }}>
+                    <h3 style={sectionTitleStyle}>Indices</h3>
+                    {["Parental Control Intensity", "Autonomy Restriction Level", "Privacy Invasion Score", "Guilt/Shame Pressure Index", "Current Relationship Echo Score"].map((name, i) => (
+                      <p key={i}>
+                        <strong>{name}: {(0.3 + i * 0.1).toFixed(1)}</strong>
+                        <br />
+                        <span style={{ color: "#888" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
+                      </p>
+                    ))}
+                    <h3 style={sectionTitleStyle}>Summary</h3>
+                    <p>{"█".repeat(40)}<br />{"█".repeat(35)}<br />{"█".repeat(28)}</p>
+                  </div>
+                  <div style={{
+                    position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <div style={{
+                      background: "rgba(0,0,0,0.85)", padding: "20px 28px",
+                      borderRadius: 12, border: "1px solid rgba(255,255,255,0.15)",
+                      textAlign: "center", maxWidth: 340,
+                    }}>
+                      <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#fff" }}>
+                        Enter your email to see the full analysis
+                      </p>
+                      <EmailCapture
+                        testName="Hyper-Controlling Parent Pattern"
+                        resultLevel={result.overall_hypercontrol_level}
+                        onSuccess={() => {
+                          setEmailSubmitted(true);
+                          localStorage.setItem("email_submitted_hyper_parent", "true");
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <EmailCapture 
-              testName="Current Relationship Checkup" 
-              resultLevel={result.overall_risk_level} 
-            />
+                <p>
+                  <strong>Parental Control Intensity: {result.indices.parental_control_intensity}</strong>
+                  <br />
+                  Measures how tightly decisions, daily life, and your path were controlled. 0 = mostly supportive guidance, 1 = heavy control over most areas of life.
+                </p>
+                <p>
+                  <strong>Autonomy Restriction Level: {result.indices.autonomy_restriction_level}</strong>
+                  <br />
+                  Reflects how much freedom you had to choose friends, hobbies, clothes, and schedule. 0 = plenty of room to experiment, 1 = very little real choice.
+                </p>
+                <p>
+                  <strong>Privacy Invasion Score: {result.indices.privacy_invasion_score}</strong>
+                  <br />
+                  Shows how often your physical and psychological privacy was crossed. 0 = privacy mostly respected, 1 = regular checking, reading, or bursting in.
+                </p>
+                <p>
+                  <strong>Guilt/Shame Pressure Index: {result.indices.guilt_shame_pressure_index}</strong>
+                  <br />
+                  Estimates how much guilt, shame, or threats were used to keep you in line. 0 = rare and mild, 1 = strong, frequent emotional pressure.
+                </p>
+                <p>
+                  <strong>Current Relationship Echo Score: {result.indices.current_relationship_echo_score}</strong>
+                  <br />
+                  Shows how strongly this pattern is likely to replay in your adult relationships. 0 = almost no carry‑over, 1 = strong echo.
+                </p>
+
+                <h3 style={sectionTitleStyle}>Summary</h3>
+                <p style={{ marginBottom: 24 }}>{result.summary}</p>
+              </>
+            )}
 
             {protocolTier === "none" ? (
               <div style={{
