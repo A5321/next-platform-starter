@@ -15,6 +15,7 @@ export default function CurrentRelationshipTest() {
 
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
 
   const paypalSingleRef = useRef(null);
   const paypalRenderedRef = useRef(false);
@@ -24,6 +25,9 @@ export default function CurrentRelationshipTest() {
     const access = params.get("access");
     const paidLocal = localStorage.getItem("paid_current_relationship");
     const isPaid = paidLocal === "true" || access === "one" || access === "sub";
+
+    const emailLocal = localStorage.getItem("email_submitted_current_relationship");
+    if (emailLocal === "true") setEmailSubmitted(true);
 
     if (isPaid) {
       setPaid(true);
@@ -44,8 +48,10 @@ export default function CurrentRelationshipTest() {
     setPaid(false);
     setProtocolTier(null);
     setPayError("");
+    setEmailSubmitted(false);
     paypalRenderedRef.current = false;
     localStorage.removeItem("paid_current_relationship");
+    localStorage.removeItem("email_submitted_current_relationship");
 
     const formData = new FormData(e.currentTarget);
 
@@ -317,57 +323,100 @@ export default function CurrentRelationshipTest() {
               Overall risk level: {result.overall_risk_level}
             </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
-
-            <p>
-              <strong>Reciprocity Score: {result.indices.reciprocity_score}</strong>
-              <br />
-              Measures how balanced emotional, practical, and time investment is between people.
+            <p style={{ marginBottom: 24, color: "#ccc", fontSize: 16, lineHeight: 1.6 }}>
+              {result.summary.split(".")[0]}.
             </p>
 
-            <p>
-              <strong>Initiative Balance Index: {result.indices.initiative_balance_index}</strong>
-              <br />
-              Measures asymmetry in who initiates contact.
-            </p>
+            {!emailSubmitted ? (
+              <>
+                {/* Blurred indices */}
+                <div style={{ position: "relative", marginBottom: 24 }}>
+                  <div style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none", opacity: 0.6 }}>
+                    <h3 style={sectionTitleStyle}>Indices</h3>
+                    {["Reciprocity Score", "Initiative Balance Index", "Emotional Stability Index", "Boundary Violation Probability", "Communication Clarity Index", "Pattern Recurrence Probability", "Long-Term Stability Forecast"].map((name, i) => (
+                      <p key={i}>
+                        <strong>{name}: {(0.3 + i * 0.1).toFixed(1)}</strong>
+                        <br />
+                        <span style={{ color: "#888" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
+                      </p>
+                    ))}
+                    <h3 style={sectionTitleStyle}>Summary</h3>
+                    <p>{"█".repeat(40)}<br />{"█".repeat(35)}<br />{"█".repeat(28)}</p>
+                  </div>
+                  <div style={{
+                    position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <div style={{
+                      background: "rgba(0,0,0,0.85)", padding: "20px 28px",
+                      borderRadius: 12, border: "1px solid rgba(255,255,255,0.15)",
+                      textAlign: "center", maxWidth: 340,
+                    }}>
+                      <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#fff" }}>
+                        Enter your email to see the full analysis
+                      </p>
+                      <EmailCapture
+                        testName="Current Relationship Checkup"
+                        resultLevel={result.overall_risk_level}
+                        onSuccess={() => {
+                          setEmailSubmitted(true);
+                          localStorage.setItem("email_submitted_current_relationship", "true");
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <p>
-              <strong>Emotional Stability Index: {result.indices.emotional_stability_index}</strong>
-              <br />
-              Measures how stable or volatile reactions are.
-            </p>
+                <p>
+                  <strong>Reciprocity Score: {result.indices.reciprocity_score}</strong>
+                  <br />
+                  Measures how balanced emotional, practical, and time investment is between people.
+                </p>
 
-            <p>
-              <strong>Boundary Violation Probability: {result.indices.boundary_violation_probability}</strong>
-              <br />
-              Estimates how likely it is that personal limits are being crossed or ignored in this dynamic
-            </p>
+                <p>
+                  <strong>Initiative Balance Index: {result.indices.initiative_balance_index}</strong>
+                  <br />
+                  Measures asymmetry in who initiates contact.
+                </p>
 
-            <p>
-              <strong>Communication Clarity Index: {result.indices.communication_clarity_index}</strong>
-              <br />
-              Measures how direct, honest, and unambiguous communication tends to be between both people
-            </p>
+                <p>
+                  <strong>Emotional Stability Index: {result.indices.emotional_stability_index}</strong>
+                  <br />
+                  Measures how stable or volatile reactions are.
+                </p>
 
-            <p>
-              <strong>Pattern Recurrence Probability: {result.indices.pattern_recurrence_probability}</strong>
-              <br />
-              Estimates how likely the current dynamic is to repeat itself without deliberate change
-            </p>
+                <p>
+                  <strong>Boundary Violation Probability: {result.indices.boundary_violation_probability}</strong>
+                  <br />
+                  Estimates how likely it is that personal limits are being crossed or ignored in this dynamic
+                </p>
 
-            <p>
-              <strong>Long-Term Stability Forecast: {result.indices.long_term_stability_forecast}</strong>
-              <br />
-              Predicts how sustainable this dynamic is over time based on current patterns
-            </p>
+                <p>
+                  <strong>Communication Clarity Index: {result.indices.communication_clarity_index}</strong>
+                  <br />
+                  Measures how direct, honest, and unambiguous communication tends to be between both people
+                </p>
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p style={{ marginBottom: 24 }}>{result.summary}</p>
+                <p>
+                  <strong>Pattern Recurrence Probability: {result.indices.pattern_recurrence_probability}</strong>
+                  <br />
+                  Estimates how likely the current dynamic is to repeat itself without deliberate change
+                </p>
 
-            <EmailCapture 
-              testName="Current Relationship Checkup" 
-              resultLevel={result.overall_risk_level} 
-            />
+                <p>
+                  <strong>Long-Term Stability Forecast: {result.indices.long_term_stability_forecast}</strong>
+                  <br />
+                  Predicts how sustainable this dynamic is over time based on current patterns
+                </p>
+
+                <h3 style={sectionTitleStyle}>Summary</h3>
+                <p style={{ marginBottom: 24 }}>{result.summary}</p>
+              </>
+            )}
 
             {/* Protocol section */}
             {protocolTier === "none" ? (
