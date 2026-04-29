@@ -13,9 +13,13 @@ export default function AfterBreachOfTrustTest() {
   const [protocolTier, setProtocolTier] = useState(null);
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
   const paypalSingleRef = useRef(null);
 
   useEffect(() => {
+    const emailLocal = localStorage.getItem("email_submitted_after_breach");
+    if (emailLocal === "true") setEmailSubmitted(true);
+
     const params = new URLSearchParams(window.location.search);
     const access = params.get("access");
     const paidLocal = localStorage.getItem("paid_after_breach");
@@ -87,6 +91,8 @@ export default function AfterBreachOfTrustTest() {
     setProtocolTier(null);
     setPayError("");
     localStorage.removeItem("paid_after_breach");
+    localStorage.removeItem("email_submitted_after_breach");
+    setEmailSubmitted(false);
 
     const formData = new FormData(e.currentTarget);
 
@@ -315,42 +321,84 @@ const cardStyle = {
               Trust‑recovery level: {result.overall_trust_recovery_level}
             </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
-
-            <p>
-              <strong>Repair Effort Index: {result.indices.repair_effort_index}</strong>
-              <br />
-              Shows how consistently the person who broke trust is engaging in concrete repair over time. 0 = almost no visible repair, 1 = steady, aligned actions.
-            </p>
-            <p>
-              <strong>Accountability Depth Score: {result.indices.accountability_depth_score}</strong>
-              <br />
-              Reflects how fully they own the impact without defensiveness or rushing you to move on. 0 = shallow or blaming, 1 = clear, grounded ownership.
-            </p>
-            <p>
-              <strong>Boundary Reset Strength: {result.indices.boundary_reset_strength}</strong>
-              <br />
-              Captures how solid new limits and agreements are after the breach. 0 = almost no real change, 1 = concrete new structures that are mostly respected.
-            </p>
-            <p>
-              <strong>Trust Regrowth Pace: {result.indices.trust_regrowth_pace}</strong>
-              <br />
-              Describes the direction of trust over time. 0 = stalled or eroding, 1 = slow but noticeable rebuilding.
-            </p>
-            <p>
-              <strong>Relapse Risk Index: {result.indices.relapse_risk_index}</strong>
-              <br />
-              Estimates how likely a similar breach is to repeat under current conditions. 0 = low risk with strong changes, 1 = high risk, many things unchanged.
+            <p style={{ marginBottom: 24, color: "#ccc", fontSize: 16, lineHeight: 1.6 }}>
+              {result.summary.split(".")[0]}.
             </p>
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p style={{ marginBottom: 24 }}>{result.summary}</p>
+            {!emailSubmitted ? (
+              <>
+                <div style={{ position: "relative", marginBottom: 24 }}>
+                  <div style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none", opacity: 0.6 }}>
+                    <h3 style={sectionTitleStyle}>Indices</h3>
+                    {["Repair Effort Index", "Accountability Depth Score", "Boundary Reset Strength", "Trust Regrowth Pace", "Relapse Risk Index"].map((name, i) => (
+                      <p key={i}>
+                        <strong>{name}: {(0.3 + i * 0.1).toFixed(1)}</strong>
+                        <br />
+                        <span style={{ color: "#888" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
+                      </p>
+                    ))}
+                    <h3 style={sectionTitleStyle}>Summary</h3>
+                    <p>{"█".repeat(40)}<br />{"█".repeat(35)}<br />{"█".repeat(28)}</p>
+                  </div>
+                  <div style={{
+                    position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <div style={{
+                      background: "rgba(0,0,0,0.85)", padding: "20px 28px",
+                      borderRadius: 12, border: "1px solid rgba(255,255,255,0.15)",
+                      textAlign: "center", maxWidth: 340,
+                    }}>
+                      <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#fff" }}>
+                        Enter your email to see the full analysis
+                      </p>
+                      <EmailCapture
+                        testName="After a Breach of Trust"
+                        resultLevel={result.overall_trust_recovery_level}
+                        onSuccess={() => {
+                          setEmailSubmitted(true);
+                          localStorage.setItem("email_submitted_after_breach", "true");
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <EmailCapture 
-              testName="Current Relationship Checkup" 
-              resultLevel={result.overall_risk_level} 
-            />
-            
+                <p>
+                  <strong>Repair Effort Index: {result.indices.repair_effort_index}</strong>
+                  <br />
+                  Shows how consistently the person who broke trust is engaging in concrete repair over time. 0 = almost no visible repair, 1 = steady, aligned actions.
+                </p>
+                <p>
+                  <strong>Accountability Depth Score: {result.indices.accountability_depth_score}</strong>
+                  <br />
+                  Reflects how fully they own the impact without defensiveness or rushing you to move on. 0 = shallow or blaming, 1 = clear, grounded ownership.
+                </p>
+                <p>
+                  <strong>Boundary Reset Strength: {result.indices.boundary_reset_strength}</strong>
+                  <br />
+                  Captures how solid new limits and agreements are after the breach. 0 = almost no real change, 1 = concrete new structures that are mostly respected.
+                </p>
+                <p>
+                  <strong>Trust Regrowth Pace: {result.indices.trust_regrowth_pace}</strong>
+                  <br />
+                  Describes the direction of trust over time. 0 = stalled or eroding, 1 = slow but noticeable rebuilding.
+                </p>
+                <p>
+                  <strong>Relapse Risk Index: {result.indices.relapse_risk_index}</strong>
+                  <br />
+                  Estimates how likely a similar breach is to repeat under current conditions. 0 = low risk with strong changes, 1 = high risk, many things unchanged.
+                </p>
+
+                <h3 style={sectionTitleStyle}>Summary</h3>
+                <p style={{ marginBottom: 24 }}>{result.summary}</p>
+              </>
+            )}
+
             {protocolTier === "none" ? (
               <div style={{
                 marginTop: 24, padding: 24,
