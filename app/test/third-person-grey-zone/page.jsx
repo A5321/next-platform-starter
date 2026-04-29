@@ -46,7 +46,7 @@ export default function ThirdPersonGreyZoneTest() {
         setPayError("");
         return actions.order.create({
           purchase_units: [{
-            amount: { value: "3.00", currency_code: "USD" },
+            amount: { value: "15.00", currency_code: "USD" },
             custom_id: "third-person-single",
             description: `Third Person Grey Zone — ${protocolTier === "hard" ? "Exit" : "Clarity"} Protocol`,
           }],
