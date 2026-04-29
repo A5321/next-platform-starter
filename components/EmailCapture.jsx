@@ -30,8 +30,8 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
         throw new Error(data.error || "Something went wrong");
       }
 
-      setStatus("success");
       if (onSuccess) onSuccess();
+      setStatus("success");
     } catch (err) {
       setStatus("error");
       setErrorMsg(err.message || "Could not send. Try again.");
