@@ -54,7 +54,7 @@ export default function MixedSignalsTest() {
           setPayError("");
           return actions.order.create({
             purchase_units: [{
-              amount: { value: "3.00", currency_code: "USD" },
+              amount: { value: "15.00", currency_code: "USD" },
               custom_id: "mixed-signals-single",
               description: `Mixed Signals — ${protocolTier === "hard" ? "Exit" : "Stabilization"} Protocol`,
             }],
