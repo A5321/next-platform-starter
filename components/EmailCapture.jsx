@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function EmailCapture({ testName, resultLevel }) {
+export default function EmailCapture({ testName, resultLevel, onSuccess }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState("");
@@ -31,6 +31,7 @@ export default function EmailCapture({ testName, resultLevel }) {
       }
 
       setStatus("success");
+      if (onSuccess) onSuccess();
     } catch (err) {
       setStatus("error");
       setErrorMsg(err.message || "Could not send. Try again.");
