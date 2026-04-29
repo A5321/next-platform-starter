@@ -13,9 +13,13 @@ export default function TrustTheirSignalsTest() {
   const [protocolTier, setProtocolTier] = useState(null);
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
   const paypalSingleRef = useRef(null);
 
   useEffect(() => {
+    const emailLocal = localStorage.getItem("email_submitted_trust_signals");
+    if (emailLocal === "true") setEmailSubmitted(true);
+
     const params = new URLSearchParams(window.location.search);
     const access = params.get("access");
     const paidLocal = localStorage.getItem("paid_trust_signals");
@@ -87,6 +91,8 @@ export default function TrustTheirSignalsTest() {
     setProtocolTier(null);
     setPayError("");
     localStorage.removeItem("paid_trust_signals");
+    localStorage.removeItem("email_submitted_trust_signals");
+    setEmailSubmitted(false);
 
     const formData = new FormData(e.currentTarget);
 
@@ -317,41 +323,83 @@ const cardStyle = {
               Trust‑in‑signals level: {result.overall_trust_in_signals}
             </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
-
-            <p>
-              <strong>Signal Trust Index: {result.indices.signal_trust_index}</strong>
-              <br />
-              Overall sense of how safe it is to rely on their signals when you make decisions about this relationship. 0 = you can't lean on them at all, 1 = signals are a solid base.
-            </p>
-            <p>
-              <strong>Conflict Clarity Score: {result.indices.conflict_clarity_score}</strong>
-              <br />
-              Measures how understandable their behaviour is when things get tense. 0 = chaos, shutdowns, or manipulation, 1 = direct but human reactions.
-            </p>
-            <p>
-              <strong>Intention Transparency Index: {result.indices.intention_transparency_index}</strong>
-              <br />
-              Shows how openly they talk about what they want with you. 0 = everything in hints or shifting stories, 1 = mostly explicit and consistent.
-            </p>
-            <p>
-              <strong>Promise Reliability Score: {result.indices.promise_reliability_score}</strong>
-              <br />
-              Reflects how often their promises and plans actually hold. 0 = chronic flakiness or quiet cancellations, 1 = strong follow‑through.
-            </p>
-            <p>
-              <strong>Gaslighting Risk Index: {result.indices.gaslighting_risk_index}</strong>
-              <br />
-              Captures how often their answers to your questions make you doubt your own perception. 0 = almost no gaslighting pattern, 1 = strong, repeated turning your concerns against you.
+            <p style={{ marginBottom: 24, color: "#ccc", fontSize: 16, lineHeight: 1.6 }}>
+              {result.summary.split(".")[0]}.
             </p>
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p style={{ marginBottom: 24 }}>{result.summary}</p>
+            {!emailSubmitted ? (
+              <>
+                <div style={{ position: "relative", marginBottom: 24 }}>
+                  <div style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none", opacity: 0.6 }}>
+                    <h3 style={sectionTitleStyle}>Indices</h3>
+                    {["Signal Trust Index", "Conflict Clarity Score", "Intention Transparency Index", "Promise Reliability Score", "Gaslighting Risk Index"].map((name, i) => (
+                      <p key={i}>
+                        <strong>{name}: {(0.3 + i * 0.1).toFixed(1)}</strong>
+                        <br />
+                        <span style={{ color: "#888" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
+                      </p>
+                    ))}
+                    <h3 style={sectionTitleStyle}>Summary</h3>
+                    <p>{"█".repeat(40)}<br />{"█".repeat(35)}<br />{"█".repeat(28)}</p>
+                  </div>
+                  <div style={{
+                    position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <div style={{
+                      background: "rgba(0,0,0,0.85)", padding: "20px 28px",
+                      borderRadius: 12, border: "1px solid rgba(255,255,255,0.15)",
+                      textAlign: "center", maxWidth: 340,
+                    }}>
+                      <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#fff" }}>
+                        Enter your email to see the full analysis
+                      </p>
+                      <EmailCapture
+                        testName="Can You Trust Their Signals?"
+                        resultLevel={result.overall_trust_in_signals}
+                        onSuccess={() => {
+                          setEmailSubmitted(true);
+                          localStorage.setItem("email_submitted_trust_signals", "true");
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <EmailCapture 
-              testName="Current Relationship Checkup" 
-              resultLevel={result.overall_risk_level} 
-            />
+                <p>
+                  <strong>Signal Trust Index: {result.indices.signal_trust_index}</strong>
+                  <br />
+                  Overall sense of how safe it is to rely on their signals when you make decisions about this relationship. 0 = you can't lean on them at all, 1 = signals are a solid base.
+                </p>
+                <p>
+                  <strong>Conflict Clarity Score: {result.indices.conflict_clarity_score}</strong>
+                  <br />
+                  Measures how understandable their behaviour is when things get tense. 0 = chaos, shutdowns, or manipulation, 1 = direct but human reactions.
+                </p>
+                <p>
+                  <strong>Intention Transparency Index: {result.indices.intention_transparency_index}</strong>
+                  <br />
+                  Shows how openly they talk about what they want with you. 0 = everything in hints or shifting stories, 1 = mostly explicit and consistent.
+                </p>
+                <p>
+                  <strong>Promise Reliability Score: {result.indices.promise_reliability_score}</strong>
+                  <br />
+                  Reflects how often their promises and plans actually hold. 0 = chronic flakiness or quiet cancellations, 1 = strong follow‑through.
+                </p>
+                <p>
+                  <strong>Gaslighting Risk Index: {result.indices.gaslighting_risk_index}</strong>
+                  <br />
+                  Captures how often their answers to your questions make you doubt your own perception. 0 = almost no gaslighting pattern, 1 = strong, repeated turning your concerns against you.
+                </p>
+
+                <h3 style={sectionTitleStyle}>Summary</h3>
+                <p style={{ marginBottom: 24 }}>{result.summary}</p>
+              </>
+            )}
 
             {protocolTier === "none" ? (
               <div style={{
