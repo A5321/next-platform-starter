@@ -14,10 +14,14 @@ export default function MixedSignalsTest() {
   const [protocolTier, setProtocolTier] = useState(null);
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState("");
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
   const paypalSingleRef = useRef(null);
   const paypalRenderedRef = useRef(false);
 
   useEffect(() => {
+    const emailLocal = localStorage.getItem("email_submitted_mixed_signals");
+    if (emailLocal === "true") setEmailSubmitted(true);
+
     const params = new URLSearchParams(window.location.search);
     const access = params.get("access");
     const paidLocal = localStorage.getItem("paid_mixed_signals");
@@ -106,6 +110,8 @@ export default function MixedSignalsTest() {
     setProtocolTier(null);
     setPayError("");
     localStorage.removeItem("paid_mixed_signals");
+    localStorage.removeItem("email_submitted_mixed_signals");
+    setEmailSubmitted(false);
 
     const formData = new FormData(e.currentTarget);
 
@@ -279,47 +285,89 @@ const cardStyle = {
           </div>
         </form>
 
-        {result && result.indices && (
+        {result && (
           <section style={{ marginTop: 32, lineHeight: 1.5 }}>
             <h2 style={sectionTitleStyle}>
               Mixed‑signal level: {result.overall_mixed_signal_level}
             </h2>
 
-            <h3 style={sectionTitleStyle}>Indices</h3>
-
-            <p>
-              <strong>Signal Clarity Index: {result.indices.signal_clarity_index}</strong>
-              <br />
-              Shows how readable the situation is. 0 = very unclear or contradictory, 1 = very clear, even if the answer is "they're not that into this".
-            </p>
-            <p>
-              <strong>Interest Gap Index: {result.indices.interest_gap_index}</strong>
-              <br />
-              Measures how big the gap is between your investment and theirs. 0 = roughly matched interest, 1 = strong gap in who cares and shows up.
-            </p>
-            <p>
-              <strong>Mixed Signal Volatility: {result.indices.mixed_signal_volatility}</strong>
-              <br />
-              Captures how often and how sharply they swing between warm and cold. 0 = almost no mixed signals, 1 = frequent, intense flips.
-            </p>
-            <p>
-              <strong>Anxiety Load Score: {result.indices.anxiety_load_score}</strong>
-              <br />
-              Reflects how heavy this dynamic sits on your mind and body. 0 = easy to park and forget, 1 = very preoccupying and tense.
-            </p>
-            <p>
-              <strong>Ghosting Drift Risk: {result.indices.ghosting_drift_risk}</strong>
-              <br />
-              Estimates how likely this is to slide into soft ghosting, on‑and‑off attention, or a quiet fade‑out. 0 = very unlikely, 1 = high risk.
+            <p style={{ marginBottom: 24, color: "#ccc", fontSize: 16, lineHeight: 1.6 }}>
+              {result.summary.split(".")[0]}.
             </p>
 
-            <h3 style={sectionTitleStyle}>Summary</h3>
-            <p style={{ marginBottom: 24 }}>{result.summary}</p>
+            {!emailSubmitted ? (
+              <>
+                <div style={{ position: "relative", marginBottom: 24 }}>
+                  <div style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none", opacity: 0.6 }}>
+                    <h3 style={sectionTitleStyle}>Indices</h3>
+                    {["Signal Clarity Index", "Interest Gap Index", "Mixed Signal Volatility", "Anxiety Load Score", "Ghosting Drift Risk"].map((name, i) => (
+                      <p key={i}>
+                        <strong>{name}: {(0.3 + i * 0.1).toFixed(1)}</strong>
+                        <br />
+                        <span style={{ color: "#888" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
+                      </p>
+                    ))}
+                    <h3 style={sectionTitleStyle}>Summary</h3>
+                    <p>{"█".repeat(40)}<br />{"█".repeat(35)}<br />{"█".repeat(28)}</p>
+                  </div>
+                  <div style={{
+                    position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <div style={{
+                      background: "rgba(0,0,0,0.85)", padding: "20px 28px",
+                      borderRadius: 12, border: "1px solid rgba(255,255,255,0.15)",
+                      textAlign: "center", maxWidth: 340,
+                    }}>
+                      <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#fff" }}>
+                        Enter your email to see the full analysis
+                      </p>
+                      <EmailCapture
+                        testName="Mixed Signals / Interest Gap"
+                        resultLevel={result.overall_mixed_signal_level}
+                        onSuccess={() => {
+                          setEmailSubmitted(true);
+                          localStorage.setItem("email_submitted_mixed_signals", "true");
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 style={sectionTitleStyle}>Indices</h3>
 
-            <EmailCapture 
-              testName="Current Relationship Checkup" 
-              resultLevel={result.overall_risk_level} 
-            />
+                <p>
+                  <strong>Signal Clarity Index: {result.indices.signal_clarity_index}</strong>
+                  <br />
+                  Shows how readable the situation is. 0 = very unclear or contradictory, 1 = very clear, even if the answer is "they're not that into this".
+                </p>
+                <p>
+                  <strong>Interest Gap Index: {result.indices.interest_gap_index}</strong>
+                  <br />
+                  Measures how big the gap is between your investment and theirs. 0 = roughly matched interest, 1 = strong gap in who cares and shows up.
+                </p>
+                <p>
+                  <strong>Mixed Signal Volatility: {result.indices.mixed_signal_volatility}</strong>
+                  <br />
+                  Captures how often and how sharply they swing between warm and cold. 0 = almost no mixed signals, 1 = frequent, intense flips.
+                </p>
+                <p>
+                  <strong>Anxiety Load Score: {result.indices.anxiety_load_score}</strong>
+                  <br />
+                  Reflects how heavy this dynamic sits on your mind and body. 0 = easy to park and forget, 1 = very preoccupying and tense.
+                </p>
+                <p>
+                  <strong>Ghosting Drift Risk: {result.indices.ghosting_drift_risk}</strong>
+                  <br />
+                  Estimates how likely this is to slide into soft ghosting, on‑and‑off attention, or a quiet fade‑out. 0 = very unlikely, 1 = high risk.
+                </p>
+
+                <h3 style={sectionTitleStyle}>Summary</h3>
+                <p style={{ marginBottom: 24 }}>{result.summary}</p>
+              </>
+            )}
 
             {protocolTier === "none" ? (
               <div style={{
