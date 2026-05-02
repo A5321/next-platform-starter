@@ -422,7 +422,7 @@ const cardStyle = {
                   <strong>
                     {protocolTier === "hard" ? "Exit Protocol" : "Stabilization Protocol"}
                   </strong>{" "}
-                  — $3
+                  — $15
                 </p>
                 <div style={{ minHeight: "50px" }} ref={paypalSingleRef} />
                 {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
