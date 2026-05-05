@@ -40,8 +40,8 @@ const articles = [
 const pageStyle = {
   minHeight: "100vh",
   background:
-    "radial-gradient(circle at top, rgba(77, 113, 255, 0.15), transparent 28%), #0f1115",
-  color: "#f5f7fb",
+    "radial-gradient(circle at top, rgba(21, 101, 192, 0.08), transparent 35%), #ffffff",
+  color: "#1a1a1a",
 };
 
 const containerStyle = {
@@ -65,7 +65,7 @@ const brandStyle = {
   fontWeight: 700,
   letterSpacing: "0.08em",
   textDecoration: "none",
-  color: "#ffffff",
+  color: "#1565C0",
 };
 
 const navLinksStyle = {
@@ -75,11 +75,11 @@ const navLinksStyle = {
 };
 
 const navLinkStyle = {
-  color: "#cfd6e4",
+  color: "#4a5568",
   textDecoration: "none",
   fontSize: "14px",
   padding: "10px 14px",
-  border: "1px solid rgba(255,255,255,0.12)",
+  border: "1px solid rgba(0,0,0,0.1)",
   borderRadius: "999px",
 };
 
@@ -92,18 +92,18 @@ const heroStyle = {
 };
 
 const heroCardStyle = {
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(255,255,255,0.08)",
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
   borderRadius: "20px",
   padding: "28px",
-  boxShadow: "0 18px 50px rgba(0,0,0,0.22)",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
 };
 
 const eyebrowStyle = {
   fontSize: "12px",
   letterSpacing: "0.14em",
   textTransform: "uppercase",
-  color: "#9db0ff",
+  color: "#1565C0",
   marginBottom: "14px",
 };
 
@@ -116,7 +116,7 @@ const h1Style = {
 const leadStyle = {
   fontSize: "18px",
   lineHeight: 1.6,
-  color: "#d5dbea",
+  color: "#4a5568",
   margin: 0,
   maxWidth: "38ch",
 };
@@ -129,8 +129,8 @@ const sectionGridStyle = {
 };
 
 const sectionCardStyle = {
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(255,255,255,0.08)",
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
   borderRadius: "20px",
   padding: "28px",
 };
@@ -143,7 +143,7 @@ const sectionTitleStyle = {
 const sectionTextStyle = {
   fontSize: "15px",
   lineHeight: 1.7,
-  color: "#cfd6e4",
+  color: "#4a5568",
   marginBottom: "18px",
 };
 
@@ -156,13 +156,13 @@ const listStyle = {
 const itemStyle = {
   padding: "14px 16px",
   borderRadius: "16px",
-  background: "rgba(255,255,255,0.03)",
-  border: "1px solid rgba(255,255,255,0.06)",
+  background: "#f7f8fa",
+  border: "1px solid rgba(0,0,0,0.06)",
 };
 
 const itemTitleStyle = {
   display: "block",
-  color: "#ffffff",
+  color: "#1a1a1a",
   textDecoration: "none",
   fontSize: "16px",
   fontWeight: 600,
@@ -172,7 +172,7 @@ const itemTitleStyle = {
 const itemDescriptionStyle = {
   fontSize: "14px",
   lineHeight: 1.6,
-  color: "#b6c0d4",
+  color: "#6b7280",
   margin: 0,
 };
 
@@ -187,8 +187,8 @@ const primaryButtonStyle = {
   display: "inline-block",
   padding: "12px 18px",
   borderRadius: "999px",
-  background: "#ffffff",
-  color: "#0f1115",
+  background: "#1565C0",
+  color: "#ffffff",
   textDecoration: "none",
   fontSize: "14px",
   fontWeight: 700,
@@ -198,8 +198,8 @@ const secondaryButtonStyle = {
   display: "inline-block",
   padding: "12px 18px",
   borderRadius: "999px",
-  border: "1px solid rgba(255,255,255,0.12)",
-  color: "#ffffff",
+  border: "1px solid rgba(0,0,0,0.15)",
+  color: "#1a1a1a",
   textDecoration: "none",
   fontSize: "14px",
   fontWeight: 600,
@@ -208,14 +208,14 @@ const secondaryButtonStyle = {
 const footerStyle = {
   marginTop: "40px",
   paddingTop: "24px",
-  borderTop: "1px solid rgba(255,255,255,0.12)",
+  borderTop: "1px solid rgba(0,0,0,0.1)",
   display: "flex",
   flexWrap: "wrap",
   gap: "16px",
   justifyContent: "space-between",
   alignItems: "center",
   fontSize: "12px",
-  color: "#8f9ab5",
+  color: "#6b7280",
 };
 
 const footerLinksStyle = {
@@ -225,7 +225,7 @@ const footerLinksStyle = {
 };
 
 const footerLinkStyle = {
-  color: "#cfd6e4",
+  color: "#4a5568",
   textDecoration: "none",
 };
 
