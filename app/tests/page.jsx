@@ -60,8 +60,8 @@ const tests = [
 
 const pageStyle = {
   minHeight: "100vh",
-  background: "#0f1115",
-  color: "#f5f7fb",
+  background: "#ffffff",
+  color: "#1a1a1a",
 };
 
 const containerStyle = {
@@ -85,7 +85,7 @@ const brandStyle = {
   fontWeight: 700,
   letterSpacing: "0.08em",
   textDecoration: "none",
-  color: "#ffffff",
+  color: "#1565C0",
 };
 
 const navLinksStyle = {
@@ -99,17 +99,17 @@ const activeNavLinkStyle = {
   textDecoration: "none",
   fontSize: "14px",
   padding: "10px 14px",
-  border: "1px solid rgba(255,255,255,0.18)",
-  background: "rgba(255,255,255,0.08)",
+  border: "1px solid #1565C0",
+  background: "#1565C0",
   borderRadius: "999px",
 };
 
 const navLinkStyle = {
-  color: "#cfd6e4",
+  color: "#4a5568",
   textDecoration: "none",
   fontSize: "14px",
   padding: "10px 14px",
-  border: "1px solid rgba(255,255,255,0.12)",
+  border: "1px solid rgba(0,0,0,0.1)",
   borderRadius: "999px",
 };
 
@@ -121,7 +121,7 @@ const eyebrowStyle = {
   fontSize: "12px",
   letterSpacing: "0.14em",
   textTransform: "uppercase",
-  color: "#9db0ff",
+  color: "#1565C0",
   marginBottom: "12px",
 };
 
@@ -134,7 +134,7 @@ const h1Style = {
 const leadStyle = {
   fontSize: "17px",
   lineHeight: 1.7,
-  color: "#cfd6e4",
+  color: "#4a5568",
   margin: 0,
   maxWidth: "42rem",
 };
@@ -147,15 +147,15 @@ const gridStyle = {
 };
 
 const cardStyle = {
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(255,255,255,0.08)",
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
   borderRadius: "20px",
   padding: "22px",
 };
 
 const titleStyle = {
   display: "block",
-  color: "#ffffff",
+  color: "#1a1a1a",
   textDecoration: "none",
   fontSize: "18px",
   fontWeight: 700,
@@ -165,7 +165,7 @@ const titleStyle = {
 const textStyle = {
   fontSize: "14px",
   lineHeight: 1.7,
-  color: "#b6c0d4",
+  color: "#6b7280",
   margin: "0 0 18px",
 };
 
@@ -173,8 +173,8 @@ const buttonStyle = {
   display: "inline-block",
   padding: "11px 16px",
   borderRadius: "999px",
-  background: "#ffffff",
-  color: "#0f1115",
+  background: "#1565C0",
+  color: "#ffffff",
   textDecoration: "none",
   fontSize: "13px",
   fontWeight: 700,
