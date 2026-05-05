@@ -133,20 +133,18 @@ const pageStyle = {
   alignItems: "flex-start",
   justifyContent: "center",
   padding: "20px 16px",
-  backgroundImage: "url('/bgr.jpg')",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
+  background: "#ffffff",
 };
 
 const cardStyle = {
   maxWidth: 900,
   width: "100%",
-  backgroundColor: "#000000",        // чёрная карточка
+  backgroundColor: "#fafbfc",
+  color: "#1a1a1a",
   borderRadius: 12,
   padding: 24,
-  boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
-  backdropFilter: "blur(6px)",
+  boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+  border: "1px solid rgba(0,0,0,0.08)",
 };
 
   const labelStyle = { display: "block", marginBottom: 8, fontWeight: 500 };
@@ -157,9 +155,9 @@ const cardStyle = {
     boxSizing: "border-box",
     padding: "8px 10px",
     borderRadius: 6,
-    border: "1px solid rgba(255,255,255,0.25)",
-    backgroundColor: "rgba(3, 20, 40, 0.85)",
-    color: "#fff",
+    border: "1px solid rgba(0,0,0,0.2)",
+    backgroundColor: "#ffffff",
+    color: "#1a1a1a",
   };
 
   const sectionTitleStyle = { marginTop: 24, marginBottom: 8 };
@@ -173,18 +171,17 @@ const cardStyle = {
             style={{
               display: "inline-block",
               marginBottom: 12,
-              color: "#ffffff",
+              color: "#1565C0",
               textDecoration: "none",
-              opacity: 0.7,
               fontSize: 14,
             }}
           >
             ← Back to home
           </a>
-          <h1 style={{ margin: 0, fontSize: 32 }}>
+          <h1 style={{ margin: 0, fontSize: 32, color: "#1a1a1a" }}>
             After a serious breach of trust
           </h1>
-          <p style={{ marginTop: 8, opacity: 0.9 }}>
+          <p style={{ marginTop: 8, color: "#4a5568" }}>
             If there was cheating, lying, or another major breach, see whether
             the relationship is actually healing — or just frozen around the
             wound.
@@ -414,8 +411,8 @@ const cardStyle = {
             ) : !paid ? (
               <div style={{
                 marginTop: 16, padding: 16,
-                border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10,
-                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(0,0,0,0.12)", borderRadius: 10,
+                background: "#f7f8fa",
               }}>
                 <p style={{ marginBottom: 12, fontWeight: 600 }}>
                   Recommended:{" "}
@@ -430,7 +427,7 @@ const cardStyle = {
               </div>
             ) : (
               <div style={{ marginTop: 30 }}>
-                <h2 style={{ marginBottom: 16, color: "#fff" }}>
+                <h2 style={{ marginBottom: 16, color: "#1a1a1a" }}>
                   {afterBreachProtocols[protocolTier]?.title || "Protocol"}
                 </h2>
 
@@ -441,8 +438,9 @@ const cardStyle = {
                 />
                 
                 <div style={{
-                  fontSize: "15.2px", lineHeight: "1.75", color: "#ddd",
-                  background: "rgba(255,255,255,0.03)", padding: "20px", borderRadius: 10,
+                  fontSize: "15.2px", lineHeight: "1.75", color: "#1a1a1a",
+                  background: "#ffffff", padding: "20px", borderRadius: 10,
+                  border: "1px solid rgba(0,0,0,0.08)",
                 }}>
                   {afterBreachProtocols[protocolTier] && (() => {
                     const p = afterBreachProtocols[protocolTier];
@@ -452,26 +450,27 @@ const cardStyle = {
                         <p style={{ marginTop: 16, marginBottom: 24 }}>{p.intro}</p>
                         {p.blocks.map((block, idx) => (
                           <div key={idx} style={{ marginTop: 32 }}>
-                            <h3 style={{ color: "#fff", marginBottom: 12, fontSize: "18px" }}>{block.title}</h3>
+                            <h3 style={{ color: "#1a1a1a", marginBottom: 12, fontSize: "18px" }}>{block.title}</h3>
                             {block.goal && <p><strong>Goal:</strong> {block.goal}</p>}
                             {block.when && <p><strong>When:</strong> {block.when}</p>}
                             {block.items && (
                               <div style={{ marginTop: 16 }}>
                                 {block.items.map((item, i) => {
                                   if (item.type === "subheader") return (
-                                    <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#fff" }}>{item.text}</div>
+                                    <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#1a1a1a" }}>{item.text}</div>
                                   );
                                   if (item.type === "sub") return (
-                                    <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#ccc" }}>{"— " + item.text}</div>
+                                    <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#4a5568" }}>{"— " + item.text}</div>
                                   );
                                   if (item.type === "quote") return (
                                     <div key={i} style={{
                                       margin: "10px 0", padding: "10px 16px",
-                                      borderLeft: "3px solid rgba(255,255,255,0.3)",
-                                      color: "#ddd", fontStyle: "italic", lineHeight: 1.6,
+                                      borderLeft: "3px solid #1565C0",
+                                      color: "#4a5568", fontStyle: "italic", lineHeight: 1.6,
+                                      background: "#f7f8fa",
                                     }}>{item.text}</div>
                                   );
-                                  return <div key={i} style={{ marginBottom: 8, color: "#ddd" }}>{item.text}</div>;
+                                  return <div key={i} style={{ marginBottom: 8, color: "#1a1a1a" }}>{item.text}</div>;
                                 })}
                               </div>
                             )}
@@ -488,9 +487,9 @@ const cardStyle = {
                         {p.closing && (
                           <p style={{
                             marginTop: 40, padding: "16px 20px",
-                            background: "rgba(255,255,255,0.05)",
-                            borderLeft: "4px solid #4ade80",
-                            fontStyle: "italic", color: "#ccc", lineHeight: 1.6,
+                            background: "#f0f9ff",
+                            borderLeft: "4px solid #1565C0",
+                            fontStyle: "italic", color: "#1a1a1a", lineHeight: 1.6,
                           }}>{p.closing}</p>
                         )}
                       </>
@@ -518,13 +517,13 @@ const cardStyle = {
                   }}
                   style={{
                     marginTop: 32, padding: "14px 24px", borderRadius: 8,
-                    border: "none", backgroundColor: "#ffffff", color: "#000",
+                    border: "none", backgroundColor: "#1565C0", color: "#ffffff",
                     fontWeight: 600, cursor: "pointer", width: "100%", fontSize: "16px",
                   }}
                 >
                   📋 Copy full protocol to clipboard
                 </button>
-                <p style={{ marginTop: 16, fontSize: 13, opacity: 0.75, textAlign: "center" }}>
+                <p style={{ marginTop: 16, fontSize: 13, color: "#6b7280", textAlign: "center" }}>
                   Save it and practice daily.
                 </p>
               </div>
@@ -535,7 +534,7 @@ const cardStyle = {
           style={{
             marginTop: 24,
             fontSize: 11,
-            opacity: 0.6,
+            color: "#6b7280",
             lineHeight: 1.4,
           }}
         >
