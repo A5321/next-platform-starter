@@ -13,7 +13,7 @@ const categories = [
 
 const pageStyle = {
   minHeight: "100vh",
-  background: "#f5f7fb",
+  background: "#ffffff",
   color: "#10131a",
 };
 
@@ -38,7 +38,7 @@ const brandStyle = {
   fontWeight: 700,
   letterSpacing: "0.08em",
   textDecoration: "none",
-  color: "#10131a",
+  color: "#1565C0",
 };
 
 const navLinksStyle = {
@@ -57,12 +57,12 @@ const navLinkStyle = {
 };
 
 const activeNavLinkStyle = {
-  color: "#10131a",
+  color: "#ffffff",
   textDecoration: "none",
   fontSize: "14px",
   padding: "10px 14px",
-  border: "1px solid rgba(16,19,26,0.16)",
-  background: "#ffffff",
+  border: "1px solid #1565C0",
+  background: "#1565C0",
   borderRadius: "999px",
 };
 
@@ -74,7 +74,7 @@ const eyebrowStyle = {
   fontSize: "12px",
   letterSpacing: "0.14em",
   textTransform: "uppercase",
-  color: "#4e5fce",
+  color: "#1565C0",
   marginBottom: "12px",
 };
 
@@ -103,11 +103,11 @@ const activeFilterStyle = {
   display: "inline-block",
   padding: "10px 14px",
   borderRadius: "999px",
-  background: "#10131a",
+  background: "#1565C0",
   color: "#ffffff",
   fontSize: "13px",
   fontWeight: 700,
-  border: "1px solid #10131a",
+  border: "1px solid #1565C0",
   textDecoration: "none",
 };
 
@@ -142,7 +142,7 @@ const categoryStyle = {
   fontSize: "12px",
   letterSpacing: "0.08em",
   textTransform: "uppercase",
-  color: "#4e5fce",
+  color: "#1565C0",
   marginBottom: "12px",
 };
 
