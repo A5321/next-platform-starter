@@ -30,8 +30,8 @@ export default function RootLayout({ children }) {
           margin: 0,
           fontFamily:
             "-apple-system, BlinkMacSystemFont, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
-          backgroundColor: "#0f1115",
-          color: "#f5f7fb",
+          backgroundColor: "#ffffff",
+          color: "#1a1a1a",
         }}
       >
         {children}
