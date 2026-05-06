@@ -383,7 +383,7 @@ const cardStyle = {
                   The dynamic looks clear and balanced.<br />
                   No significant mixed-signal pattern detected.
                 </p>
-                <p style={{ marginTop: 12, 5 }}>
+                <p style={{ marginTop: 12 }}>
                   No protocol needed — keep doing what you're doing.
                 </p>
               </div>
