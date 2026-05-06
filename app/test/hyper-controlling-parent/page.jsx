@@ -532,7 +532,7 @@ const cardStyle = {
                 >
                   📋 Copy full protocol to clipboard
                 </button>
-                <p style={{ marginTop: 16, fontSize: 13, , textAlign: "center" }}>
+                <p style={{ marginTop: 16, fontSize: 13, color: "#6b7280", textAlign: "center" }}>
                   Save it and practice daily.
                 </p>
               </div>
