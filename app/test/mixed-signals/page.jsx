@@ -536,7 +536,7 @@ const cardStyle = {
           style={{
             marginTop: 24,
             fontSize: 11,
-            ,
+            color: "#6b7280",
             lineHeight: 1.4,
           }}
         >
