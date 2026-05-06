@@ -192,20 +192,18 @@ export default function CurrentRelationshipTest() {
     alignItems: "flex-start",
     justifyContent: "center",
     padding: "20px 16px",
-    backgroundImage: "url('/bgr.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+    background: "#ffffff",
   };
 
   const cardStyle = {
     maxWidth: 900,
     width: "100%",
-    backgroundColor: "#000000",
+    backgroundColor: "#fafbfc",
+    color: "#1a1a1a",
     borderRadius: 12,
     padding: 24,
-    boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
-    backdropFilter: "blur(6px)",
+    boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+    border: "1px solid rgba(0,0,0,0.08)",
   };
 
   const labelStyle = { display: "block", marginBottom: 8, fontWeight: 500 };
@@ -215,9 +213,9 @@ export default function CurrentRelationshipTest() {
     boxSizing: "border-box",
     padding: "8px 10px",
     borderRadius: 6,
-    border: "1px solid rgba(255,255,255,0.25)",
-    backgroundColor: "rgba(3, 20, 40, 0.85)",
-    color: "#fff",
+    border: "1px solid rgba(0,0,0,0.2)",
+    backgroundColor: "#ffffff",
+    color: "#1a1a1a",
   };
   const sectionTitleStyle = { marginTop: 24, marginBottom: 8 };
 
@@ -230,16 +228,15 @@ export default function CurrentRelationshipTest() {
             style={{
               display: "inline-block",
               marginBottom: 12,
-              color: "#ffffff",
+              color: "#1565C0",
               textDecoration: "none",
-              opacity: 0.7,
               fontSize: 14,
             }}
           >
             ← Back to home
           </a>
-          <h1 style={{ margin: 0, fontSize: 32 }}>Current relationship checkup</h1>
-          <p style={{ marginTop: 8, opacity: 0.9 }}>
+          <h1 style={{ margin: 0, fontSize: 32, color: "#1a1a1a" }}>Current relationship checkup</h1>
+          <p style={{ marginTop: 8, color: "#4a5568" }}>
             Describe a situation that shows your current dynamic. Answer a few
             questions and get a structured pattern breakdown.
           </p>
@@ -305,8 +302,8 @@ export default function CurrentRelationshipTest() {
                 padding: "10px 18px",
                 borderRadius: 999,
                 border: "none",
-                backgroundColor: "#ffffff",
-                color: "#000000",
+                backgroundColor: "#1565C0",
+                color: "#ffffff",
                 fontWeight: 600,
                 cursor: loading ? "default" : "pointer",
                 opacity: loading ? 0.7 : 1,
@@ -323,7 +320,7 @@ export default function CurrentRelationshipTest() {
               Overall risk level: {result.overall_risk_level}
             </h2>
 
-            <p style={{ marginBottom: 24, color: "#ccc", fontSize: 16, lineHeight: 1.6 }}>
+            <p style={{ marginBottom: 24, color: "#4a5568", fontSize: 16, lineHeight: 1.6 }}>
               {result.summary.split(".")[0]}.
             </p>
 
@@ -337,7 +334,7 @@ export default function CurrentRelationshipTest() {
                       <p key={i}>
                         <strong>{name}: {(0.3 + i * 0.1).toFixed(1)}</strong>
                         <br />
-                        <span style={{ color: "#888" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
+                        <span style={{ color: "#d1d5db" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
                       </p>
                     ))}
                     <h3 style={sectionTitleStyle}>Summary</h3>
@@ -348,11 +345,12 @@ export default function CurrentRelationshipTest() {
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
                     <div style={{
-                      background: "rgba(0,0,0,0.85)", padding: "20px 28px",
-                      borderRadius: 12, border: "1px solid rgba(255,255,255,0.15)",
+                      background: "#ffffff", padding: "20px 28px",
+                      borderRadius: 12, border: "1px solid rgba(0,0,0,0.12)",
                       textAlign: "center", maxWidth: 340,
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
                     }}>
-                      <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#fff" }}>
+                      <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#1a1a1a" }}>
                         Enter your email to see the full analysis
                       </p>
                       <EmailCapture
@@ -424,19 +422,19 @@ export default function CurrentRelationshipTest() {
                 style={{
                   marginTop: 24,
                   padding: 24,
-                  border: "1px solid #4ade80",
+                  border: "1px solid #10b981",
                   borderRadius: 12,
-                  background: "rgba(16, 185, 129, 0.1)",
-                  color: "#86efac",
+                  background: "#f0fdf4",
+                  color: "#065f46",
                 }}
               >
-                <h3 style={{ margin: "0 0 12px 0", color: "#4ade80" }}>✅ Good news</h3>
+                <h3 style={{ margin: "0 0 12px 0", color: "#10b981" }}>✅ Good news</h3>
                 <p style={{ fontSize: "17px", lineHeight: 1.55 }}>
                   Your dynamic looks stable.
                   <br />
                   No significant patterns of concern detected.
                 </p>
-                <p style={{ marginTop: 12, opacity: 0.95 }}>
+                <p style={{ marginTop: 12 }}>
                   No protocol needed — keep doing what you're doing.
                 </p>
               </div>
@@ -445,9 +443,9 @@ export default function CurrentRelationshipTest() {
                 style={{
                   marginTop: 16,
                   padding: 16,
-                  border: "1px solid rgba(255,255,255,0.16)",
+                  border: "1px solid rgba(0,0,0,0.12)",
                   borderRadius: 10,
-                  background: "rgba(255,255,255,0.03)",
+                  background: "#f7f8fa",
                 }}
               >
                 <p style={{ marginBottom: 12, fontWeight: 600 }}>
@@ -469,7 +467,7 @@ export default function CurrentRelationshipTest() {
               </div>
             ) : (
               <div style={{ marginTop: 30 }}>
-                <h2 style={{ marginBottom: 16, color: "#fff" }}>
+                <h2 style={{ marginBottom: 16, color: "#1a1a1a" }}>
                   {currentProtocol?.title || "Protocol"}
                 </h2>
 
@@ -483,11 +481,12 @@ export default function CurrentRelationshipTest() {
                   style={{
                     fontSize: "15.2px",
                     lineHeight: "1.75",
-                    color: "#ddd",
+                    color: "#1a1a1a",
                     whiteSpace: "pre-wrap",
-                    background: "rgba(255,255,255,0.03)",
+                    background: "#ffffff",
                     padding: "20px",
                     borderRadius: 10,
+                    border: "1px solid rgba(0,0,0,0.08)",
                   }}
                 >
                   {currentProtocol ? (
@@ -503,7 +502,7 @@ export default function CurrentRelationshipTest() {
                         <div key={idx} style={{ marginTop: 32 }}>
                           <h3
                             style={{
-                              color: "#fff",
+                              color: "#1a1a1a",
                               marginBottom: 12,
                               fontSize: "18px",
                             }}
@@ -527,14 +526,14 @@ export default function CurrentRelationshipTest() {
                               {block.items.map((item, i) => {
                                 if (item.type === "subheader") {
                                   return (
-                                    <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#fff" }}>
+                                    <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#1a1a1a" }}>
                                       {item.text}
                                     </div>
                                   );
                                 }
                                 if (item.type === "sub") {
                                   return (
-                                    <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#ccc" }}>
+                                    <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#4a5568" }}>
                                       {"— " + item.text}
                                     </div>
                                   );
@@ -544,17 +543,18 @@ export default function CurrentRelationshipTest() {
                                     <div key={i} style={{
                                       margin: "10px 0",
                                       padding: "10px 16px",
-                                      borderLeft: "3px solid rgba(255,255,255,0.3)",
-                                      color: "#ddd",
+                                      borderLeft: "3px solid #1565C0",
+                                      color: "#4a5568",
                                       fontStyle: "italic",
                                       lineHeight: 1.6,
+                                      background: "#f7f8fa",
                                     }}>
                                       {item.text}
                                     </div>
                                   );
                                 }
                                 return (
-                                  <div key={i} style={{ marginBottom: 8, color: "#ddd" }}>
+                                  <div key={i} style={{ marginBottom: 8, color: "#1a1a1a" }}>
                                     {item.text}
                                   </div>
                                 );
@@ -582,10 +582,10 @@ export default function CurrentRelationshipTest() {
                           style={{
                             marginTop: 40,
                             padding: "16px 20px",
-                            background: "rgba(255,255,255,0.05)",
-                            borderLeft: "4px solid #4ade80",
+                            background: "#f0f9ff",
+                            borderLeft: "4px solid #1565C0",
                             fontStyle: "italic",
-                            color: "#ccc",
+                            color: "#1a1a1a",
                             lineHeight: 1.6,
                           }}
                         >
@@ -605,8 +605,8 @@ export default function CurrentRelationshipTest() {
                     padding: "14px 24px",
                     borderRadius: 8,
                     border: "none",
-                    backgroundColor: "#ffffff",
-                    color: "#000",
+                    backgroundColor: "#1565C0",
+                    color: "#ffffff",
                     fontWeight: 600,
                     cursor: "pointer",
                     width: "100%",
@@ -620,7 +620,7 @@ export default function CurrentRelationshipTest() {
                   style={{
                     marginTop: 16,
                     fontSize: 13,
-                    opacity: 0.75,
+                    color: "#6b7280",
                     textAlign: "center",
                   }}
                 >
@@ -629,7 +629,7 @@ export default function CurrentRelationshipTest() {
               </div>
             )}
 
-            <p style={{ marginTop: 40, fontSize: 12, opacity: 0.7 }}>
+            <p style={{ marginTop: 40, fontSize: 12, color: "#6b7280" }}>
               This tool is not therapy, medical care, or legal advice. You are
               fully responsible for any decisions or actions you take.
             </p>
