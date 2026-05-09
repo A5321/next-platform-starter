@@ -26,13 +26,8 @@ export default function SilentExitTest() {
     const isPaid = paidLocal === "true" || access === "one" || access === "sub";
     if (isPaid) {
       setPaid(true);
-      const saved = localStorage.getItem("lastResult_silent_exit");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setResult(parsed);
-        const tier = getProtocolTier("silent-exit", parsed);
-        setProtocolTier(tier);
-      }
+      // REMOVED: auto-load старого результата
+      // Теперь результат показывается только после submit формы
     }
   }, []);
 
@@ -339,15 +334,35 @@ const cardStyle = {
                 <div style={{ position: "relative", marginBottom: 24 }}>
                   <div style={{ filter: "blur(5px)", userSelect: "none", pointerEvents: "none", opacity: 0.6 }}>
                     <h3 style={sectionTitleStyle}>Indices</h3>
-                    {["Presence Fade Index", "Emotional Withdrawal Score", "Conflict Avoidance Index", "Parallel Life Drift Score", "Closure Risk Index"].map((name, i) => (
-                      <p key={i}>
-                        <strong>{name}: {(0.3 + i * 0.1).toFixed(1)}</strong>
-                        <br />
-                        <span style={{ color: "#d1d5db" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
-                      </p>
-                    ))}
+                    
+                    <p>
+                      <strong>Presence Fade Index: {result.indices.presence_fade_index}</strong>
+                      <br />
+                      Shows how much their everyday presence and initiative have faded. 0 = very present and engaged, 1 = strong disappearance pattern.
+                    </p>
+                    <p>
+                      <strong>Emotional Withdrawal Score: {result.indices.emotional_withdrawal_score}</strong>
+                      <br />
+                      Reflects how emotionally shut down or disconnected they feel. 0 = emotionally responsive, 1 = strongly withdrawn or indifferent.
+                    </p>
+                    <p>
+                      <strong>Conflict Avoidance Index: {result.indices.conflict_avoidance_index}</strong>
+                      <br />
+                      Captures how much hard topics and tensions are avoided instead of talked through. 0 = conflicts are addressed, 1 = strong avoidance or shutdown.
+                    </p>
+                    <p>
+                      <strong>Parallel Life Drift Score: {result.indices.parallel_life_drift_score}</strong>
+                      <br />
+                      Describes how parallel your lives have become. 0 = deeply interwoven, 1 = almost separate lives under the same label.
+                    </p>
+                    <p>
+                      <strong>Closure Risk Index: {result.indices.closure_risk_index}</strong>
+                      <br />
+                      Measures how likely the exit is happening without direct communication or closure. 0 = exit is clear and named, 1 = exit is happening silently or implicitly.
+                    </p>
+                    
                     <h3 style={sectionTitleStyle}>Summary</h3>
-                    <p>{"█".repeat(40)}<br />{"█".repeat(35)}<br />{"█".repeat(28)}</p>
+                    <p>{result.summary}</p>
                   </div>
                   <div style={{
                     position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
