@@ -187,7 +187,7 @@ const tagStyle = {
 
 const readMoreStyle = {
   padding: "10px 18px",
-  borderRadius: "999",
+  borderRadius: 999,
   border: "none",
   backgroundColor: "#1565C0",
   color: "#ffffff",
