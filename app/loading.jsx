@@ -1,6 +1,4 @@
 // app/loading.jsx
-// This automatically shows while page loads in Next.js
-
 export default function Loading() {
   return (
     <div style={{
@@ -10,6 +8,13 @@ export default function Loading() {
       minHeight: '100vh',
       backgroundColor: '#ffffff'
     }}>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes spin {
+            to { transform: rotate(360deg); }
+          }
+        `
+      }} />
       <div style={{
         width: '48px',
         height: '48px',
@@ -18,11 +23,6 @@ export default function Loading() {
         borderRadius: '50%',
         animation: 'spin 1s linear infinite'
       }} />
-      <style jsx>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }
