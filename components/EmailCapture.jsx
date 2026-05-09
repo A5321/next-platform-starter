@@ -72,7 +72,7 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
           margin: "0 0 6px 0",
           fontSize: 15,
           fontWeight: 600,
-          color: "#fff",
+          color: "#888",
         }}
       >
         Get your result by email
@@ -116,8 +116,8 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
             padding: "10px 20px",
             borderRadius: 6,
             border: "none",
-            backgroundColor: "#ffffff",
-            color: "#000",
+            backgroundColor: "#1565C0",
+            color: "#ffffff",
             fontWeight: 600,
             fontSize: 15,
             cursor: status === "loading" ? "default" : "pointer",
