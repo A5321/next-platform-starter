@@ -559,12 +559,21 @@ useEffect(() => {
       </div>
     )}
 
-    <p style={{ marginTop: 40, fontSize: 12, opacity: 0.7 }}>
-      This tool is not therapy, medical care, or legal advice. You are fully responsible for any decisions or actions you take.
-    </p>
   </section>
 )}
 
+        <p
+          style={{
+            marginTop: 24,
+            fontSize: 11,
+            color: "#6b7280",
+            lineHeight: 1.4,
+          }}
+        >
+          This tool is not therapy, medical care, or legal advice. It cannot
+          diagnose anything or tell you what to do. You are fully responsible
+          for any decisions or actions you take based on these checkups.
+        </p>
       </div>
     </div>
   );
