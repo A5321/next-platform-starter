@@ -187,7 +187,8 @@ const tagStyle = {
 
 const readMoreStyle = {
   display: "inline-block",
-  color: "#10131a",
+  backgroundColor: "#1565C0",
+  color: "#ffffff",
   textDecoration: "none",
   fontSize: "14px",
   fontWeight: 700,
