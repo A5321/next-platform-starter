@@ -1,293 +1,339 @@
-// components/TestQuiz.jsx
-'use client';
+// app/page.jsx
+import Link from "next/link";
+import TestQuiz from "./lib/components/TestQuiz";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { quizQuestions, testRecommendations, testMeta } from '@/lib/quizData';
+const tests = [
+  {
+    href: "/test/current-relationship",
+    title: "Current relationship checkup",
+    description:
+      "See how your current dynamic behaves on a structural level, not through isolated episodes.",
+  },
+  {
+    href: "/test/you-are-an-option",
+    title: "You are an option checkup",
+    description:
+      "See if you're genuinely chosen or just someone they return to when nothing better is happening.",
+  },
+  {
+    href: "/test/mixed-signals",
+    title: "Mixed signals interest gap",
+    description:
+      "Map how consistent their interest really is, beyond words and busy right now.",
+  },
+];
 
-export default function TestQuiz() {
-  const [step, setStep] = useState('start'); // 'start', 'q1', 'q2-*', 'results'
-  const [q1Answer, setQ1Answer] = useState(null);
-  const [result, setResult] = useState(null);
+const articles = [
+  {
+    href: "/articles/what-reciprocity-imbalance-looks-like",
+    title: "What reciprocity imbalance actually looks like",
+    description:
+      "How to tell the difference between a temporary asymmetry and a deeply one-sided relationship pattern.",
+  },
+  {
+    href: "/articles/how-to-read-pattern-test-results",
+    title: "How to read pattern test results without overreacting",
+    description:
+      "A practical guide to interpreting scores without turning one result into a final verdict.",
+  },
+];
 
-  const handleStart = () => {
-    setStep('q1');
-  };
+const pageStyle = {
+  minHeight: "100vh",
+  background:
+    "radial-gradient(circle at top, rgba(21, 101, 192, 0.08), transparent 35%), #ffffff",
+  color: "#1a1a1a",
+};
 
-  const handleQ1Answer = (option) => {
-    setQ1Answer(option.id);
-    setStep(option.next);
-  };
+const containerStyle = {
+  width: "100%",
+  maxWidth: "1120px",
+  margin: "0 auto",
+  padding: "24px 16px 64px",
+  boxSizing: "border-box",
+};
 
-  const handleQ2Answer = (option) => {
-    const recommendation = testRecommendations[option.result];
-    setResult({
-      ...recommendation,
-      resultId: option.result,
-    });
-    setStep('results');
-  };
+const navStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "16px",
+  marginBottom: "56px",
+};
 
-  const handleReset = () => {
-    setStep('start');
-    setQ1Answer(null);
-    setResult(null);
-  };
+const brandStyle = {
+  fontSize: "18px",
+  fontWeight: 700,
+  letterSpacing: "0.08em",
+  textDecoration: "none",
+  color: "#1565C0",
+};
 
-  // Styles
-  const containerStyle = {
-    background: '#ffffff',
-    border: '1px solid rgba(21,101,192,0.12)',
-    borderRadius: '24px',
-    padding: '32px',
-    maxWidth: '640px',
-    margin: '0 auto',
-  };
+const navLinksStyle = {
+  display: "flex",
+  gap: "12px",
+  flexWrap: "wrap",
+};
 
-  const titleStyle = {
-    fontSize: '28px',
-    fontWeight: 700,
-    lineHeight: 1.2,
-    margin: '0 0 12px',
-    color: '#10131a',
-  };
+const navLinkStyle = {
+  color: "#4a5568",
+  textDecoration: "none",
+  fontSize: "14px",
+  padding: "10px 14px",
+  border: "1px solid rgba(0,0,0,0.1)",
+  borderRadius: "999px",
+};
 
-  const subtitleStyle = {
-    fontSize: '16px',
-    lineHeight: 1.6,
-    color: '#465065',
-    margin: '0 0 28px',
-  };
+const heroStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+  gap: "24px",
+  alignItems: "stretch",
+  marginBottom: "32px",
+};
 
-  const buttonStyle = {
-    display: 'block',
-    width: '100%',
-    padding: '16px 20px',
-    margin: '0 0 12px',
-    background: '#ffffff',
-    border: '2px solid rgba(21,101,192,0.2)',
-    borderRadius: '12px',
-    color: '#10131a',
-    fontSize: '16px',
-    lineHeight: 1.5,
-    textAlign: 'left',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-  };
+const heroCardStyle = {
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
+  borderRadius: "20px",
+  padding: "28px",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+};
 
-  const primaryButtonStyle = {
-    display: 'inline-block',
-    padding: '14px 28px',
-    background: '#1565C0',
-    color: '#ffffff',
-    border: 'none',
-    borderRadius: '999px',
-    fontSize: '16px',
-    fontWeight: 700,
-    cursor: 'pointer',
-    textDecoration: 'none',
-  };
+const eyebrowStyle = {
+  fontSize: "12px",
+  letterSpacing: "0.14em",
+  textTransform: "uppercase",
+  color: "#1565C0",
+  marginBottom: "14px",
+};
 
-  const questionStyle = {
-    fontSize: '22px',
-    fontWeight: 700,
-    lineHeight: 1.3,
-    margin: '0 0 24px',
-    color: '#10131a',
-  };
+const h1Style = {
+  fontSize: "clamp(38px, 7vw, 72px)",
+  lineHeight: 1,
+  margin: "0 0 18px",
+};
 
-  const resultCardStyle = {
-    background: '#f0f9ff',
-    border: '1px solid rgba(21,101,192,0.2)',
-    borderRadius: '16px',
-    padding: '20px',
-    margin: '0 0 16px',
-  };
+const leadStyle = {
+  fontSize: "18px",
+  lineHeight: 1.6,
+  color: "#4a5568",
+  margin: "0 0 28px",
+  maxWidth: "38ch",
+};
 
-  const resultTitleStyle = {
-    fontSize: '12px',
-    letterSpacing: '0.08em',
-    textTransform: 'uppercase',
-    color: '#1565C0',
-    margin: '0 0 8px',
-  };
+const sectionGridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+  gap: "24px",
+  marginTop: "32px",
+};
 
-  const resultTestStyle = {
-    fontSize: '20px',
-    fontWeight: 700,
-    lineHeight: 1.3,
-    margin: '0 0 8px',
-    color: '#10131a',
-  };
+const sectionCardStyle = {
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
+  borderRadius: "20px",
+  padding: "28px",
+};
 
-  const resultDescStyle = {
-    fontSize: '15px',
-    lineHeight: 1.6,
-    color: '#334155',
-    margin: '0 0 16px',
-  };
+const sectionTitleStyle = {
+  fontSize: "28px",
+  margin: "0 0 12px",
+};
 
-  const secondaryCardStyle = {
-    background: '#ffffff',
-    border: '1px solid rgba(16,19,26,0.08)',
-    borderRadius: '12px',
-    padding: '16px',
-    margin: '0 0 12px',
-  };
+const sectionTextStyle = {
+  fontSize: "15px",
+  lineHeight: 1.7,
+  color: "#4a5568",
+  marginBottom: "18px",
+};
 
-  const secondaryTitleStyle = {
-    fontSize: '16px',
-    fontWeight: 700,
-    lineHeight: 1.4,
-    margin: '0 0 4px',
-    color: '#10131a',
-  };
+const listStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
+};
 
-  const secondaryDescStyle = {
-    fontSize: '14px',
-    lineHeight: 1.5,
-    color: '#465065',
-    margin: 0,
-  };
+const itemStyle = {
+  padding: "14px 16px",
+  borderRadius: "16px",
+  background: "#f7f8fa",
+  border: "1px solid rgba(0,0,0,0.06)",
+};
 
-  const linkButtonStyle = {
-    display: 'inline-block',
-    padding: '10px 18px',
-    background: '#10131a',
-    color: '#ffffff',
-    borderRadius: '999px',
-    fontSize: '14px',
-    fontWeight: 700,
-    textDecoration: 'none',
-    marginTop: '12px',
-  };
+const itemTitleStyle = {
+  display: "block",
+  color: "#1a1a1a",
+  textDecoration: "none",
+  fontSize: "16px",
+  fontWeight: 600,
+  marginBottom: "6px",
+};
 
-  const resetButtonStyle = {
-    background: 'transparent',
-    border: '1px solid rgba(16,19,26,0.2)',
-    color: '#10131a',
-    padding: '10px 18px',
-    borderRadius: '999px',
-    fontSize: '14px',
-    fontWeight: 600,
-    cursor: 'pointer',
-    marginTop: '24px',
-  };
+const itemDescriptionStyle = {
+  fontSize: "14px",
+  lineHeight: 1.6,
+  color: "#6b7280",
+  margin: 0,
+};
 
-  // START SCREEN
-  if (step === 'start') {
-    return (
+const ctaRowStyle = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "12px",
+  marginTop: "24px",
+};
+
+const primaryButtonStyle = {
+  display: "inline-block",
+  padding: "12px 18px",
+  borderRadius: "999px",
+  background: "#1565C0",
+  color: "#ffffff",
+  textDecoration: "none",
+  fontSize: "14px",
+  fontWeight: 700,
+};
+
+const footerStyle = {
+  marginTop: "40px",
+  paddingTop: "24px",
+  borderTop: "1px solid rgba(0,0,0,0.1)",
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "16px",
+  justifyContent: "space-between",
+  alignItems: "center",
+  fontSize: "12px",
+  color: "#6b7280",
+};
+
+const footerLinksStyle = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "12px",
+};
+
+const footerLinkStyle = {
+  color: "#4a5568",
+  textDecoration: "none",
+};
+
+export default function HomePage() {
+  return (
+    <main style={pageStyle}>
       <div style={containerStyle}>
-        <h2 style={titleStyle}>Find your test in 2 questions</h2>
-        <p style={subtitleStyle}>
-          Not sure where to start? Answer two quick questions and we'll recommend the most relevant tests for your situation.
-        </p>
-        <button style={primaryButtonStyle} onClick={handleStart}>
-          Start quiz
-        </button>
-      </div>
-    );
-  }
-
-  // QUESTION 1
-  if (step === 'q1') {
-    const question = quizQuestions.q1;
-    return (
-      <div style={containerStyle}>
-        <h3 style={questionStyle}>{question.question}</h3>
-        {question.options.map((option) => (
-          <button
-            key={option.id}
-            style={buttonStyle}
-            onClick={() => handleQ1Answer(option)}
-            onMouseEnter={(e) => {
-              e.target.style.borderColor = '#1565C0';
-              e.target.style.background = '#f0f9ff';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.borderColor = 'rgba(21,101,192,0.2)';
-              e.target.style.background = '#ffffff';
-            }}
-          >
-            {option.text}
-          </button>
-        ))}
-      </div>
-    );
-  }
-
-  // QUESTION 2
-  if (step.startsWith('q2-')) {
-    const question = quizQuestions[step];
-    return (
-      <div style={containerStyle}>
-        <h3 style={questionStyle}>{question.question}</h3>
-        {question.options.map((option) => (
-          <button
-            key={option.id}
-            style={buttonStyle}
-            onClick={() => handleQ2Answer(option)}
-            onMouseEnter={(e) => {
-              e.target.style.borderColor = '#1565C0';
-              e.target.style.background = '#f0f9ff';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.borderColor = 'rgba(21,101,192,0.2)';
-              e.target.style.background = '#ffffff';
-            }}
-          >
-            {option.text}
-          </button>
-        ))}
-      </div>
-    );
-  }
-
-  // RESULTS
-  if (step === 'results' && result) {
-    const primaryTest = testMeta[result.primary];
-    const secondaryTests = result.secondary.map((slug) => ({
-      slug,
-      ...testMeta[slug],
-    }));
-
-    return (
-      <div style={containerStyle}>
-        <h3 style={titleStyle}>Based on your answers</h3>
-        <p style={subtitleStyle}>{result.message}</p>
-
-        <div style={resultCardStyle}>
-          <div style={resultTitleStyle}>Recommended test</div>
-          <h4 style={resultTestStyle}>{primaryTest.title}</h4>
-          <p style={resultDescStyle}>{primaryTest.description}</p>
-          <Link href={`/test/${result.primary}`} style={linkButtonStyle}>
-            Take this test
+        <header style={navStyle}>
+          <Link href="/" style={brandStyle}>
+            PATTERN INDEX
           </Link>
-        </div>
 
-        <div style={{ margin: '24px 0 0' }}>
-          <div style={{ fontSize: '14px', fontWeight: 700, color: '#667085', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            Also relevant
+          <nav style={navLinksStyle}>
+            <Link href="/tests" style={navLinkStyle}>
+              TESTS
+            </Link>
+            <Link href="/articles" style={navLinkStyle}>
+              ARTICLES
+            </Link>
+          </nav>
+        </header>
+
+        <section style={heroStyle}>
+          <div style={heroCardStyle}>
+            <div style={eyebrowStyle}>Behavioral pattern tests</div>
+            <h1 style={h1Style}>Understand the pattern, not just the episode.</h1>
+            <p style={leadStyle}>
+              Pattern Index combines structured tests and practical articles to
+              help people read relationship dynamics with more clarity and less noise.
+            </p>
+
+            {/* QUIZ REPLACES BUTTONS */}
+            <TestQuiz />
           </div>
-          {secondaryTests.map((test) => (
-            <div key={test.slug} style={secondaryCardStyle}>
-              <h5 style={secondaryTitleStyle}>{test.title}</h5>
-              <p style={secondaryDescStyle}>{test.description}</p>
-              <Link href={`/test/${test.slug}`} style={{...linkButtonStyle, background: 'transparent', color: '#1565C0', border: '1px solid #1565C0'}}>
-                View test
+
+          <div style={heroCardStyle}>
+            <div style={eyebrowStyle}>What you can do here</div>
+            <p style={{ ...sectionTextStyle, marginBottom: "14px" }}>
+              Use TESTS when you need a fast structured checkup.
+            </p>
+            <p style={{ ...sectionTextStyle, marginBottom: "14px" }}>
+              Use ARTICLES when you want context, interpretation, and examples.
+            </p>
+            <p style={{ ...sectionTextStyle, marginBottom: 0 }}>
+              Both sections should work together: articles explain patterns, and
+              tests help readers check whether those patterns show up in their own situation.
+            </p>
+          </div>
+        </section>
+
+        <section style={sectionGridStyle}>
+          <div style={sectionCardStyle}>
+            <h2 style={sectionTitleStyle}>TESTS</h2>
+            <p style={sectionTextStyle}>
+              Structured checkups for recurring relationship and family dynamics.
+            </p>
+
+            <div style={listStyle}>
+              {tests.map((item) => (
+                <div key={item.href} style={itemStyle}>
+                  <Link href={item.href} style={itemTitleStyle}>
+                    {item.title}
+                  </Link>
+                  <p style={itemDescriptionStyle}>{item.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div style={ctaRowStyle}>
+              <Link href="/tests" style={primaryButtonStyle}>
+                Open all tests
               </Link>
             </div>
-          ))}
-        </div>
+          </div>
 
-        <div style={{ textAlign: 'center' }}>
-          <button style={resetButtonStyle} onClick={handleReset}>
-            Start over
-          </button>
-        </div>
+          <div style={sectionCardStyle}>
+            <h2 style={sectionTitleStyle}>ARTICLES</h2>
+            <p style={sectionTextStyle}>
+              Editorial guides that explain the meaning behind the scores and patterns.
+            </p>
+
+            <div style={listStyle}>
+              {articles.map((item) => (
+                <div key={item.href} style={itemStyle}>
+                  <Link href={item.href} style={itemTitleStyle}>
+                    {item.title}
+                  </Link>
+                  <p style={itemDescriptionStyle}>{item.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div style={ctaRowStyle}>
+              <Link href="/articles" style={primaryButtonStyle}>
+                Open all articles
+              </Link>
+            </div>
+          </div>
+        </section>
+        <footer style={footerStyle}>
+          <div>© {new Date().getFullYear()} Pattern Index</div>
+
+          <nav style={footerLinksStyle}>
+            <Link href="/terms-of-service" style={footerLinkStyle}>
+              Terms of Service
+            </Link>
+            <Link href="/prices" style={footerLinkStyle}>
+              Prices
+            </Link>
+            <Link href="/refund-policy" style={footerLinkStyle}>
+              Refund policy
+            </Link>
+            <Link href="/privacy-policy" style={footerLinkStyle}>
+              Privacy Policy
+            </Link>
+          </nav>
+        </footer>
       </div>
-    );
-  }
-
-  return null;
+    </main>
+  );
 }
