@@ -32,16 +32,6 @@ export default function YouAreOptionTest() {
     const paidLocal = localStorage.getItem("paid_you_are_an_option");
     const isPaid = paidLocal === "true" || access === "one" || access === "sub";
 
-    if (isPaid) {
-      setPaid(true);
-      const saved = localStorage.getItem("lastResult_you_are_an_option");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setResult(parsed);
-        const tier = getProtocolTier("you-are-an-option", parsed);
-        setProtocolTier(tier);
-      }
-    }
   }, []);
 
   async function handleSubmit(e) {
