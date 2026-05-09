@@ -11,12 +11,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js) - OPTIMIZED: changed to lazyOnload */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-HBZXLQ08X5"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="ga4-init" strategy="afterInteractive">
+        <Script id="ga4-init" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -35,9 +35,10 @@ export default function RootLayout({ children }) {
         }}
       >
         {children}
+        {/* PayPal SDK - KEPT HERE for now (move to payment pages later) */}
         <Script
           src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       </body>
     </html>
