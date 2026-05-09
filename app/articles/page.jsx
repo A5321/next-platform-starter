@@ -186,12 +186,14 @@ const tagStyle = {
 };
 
 const readMoreStyle = {
-  display: "inline-block",
+  padding: "10px 18px",
+  borderRadius: 999,
+  border: "none",
   backgroundColor: "#1565C0",
   color: "#ffffff",
-  textDecoration: "none",
-  fontSize: "14px",
-  fontWeight: 700,
+  fontWeight: 600,
+  cursor: loading ? "default" : "pointer",
+  opacity: loading ? 0.7 : 1,
 };
 
 const emptyStateStyle = {
