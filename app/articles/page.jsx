@@ -187,13 +187,15 @@ const tagStyle = {
 
 const readMoreStyle = {
   padding: "10px 18px",
-  borderRadius: 999,
+  borderRadius: "999px",
   border: "none",
   backgroundColor: "#1565C0",
   color: "#ffffff",
   fontWeight: 600,
-  cursor: loading ? "default" : "pointer",
-  opacity: loading ? 0.7 : 1,
+  cursor: "pointer",
+  opacity: 1,
+  textDecoration: "none",
+  display: "inline-block",
 };
 
 const emptyStateStyle = {
