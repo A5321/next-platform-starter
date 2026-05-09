@@ -29,16 +29,6 @@ export default function CurrentRelationshipTest() {
     const emailLocal = localStorage.getItem("email_submitted_current_relationship");
     if (emailLocal === "true") setEmailSubmitted(true);
 
-    if (isPaid) {
-      setPaid(true);
-      const saved = localStorage.getItem("lastResult_current_relationship");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setResult(parsed);
-        const tier = getProtocolTier("current-relationship", parsed);
-        setProtocolTier(tier);
-      }
-    }
   }, []);
 
   async function handleSubmit(e) {
