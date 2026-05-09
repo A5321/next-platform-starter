@@ -244,7 +244,7 @@ export default function HomePage() {
             <h1 style={h1Style}>Understand the pattern, not just the episode.</h1>
             <p style={leadStyle}>
               Pattern Index combines structured tests and practical articles to
-              help people read relationship dynamics with more clarity and less noise.
+              help people read relationship dynamics with more clarity.
             </p>
 
             {/* QUIZ REPLACES BUTTONS */}
