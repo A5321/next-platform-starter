@@ -314,7 +314,7 @@ const cardStyle = {
                 opacity: loading ? 0.7 : 1,
               }}
             >
-              {loading ? "Analyzing..." : "Analyze"}
+              {loading ? "Analyzing..." : "Analyze pattern"}
             </button>
           </div>
         </form>
