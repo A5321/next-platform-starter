@@ -29,6 +29,11 @@ export default function CurrentRelationshipTest() {
     const emailLocal = localStorage.getItem("email_submitted_current_relationship");
     if (emailLocal === "true") setEmailSubmitted(true);
 
+    if (isPaid) {
+      setPaid(true);
+      // REMOVED: auto-load старого результата
+      // Теперь результат показывается только после submit формы
+    }
   }, []);
 
   async function handleSubmit(e) {
