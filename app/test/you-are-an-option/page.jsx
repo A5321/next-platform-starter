@@ -32,6 +32,11 @@ export default function YouAreOptionTest() {
     const paidLocal = localStorage.getItem("paid_you_are_an_option");
     const isPaid = paidLocal === "true" || access === "one" || access === "sub";
 
+    if (isPaid) {
+      setPaid(true);
+      // REMOVED: auto-load старого результата
+      // Теперь результат показывается только после submit формы
+    }
   }, []);
 
   async function handleSubmit(e) {
@@ -186,22 +191,20 @@ useEffect(() => {
     alignItems: "flex-start",
     justifyContent: "center",
     padding: "20px 16px",
-    background: "#ffffff",
-    
-    
-    
+    backgroundImage: "url('/bgr.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
   };
 
   const cardStyle = {
     maxWidth: 900,
     width: "100%",
-    backgroundColor: "#fafbfc",
-    color: "#1a1a1a",
+    backgroundColor: "#000000",
     borderRadius: 12,
     padding: 24,
-    boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
-    border: "1px solid rgba(0,0,0,0.08)",
-    
+    boxShadow: "0 18px 45px rgba(0,0,0,0.5)",
+    backdropFilter: "blur(6px)",
   };
 
   const labelStyle = { display: "block", marginBottom: 8, fontWeight: 500 };
@@ -210,9 +213,9 @@ useEffect(() => {
     boxSizing: "border-box",
     padding: "8px 10px",
     borderRadius: 6,
-    border: "1px solid rgba(0,0,0,0.2)",
-    backgroundColor: "#ffffff",
-    color: "#1a1a1a",
+    border: "1px solid rgba(255,255,255,0.25)",
+    backgroundColor: "rgba(3, 20, 40, 0.85)",
+    color: "#fff",
   };
   const sectionTitleStyle = { marginTop: 24, marginBottom: 8 };
 
@@ -220,11 +223,11 @@ useEffect(() => {
     <div style={pageStyle}>
       <div style={cardStyle}>
         <header style={{ marginBottom: 24 }}>
-          <a href="/" style={{ display: "inline-block", marginBottom: 12, color: "#1565C0", textDecoration: "none",  fontSize: 14 }}>
+          <a href="/" style={{ display: "inline-block", marginBottom: 12, color: "#ffffff", textDecoration: "none", opacity: 0.7, fontSize: 14 }}>
             ← Back to home
           </a>
-          <h1 style={{ margin: 0, fontSize: 32, color: "#1a1a1a" }}>Are you just an option?</h1>
-          <p style={{ marginTop: 8, }}>
+          <h1 style={{ margin: 0, fontSize: 32 }}>Are you just an option?</h1>
+          <p style={{ marginTop: 8, opacity: 0.9 }}>
             Check if you are a priority — or just kept around when convenient.
           </p>
         </header>
@@ -306,7 +309,7 @@ useEffect(() => {
               Status: {result.overall_option_status}
             </h2>
 
-            <p style={{ marginBottom: 24, color: "#4a5568", fontSize: 16, lineHeight: 1.6 }}>
+            <p style={{ marginBottom: 24, color: "#ccc", fontSize: 16, lineHeight: 1.6 }}>
               {result.summary.split(".")[0]}.
             </p>
 
@@ -319,7 +322,7 @@ useEffect(() => {
                       <p key={i}>
                         <strong>{name}: {(0.3 + i * 0.1).toFixed(1)}</strong>
                         <br />
-                        <span style={{ color: "#d1d5db" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
+                        <span style={{ color: "#888" }}>{"█".repeat(8 + i % 4)} {"█".repeat(6 + i % 3)}</span>
                       </p>
                     ))}
                     <h3 style={sectionTitleStyle}>Summary</h3>
@@ -330,12 +333,11 @@ useEffect(() => {
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
                     <div style={{
-                      background: "#ffffff",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.15)", padding: "20px 28px",
-                      borderRadius: 12, border: "1px solid rgba(0,0,0,0.12)",
+                      background: "rgba(0,0,0,0.85)", padding: "20px 28px",
+                      borderRadius: 12, border: "1px solid rgba(255,255,255,0.15)",
                       textAlign: "center", maxWidth: 340,
                     }}>
-                      <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#1a1a1a" }}>
+                      <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#fff" }}>
                         Enter your email to see the full analysis
                       </p>
                       <EmailCapture
@@ -389,12 +391,12 @@ useEffect(() => {
       <div style={{ 
         marginTop: 24, 
         padding: 24, 
-        border: "1px solid #10b981", 
+        border: "1px solid #4ade80", 
         borderRadius: 12, 
-        background: "#f0fdf4",
-        color: "#065f46"
+        background: "rgba(16, 185, 129, 0.1)",
+        color: "#86efac"
       }}>
-        <h3 style={{ margin: "0 0 12px 0", color: "#10b981" }}>✅ Good news</h3>
+        <h3 style={{ margin: "0 0 12px 0", color: "#4ade80" }}>✅ Good news</h3>
         <p style={{ fontSize: "17px", lineHeight: 1.55 }}>
           Your case looks stable.<br />
           You’re not stuck in the “option zone”.
@@ -404,8 +406,7 @@ useEffect(() => {
         </p>
       </div>
     ) : !paid ? (
-      <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(0,0,0,0.12)", borderRadius: 10, background: "#ffffff",
-                    border: "1px solid rgba(0,0,0,0.08)" }}>
+      <div style={{ marginTop: 16, padding: 16, border: "1px solid rgba(255,255,255,0.16)", borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
         <p style={{ marginBottom: 12, fontWeight: 600 }}>
           Recommended: <strong>
             {protocolTier === "hard" ? "Wall Protocol (Hard)" : "Stabilization Protocol (Soft)"}
@@ -420,7 +421,7 @@ useEffect(() => {
     ) : (
       // ← Здесь показываем протокол после оплаты
       <div style={{ marginTop: 30 }}>
-        <h2 style={{ marginBottom: 16, color: "#1a1a1a" }}>
+        <h2 style={{ marginBottom: 16, color: "#fff" }}>
           {currentProtocol?.title || "Protocol"}
         </h2>
 
@@ -433,10 +434,9 @@ useEffect(() => {
         <div style={{ 
           fontSize: "15.2px", 
           lineHeight: "1.75", 
-          color: "#1a1a1a", 
+          color: "#ddd", 
           whiteSpace: "pre-wrap",
-          background: "#ffffff",
-                    border: "1px solid rgba(0,0,0,0.08)",
+          background: "rgba(255,255,255,0.03)",
           padding: "20px",
           borderRadius: 10
         }}>
@@ -447,7 +447,7 @@ useEffect(() => {
 
               {currentProtocol.blocks.map((block, idx) => (
                 <div key={idx} style={{ marginTop: 32 }}>
-                  <h3 style={{ color: "#1a1a1a", marginBottom: 12, fontSize: "18px" }}>{block.title}</h3>
+                  <h3 style={{ color: "#fff", marginBottom: 12, fontSize: "18px" }}>{block.title}</h3>
         
                   {block.goal && (
                     <p><strong>Goal:</strong> {block.goal}</p>
@@ -461,14 +461,14 @@ useEffect(() => {
                       {block.items.map((item, i) => {
                         if (item.type === "subheader") {
                           return (
-                            <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#1a1a1a" }}>
+                            <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#fff" }}>
                               {item.text}
                             </div>
                           );
                         }
                         if (item.type === "sub") {
                           return (
-                            <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#4a5568" }}>
+                            <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#ccc" }}>
                               {"— " + item.text}
                             </div>
                           );
@@ -478,9 +478,8 @@ useEffect(() => {
                             <div key={i} style={{
                               margin: "10px 0",
                               padding: "10px 16px",
-                              borderLeft: "3px solid #1565C0",
-                                      background: "#f7f8fa",
-                              color: "#1a1a1a",
+                              borderLeft: "3px solid rgba(255,255,255,0.3)",
+                              color: "#ddd",
                               fontStyle: "italic",
                               lineHeight: 1.6,
                             }}>
@@ -490,7 +489,7 @@ useEffect(() => {
                         }
                         // type === "text" (default)
                         return (
-                          <div key={i} style={{ marginBottom: 8, color: "#1a1a1a" }}>
+                          <div key={i} style={{ marginBottom: 8, color: "#ddd" }}>
                             {item.text}
                           </div>
                         );
@@ -501,7 +500,7 @@ useEffect(() => {
                   {block.why && (
                     <div style={{ marginTop: 16 }}>
                       <strong>Why:</strong>
-                      <ul style={{ paddingLeft: "24px", marginTop: 8, color: "#4a5568" }}>
+                      <ul style={{ paddingLeft: "24px", marginTop: 8 }}>
                         {block.why.map((w, i) => (
                           <li key={i} style={{ marginBottom: 6 }}>{w}</li>
                         ))}
@@ -515,10 +514,10 @@ useEffect(() => {
                 <p style={{ 
                   marginTop: 40, 
                   padding: "16px 20px", 
-                  background: "#f0f9ff", 
-                  borderLeft: "4px solid #1565C0",
+                  background: "rgba(255,255,255,0.05)", 
+                  borderLeft: "4px solid #4ade80",
                   fontStyle: "italic",
-                  color: "#4a5568",
+                  color: "#ccc",
                   lineHeight: 1.6
                 }}>
                   {currentProtocol.closing}
@@ -548,7 +547,7 @@ useEffect(() => {
           📋 Copy full protocol to clipboard
         </button>
 
-        <p style={{ marginTop: 16, fontSize: 13,  textAlign: "center" }}>
+        <p style={{ marginTop: 16, fontSize: 13, opacity: 0.75, textAlign: "center" }}>
           Save it and practice daily for the next 30 days.
         </p>
       </div>
