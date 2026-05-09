@@ -103,7 +103,7 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
             padding: "10px 14px",
             borderRadius: 6,
             border: "1px solid rgba(255,255,255,0.2)",
-            backgroundColor: "rgba(3, 20, 40, 0.85)",
+            backgroundColor: "rgba(200, 200, 200, 0.85)",
             color: "#fff",
             fontSize: 15,
             outline: "none",
