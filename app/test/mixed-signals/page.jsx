@@ -27,16 +27,6 @@ export default function MixedSignalsTest() {
     const paidLocal = localStorage.getItem("paid_mixed_signals");
     const isPaid = paidLocal === "true" || access === "one" || access === "sub";
 
-    if (isPaid) {
-      setPaid(true);
-      const saved = localStorage.getItem("lastResult_mixed_signals");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setResult(parsed);
-        const tier = getProtocolTier("mixed-signals", parsed);
-        setProtocolTier(tier);
-      }
-    }
   }, []);
 
   // PayPal render
