@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { quizQuestions, testRecommendations, testMeta } from './quizData';
+import { quizQuestions, testRecommendations, testMeta } from '../quizData';
 
 export default function TestQuiz() {
   const [step, setStep] = useState('start'); // 'start', 'q1', 'q2-*', 'results'
