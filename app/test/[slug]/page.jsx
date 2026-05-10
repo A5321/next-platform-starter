@@ -125,84 +125,117 @@ useEffect(() => {
     setLoading(false);
   }
 
-  // PayPal render
-  useEffect(() => {
-    if (!result || !protocolTier || protocolTier === "none") return;
-    if (paid) return;
-    if (typeof window === "undefined" || !window.paypal) return;
-    if (!paypalSingleRef.current) return;
-    if (!protocols) return;
+// PayPal render
+useEffect(() => {
+  console.log("=== PayPal useEffect triggered ===");
+  console.log("result:", !!result);
+  console.log("protocolTier:", protocolTier);
+  console.log("paid:", paid);
+  console.log("window.paypal:", typeof window !== "undefined" ? !!window.paypal : "window undefined");
+  console.log("paypalSingleRef.current:", !!paypalSingleRef.current);
+  console.log("protocols:", !!protocols);
+  
+  if (!result || !protocolTier || protocolTier === "none") {
+    console.log("❌ Exiting: no result or tier is none");
+    return;
+  }
+  if (paid) {
+    console.log("❌ Exiting: already paid");
+    return;
+  }
+  if (typeof window === "undefined" || !window.paypal) {
+    console.log("❌ Exiting: PayPal SDK not loaded");
+    return;
+  }
+  if (!paypalSingleRef.current) {
+    console.log("❌ Exiting: ref not ready");
+    return;
+  }
+  if (!protocols) {
+    console.log("❌ Exiting: protocols not loaded");
+    return;
+  }
 
-    paypalRenderedRef.current = false;
-    if (paypalSingleRef.current.hasChildNodes()) {
-      paypalSingleRef.current.innerHTML = "";
-    }
+  console.log("✅ All checks passed, rendering PayPal...");
 
-    const currentProtocol = protocols[protocolTier];
-    if (!currentProtocol) return;
+  paypalRenderedRef.current = false;
+  if (paypalSingleRef.current.hasChildNodes()) {
+    paypalSingleRef.current.innerHTML = "";
+  }
 
-    window.paypal
-      .Buttons({
-        style: {
-          layout: "vertical",
-          shape: "rect",
-          label: "paypal",
-          height: 42,
-        },
-        createOrder: async (_, actions) => {
+  const currentProtocol = protocols[protocolTier];
+  if (!currentProtocol) {
+    console.log("❌ No protocol found for tier:", protocolTier);
+    return;
+  }
+
+  console.log("📦 Protocol found:", currentProtocol.title);
+
+  window.paypal
+    .Buttons({
+      style: {
+        layout: "vertical",
+        shape: "rect",
+        label: "paypal",
+        height: 42,
+      },
+      createOrder: async (_, actions) => {
+        setPayError("");
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: { value: "15.00", currency_code: "USD" },
+              custom_id: `${testSlug}-single`,
+              description: currentProtocol.paypalDescription || currentProtocol.productName,
+            },
+          ],
+        });
+      },
+      onApprove: async (data, actions) => {
+        try {
+          setPaying(true);
           setPayError("");
-          return actions.order.create({
-            purchase_units: [
-              {
-                amount: { value: "15.00", currency_code: "USD" },
-                custom_id: `${testSlug}-single`,
-                description: currentProtocol.paypalDescription || currentProtocol.productName,
-              },
-            ],
+          await actions.order.capture();
+
+          const res = await fetch("/api/paypal/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              orderId: data.orderID,
+              intent: "single",
+              scope: testSlug,
+              email: "user@paypal.com",
+            }),
           });
-        },
-        onApprove: async (data, actions) => {
-          try {
-            setPaying(true);
-            setPayError("");
-            await actions.order.capture();
 
-            const res = await fetch("/api/paypal/confirm", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                orderId: data.orderID,
-                intent: "single",
-                scope: testSlug,
-                email: "user@paypal.com",
-              }),
-            });
-
-            const json = await res.json();
-            if (!res.ok || !json.success) {
-              throw new Error(json.error || "Payment confirmation failed");
-            }
-
-            localStorage.setItem(`paid_${testSlug}`, "true");
-            window.location.reload();
-          } catch (err) {
-            console.error(err);
-            setPayError(err.message || "Payment failed");
-          } finally {
-            setPaying(false);
+          const json = await res.json();
+          if (!res.ok || !json.success) {
+            throw new Error(json.error || "Payment confirmation failed");
           }
-        },
-        onError: (err) => {
+
+          localStorage.setItem(`paid_${testSlug}`, "true");
+          window.location.reload();
+        } catch (err) {
           console.error(err);
-          setPayError("PayPal error. Try again.");
-        },
-      })
-      .render(paypalSingleRef.current)
-      .catch((err) => {
-        console.error("PayPal render error:", err);
-        setPayError("Failed to render PayPal buttons. Please refresh the page.");
-      });
-  }, [result, protocolTier, paid, protocols, testSlug]);
+          setPayError(err.message || "Payment failed");
+        } finally {
+          setPaying(false);
+        }
+      },
+      onError: (err) => {
+        console.error(err);
+        setPayError("PayPal error. Try again.");
+      },
+    })
+    .render(paypalSingleRef.current)
+    .then(() => {
+      console.log("✅ PayPal buttons rendered successfully");
+    })
+    .catch((err) => {
+      console.error("❌ PayPal render error:", err);
+      setPayError("Failed to render PayPal buttons. Please refresh the page.");
+    });
+}, [result, protocolTier, paid, protocols, testSlug]);
 
   const currentProtocol =
     protocolTier && protocolTier !== "none" && protocols
