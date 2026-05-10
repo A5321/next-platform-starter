@@ -401,7 +401,7 @@ useEffect(() => {
           <section style={{ marginTop: 32, position: "relative" }}>
             <h2 style={{ marginBottom: 16 }}>Your Result</h2>
 
-            {/* Заголовок уровня + первое предложение summary */}
+            {/* Заголовок уровня + только ПЕРВОЕ предложение summary */}
             <div
               style={{
                 padding: 20,
@@ -433,33 +433,13 @@ useEffect(() => {
                  "Overall Assessment"}
               </h3>
               
-              {/* Первое предложение summary - всегда видно */}
+              {/* ТОЛЬКО первое предложение summary */}
               {result.summary && (
                 <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6 }}>
-                  {result.summary.split('\n')[0]}
+                  {result.summary.split('. ')[0] + '.'}
                 </p>
               )}
             </div>
-
-            {/* Остальная часть summary - заблюрена до email */}
-            {result.summary && result.summary.split('\n').length > 1 && (
-              <div
-                style={{
-                  padding: 20,
-                  background: "#ffffff",
-                  border: "1px solid rgba(0,0,0,0.1)",
-                  borderRadius: 10,
-                  marginBottom: 16,
-                  filter: !emailSubmitted ? "blur(6px)" : "none",
-                  userSelect: !emailSubmitted ? "none" : "auto",
-                  pointerEvents: !emailSubmitted ? "none" : "auto",
-                }}
-              >
-                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
-                  {result.summary.split('\n').slice(1).join('\n')}
-                </p>
-              </div>
-            )}
 
             {/* Индексы - заблюрены до email */}
             {result.indices && (
@@ -496,6 +476,32 @@ useEffect(() => {
                       </div>
                     );
                   })}
+                </div>
+              </div>
+            )}
+
+            {/* ПОЛНЫЙ Summary ПОД индексами - заблюрен до email */}
+            {result.summary && (
+              <div
+                style={{
+                  marginBottom: 16,
+                  filter: !emailSubmitted ? "blur(6px)" : "none",
+                  userSelect: !emailSubmitted ? "none" : "auto",
+                  pointerEvents: !emailSubmitted ? "none" : "auto",
+                }}
+              >
+                <h3 style={{ marginTop: 0, marginBottom: 12, fontSize: 16 }}>Summary</h3>
+                <div
+                  style={{
+                    padding: 20,
+                    background: "#ffffff",
+                    border: "1px solid rgba(0,0,0,0.1)",
+                    borderRadius: 10,
+                  }}
+                >
+                  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
+                    {result.summary}
+                  </p>
                 </div>
               </div>
             )}
