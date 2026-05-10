@@ -398,10 +398,10 @@ useEffect(() => {
         </form>
 
         {result && (
-          <section style={{ marginTop: 32 }}>
+          <section style={{ marginTop: 32, position: "relative" }}>
             <h2 style={{ marginBottom: 16 }}>Your Result</h2>
 
-            {/* Заголовок уровня теста */}
+            {/* Заголовок уровня + первое предложение summary */}
             <div
               style={{
                 padding: 20,
@@ -411,8 +411,7 @@ useEffect(() => {
                 marginBottom: 16,
               }}
             >
-              <h3 style={{ margin: "0 0 8px 0", fontSize: 18, color: "#1e40af" }}>
-                {/* Показываем уровень из API */}
+              <h3 style={{ margin: "0 0 12px 0", fontSize: 18, color: "#1e40af" }}>
                 {result.overall_trust_recovery_level && `Trust-recovery level: ${result.overall_trust_recovery_level}`}
                 {result.overall_option_status && `Option status: ${result.overall_option_status}`}
                 {result.overall_risk_level && `Risk level: ${result.overall_risk_level}`}
@@ -433,61 +432,46 @@ useEffect(() => {
                  !result.overall_breakup_pattern_level && 
                  "Overall Assessment"}
               </h3>
-              <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6 }}>
-                {result.overall || result.summary || "Assessment complete."}
-              </p>
+              
+              {/* Первое предложение summary - всегда видно */}
+              {result.summary && (
+                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6 }}>
+                  {result.summary.split('\n')[0]}
+                </p>
+              )}
             </div>
 
-            {/* Summary с blur */}
-            {result.summary && (
-              <div style={{ marginBottom: 16 }}>
-                <h3 style={sectionTitleStyle}>Summary</h3>
-                <div
-                  style={{
-                    padding: 20,
-                    background: "#ffffff",
-                    border: "1px solid rgba(0,0,0,0.1)",
-                    borderRadius: 10,
-                    position: "relative",
-                  }}
-                >
-                  {/* Первая строка всегда видна */}
-                  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6 }}>
-                    {result.summary.split('\n')[0]}
-                  </p>
-
-                  {/* Остальное - blur до email */}
-                  {!emailSubmitted && result.summary.split('\n').length > 1 && (
-                    <div
-                      style={{
-                        marginTop: 12,
-                        filter: "blur(6px)",
-                        userSelect: "none",
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6 }}>
-                        {result.summary.split('\n').slice(1).join('\n')}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* После email - разблюрить */}
-                  {emailSubmitted && result.summary.split('\n').length > 1 && (
-                    <div style={{ marginTop: 12 }}>
-                      <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
-                        {result.summary.split('\n').slice(1).join('\n')}
-                      </p>
-                    </div>
-                  )}
-                </div>
+            {/* Остальная часть summary - заблюрена до email */}
+            {result.summary && result.summary.split('\n').length > 1 && (
+              <div
+                style={{
+                  padding: 20,
+                  background: "#ffffff",
+                  border: "1px solid rgba(0,0,0,0.1)",
+                  borderRadius: 10,
+                  marginBottom: 16,
+                  filter: !emailSubmitted ? "blur(6px)" : "none",
+                  userSelect: !emailSubmitted ? "none" : "auto",
+                  pointerEvents: !emailSubmitted ? "none" : "auto",
+                }}
+              >
+                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
+                  {result.summary.split('\n').slice(1).join('\n')}
+                </p>
               </div>
             )}
 
-            {/* Индексы - показываются ТОЛЬКО после email */}
-            {emailSubmitted && result.indices && (
-              <div style={{ marginBottom: 16 }}>
-                <h3 style={sectionTitleStyle}>Pattern Indices</h3>
+            {/* Индексы - заблюрены до email */}
+            {result.indices && (
+              <div
+                style={{
+                  marginBottom: 16,
+                  filter: !emailSubmitted ? "blur(6px)" : "none",
+                  userSelect: !emailSubmitted ? "none" : "auto",
+                  pointerEvents: !emailSubmitted ? "none" : "auto",
+                }}
+              >
+                <h3 style={{ marginTop: 0, marginBottom: 12, fontSize: 16 }}>Pattern Indices</h3>
                 <div
                   style={{
                     padding: 20,
@@ -496,40 +480,48 @@ useEffect(() => {
                     borderRadius: 10,
                   }}
                 >
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                    {Object.entries(result.indices).map(([key, value]) => {
-                      // Форматируем название индекса
-                      const label = key
-                        .replace(/_/g, ' ')
-                        .replace(/\b\w/g, l => l.toUpperCase());
-                      
-                      // Форматируем значение (0-1 в проценты)
-                      const displayValue = typeof value === 'number' 
-                        ? `${Math.round(value * 100)}%` 
-                        : value;
+                  {Object.entries(result.indices).map(([key, value]) => {
+                    const label = key
+                      .replace(/_/g, ' ')
+                      .replace(/\b\w/g, l => l.toUpperCase());
+                    
+                    const displayValue = typeof value === 'number' 
+                      ? `${Math.round(value * 100)}%` 
+                      : value;
 
-                      return (
-                        <div key={key} style={{ fontSize: 14 }}>
-                          <div style={{ color: "#6b7280", marginBottom: 4 }}>{label}</div>
-                          <div style={{ fontWeight: 600, color: "#1a1a1a" }}>{displayValue}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                    return (
+                      <div key={key} style={{ marginBottom: 8, fontSize: 14 }}>
+                        <span style={{ color: "#6b7280" }}>{label}: </span>
+                        <span style={{ fontWeight: 600, color: "#1a1a1a" }}>{displayValue}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
 
-            {/* Email capture */}
+            {/* Модалка с EmailCapture - показывается поверх заблюренного контента */}
             {!emailSubmitted && (
-              <EmailCapture
-                testName={testData.title}
-                resultLevel={protocolTier || "analysis"}
-                onSuccess={() => {
-                  setEmailSubmitted(true);
-                  localStorage.setItem(`email_submitted_${testSlug}`, "true");
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  zIndex: 10,
+                  width: "90%",
+                  maxWidth: 500,
                 }}
-              />
+              >
+                <EmailCapture
+                  testName={testData.title}
+                  resultLevel={protocolTier || "analysis"}
+                  onSuccess={() => {
+                    setEmailSubmitted(true);
+                    localStorage.setItem(`email_submitted_${testSlug}`, "true");
+                  }}
+                />
+              </div>
             )}
 
             {protocolTier === "none" ? (
