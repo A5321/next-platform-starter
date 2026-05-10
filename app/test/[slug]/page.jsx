@@ -15,7 +15,7 @@ const protocolLoaders = {
   "hyper-controlling-parent": () => import("../../lib/protocols/hyperControllingParent").then(m => m.hyperControllingParentProtocols),
   "third-person-grey-zone": () => import("../../lib/protocols/thirdPersonGreyZone").then(m => m.thirdPersonGreyZoneProtocols),
   "trust-their-signals": () => import("../../lib/protocols/trustTheirSignals").then(m => m.trustTheirSignalsProtocols),
-  "after-breach-of-trust": () => import("../../lib/protocols/afterBreachOfTrust").then(m => m.afterBreachOfTrustProtocols),
+  "after-breach-of-trust": () => import("../../lib/protocols/afterBreach").then(m => m.afterBreachOfTrustProtocols),
   "silent-exit": () => import("../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
 };
 
