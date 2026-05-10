@@ -441,7 +441,7 @@ useEffect(() => {
             {/* Summary с blur */}
             {result.summary && (
               <div style={{ marginBottom: 16 }}>
-                <h3 style={{ marginTop: 24, marginBottom: 8 }}>Summary</h3>
+                <h3 style={sectionTitleStyle}>Summary</h3>
                 <div
                   style={{
                     padding: 20,
@@ -487,7 +487,7 @@ useEffect(() => {
             {/* Индексы - показываются ТОЛЬКО после email */}
             {emailSubmitted && result.indices && (
               <div style={{ marginBottom: 16 }}>
-                <h3 style={{ marginTop: 24, marginBottom: 8 }}>Pattern Indices</h3>
+                <h3 style={sectionTitleStyle}>Pattern Indices</h3>
                 <div
                   style={{
                     padding: 20,
@@ -532,6 +532,218 @@ useEffect(() => {
               />
             )}
 
+            {protocolTier === "none" ? (
+              <div
+                style={{
+                  marginTop: 24,
+                  padding: 24,
+                  border: "1px solid #10b981",
+                  borderRadius: 12,
+                  background: "#f0fdf4",
+                  color: "#065f46",
+                }}
+              >
+                <h3 style={{ margin: "0 0 12px 0", color: "#10b981" }}>Good news</h3>
+                <p style={{ fontSize: "17px", lineHeight: 1.55 }}>
+                  Your dynamic looks stable.
+                  <br />
+                  No significant patterns of concern detected.
+                </p>
+                <p style={{ marginTop: 12 }}>
+                  No protocol needed — keep doing what you&apos;re doing.
+                </p>
+              </div>
+            ) : !paid ? (
+              <div
+                style={{
+                  marginTop: 16,
+                  padding: 16,
+                  border: "1px solid rgba(0,0,0,0.12)",
+                  borderRadius: 10,
+                  background: "#f7f8fa",
+                }}
+              >
+                <p style={{ marginBottom: 12, fontWeight: 600 }}>
+                  Recommended:{" "}
+                  <strong>
+                    {currentProtocol?.title || 
+                      (protocolTier === "hard" ? "Exit Protocol (Hard)" : "Stabilization Protocol (Soft)")}
+                  </strong>{" "}
+                  — $15
+                </p>
+
+                <div style={{ minHeight: "50px" }} ref={paypalSingleRef} />
+
+                {paying && <p style={{ marginTop: 12 }}>Processing payment...</p>}
+                {payError && (
+                  <p style={{ marginTop: 12, color: "#ff8c8c" }}>{payError}</p>
+                )}
+              </div>
+            ) : (
+              <div style={{ marginTop: 30 }}>
+                <h2 style={{ marginBottom: 16, color: "#1a1a1a" }}>
+                  {currentProtocol?.title || "Protocol"}
+                </h2>
+
+                <ProtocolEmailCapture
+                  protocolScope={testData.protocolScope}
+                  protocolTier={protocolTier}
+                  protocolTitle={currentProtocol?.title}
+                />
+
+                <div
+                  style={{
+                    fontSize: "15.2px",
+                    lineHeight: "1.75",
+                    color: "#1a1a1a",
+                    whiteSpace: "pre-wrap",
+                    background: "#ffffff",
+                    padding: "20px",
+                    borderRadius: 10,
+                    border: "1px solid rgba(0,0,0,0.08)",
+                  }}
+                >
+                  {currentProtocol ? (
+                    <>
+                      <p>
+                        <strong>{currentProtocol.subtitle}</strong>
+                      </p>
+                      <p style={{ marginTop: 16, marginBottom: 24 }}>
+                        {currentProtocol.intro}
+                      </p>
+
+                      {currentProtocol.blocks.map((block, idx) => (
+                        <div key={idx} style={{ marginTop: 32 }}>
+                          <h3
+                            style={{
+                              color: "#1a1a1a",
+                              marginBottom: 12,
+                              fontSize: "18px",
+                            }}
+                          >
+                            {block.title}
+                          </h3>
+
+                          {block.goal && (
+                            <p>
+                              <strong>Goal:</strong> {block.goal}
+                            </p>
+                          )}
+                          {block.when && (
+                            <p>
+                              <strong>When:</strong> {block.when}
+                            </p>
+                          )}
+
+                          {block.items && (
+                            <div style={{ marginTop: 16 }}>
+                              {block.items.map((item, i) => {
+                                if (item.type === "subheader") {
+                                  return (
+                                    <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#1a1a1a" }}>
+                                      {item.text}
+                                    </div>
+                                  );
+                                }
+                                if (item.type === "sub") {
+                                  return (
+                                    <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#4a5568" }}>
+                                      — {item.text}
+                                    </div>
+                                  );
+                                }
+                                if (item.type === "quote") {
+                                  return (
+                                    <div key={i} style={{
+                                      margin: "10px 0",
+                                      padding: "10px 16px",
+                                      borderLeft: "3px solid #1565C0",
+                                      color: "#4a5568",
+                                      fontStyle: "italic",
+                                      lineHeight: 1.6,
+                                      background: "#f7f8fa",
+                                    }}>
+                                      {item.text}
+                                    </div>
+                                  );
+                                }
+                                return (
+                                  <div key={i} style={{ marginBottom: 8, color: "#1a1a1a" }}>
+                                    {item.text || item}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+
+                          {block.why && (
+                            <div style={{ marginTop: 16 }}>
+                              <strong>Why:</strong>
+                              <ul style={{ paddingLeft: "24px", marginTop: 8 }}>
+                                {block.why.map((w, i) => (
+                                  <li key={i} style={{ marginBottom: 6 }}>
+                                    {w}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+
+                      {currentProtocol.closing && (
+                        <p
+                          style={{
+                            marginTop: 40,
+                            padding: "16px 20px",
+                            background: "#f0f9ff",
+                            borderLeft: "4px solid #1565C0",
+                            fontStyle: "italic",
+                            color: "#1a1a1a",
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          {currentProtocol.closing}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <p>Protocol not found. Please contact support.</p>
+                  )}
+                </div>
+
+                <button
+                  onClick={copyProtocol}
+                  style={{
+                    marginTop: 32,
+                    padding: "14px 24px",
+                    borderRadius: 8,
+                    border: "none",
+                    backgroundColor: "#1565C0",
+                    color: "#ffffff",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    width: "100%",
+                    fontSize: "16px",
+                  }}
+                >
+                  Copy full protocol to clipboard
+                </button>
+
+                <p
+                  style={{
+                    marginTop: 16,
+                    fontSize: 13,
+                    color: "#6b7280",
+                    textAlign: "center",
+                  }}
+                >
+                  Save it and practice daily.
+                </p>
+              </div>
+            )}
+          </section>
+        )}
         <p
           style={{
             marginTop: 24,
