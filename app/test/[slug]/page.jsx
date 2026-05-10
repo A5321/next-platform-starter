@@ -39,30 +39,35 @@ export default function DynamicTestPage() {
   const paypalRenderedRef = useRef(false);
 
   // Load protocols using static map
-  useEffect(() => {
-    if (!testData) return;
-    
-    async function loadProtocols() {
-      try {
-        console.log("Loading protocols for scope:", testData.protocolScope);
-        console.log("Loader found:", !!protocolLoaders[testData.protocolScope]);
-        
-        const loader = protocolLoaders[testData.protocolScope];
-        if (loader) {
-          console.log("Calling loader...");
-          const protocolData = await loader();
-          console.log("Protocol data loaded:", protocolData);
-          setProtocols(protocolData);
-        } else {
-          console.log("No loader found for scope:", testData.protocolScope);
-        }
-      } catch (err) {
-        console.error("Failed to load protocols:", err);
+useEffect(() => {
+  console.log("useEffect triggered, testData:", testData);
+  
+  if (!testData) {
+    console.log("No testData, returning");
+    return;
+  }
+  
+  async function loadProtocols() {
+    try {
+      console.log("Loading protocols for scope:", testData.protocolScope);
+      console.log("Loader found:", !!protocolLoaders[testData.protocolScope]);
+      
+      const loader = protocolLoaders[testData.protocolScope];
+      if (loader) {
+        console.log("Calling loader...");
+        const protocolData = await loader();
+        console.log("Protocol data loaded:", protocolData);
+        setProtocols(protocolData);
+      } else {
+        console.log("No loader found for scope:", testData.protocolScope);
       }
+    } catch (err) {
+      console.error("Failed to load protocols:", err);
     }
-    
-    loadProtocols();
-  }, [testData]);
+  }
+  
+  loadProtocols();
+}, [testData]);
 
   // Check payment status on mount
   useEffect(() => {
