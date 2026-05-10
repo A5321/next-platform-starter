@@ -36,9 +36,9 @@ export default function RootLayout({ children }) {
       >
         {children}
         {/* PayPal SDK - KEPT HERE for now (move to payment pages later) */}
-          <Script
-            src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD`}
-            strategy="afterInteractive"
+          <Script 
+            src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD`} 
+            strategy="lazyOnload" 
           />
       </body>
     </html>
