@@ -10,10 +10,10 @@ import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 const protocolLoaders = {
   "current-relationship": () => import("../../../lib/protocols/currentRelationship").then(m => m.currentRelationshipProtocols),
   "you-are-an-option": () => import("../../../lib/protocols/youAreAnOption").then(m => m.youAreAnOptionProtocols),
-  "mixed-signals": () => import("../../../lib/protocols/mixedSignals").then(m => m.mixedSignalsProtocols),
-  "repeating-breakup": () => import("../../../lib/protocols/repeatingBreakup").then(m => m.repeatingBreakupProtocols),
+  "mixed-signals": () => import("../../../lib/protocols/Mixedsignals").then(m => m.mixedSignalsProtocols), // Изменено название протокола
+  "repeating-breakup": () => import("../../../lib/protocols/Repeatingbreakup").then(m => m.repeatingBreakupProtocols),  // Изменено название протокола
   "hyper-controlling-parent": () => import("../../../lib/protocols/hyperParent").then(m => m.hyperControllingParentProtocols), // Изменено название протокола
-  "third-person-grey-zone": () => import("../../../lib/protocols/thirdPersonGreyZone").then(m => m.thirdPersonGreyZoneProtocols),
+  "third-person-grey-zone": () => import("../../../lib/protocols/Thirdperson").then(m => m.thirdPersonGreyZoneProtocols), // Изменено название протокола
   "trust-their-signals": () => import("../../../lib/protocols/trustTheirSignals").then(m => m.trustTheirSignalsProtocols),
   "after-breach-of-trust": () => import("../../../lib/protocols/afterBreach").then(m => m.afterBreachOfTrustProtocols), // Изменено название протокола
   "silent-exit": () => import("../../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
