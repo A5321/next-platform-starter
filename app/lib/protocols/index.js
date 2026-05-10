@@ -1,12 +1,12 @@
 import { currentRelationshipProtocols } from "./currentRelationship";
 import { youAreAnOptionProtocols } from "./youAreAnOption";
-import { mixedSignalsProtocols } from "./Mixedsignals";
-import { repeatingBreakupProtocols } from "./Repeatingbreakup";
-import { thirdPersonProtocols } from "./Thirdperson";
-import { trustSignalsProtocols } from "./trustSignals";
-import { afterBreachProtocols } from "./afterBreach";
+import { mixedSignalsProtocols } from "./mixedSignals";
+import { repeatingBreakupProtocols } from "./repeatingBreakup";
+import { thirdPersonProtocols } from "./thirdPersonGreyZone";
+import { trustSignalsProtocols } from "./trustTheirSignals";
+import { afterBreachProtocols } from "./afterBreachOfTrust";
 import { silentExitProtocols } from "./silentExit";
-import { hyperParentProtocols } from "./hyperParent";
+import { hyperParentProtocols } from "./hyperControllingParent";
 
 export const protocolsByScope = {
   "current-relationship": currentRelationshipProtocols,
