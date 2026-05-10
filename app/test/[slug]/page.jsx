@@ -19,9 +19,9 @@ const protocolLoaders = {
   "silent-exit": () => import("../../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
 };
 
-export default function DynamicTestPage(props) {
-  // ✅ FIX: Extract slug from props directly (Next.js handles params unwrapping in client components)
-  const testSlug = props.params?.slug;
+export default function DynamicTestPage() {
+  const params = useParams();
+  const testSlug = params.slug;
   const testData = getTestBySlug(testSlug);
 
   const [result, setResult] = useState(null);
