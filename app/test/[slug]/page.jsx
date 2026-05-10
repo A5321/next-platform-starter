@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useParams } from "next/navigation";
 import { getTestBySlug } from "../../lib/testsData";
 import { getProtocolTier } from "../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
