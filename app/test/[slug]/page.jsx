@@ -14,7 +14,7 @@ const protocolLoaders = {
   "repeating-breakup": () => import("../../../lib/protocols/Repeatingbreakup").then(m => m.repeatingBreakupProtocols),  // Изменено название протокола
   "hyper-controlling-parent": () => import("../../../lib/protocols/hyperParent").then(m => m.hyperControllingParentProtocols), // Изменено название протокола
   "third-person-grey-zone": () => import("../../../lib/protocols/Thirdperson").then(m => m.thirdPersonGreyZoneProtocols), // Изменено название протокола
-  "trust-their-signals": () => import("../../../lib/protocols/trustTheirSignals").then(m => m.trustTheirSignalsProtocols),
+  "trust-their-signals": () => import("../../../lib/protocols/trustSignals").then(m => m.trustTheirSignalsProtocols), // Изменено название протокола
   "after-breach-of-trust": () => import("../../../lib/protocols/afterBreach").then(m => m.afterBreachOfTrustProtocols), // Изменено название протокола
   "silent-exit": () => import("../../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
 };
