@@ -1,4 +1,4 @@
-export const thirdPersonProtocols = {
+export const thirdPersonGreyZoneProtocols = {
   soft: {
     productName: "Third Person Grey Zone — Clarity Protocol",
     paypalDescription: "Third Person Grey Zone + Clarity Protocol access",
