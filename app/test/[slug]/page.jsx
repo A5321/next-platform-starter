@@ -6,6 +6,19 @@ import { getProtocolTier } from "../../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
 import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
+// ✅ FIX: Static protocol loaders instead of dynamic import
+const protocolLoaders = {
+  "current-relationship": () => import("../../../lib/protocols/currentRelationship").then(m => m.currentRelationshipProtocols),
+  "you-are-an-option": () => import("../../../lib/protocols/youAreAnOption").then(m => m.youAreAnOptionProtocols),
+  "mixed-signals": () => import("../../../lib/protocols/mixedSignals").then(m => m.mixedSignalsProtocols),
+  "repeating-breakup": () => import("../../../lib/protocols/repeatingBreakup").then(m => m.repeatingBreakupProtocols),
+  "hyper-controlling-parent": () => import("../../../lib/protocols/hyperControllingParent").then(m => m.hyperControllingParentProtocols),
+  "third-person-grey-zone": () => import("../../../lib/protocols/thirdPersonGreyZone").then(m => m.thirdPersonGreyZoneProtocols),
+  "trust-their-signals": () => import("../../../lib/protocols/trustTheirSignals").then(m => m.trustTheirSignalsProtocols),
+  "after-breach-of-trust": () => import("../../../lib/protocols/afterBreachOfTrust").then(m => m.afterBreachOfTrustProtocols),
+  "silent-exit": () => import("../../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
+};
+
 export default function DynamicTestPage({ params }) {
   const testSlug = params.slug;
   const testData = getTestBySlug(testSlug);
@@ -23,14 +36,17 @@ export default function DynamicTestPage({ params }) {
   const paypalSingleRef = useRef(null);
   const paypalRenderedRef = useRef(false);
 
-  // Load protocols dynamically
+  // ✅ FIX: Load protocols using static map
   useEffect(() => {
     if (!testData) return;
     
     async function loadProtocols() {
       try {
-        const module = await import(testData.protocolImportPath);
-        setProtocols(module[testData.protocolExportName]);
+        const loader = protocolLoaders[testData.protocolScope];
+        if (loader) {
+          const protocolData = await loader();
+          setProtocols(protocolData);
+        }
       } catch (err) {
         console.error("Failed to load protocols:", err);
       }
@@ -190,7 +206,10 @@ export default function DynamicTestPage({ params }) {
     currentProtocol.blocks.forEach((block) => {
       text += `${block.title}\nGoal: ${block.goal}\n`;
       if (block.when) text += `When: ${block.when}\n\n`;
-      if (block.items) block.items.forEach((item) => (text += `• ${item}\n`));
+      if (block.items) block.items.forEach((item) => {
+        const itemText = typeof item === 'string' ? item : item.text;
+        text += `• ${itemText}\n`;
+      });
       if (block.why) block.why.forEach((w) => (text += `  → ${w}\n`));
       text += "\n";
     });
@@ -256,7 +275,7 @@ export default function DynamicTestPage({ params }) {
     <div style={pageStyle}>
       <div style={cardStyle}>
         <header style={{ marginBottom: 24 }}>
-          <a
+          
             href="/"
             style={{
               display: "inline-block",
@@ -306,7 +325,6 @@ export default function DynamicTestPage({ params }) {
               <textarea
                 id="narrative"
                 name="narrative"
-                required
                 rows={5}
                 placeholder={testData.narrativePlaceholder}
                 style={{
@@ -507,141 +525,3 @@ export default function DynamicTestPage({ params }) {
                             }}
                           >
                             {block.title}
-                          </h3>
-
-                          {block.goal && (
-                            <p>
-                              <strong>Goal:</strong> {block.goal}
-                            </p>
-                          )}
-                          {block.when && (
-                            <p>
-                              <strong>When:</strong> {block.when}
-                            </p>
-                          )}
-
-                          {block.items && (
-                            <div style={{ marginTop: 16 }}>
-                              {block.items.map((item, i) => {
-                                if (item.type === "subheader") {
-                                  return (
-                                    <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#1a1a1a" }}>
-                                      {item.text}
-                                    </div>
-                                  );
-                                }
-                                if (item.type === "sub") {
-                                  return (
-                                    <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#4a5568" }}>
-                                      {"— " + item.text}
-                                    </div>
-                                  );
-                                }
-                                if (item.type === "quote") {
-                                  return (
-                                    <div key={i} style={{
-                                      margin: "10px 0",
-                                      padding: "10px 16px",
-                                      borderLeft: "3px solid #1565C0",
-                                      color: "#4a5568",
-                                      fontStyle: "italic",
-                                      lineHeight: 1.6,
-                                      background: "#f7f8fa",
-                                    }}>
-                                      {item.text}
-                                    </div>
-                                  );
-                                }
-                                return (
-                                  <div key={i} style={{ marginBottom: 8, color: "#1a1a1a" }}>
-                                    {item.text}
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          )}
-
-                          {block.why && (
-                            <div style={{ marginTop: 16 }}>
-                              <strong>Why:</strong>
-                              <ul style={{ paddingLeft: "24px", marginTop: 8 }}>
-                                {block.why.map((w, i) => (
-                                  <li key={i} style={{ marginBottom: 6 }}>
-                                    {w}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-
-                      {currentProtocol.closing && (
-                        <p
-                          style={{
-                            marginTop: 40,
-                            padding: "16px 20px",
-                            background: "#f0f9ff",
-                            borderLeft: "4px solid #1565C0",
-                            fontStyle: "italic",
-                            color: "#1a1a1a",
-                            lineHeight: 1.6,
-                          }}
-                        >
-                          {currentProtocol.closing}
-                        </p>
-                      )}
-                    </>
-                  ) : (
-                    <p>Protocol not found. Please contact support.</p>
-                  )}
-                </div>
-
-                <button
-                  onClick={copyProtocol}
-                  style={{
-                    marginTop: 32,
-                    padding: "14px 24px",
-                    borderRadius: 8,
-                    border: "none",
-                    backgroundColor: "#1565C0",
-                    color: "#ffffff",
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    width: "100%",
-                    fontSize: "16px",
-                  }}
-                >
-                  📋 Copy full protocol to clipboard
-                </button>
-
-                <p
-                  style={{
-                    marginTop: 16,
-                    fontSize: 13,
-                    color: "#6b7280",
-                    textAlign: "center",
-                  }}
-                >
-                  Save it and practice daily.
-                </p>
-              </div>
-            )}
-          </section>
-        )}
-        <p
-          style={{
-            marginTop: 24,
-            fontSize: 11,
-            color: "#6b7280",
-            lineHeight: 1.4,
-          }}
-        >
-          This tool is not therapy, medical care, or legal advice. It cannot
-          diagnose anything or tell you what to do. You are fully responsible
-          for any decisions or actions you take based on these checkups.
-        </p>
-      </div>
-    </div>
-  );
-}
