@@ -347,7 +347,7 @@ const cardStyle = {
                       textAlign: "center", maxWidth: 340,
                     }}>
                       <p style={{ margin: "0 0 16px 0", fontWeight: 600, fontSize: 15, color: "#fff" }}>
-                        Enter your email to see the full analysis
+                        Enter your email to see the full analysis----!!!
                       </p>
                       <EmailCapture
                         testName="After a Breach of Trust"
