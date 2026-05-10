@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { getTestBySlug } from "../../lib/testsData";
 import { getProtocolTier } from "../../lib/protocolTiers";
-import EmailCapture from "../../../components/EmailCapture";
+import EmailCapture from "../../components/EmailCapture";
 import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
 // Static protocol loaders instead of dynamic import
