@@ -44,10 +44,17 @@ export default function DynamicTestPage() {
     
     async function loadProtocols() {
       try {
+        console.log("Loading protocols for scope:", testData.protocolScope);
+        console.log("Loader found:", !!protocolLoaders[testData.protocolScope]);
+        
         const loader = protocolLoaders[testData.protocolScope];
         if (loader) {
+          console.log("Calling loader...");
           const protocolData = await loader();
+          console.log("Protocol data loaded:", protocolData);
           setProtocols(protocolData);
+        } else {
+          console.log("No loader found for scope:", testData.protocolScope);
         }
       } catch (err) {
         console.error("Failed to load protocols:", err);
