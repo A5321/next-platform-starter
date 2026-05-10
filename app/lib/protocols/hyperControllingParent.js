@@ -1,4 +1,4 @@
-export const hyperParentProtocols = {
+export const hyperControllingParentProtocols = {
   soft: {
     productName: "Hyper-Controlling Parent — Awareness Protocol",
     paypalDescription: "Hyper-Controlling Parent + Awareness Protocol access",
