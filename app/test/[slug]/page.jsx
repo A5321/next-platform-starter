@@ -3,25 +3,25 @@
 import { useState, useEffect, useRef } from "react";
 import { getTestBySlug } from "../../lib/testsData";
 import { getProtocolTier } from "../../lib/protocolTiers";
-import EmailCapture from "../../../components/EmailCapture";
-import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
+import EmailCapture from "../../components/EmailCapture";
+import ProtocolEmailCapture from "../../components/ProtocolEmailCapture";
 
 // Static protocol loaders instead of dynamic import
 const protocolLoaders = {
-  "current-relationship": () => import("../../../lib/protocols/currentRelationship").then(m => m.currentRelationshipProtocols),
-  "you-are-an-option": () => import("../../../lib/protocols/youAreAnOption").then(m => m.youAreAnOptionProtocols),
-  "mixed-signals": () => import("../../../lib/protocols/Mixedsignals").then(m => m.mixedSignalsProtocols), // Изменено название протокола
-  "repeating-breakup": () => import("../../../lib/protocols/Repeatingbreakup").then(m => m.repeatingBreakupProtocols),  // Изменено название протокола
-  "hyper-controlling-parent": () => import("../../../lib/protocols/hyperParent").then(m => m.hyperControllingParentProtocols), // Изменено название протокола
-  "third-person-grey-zone": () => import("../../../lib/protocols/Thirdperson").then(m => m.thirdPersonGreyZoneProtocols), // Изменено название протокола
-  "trust-their-signals": () => import("../../../lib/protocols/trustSignals").then(m => m.trustTheirSignalsProtocols), // Изменено название протокола
-  "after-breach-of-trust": () => import("../../../lib/protocols/afterBreach").then(m => m.afterBreachOfTrustProtocols), // Изменено название протокола
-  "silent-exit": () => import("../../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
+  "current-relationship": () => import("../../lib/protocols/currentRelationship").then(m => m.currentRelationshipProtocols),
+  "you-are-an-option": () => import("../../lib/protocols/youAreAnOption").then(m => m.youAreAnOptionProtocols),
+  "mixed-signals": () => import("../../lib/protocols/mixedSignals").then(m => m.mixedSignalsProtocols),
+  "repeating-breakup": () => import("../../lib/protocols/repeatingBreakup").then(m => m.repeatingBreakupProtocols),
+  "hyper-controlling-parent": () => import("../../lib/protocols/hyperControllingParent").then(m => m.hyperControllingParentProtocols),
+  "third-person-grey-zone": () => import("../../lib/protocols/thirdPersonGreyZone").then(m => m.thirdPersonGreyZoneProtocols),
+  "trust-their-signals": () => import("../../lib/protocols/trustTheirSignals").then(m => m.trustTheirSignalsProtocols),
+  "after-breach-of-trust": () => import("../../lib/protocols/afterBreachOfTrust").then(m => m.afterBreachOfTrustProtocols),
+  "silent-exit": () => import("../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
 };
 
-export default async function DynamicTestPage(props) {
-  const params = await props.params;
-  const testSlug = params.slug;
+export default function DynamicTestPage(props) {
+  // ✅ FIX: Extract slug from props directly (Next.js handles params unwrapping in client components)
+  const testSlug = props.params?.slug;
   const testData = getTestBySlug(testSlug);
 
   const [result, setResult] = useState(null);
@@ -58,7 +58,7 @@ export default async function DynamicTestPage(props) {
 
   // Check payment status on mount
   useEffect(() => {
-    if (!testData) return;
+    if (!testData || !testSlug) return;
 
     const params = new URLSearchParams(window.location.search);
     const access = params.get("access");
