@@ -1,4 +1,4 @@
-export const trustSignalsProtocols = {
+export const trustTheirSignalsProtocols = {
   soft: {
     productName: "Can You Trust Their Signals — Grounding Protocol",
     paypalDescription: "Trust Their Signals + Grounding Protocol access",
