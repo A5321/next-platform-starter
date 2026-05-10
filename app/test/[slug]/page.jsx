@@ -19,7 +19,8 @@ const protocolLoaders = {
   "silent-exit": () => import("../../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
 };
 
-export default function DynamicTestPage({ params }) {
+export default async function DynamicTestPage(props) {
+  const params = await props.params;
   const testSlug = params.slug;
   const testData = getTestBySlug(testSlug);
 
