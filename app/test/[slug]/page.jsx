@@ -8,15 +8,15 @@ import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
 // Static protocol loaders instead of dynamic import
 const protocolLoaders = {
-  "current-relationship": () => import("../../lib/protocols/currentRelationship").then(m => m.currentRelationshipProtocols),
-  "you-are-an-option": () => import("../../lib/protocols/youAreAnOption").then(m => m.youAreAnOptionProtocols),
-  "mixed-signals": () => import("../../lib/protocols/mixedSignals").then(m => m.mixedSignalsProtocols),
-  "repeating-breakup": () => import("../../lib/protocols/repeatingBreakup").then(m => m.repeatingBreakupProtocols),
-  "hyper-controlling-parent": () => import("../../lib/protocols/hyperControllingParent").then(m => m.hyperControllingParentProtocols),
-  "third-person-grey-zone": () => import("../../lib/protocols/thirdPersonGreyZone").then(m => m.thirdPersonGreyZoneProtocols),
-  "trust-their-signals": () => import("../../lib/protocols/trustTheirSignals").then(m => m.trustTheirSignalsProtocols),
-  "after-breach-of-trust": () => import("../../lib/protocols/afterBreachOfTrust").then(m => m.afterBreachOfTrustProtocols),
-  "silent-exit": () => import("../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
+  "current-relationship": () => import("../../../lib/protocols/currentRelationship").then(m => m.currentRelationshipProtocols),
+  "you-are-an-option": () => import("../../../lib/protocols/youAreAnOption").then(m => m.youAreAnOptionProtocols),
+  "mixed-signals": () => import("../../../lib/protocols/Mixedsignals").then(m => m.mixedSignalsProtocols),
+  "repeating-breakup": () => import("../../../lib/protocols/Repeatingbreakup").then(m => m.repeatingBreakupProtocols),
+  "hyper-controlling-parent": () => import("../../../lib/protocols/hyperParent").then(m => m.hyperControllingParentProtocols),
+  "third-person-grey-zone": () => import("../../../lib/protocols/Thirdperson").then(m => m.thirdPersonGreyZoneProtocols),
+  "trust-their-signals": () => import("../../../lib/protocols/trustSignals").then(m => m.trustTheirSignalsProtocols),
+  "after-breach-of-trust": () => import("../../../lib/protocols/afterBreach").then(m => m.afterBreachOfTrustProtocols),
+  "silent-exit": () => import("../../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
 };
 
 export default function DynamicTestPage(props) {
