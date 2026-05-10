@@ -284,7 +284,6 @@ export default function DynamicTestPage({ params }) {
               textDecoration: "none",
               fontSize: 14,
             }}
-          >
             ← Back
           </a>
           <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
