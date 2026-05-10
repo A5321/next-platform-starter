@@ -12,10 +12,10 @@ const protocolLoaders = {
   "you-are-an-option": () => import("../../../lib/protocols/youAreAnOption").then(m => m.youAreAnOptionProtocols),
   "mixed-signals": () => import("../../../lib/protocols/mixedSignals").then(m => m.mixedSignalsProtocols),
   "repeating-breakup": () => import("../../../lib/protocols/repeatingBreakup").then(m => m.repeatingBreakupProtocols),
-  "hyper-controlling-parent": () => import("../../../lib/protocols/hyperControllingParent").then(m => m.hyperControllingParentProtocols),
+  "hyper-controlling-parent": () => import("../../../lib/protocols/hyperParent").then(m => m.hyperControllingParentProtocols), // Изменено название протокола
   "third-person-grey-zone": () => import("../../../lib/protocols/thirdPersonGreyZone").then(m => m.thirdPersonGreyZoneProtocols),
   "trust-their-signals": () => import("../../../lib/protocols/trustTheirSignals").then(m => m.trustTheirSignalsProtocols),
-  "after-breach-of-trust": () => import("../../../lib/protocols/afterBreach").then(m => m.afterBreachOfTrustProtocols),
+  "after-breach-of-trust": () => import("../../../lib/protocols/afterBreach").then(m => m.afterBreachOfTrustProtocols), // Изменено название протокола
   "silent-exit": () => import("../../../lib/protocols/silentExit").then(m => m.silentExitProtocols),
 };
 
