@@ -1,4 +1,4 @@
-export const afterBreachProtocols = {
+export const afterBreachOfTrustProtocols = {
   soft: {
     productName: "After a Breach of Trust — Stabilization Protocol",
     paypalDescription: "After Breach of Trust + Stabilization Protocol access",
