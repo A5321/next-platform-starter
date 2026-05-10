@@ -6,7 +6,7 @@ import { getProtocolTier } from "../../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
 import ProtocolEmailCapture from "../../../components/ProtocolEmailCapture";
 
-// ✅ FIX: Static protocol loaders instead of dynamic import
+// Static protocol loaders instead of dynamic import
 const protocolLoaders = {
   "current-relationship": () => import("../../../lib/protocols/currentRelationship").then(m => m.currentRelationshipProtocols),
   "you-are-an-option": () => import("../../../lib/protocols/youAreAnOption").then(m => m.youAreAnOptionProtocols),
@@ -36,7 +36,7 @@ export default function DynamicTestPage({ params }) {
   const paypalSingleRef = useRef(null);
   const paypalRenderedRef = useRef(false);
 
-  // ✅ FIX: Load protocols using static map
+  // Load protocols using static map
   useEffect(() => {
     if (!testData) return;
     
@@ -69,8 +69,6 @@ export default function DynamicTestPage({ params }) {
 
     if (isPaid) {
       setPaid(true);
-      // REMOVED: auto-load старого результата
-      // Теперь результат показывается только после submit формы
     }
   }, [testSlug, testData]);
 
@@ -88,7 +86,6 @@ export default function DynamicTestPage({ params }) {
 
     const formData = new FormData(e.currentTarget);
 
-    // Build answers object from questions
     const answers = {};
     testData.questions.forEach(q => {
       answers[q.name] = formData.get(q.name);
@@ -224,20 +221,18 @@ export default function DynamicTestPage({ params }) {
     }
   };
 
-  // Handle 404 if test not found
   if (!testData) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
         <div style={{ textAlign: "center" }}>
           <h1>Test not found</h1>
-          <p>The test "{testSlug}" does not exist.</p>
-          <a href="/" style={{ color: "#1565C0", textDecoration: "none" }}>← Back to home</a>
+          <p>The test &quot;{testSlug}&quot; does not exist.</p>
+          <a href="/" style={{ color: "#1565C0", textDecoration: "none" }}>Back to home</a>
         </div>
       </div>
     );
   }
 
-  // === Styles ===
   const pageStyle = {
     minHeight: "100vh",
     display: "flex",
@@ -275,7 +270,7 @@ export default function DynamicTestPage({ params }) {
     <div style={pageStyle}>
       <div style={cardStyle}>
         <header style={{ marginBottom: 24 }}>
-          
+          <a
             href="/"
             style={{
               display: "inline-block",
@@ -284,7 +279,8 @@ export default function DynamicTestPage({ params }) {
               textDecoration: "none",
               fontSize: 14,
             }}
-            ← Back
+          >
+            Back to home
           </a>
           <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
             {testData.title}
@@ -358,7 +354,6 @@ export default function DynamicTestPage({ params }) {
           <section style={{ marginTop: 32 }}>
             <h2 style={{ marginBottom: 16 }}>Your Result</h2>
 
-            {/* Overall summary */}
             <div
               style={{
                 padding: 20,
@@ -376,7 +371,6 @@ export default function DynamicTestPage({ params }) {
               </p>
             </div>
 
-            {/* Summary - first line visible, rest blurred */}
             {result.summary && (
               <div style={{ marginBottom: 16 }}>
                 <h3 style={sectionTitleStyle}>Summary</h3>
@@ -389,12 +383,10 @@ export default function DynamicTestPage({ params }) {
                     position: "relative",
                   }}
                 >
-                  {/* First line always visible */}
                   <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6 }}>
                     {result.summary.split('\n')[0]}
                   </p>
 
-                  {/* Rest of content - blurred unless email submitted */}
                   {!emailSubmitted && result.summary.split('\n').length > 1 && (
                     <div
                       style={{
@@ -421,7 +413,6 @@ export default function DynamicTestPage({ params }) {
               </div>
             )}
 
-            {/* Email capture - show if not submitted yet */}
             {!emailSubmitted && (
               <EmailCapture
                 testName={testData.title}
@@ -433,7 +424,6 @@ export default function DynamicTestPage({ params }) {
               />
             )}
 
-            {/* Protocol section */}
             {protocolTier === "none" ? (
               <div
                 style={{
@@ -445,14 +435,14 @@ export default function DynamicTestPage({ params }) {
                   color: "#065f46",
                 }}
               >
-                <h3 style={{ margin: "0 0 12px 0", color: "#10b981" }}>✅ Good news</h3>
+                <h3 style={{ margin: "0 0 12px 0", color: "#10b981" }}>Good news</h3>
                 <p style={{ fontSize: "17px", lineHeight: 1.55 }}>
                   Your dynamic looks stable.
                   <br />
                   No significant patterns of concern detected.
                 </p>
                 <p style={{ marginTop: 12 }}>
-                  No protocol needed — keep doing what you're doing.
+                  No protocol needed — keep doing what you&apos;re doing.
                 </p>
               </div>
             ) : !paid ? (
@@ -524,3 +514,141 @@ export default function DynamicTestPage({ params }) {
                             }}
                           >
                             {block.title}
+                          </h3>
+
+                          {block.goal && (
+                            <p>
+                              <strong>Goal:</strong> {block.goal}
+                            </p>
+                          )}
+                          {block.when && (
+                            <p>
+                              <strong>When:</strong> {block.when}
+                            </p>
+                          )}
+
+                          {block.items && (
+                            <div style={{ marginTop: 16 }}>
+                              {block.items.map((item, i) => {
+                                if (item.type === "subheader") {
+                                  return (
+                                    <div key={i} style={{ marginTop: 14, marginBottom: 4, fontWeight: 600, color: "#1a1a1a" }}>
+                                      {item.text}
+                                    </div>
+                                  );
+                                }
+                                if (item.type === "sub") {
+                                  return (
+                                    <div key={i} style={{ paddingLeft: 20, marginBottom: 6, color: "#4a5568" }}>
+                                      — {item.text}
+                                    </div>
+                                  );
+                                }
+                                if (item.type === "quote") {
+                                  return (
+                                    <div key={i} style={{
+                                      margin: "10px 0",
+                                      padding: "10px 16px",
+                                      borderLeft: "3px solid #1565C0",
+                                      color: "#4a5568",
+                                      fontStyle: "italic",
+                                      lineHeight: 1.6,
+                                      background: "#f7f8fa",
+                                    }}>
+                                      {item.text}
+                                    </div>
+                                  );
+                                }
+                                return (
+                                  <div key={i} style={{ marginBottom: 8, color: "#1a1a1a" }}>
+                                    {item.text || item}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+
+                          {block.why && (
+                            <div style={{ marginTop: 16 }}>
+                              <strong>Why:</strong>
+                              <ul style={{ paddingLeft: "24px", marginTop: 8 }}>
+                                {block.why.map((w, i) => (
+                                  <li key={i} style={{ marginBottom: 6 }}>
+                                    {w}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+
+                      {currentProtocol.closing && (
+                        <p
+                          style={{
+                            marginTop: 40,
+                            padding: "16px 20px",
+                            background: "#f0f9ff",
+                            borderLeft: "4px solid #1565C0",
+                            fontStyle: "italic",
+                            color: "#1a1a1a",
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          {currentProtocol.closing}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <p>Protocol not found. Please contact support.</p>
+                  )}
+                </div>
+
+                <button
+                  onClick={copyProtocol}
+                  style={{
+                    marginTop: 32,
+                    padding: "14px 24px",
+                    borderRadius: 8,
+                    border: "none",
+                    backgroundColor: "#1565C0",
+                    color: "#ffffff",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    width: "100%",
+                    fontSize: "16px",
+                  }}
+                >
+                  Copy full protocol to clipboard
+                </button>
+
+                <p
+                  style={{
+                    marginTop: 16,
+                    fontSize: 13,
+                    color: "#6b7280",
+                    textAlign: "center",
+                  }}
+                >
+                  Save it and practice daily.
+                </p>
+              </div>
+            )}
+          </section>
+        )}
+        <p
+          style={{
+            marginTop: 24,
+            fontSize: 11,
+            color: "#6b7280",
+            lineHeight: 1.4,
+          }}
+        >
+          This tool is not therapy, medical care, or legal advice. It cannot
+          diagnose anything or tell you what to do. You are fully responsible
+          for any decisions or actions you take based on these checkups.
+        </p>
+      </div>
+    </div>
+  );
+}
