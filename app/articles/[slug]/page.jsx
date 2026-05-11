@@ -167,7 +167,7 @@ const descriptionStyle = {
   lineHeight: 1.7,
   color: "#465065",
   margin: "0 0 28px",
-  maxWidth: "36ch",
+  maxWidth: "100%",
 };
 
 const leadStyle = {
