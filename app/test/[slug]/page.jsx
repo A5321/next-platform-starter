@@ -274,7 +274,7 @@ useEffect(() => {
         <div style={{ textAlign: "center" }}>
           <h1>Test not found</h1>
           <p>The test &quot;{testSlug}&quot; does not exist.</p>
-          <a href="/" style={{ color: "#1565C0", textDecoration: "none" }}>Back to home</a>
+          <a href="/" style={{ color: "#1565C0", textDecoration: "none" }}>HOME</a>&nbsp;/&nbsp;<a href="/" style={{ color: "#1565C0", textDecoration: "none" }}>TESTS</a>
         </div>
       </div>
     );
