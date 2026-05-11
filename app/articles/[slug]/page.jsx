@@ -54,7 +54,7 @@ const brandStyle = {
   fontWeight: 700,
   letterSpacing: "0.08em",
   textDecoration: "none",
-  color: "#10131a",
+  color: "#1565C0",
 };
 
 const navLinksStyle = {
