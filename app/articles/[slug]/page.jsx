@@ -73,12 +73,12 @@ const navLinkStyle = {
 };
 
 const activeNavLinkStyle = {
-  color: "#10131a",
+  color: "#ffffff",
   textDecoration: "none",
   fontSize: "14px",
   padding: "10px 14px",
-  border: "1px solid rgba(16,19,26,0.16)",
-  background: "#ffffff",
+  border: "1px solid #1565C0",
+  background: "#1565C0",
   borderRadius: "999px",
 };
 
