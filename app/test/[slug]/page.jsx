@@ -346,8 +346,8 @@ useEffect(() => {
               src="/logo.png" 
               alt="Pattern Index" 
               style={{ 
-                width: "48px",
-                height: "48px",
+                width: "32px",
+                height: "32px",
                 display: "block"
               }} 
             />
