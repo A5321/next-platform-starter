@@ -284,13 +284,14 @@ useEffect(() => {
   const pageStyle = {
     minHeight: "100vh",
     background: "#ffffff",
-    padding: "24px 16px 64px",
   };
 
   const containerStyle = {
     width: "100%",
     maxWidth: "1120px",
     margin: "0 auto",
+    padding: "24px 16px 64px",
+    boxSizing: "border-box",
   };
 
   const navStyle = {
