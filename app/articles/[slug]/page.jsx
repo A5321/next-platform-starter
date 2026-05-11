@@ -262,6 +262,7 @@ export default async function ArticlePage({ params }) {
   return (
     <main style={pageStyle}>
       <div style={containerStyle}>
+        <header style={navStyle}>
          <Link 
             href="/" 
             style={{ 
