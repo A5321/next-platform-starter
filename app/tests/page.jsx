@@ -277,7 +277,7 @@ export default async function TestsPage({ searchParams }) {
           <div style={eyebrowStyle}>Tests</div>
           <h1 style={h1Style}>Behavioral pattern checkups</h1>
           <p style={leadStyle}>
-            Choose a test based on the pattern you are trying to understand. These checkups are designed to help you detect structure, not just react to single episodes.
+            Choose a test based on the pattern you are trying to understand. Designed to help you detect structure, not just react to single episodes.
           </p>
         </section>
 
