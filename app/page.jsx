@@ -224,8 +224,32 @@ export default function HomePage() {
     <main style={pageStyle}>
       <div style={containerStyle}>
         <header style={navStyle}>
-          <Link href="/" style={brandStyle}>
-            PATTERN INDEX
+         <Link 
+            href="/" 
+            style={{ 
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              textDecoration: "none",
+            }}
+          >
+            <img 
+              src="/logo.png" 
+              alt="Pattern Index" 
+              style={{ 
+                width: "32px",
+                height: "32px",
+                display: "block"
+              }} 
+            />
+            <span style={{
+              fontSize: "18px",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              color: "#1565C0"
+            }}>
+              PATTERN INDEX
+            </span>
           </Link>
 
           <nav style={navLinksStyle}>
