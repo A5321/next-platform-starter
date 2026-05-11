@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
-export default function EmailCapture({ testName, resultLevel, onSuccess }) {
+export default function EmailCapture({ testName, resultLevel, onSuccess, result }) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(e) {
@@ -21,7 +21,22 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, testName, resultLevel }),
+        body: JSON.stringify({ 
+          email, 
+          testName, 
+          resultLevel,
+          indices: result?.indices || null,
+          summary: result?.summary || null,
+          overallLevel: result?.overall_trust_recovery_level || 
+                       result?.overall_option_status || 
+                       result?.overall_risk_level || 
+                       result?.overall_hypercontrol_level ||
+                       result?.overall_triangle_risk ||
+                       result?.overall_trust_in_signals ||
+                       result?.overall_mixed_signals_level ||
+                       result?.overall_silent_exit_level ||
+                       result?.overall_breakup_pattern_level || null,
+        }),
       });
 
       const data = await res.json();
