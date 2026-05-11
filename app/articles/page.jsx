@@ -79,8 +79,8 @@ const eyebrowStyle = {
 };
 
 const h1Style = {
-  fontSize: "clamp(34px, 6vw, 58px)",
-  lineHeight: 1.02,
+  fontSize: "clamp(24px, 4vw, 32px)",  // ← 24-32px вместо 18-56px
+  lineHeight: 1.2,
   margin: "0 0 16px",
 };
 
@@ -89,7 +89,7 @@ const leadStyle = {
   lineHeight: 1.7,
   color: "#465065",
   margin: 0,
-  maxWidth: "44rem",
+  maxWidth: "100%",
 };
 
 const filterBarStyle = {
@@ -130,11 +130,10 @@ const gridStyle = {
 };
 
 const cardStyle = {
-  background: "#ffffff",
-  border: "1px solid rgba(16,19,26,0.08)",
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
   borderRadius: "20px",
-  padding: "24px",
-  boxShadow: "0 14px 40px rgba(16,19,26,0.05)",
+  padding: "22px",
 };
 
 const categoryStyle = {
@@ -150,7 +149,7 @@ const titleStyle = {
   display: "block",
   color: "#10131a",
   textDecoration: "none",
-  fontSize: "22px",
+  fontSize: "18px",
   lineHeight: 1.2,
   fontWeight: 700,
   marginBottom: "12px",
@@ -224,8 +223,32 @@ export default async function ArticlesPage({ searchParams }) {
     <main style={pageStyle}>
       <div style={containerStyle}>
         <header style={navStyle}>
-          <Link href="/" style={brandStyle}>
-            PATTERN INDEX
+         <Link 
+            href="/" 
+            style={{ 
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              textDecoration: "none",
+            }}
+          >
+            <img 
+              src="/logo.png" 
+              alt="Pattern Index" 
+              style={{ 
+                width: "32px",
+                height: "32px",
+                display: "block"
+              }} 
+            />
+            <span style={{
+              fontSize: "18px",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              color: "#1565C0"
+            }}>
+              PATTERN INDEX
+            </span>
           </Link>
 
           <nav style={navLinksStyle}>
@@ -242,8 +265,7 @@ export default async function ArticlesPage({ searchParams }) {
           <div style={eyebrowStyle}>Articles</div>
           <h1 style={h1Style}>Browse by topic, not just by date</h1>
           <p style={leadStyle}>
-            The article library is organized by core themes so readers can move
-            between broad domains and specific recurring ideas.
+            The article library is organized by core themes so readers can move between broad domains and specific recurring ideas.
           </p>
         </section>
 

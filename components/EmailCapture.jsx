@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
-export default function EmailCapture({ testName, resultLevel, onSuccess }) {
+export default function EmailCapture({ testName, resultLevel, onSuccess, result, protocol }) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(e) {
@@ -21,7 +21,34 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, testName, resultLevel }),
+        body: JSON.stringify({ 
+          email, 
+          testName, 
+          resultLevel,
+          indices: result?.indices || null,
+          summary: result?.summary || null,
+          overallLevel: result?.overall_trust_recovery_level || 
+                       result?.overall_option_status || 
+                       result?.overall_risk_level || 
+                       result?.overall_hypercontrol_level ||
+                       result?.overall_triangle_risk ||
+                       result?.overall_trust_in_signals ||
+                       result?.overall_mixed_signal_level ||
+                       result?.overall_exit_pattern_level ||
+                       result?.overall_breakup_pattern_intensity ||
+                       result?.overall || null,
+          levelLabel: result?.overall_trust_recovery_level ? "Trust-recovery level" :
+                     result?.overall_option_status ? "Option status" :
+                     result?.overall_risk_level ? "Risk level" :
+                     result?.overall_hypercontrol_level ? "Hypercontrol level" :
+                     result?.overall_triangle_risk ? "Triangle risk" :
+                     result?.overall_trust_in_signals ? "Trust in signals" :
+                     result?.overall_mixed_signal_level ? "Mixed signal level" :
+                     result?.overall_exit_pattern_level ? "Silent-exit level" :
+                     result?.overall_breakup_pattern_intensity ? "Breakup pattern intensity" :
+                     result?.overall ? "Overall Assessment" : null,
+          protocol: protocol || null,
+        }),
       });
 
       const data = await res.json();
@@ -44,10 +71,10 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
         style={{
           marginTop: 24,
           padding: "20px 24px",
-          background: "rgba(74, 222, 128, 0.08)",
-          border: "1px solid rgba(74, 222, 128, 0.3)",
+          background: "#f0fdf4",
+          border: "1px solid #86efac",
           borderRadius: 10,
-          color: "#86efac",
+          color: "#065f46",
         }}
       >
         <p style={{ margin: 0, fontSize: 15, lineHeight: 1.5 }}>
@@ -62,8 +89,8 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
       style={{
         marginTop: 24,
         padding: "20px 24px",
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(255,255,255,0.12)",
+        background: "#ffffff",
+        border: "1px solid rgba(0,0,0,0.12)",
         borderRadius: 10,
       }}
     >
@@ -72,20 +99,20 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
           margin: "0 0 6px 0",
           fontSize: 15,
           fontWeight: 600,
-          color: "#888",
+          color: "#1a1a1a",
         }}
       >
-        Get your result by email
+        Enter your email to see the full analysis
       </p>
       <p
         style={{
           margin: "0 0 16px 0",
           fontSize: 14,
-          color: "#888",
+          color: "#6b7280",
           lineHeight: 1.5,
         }}
       >
-        We'll send a short breakdown of what this pattern means and what to do next.
+        We&apos;ll send a short breakdown of what this pattern means and what to do next.
       </p>
 
       <form
@@ -102,9 +129,9 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
             minWidth: 200,
             padding: "10px 14px",
             borderRadius: 6,
-            border: "1px solid rgba(255,255,255,0.2)",
-            backgroundColor: "rgba(200, 200, 200, 0.85)",
-            color: "#fff",
+            border: "1px solid rgba(0,0,0,0.2)",
+            backgroundColor: "#f9fafb",
+            color: "#1a1a1a",
             fontSize: 15,
             outline: "none",
           }}
@@ -130,12 +157,12 @@ export default function EmailCapture({ testName, resultLevel, onSuccess }) {
       </form>
 
       {errorMsg && (
-        <p style={{ margin: "10px 0 0 0", fontSize: 13, color: "#ff8c8c" }}>
+        <p style={{ margin: "10px 0 0 0", fontSize: 13, color: "#dc2626" }}>
           {errorMsg}
         </p>
       )}
 
-      <p style={{ margin: "12px 0 0 0", fontSize: 12, color: "#555" }}>
+      <p style={{ margin: "12px 0 0 0", fontSize: 12, color: "#6b7280" }}>
         No spam. One email with your result summary.
       </p>
     </div>

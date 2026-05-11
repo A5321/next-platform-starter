@@ -29,7 +29,7 @@ const testTitles = {
 
 const pageStyle = {
   minHeight: "100vh",
-  background: "#f5f7fb",
+  background: "#ffffff",
   color: "#10131a",
 };
 
@@ -54,7 +54,7 @@ const brandStyle = {
   fontWeight: 700,
   letterSpacing: "0.08em",
   textDecoration: "none",
-  color: "#10131a",
+  color: "#1565C0",
 };
 
 const navLinksStyle = {
@@ -73,12 +73,12 @@ const navLinkStyle = {
 };
 
 const activeNavLinkStyle = {
-  color: "#10131a",
+  color: "#ffffff",
   textDecoration: "none",
   fontSize: "14px",
   padding: "10px 14px",
-  border: "1px solid rgba(16,19,26,0.16)",
-  background: "#ffffff",
+  border: "1px solid #1565C0",
+  background: "#1565C0",
   borderRadius: "999px",
 };
 
@@ -157,8 +157,8 @@ const relatedLinkStyle = {
 };
 
 const titleStyle = {
-  fontSize: "clamp(34px, 6vw, 56px)",
-  lineHeight: 1.04,
+  fontSize: "clamp(24px, 4vw, 32px)",  // ← 24-32px вместо 18-56px
+  lineHeight: 1.2,
   margin: "0 0 16px",
 };
 
@@ -167,7 +167,7 @@ const descriptionStyle = {
   lineHeight: 1.7,
   color: "#465065",
   margin: "0 0 28px",
-  maxWidth: "36ch",
+  maxWidth: "100%",
 };
 
 const leadStyle = {
@@ -263,8 +263,32 @@ export default async function ArticlePage({ params }) {
     <main style={pageStyle}>
       <div style={containerStyle}>
         <header style={navStyle}>
-          <Link href="/" style={brandStyle}>
-            PATTERN INDEX
+         <Link 
+            href="/" 
+            style={{ 
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              textDecoration: "none",
+            }}
+          >
+            <img 
+              src="/logo.png" 
+              alt="Pattern Index" 
+              style={{ 
+                width: "32px",
+                height: "32px",
+                display: "block"
+              }} 
+            />
+            <span style={{
+              fontSize: "18px",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              color: "#1565C0"
+            }}>
+              PATTERN INDEX
+            </span>
           </Link>
 
           <nav style={navLinksStyle}>

@@ -36,12 +36,10 @@ export default function TestQuiz() {
 
   // Styles
   const containerStyle = {
-    background: '#ffffff',
-    border: '1px solid rgba(21,101,192,0.12)',
-    borderRadius: '24px',
-    padding: '32px',
-    maxWidth: '640px',
-    margin: '0 auto',
+    padding: "14px 16px",
+    borderRadius: "16px",
+    background: "#f7f8fa",
+    border: "1px solid rgba(0,0,0,0.06)",
   };
 
   const titleStyle = {
