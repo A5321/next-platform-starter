@@ -13,6 +13,7 @@ export async function POST(req) {
     const indices = body.indices || null;
     const summary = body.summary || null;
     const overallLevel = body.overallLevel || null;
+    const levelLabel = body.levelLabel || null;
     const protocol = body.protocol || null;
 
     console.log("📧 Email API called with:", { 
@@ -21,6 +22,7 @@ export async function POST(req) {
       hasIndices: !!indices, 
       hasSummary: !!summary, 
       overallLevel,
+      levelLabel,
       hasProtocol: !!protocol 
     });
 
@@ -180,9 +182,9 @@ export async function POST(req) {
       </div>`;
     }
 
-    const resultLine = overallLevel
+    const resultLine = overallLevel && levelLabel
       ? `<div style="margin: 0 0 24px 0; padding: 16px 20px; background: #eff6ff; border-radius: 8px; border-left: 4px solid #1565C0;">
-          <p style="margin: 0; color: #1e40af; font-size: 16px; font-weight: 600;">Your result: ${overallLevel}</p>
+          <p style="margin: 0; color: #1e40af; font-size: 16px; font-weight: 600;">${levelLabel}: ${overallLevel}</p>
         </div>`
       : "";
 
@@ -203,7 +205,10 @@ export async function POST(req) {
           <tr>
             <td style="padding: 32px 40px 24px 40px; border-bottom: 1px solid #e5e7eb;">
               <p style="margin: 0; font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px;">Pattern Index</p>
-              <h1 style="margin: 8px 0 0 0; font-size: 22px; color: #1a1a1a; font-weight: 600;">Your result is ready</h1>
+              <p style="margin: 8px 0 0 0; color: #374151; font-size: 16px; line-height: 1.6;">
+                You ran a pattern check on <strong style="color: #1a1a1a;">${testName}</strong>.
+              </p>
+              <h1 style="margin: 12px 0 0 0; font-size: 22px; color: #1a1a1a; font-weight: 600;">Your result is ready:</h1>
             </td>
           </tr>
 
@@ -211,10 +216,6 @@ export async function POST(req) {
           <tr>
             <td style="padding: 32px 40px;">
               ${resultLine}
-
-              <p style="margin: 0 0 20px 0; color: #374151; font-size: 16px; line-height: 1.6;">
-                You just ran a pattern check on <strong style="color: #1a1a1a;">${testName}</strong>.
-              </p>
 
               ${indicesHtml}
               ${summaryHtml}
