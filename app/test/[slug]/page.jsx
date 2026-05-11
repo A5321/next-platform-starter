@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { getTestBySlug } from "../../lib/testsData";
 import { getProtocolTier } from "../../lib/protocolTiers";
 import EmailCapture from "../../../components/EmailCapture";
@@ -274,7 +275,7 @@ useEffect(() => {
         <div style={{ textAlign: "center" }}>
           <h1>Test not found</h1>
           <p>The test &quot;{testSlug}&quot; does not exist.</p>
-          <a href="/" style={{ color: "#1565C0", textDecoration: "none" }}>HOME</a>&nbsp;/&nbsp;<a href="/" style={{ color: "#1565C0", textDecoration: "none" }}>TESTS</a>
+          <a href="/" style={{ color: "#1565C0", textDecoration: "none" }}>Back to home</a>
         </div>
       </div>
     );
@@ -316,32 +317,60 @@ useEffect(() => {
   return (
     <div style={pageStyle}>
       <div style={cardStyle}>
-        <header style={{ marginBottom: 24 }}>
-          <a
-            href="/"
-            style={{
-              display: "inline-block",
-              marginBottom: 12,
-              color: "#1565C0",
-              textDecoration: "none",
-              fontSize: 14,
-            }}
-          >
-            Home
-          </a>
-          &nbsp;/&nbsp;
-          <a
-            href="/tests"
-            style={{
-              display: "inline-block",
-              marginBottom: 12,
-              color: "#1565C0",
-              textDecoration: "none",
-              fontSize: 14,
-            }}
-          >
-            Tests
-          </a>
+        <header style={{ marginBottom: 32 }}>
+          {/* Навигация */}
+          <nav style={{ 
+            display: "flex", 
+            alignItems: "center", 
+            justifyContent: "space-between", 
+            gap: "16px",
+            marginBottom: "32px" 
+          }}>
+            <Link 
+              href="/" 
+              style={{ 
+                fontSize: "18px",
+                fontWeight: 700,
+                letterSpacing: "0.08em",
+                textDecoration: "none",
+                color: "#1565C0" 
+              }}
+            >
+              PATTERN INDEX
+            </Link>
+
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <Link 
+                href="/tests" 
+                style={{
+                  color: "#ffffff",
+                  textDecoration: "none",
+                  fontSize: "14px",
+                  padding: "10px 14px",
+                  border: "1px solid #1565C0",
+                  background: "#1565C0",
+                  borderRadius: "999px"
+                }}
+              >
+                TESTS
+              </Link>
+              <Link 
+                href="/articles" 
+                style={{
+                  color: "#4a5568",
+                  textDecoration: "none",
+                  fontSize: "14px",
+                  padding: "10px 14px",
+                  border: "1px solid rgba(0,0,0,0.1)",
+                  borderRadius: "999px"
+                }}
+              >
+                ARTICLES
+              </Link>
+            </div>
+          </nav>
+
+          {/* Заголовок теста */}
           <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
             {testData.title}
           </h1>
