@@ -309,6 +309,7 @@ useEffect(() => {
     borderRadius: 20,
     padding: 32,
     border: "1px solid rgba(0,0,0,0.08)",
+    boxSizing: "border-box",
   };
 
   const headerStyle = {
