@@ -283,16 +283,20 @@ useEffect(() => {
 
   const pageStyle = {
     minHeight: "100vh",
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    padding: "20px 16px",
     background: "#ffffff",
+    padding: "20px 16px",
+  };
+
+  const containerStyle = {
+    width: "100%",
+    maxWidth: "1120px",
+    margin: "0 auto",
   };
 
   const cardStyle = {
     maxWidth: 900,
     width: "100%",
+    margin: "0 auto",
     backgroundColor: "#fafbfc",
     color: "#1a1a1a",
     borderRadius: 12,
@@ -316,68 +320,69 @@ useEffect(() => {
 
   return (
     <div style={pageStyle}>
-      <div style={cardStyle}>
-        <header style={{ marginBottom: 32 }}>
-          {/* Навигация */}
-          <nav style={{ 
-            display: "flex", 
-            alignItems: "center", 
-            justifyContent: "space-between", 
-            gap: "16px",
-            marginBottom: "32px" 
-          }}>
+      <div style={containerStyle}>
+        {/* Навигация НАД карточкой */}
+        <nav style={{ 
+          display: "flex", 
+          alignItems: "center", 
+          justifyContent: "space-between", 
+          gap: "16px",
+          marginBottom: "32px" 
+        }}>
+          <Link 
+            href="/" 
+            style={{ 
+              fontSize: "18px",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textDecoration: "none",
+              color: "#1565C0" 
+            }}
+          >
+            PATTERN INDEX
+          </Link>
+
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             <Link 
-              href="/" 
-              style={{ 
-                fontSize: "18px",
-                fontWeight: 700,
-                letterSpacing: "0.08em",
+              href="/tests" 
+              style={{
+                color: "#ffffff",
                 textDecoration: "none",
-                color: "#1565C0" 
+                fontSize: "14px",
+                padding: "10px 14px",
+                border: "1px solid #1565C0",
+                background: "#1565C0",
+                borderRadius: "999px"
               }}
             >
-              PATTERN INDEX
+              TESTS
             </Link>
+            <Link 
+              href="/articles" 
+              style={{
+                color: "#4a5568",
+                textDecoration: "none",
+                fontSize: "14px",
+                padding: "10px 14px",
+                border: "1px solid rgba(0,0,0,0.1)",
+                borderRadius: "999px"
+              }}
+            >
+              ARTICLES
+            </Link>
+          </div>
+        </nav>
 
-            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-              <Link 
-                href="/tests" 
-                style={{
-                  color: "#ffffff",
-                  textDecoration: "none",
-                  fontSize: "14px",
-                  padding: "10px 14px",
-                  border: "1px solid #1565C0",
-                  background: "#1565C0",
-                  borderRadius: "999px"
-                }}
-              >
-                TESTS
-              </Link>
-              <Link 
-                href="/articles" 
-                style={{
-                  color: "#4a5568",
-                  textDecoration: "none",
-                  fontSize: "14px",
-                  padding: "10px 14px",
-                  border: "1px solid rgba(0,0,0,0.1)",
-                  borderRadius: "999px"
-                }}
-              >
-                ARTICLES
-              </Link>
-            </div>
-          </nav>
-
-          {/* Заголовок теста */}
-          <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
-            {testData.title}
-          </h1>
-          <p style={{ margin: 0, color: "#6b7280", fontSize: 16, lineHeight: 1.5 }}>
-            {testData.description}
-          </p>
-        </header>
+        {/* Карточка теста */}
+        <div style={cardStyle}>
+          <header style={{ marginBottom: 24 }}>
+            <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
+              {testData.title}
+            </h1>
+            <p style={{ margin: 0, color: "#6b7280", fontSize: 16, lineHeight: 1.5 }}>
+              {testData.description}
+            </p>
+          </header>
 
         <form onSubmit={handleSubmit}>
           {testData.questions.map((question, idx) => (
@@ -796,7 +801,8 @@ useEffect(() => {
           diagnose anything or tell you what to do. You are fully responsible
           for any decisions or actions you take based on these checkups.
         </p>
-      </div>
-    </div>
+        </div> {/* Закрываем cardStyle */}
+      </div> {/* Закрываем containerStyle */}
+    </div> {/* Закрываем pageStyle */}
   );
 }
