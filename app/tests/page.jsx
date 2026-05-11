@@ -136,7 +136,7 @@ const leadStyle = {
   lineHeight: 1.7,
   color: "#4a5568",
   margin: 0,
-  maxWidth: "42rem",
+  maxWidth: "100%",
 };
 
 const gridStyle = {
@@ -211,8 +211,7 @@ export default function TestsPage() {
           <div style={eyebrowStyle}>Tests</div>
           <h1 style={h1Style}>Behavioral pattern checkups</h1>
           <p style={leadStyle}>
-            Choose a test based on the pattern you are trying to understand.
-            These checkups are designed to help you detect structure, not just react to single episodes.
+            Choose a test based on the pattern you are trying to understand. These checkups are designed to help you detect structure, not just react to single episodes.
           </p>
         </section>
 
