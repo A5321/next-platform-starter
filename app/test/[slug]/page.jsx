@@ -327,7 +327,19 @@ useEffect(() => {
               fontSize: 14,
             }}
           >
-            Back to home
+            Home
+          </a>
+          <a
+            href="/tests"
+            style={{
+              display: "inline-block",
+              marginBottom: 12,
+              color: "#1565C0",
+              textDecoration: "none",
+              fontSize: 14,
+            }}
+          >
+            Tests
           </a>
           <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
             {testData.title}
