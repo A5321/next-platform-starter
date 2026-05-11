@@ -308,7 +308,7 @@ export default async function ArticlePage({ params }) {
               {article.contentType} · {article.date} · {article.readTime}
             </div>
 
-            <h1 style={titleStyle}>{article.title}</h1>
+            <h1 style={titleStyle}>{article.title}---</h1>
             <p style={descriptionStyle}>{article.description}</p>
 
             <div style={tagsStyle}>
