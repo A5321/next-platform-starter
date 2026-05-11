@@ -8,6 +8,21 @@ export async function POST(req) {
     const resultLevel = (body.resultLevel || "").trim();
     const protocolScope = (body.protocolScope || "").trim();
     const protocolTier = (body.protocolTier || "").trim();
+    
+    // Extract test results
+    const indices = body.indices || null;
+    const summary = body.summary || null;
+    const overallLevel = body.overallLevel || null;
+    const protocol = body.protocol || null;
+
+    console.log("📧 Email API called with:", { 
+      email, 
+      testName, 
+      hasIndices: !!indices, 
+      hasSummary: !!summary, 
+      overallLevel,
+      hasProtocol: !!protocol 
+    });
 
     if (!email || !email.includes("@")) {
       return NextResponse.json(
@@ -126,10 +141,7 @@ export async function POST(req) {
     }
 
     // Default: send result summary email
-    const indices = body.indices || null;
-    const summary = body.summary || null;
-    const overallLevel = body.overallLevel || null;
-
+    
     // Format indices for email
     let indicesHtml = "";
     if (indices) {
@@ -155,6 +167,16 @@ export async function POST(req) {
       summaryHtml = `<div style="margin: 24px 0; padding: 20px; background: #f9fafb; border-left: 4px solid #1565C0; border-radius: 8px;">
         <h3 style="margin: 0 0 12px 0; font-size: 17px; color: #1a1a1a; font-weight: 600;">Summary</h3>
         <p style="margin: 0; color: #374151; font-size: 15px; line-height: 1.7;">${summary}</p>
+      </div>`;
+    }
+
+    // Recommended protocol section
+    let protocolHtml = "";
+    if (protocol) {
+      protocolHtml = `<div style="margin: 24px 0; padding: 20px; background: #eff6ff; border-left: 4px solid #1565C0; border-radius: 8px;">
+        <h3 style="margin: 0 0 8px 0; font-size: 17px; color: #1565C0; font-weight: 600;">Recommended Protocol</h3>
+        <p style="margin: 0 0 8px 0; color: #1e40af; font-size: 16px; font-weight: 600;">${protocol.title} — $15</p>
+        <p style="margin: 0; color: #374151; font-size: 14px; line-height: 1.6;">${protocol.subtitle || protocol.intro || ''}</p>
       </div>`;
     }
 
@@ -196,6 +218,7 @@ export async function POST(req) {
 
               ${indicesHtml}
               ${summaryHtml}
+              ${protocolHtml}
 
               <p style="margin: 24px 0 20px 0; color: #374151; font-size: 16px; line-height: 1.6;">
                 Most people who see a result like this do one of three things:
