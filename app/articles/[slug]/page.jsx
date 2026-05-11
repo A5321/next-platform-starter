@@ -281,7 +281,7 @@ export default async function ArticlePage({ params }) {
           <article style={articleStyle}>
             <div style={categoryStyle}>{categoryLabels[article.category]}</div>
             <div style={metaStyle}>
-              {article.contentType} · {article.date} · / {article.readTime}
+              {article.contentType} · {article.date} · {article.readTime}
             </div>
 
             <h1 style={titleStyle}>{article.title}</h1>
