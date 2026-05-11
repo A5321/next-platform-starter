@@ -484,18 +484,18 @@ useEffect(() => {
                 {result.overall_hypercontrol_level && `Hypercontrol level: ${result.overall_hypercontrol_level}`}
                 {result.overall_triangle_risk && `Triangle risk: ${result.overall_triangle_risk}`}
                 {result.overall_trust_in_signals && `Trust in signals: ${result.overall_trust_in_signals}`}
-                {result.overall_mixed_signals_level && `Mixed signals level: ${result.overall_mixed_signals_level}`}
-                {result.overall_silent_exit_level && `Silent-exit level: ${result.overall_silent_exit_level}`}
-                {result.overall_breakup_pattern_level && `Breakup pattern level: ${result.overall_breakup_pattern_level}`}
+                {result.overall_mixed_signal_level && `Mixed signal level: ${result.overall_mixed_signal_level}`}
+                {result.overall_exit_pattern_level && `Silent-exit level: ${result.overall_exit_pattern_level}`}
+                {result.overall_breakup_pattern_intensity && `Breakup pattern intensity: ${result.overall_breakup_pattern_intensity}`}
                 {!result.overall_trust_recovery_level && 
                  !result.overall_option_status && 
                  !result.overall_risk_level && 
                  !result.overall_hypercontrol_level &&
                  !result.overall_triangle_risk &&
                  !result.overall_trust_in_signals &&
-                 !result.overall_mixed_signals_level &&
-                 !result.overall_silent_exit_level &&
-                 !result.overall_breakup_pattern_level && 
+                 !result.overall_mixed_signal_level &&
+                 !result.overall_exit_pattern_level &&
+                 !result.overall_breakup_pattern_intensity && 
                  "Overall Assessment"}
               </h3>
               
