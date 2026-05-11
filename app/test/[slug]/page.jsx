@@ -336,14 +336,29 @@ useEffect(() => {
           <Link 
             href="/" 
             style={{ 
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              textDecoration: "none",
+            }}
+          >
+            <img 
+              src="/logo.png" 
+              alt="Pattern Index" 
+              style={{ 
+                width: "48px",
+                height: "48px",
+                display: "block"
+              }} 
+            />
+            <span style={{
               fontSize: "18px",
               fontWeight: 700,
               letterSpacing: "0.08em",
-              textDecoration: "none",
-              color: "#1565C0" 
-            }}
-          >
-            PATTERN INDEX
+              color: "#1565C0"
+            }}>
+              PATTERN INDEX
+            </span>
           </Link>
 
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
