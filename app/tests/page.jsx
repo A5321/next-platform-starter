@@ -136,7 +136,7 @@ const leadStyle = {
   lineHeight: 1.7,
   color: "#4a5568",
   margin: 0,
-  maxWidth: "42rem",
+  maxWidth: "100%",
 };
 
 const gridStyle = {
@@ -147,11 +147,10 @@ const gridStyle = {
 };
 
 const cardStyle = {
-  background: "#ffffff",
-  border: "1px solid rgba(16,19,26,0.08)",
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
   borderRadius: "20px",
-  padding: "24px",
-  boxShadow: "0 14px 40px rgba(16,19,26,0.05)",
+  padding: "22px",
 };
 
 const titleStyle = {
@@ -212,8 +211,7 @@ export default function TestsPage() {
           <div style={eyebrowStyle}>Tests</div>
           <h1 style={h1Style}>Behavioral pattern checkups</h1>
           <p style={leadStyle}>
-            Choose a test based on the pattern you are trying to understand.
-            These checkups are designed to help you detect structure, not just react to single episodes.
+            Choose a test based on the pattern you are trying to understand. These checkups are designed to help you detect structure, not just react to single episodes.
           </p>
         </section>
 
