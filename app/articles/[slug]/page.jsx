@@ -157,7 +157,7 @@ const relatedLinkStyle = {
 };
 
 const titleStyle = {
-  fontSize: "clamp(34px, 6vw, 56px)",
+  fontSize: "clamp(24px, 6vw, 56px)",
   lineHeight: 1.04,
   margin: "0 0 16px",
 };
