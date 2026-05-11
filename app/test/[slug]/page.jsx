@@ -327,7 +327,10 @@ useEffect(() => {
           alignItems: "center", 
           justifyContent: "space-between", 
           gap: "16px",
-          marginBottom: "32px" 
+          marginBottom: "32px",
+          maxWidth: 900,
+          width: "100%",
+          margin: "0 auto 32px auto"
         }}>
           <Link 
             href="/" 
