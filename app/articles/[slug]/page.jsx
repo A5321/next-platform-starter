@@ -285,7 +285,7 @@ export default async function ArticlePage({ params }) {
             </div>
 
             <h1 style={titleStyle}>{article.title}</h1>
-            <p style={descriptionStyle}>{article.description}</p>
+            <p style={descriptionStyle}>{article.description}--</p>
 
             <div style={tagsStyle}>
               {article.tags.map((tag) => (
