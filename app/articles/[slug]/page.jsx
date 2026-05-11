@@ -264,7 +264,7 @@ export default async function ArticlePage({ params }) {
       <div style={containerStyle}>
         <header style={navStyle}>
           <Link href="/" style={brandStyle}>
-            PATTERN INDEX-
+            PATTERN INDEX---
           </Link>
 
           <nav style={navLinksStyle}>
