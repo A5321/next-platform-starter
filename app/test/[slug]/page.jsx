@@ -801,8 +801,8 @@ useEffect(() => {
           diagnose anything or tell you what to do. You are fully responsible
           for any decisions or actions you take based on these checkups.
         </p>
-        </div> {/* Закрываем cardStyle */}
-      </div> {/* Закрываем containerStyle */}
-    </div> {/* Закрываем pageStyle */}
+        </div>
+      </div>
+    </div>
   );
 }
