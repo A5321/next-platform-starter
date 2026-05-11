@@ -157,7 +157,7 @@ const relatedLinkStyle = {
 };
 
 const titleStyle = {
-  fontSize: "24px",        // ← Фиксированный размер
+  fontSize: "clamp(24px, 4vw, 32px)",  // ← 24-32px вместо 18-56px
   lineHeight: 1.2,
   margin: "0 0 16px",
 };
