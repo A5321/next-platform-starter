@@ -211,7 +211,9 @@ export async function POST(req) {
               <p style="margin: 0; color: #374151; font-size: 16px; line-height: 1.6;">
                 You ran a pattern check on <strong style="color: #1a1a1a;">${testName}</strong>.
               </p>
-              <h1 style="margin: 12px 0 0 0; font-size: 22px; color: #1a1a1a; font-weight: 600;">Your result is ready:</h1>
+              <p style="margin: 0; color: #374151; font-size: 16px; line-height: 1.6;">
+              Your result is ready:
+              </p>
             </td>
           </tr>
 
