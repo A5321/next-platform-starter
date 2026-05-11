@@ -147,10 +147,11 @@ const gridStyle = {
 };
 
 const cardStyle = {
-  background: "#fafbfc",
-  border: "1px solid rgba(0,0,0,0.08)",
+  background: "#ffffff",
+  border: "1px solid rgba(16,19,26,0.08)",
   borderRadius: "20px",
-  padding: "22px",
+  padding: "24px",
+  boxShadow: "0 14px 40px rgba(16,19,26,0.05)",
 };
 
 const titleStyle = {
