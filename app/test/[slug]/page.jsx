@@ -284,7 +284,7 @@ useEffect(() => {
   const pageStyle = {
     minHeight: "100vh",
     background: "#ffffff",
-    padding: "20px 16px",
+    padding: "24px 16px 64px",
   };
 
   const containerStyle = {
@@ -293,27 +293,26 @@ useEffect(() => {
     margin: "0 auto",
   };
 
-  const cardStyle = {
-    maxWidth: 900,
-    width: "100%",
-    margin: "0 auto",
-    backgroundColor: "#fafbfc",
-    color: "#1a1a1a",
-    borderRadius: 12,
-    padding: 24,
-    boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
-    border: "1px solid rgba(0,0,0,0.08)",
+  const navStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: "16px",
+    marginBottom: "44px",
+  };
+
+  const headerStyle = {
+    marginBottom: 32,
   };
 
   const labelStyle = { display: "block", marginBottom: 8, fontWeight: 500 };
   const controlStyle = {
     width: "100%",
-    maxWidth: 900,
     boxSizing: "border-box",
     padding: "8px 10px",
     borderRadius: 6,
     border: "1px solid rgba(0,0,0,0.2)",
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fafbfc",
     color: "#1a1a1a",
   };
   const sectionTitleStyle = { marginTop: 24, marginBottom: 8 };
@@ -321,17 +320,8 @@ useEffect(() => {
   return (
     <div style={pageStyle}>
       <div style={containerStyle}>
-        {/* Навигация НАД карточкой */}
-        <nav style={{ 
-          display: "flex", 
-          alignItems: "center", 
-          justifyContent: "space-between", 
-          gap: "16px",
-          marginBottom: "32px",
-          maxWidth: 900,
-          width: "100%",
-          margin: "0 auto 32px auto"
-        }}>
+        {/* Навигация */}
+        <nav style={navStyle}>
           <Link 
             href="/" 
             style={{ 
@@ -376,16 +366,15 @@ useEffect(() => {
           </div>
         </nav>
 
-        {/* Карточка теста */}
-        <div style={cardStyle}>
-          <header style={{ marginBottom: 24 }}>
-            <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
-              {testData.title}
-            </h1>
-            <p style={{ margin: 0, color: "#6b7280", fontSize: 16, lineHeight: 1.5 }}>
-              {testData.description}
-            </p>
-          </header>
+        {/* Заголовок теста */}
+        <header style={headerStyle}>
+          <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
+            {testData.title}
+          </h1>
+          <p style={{ margin: 0, color: "#6b7280", fontSize: 16, lineHeight: 1.5 }}>
+            {testData.description}
+          </p>
+        </header>
 
         <form onSubmit={handleSubmit}>
           {testData.questions.map((question, idx) => (
@@ -804,7 +793,6 @@ useEffect(() => {
           diagnose anything or tell you what to do. You are fully responsible
           for any decisions or actions you take based on these checkups.
         </p>
-        </div>
       </div>
     </div>
   );
