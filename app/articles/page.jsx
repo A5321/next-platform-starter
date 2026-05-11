@@ -79,8 +79,8 @@ const eyebrowStyle = {
 };
 
 const h1Style = {
-  fontSize: "clamp(24px, 6vw, 58px)",
-  lineHeight: 1.02,
+  fontSize: "clamp(24px, 4vw, 32px)",  // ← 24-32px вместо 18-56px
+  lineHeight: 1.2,
   margin: "0 0 16px",
 };
 
