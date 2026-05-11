@@ -89,7 +89,7 @@ const leadStyle = {
   lineHeight: 1.7,
   color: "#465065",
   margin: 0,
-  maxWidth: "44rem",
+  maxWidth: "100%",
 };
 
 const filterBarStyle = {
@@ -242,8 +242,7 @@ export default async function ArticlesPage({ searchParams }) {
           <div style={eyebrowStyle}>Articles</div>
           <h1 style={h1Style}>Browse by topic, not just by date</h1>
           <p style={leadStyle}>
-            The article library is organized by core themes so readers can move
-            between broad domains and specific recurring ideas.
+            The article library is organized by core themes so readers can move between broad domains and specific recurring ideas.
           </p>
         </section>
 
