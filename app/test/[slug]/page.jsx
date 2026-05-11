@@ -301,6 +301,15 @@ useEffect(() => {
     marginBottom: "44px",
   };
 
+  const cardStyle = {
+    width: "100%",
+    backgroundColor: "#fafbfc",
+    color: "#1a1a1a",
+    borderRadius: 20,
+    padding: 32,
+    border: "1px solid rgba(0,0,0,0.08)",
+  };
+
   const headerStyle = {
     marginBottom: 32,
   };
@@ -312,7 +321,7 @@ useEffect(() => {
     padding: "8px 10px",
     borderRadius: 6,
     border: "1px solid rgba(0,0,0,0.2)",
-    backgroundColor: "#fafbfc",
+    backgroundColor: "#ffffff",
     color: "#1a1a1a",
   };
   const sectionTitleStyle = { marginTop: 24, marginBottom: 8 };
@@ -320,7 +329,7 @@ useEffect(() => {
   return (
     <div style={pageStyle}>
       <div style={containerStyle}>
-        {/* Навигация */}
+        {/* Навигация НАД карточкой */}
         <nav style={navStyle}>
           <Link 
             href="/" 
@@ -366,15 +375,16 @@ useEffect(() => {
           </div>
         </nav>
 
-        {/* Заголовок теста */}
-        <header style={headerStyle}>
-          <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
-            {testData.title}
-          </h1>
-          <p style={{ margin: 0, color: "#6b7280", fontSize: 16, lineHeight: 1.5 }}>
-            {testData.description}
-          </p>
-        </header>
+        {/* Карточка теста */}
+        <div style={cardStyle}>
+          <header style={headerStyle}>
+            <h1 style={{ margin: "0 0 8px 0", fontSize: 28, fontWeight: 700 }}>
+              {testData.title}
+            </h1>
+            <p style={{ margin: 0, color: "#6b7280", fontSize: 16, lineHeight: 1.5 }}>
+              {testData.description}
+            </p>
+          </header>
 
         <form onSubmit={handleSubmit}>
           {testData.questions.map((question, idx) => (
@@ -793,6 +803,7 @@ useEffect(() => {
           diagnose anything or tell you what to do. You are fully responsible
           for any decisions or actions you take based on these checkups.
         </p>
+        </div>
       </div>
     </div>
   );
