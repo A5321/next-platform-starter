@@ -315,21 +315,6 @@ useEffect(() => {
 
   return (
     <div style={pageStyle}>
-        <header style={navStyle}>
-          <Link href="/" style={brandStyle}>
-            PATTERN INDEX
-          </Link>
-
-          <nav style={navLinksStyle}>
-            <Link href="/tests" style={navLinkStyle}>
-              TESTS
-            </Link>
-            <Link href="/articles" style={activeNavLinkStyle}>
-              ARTICLES
-            </Link>
-          </nav>
-        </header>
-      
       <div style={cardStyle}>
         <header style={{ marginBottom: 24 }}>
           <a
