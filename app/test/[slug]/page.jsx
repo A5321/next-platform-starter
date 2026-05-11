@@ -573,6 +573,8 @@ useEffect(() => {
                 <EmailCapture
                   testName={testData.title}
                   resultLevel={protocolTier || "analysis"}
+                  result={result}
+                  protocol={currentProtocol}
                   onSuccess={() => {
                     setEmailSubmitted(true);
                     localStorage.setItem(`email_submitted_${testSlug}`, "true");
