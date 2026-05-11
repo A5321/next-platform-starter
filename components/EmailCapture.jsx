@@ -36,6 +36,15 @@ export default function EmailCapture({ testName, resultLevel, onSuccess, result,
                        result?.overall_mixed_signals_level ||
                        result?.overall_silent_exit_level ||
                        result?.overall_breakup_pattern_level || null,
+          levelLabel: result?.overall_trust_recovery_level ? "Trust-recovery level" :
+                     result?.overall_option_status ? "Option status" :
+                     result?.overall_risk_level ? "Risk level" :
+                     result?.overall_hypercontrol_level ? "Hypercontrol level" :
+                     result?.overall_triangle_risk ? "Triangle risk" :
+                     result?.overall_trust_in_signals ? "Trust in signals" :
+                     result?.overall_mixed_signals_level ? "Mixed signals level" :
+                     result?.overall_silent_exit_level ? "Silent-exit level" :
+                     result?.overall_breakup_pattern_level ? "Breakup pattern level" : null,
           protocol: protocol || null,
         }),
       });
