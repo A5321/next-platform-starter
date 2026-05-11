@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function EmailCapture({ testName, resultLevel, onSuccess, result }) {
+export default function EmailCapture({ testName, resultLevel, onSuccess, result, protocol }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -36,6 +36,7 @@ export default function EmailCapture({ testName, resultLevel, onSuccess, result 
                        result?.overall_mixed_signals_level ||
                        result?.overall_silent_exit_level ||
                        result?.overall_breakup_pattern_level || null,
+          protocol: protocol || null,
         }),
       });
 
