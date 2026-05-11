@@ -29,7 +29,7 @@ const testTitles = {
 
 const pageStyle = {
   minHeight: "100vh",
-  background: "#f5f7fb",
+  background: "#ffffff",
   color: "#10131a",
 };
 
