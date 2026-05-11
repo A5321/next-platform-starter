@@ -204,13 +204,14 @@ export async function POST(req) {
           <!-- Header -->
           <tr>
             <td style="padding: 32px 40px 24px 40px; border-bottom: 1px solid #e5e7eb;">
-              <p style="margin: 0; font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px;">Pattern Index</p>
-              <p style="margin: 8px 0 0 0; color: #374151; font-size: 16px; line-height: 1.6;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <img src="https://patternindex.io/logo.png" alt="Pattern Index" width="24" height="24" style="display: block;" />
+                <p style="margin: 0; font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px;">Pattern Index</p>
+              </div>
+              <p style="margin: 0; color: #374151; font-size: 16px; line-height: 1.6;">
                 You ran a pattern check on <strong style="color: #1a1a1a;">${testName}</strong>.
               </p>
-              <p style="margin: 8px 0 0 0; color: #374151; font-size: 16px; line-height: 1.6;">
-              Your result is ready:
-              </p>
+              <h1 style="margin: 12px 0 0 0; font-size: 22px; color: #1a1a1a; font-weight: 600;">Your result is ready:</h1>
             </td>
           </tr>
 
