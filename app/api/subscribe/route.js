@@ -205,7 +205,7 @@ export async function POST(req) {
           <tr>
             <td style="padding: 32px 40px 24px 40px; border-bottom: 1px solid #e5e7eb;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                <img src="https://patternindex.io/logo.png" alt="Pattern Index" width="24" height="24" style="display: block;" />
+                <img src="https://patternindex.io/logo.png" alt="Pattern Index" width="18" height="18" style="display: block;; margin-right: 8px;" />
                 <p style="margin: 0; font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px;">Pattern Index</p>
               </div>
               <p style="margin: 0; color: #374151; font-size: 16px; line-height: 1.6;">
