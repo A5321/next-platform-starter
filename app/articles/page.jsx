@@ -79,7 +79,7 @@ const eyebrowStyle = {
 };
 
 const h1Style = {
-  fontSize: "clamp(34px, 6vw, 58px)",
+  fontSize: "clamp(24px, 6vw, 58px)",
   lineHeight: 1.02,
   margin: "0 0 16px",
 };
@@ -149,7 +149,7 @@ const titleStyle = {
   display: "block",
   color: "#10131a",
   textDecoration: "none",
-  fontSize: "22px",
+  fontSize: "18px",
   lineHeight: 1.2,
   fontWeight: 700,
   marginBottom: "12px",
