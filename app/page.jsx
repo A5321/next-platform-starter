@@ -40,9 +40,7 @@ const articles = [
 
 const pageStyle = {
   minHeight: "100vh",
-  background:
-    "radial-gradient(circle at top, rgba(21, 101, 192, 0.08), transparent 35%), #ffffff",
-  color: "#1a1a1a",
+  background: "#ffffff",
 };
 
 const containerStyle = {
