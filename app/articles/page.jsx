@@ -283,7 +283,7 @@ export default async function ArticlesPage({ searchParams }) {
                   {article.contentType} · {article.readTime}
                 </div>
 
-                <p style={excerptStyle}>{article.excerpt}</p>
+                <p style={excerptStyle}>{article.excerpt}---</p>
 
                 <div style={tagsStyle}>
                   {article.tags.map((tag) => (
