@@ -82,6 +82,33 @@ useEffect(() => {
     const emailLocal = localStorage.getItem(`email_submitted_${testSlug}`);
     if (emailLocal === "true") setEmailSubmitted(true);
 
+    // Восстанавливаем result если есть (после reload от PayPal)
+    const savedResult = localStorage.getItem(`lastResult_${testSlug}`);
+    if (savedResult) {
+      try {
+        const parsedResult = JSON.parse(savedResult);
+        setResult(parsedResult);
+        
+        // Определяем protocolTier из результата
+        const overallLevel = parsedResult.overall_trust_recovery_level || 
+                            parsedResult.overall_option_status || 
+                            parsedResult.overall_risk_level || 
+                            parsedResult.overall_hypercontrol_level ||
+                            parsedResult.overall_triangle_risk ||
+                            parsedResult.overall_trust_in_signals ||
+                            parsedResult.overall_mixed_signal_level ||
+                            parsedResult.overall_exit_pattern_level ||
+                            parsedResult.overall_breakup_pattern_intensity;
+        
+        if (overallLevel) {
+          const tier = getProtocolTier(testSlug, overallLevel);
+          setProtocolTier(tier);
+        }
+      } catch (err) {
+        console.error("Failed to restore result:", err);
+      }
+    }
+
     if (isPaid) {
       setPaid(true);
     }
@@ -185,7 +212,7 @@ useEffect(() => {
         return actions.order.create({
           purchase_units: [
             {
-              amount: { value: "15.00", currency_code: "USD" },
+              amount: { value: "1.00", currency_code: "USD" },
               custom_id: `${testSlug}-single`,
               description: currentProtocol.paypalDescription || currentProtocol.productName,
             },
@@ -214,6 +241,10 @@ useEffect(() => {
             throw new Error(json.error || "Payment confirmation failed");
           }
 
+          // Сохраняем result перед reload
+          if (result) {
+            localStorage.setItem(`lastResult_${testSlug}`, JSON.stringify(result));
+          }
           localStorage.setItem(`paid_${testSlug}`, "true");
           window.location.reload();
         } catch (err) {
