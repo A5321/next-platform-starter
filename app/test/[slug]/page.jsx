@@ -218,7 +218,7 @@ useEffect(() => {
         return actions.order.create({
           purchase_units: [
             {
-              amount: { value: "3.00", currency_code: "USD" },
+              amount: { value: "15.00", currency_code: "USD" },
               custom_id: `${testSlug}-single`,
               description: currentProtocol.paypalDescription || currentProtocol.productName,
             },
