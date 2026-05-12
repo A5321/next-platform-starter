@@ -82,31 +82,37 @@ useEffect(() => {
     const emailLocal = localStorage.getItem(`email_submitted_${testSlug}`);
     if (emailLocal === "true") setEmailSubmitted(true);
 
-    // Восстанавливаем result если есть (после reload от PayPal)
-    const savedResult = localStorage.getItem(`lastResult_${testSlug}`);
-    if (savedResult) {
-      try {
-        const parsedResult = JSON.parse(savedResult);
-        setResult(parsedResult);
-        
-        // Определяем protocolTier из результата
-        const overallLevel = parsedResult.overall_trust_recovery_level || 
-                            parsedResult.overall_option_status || 
-                            parsedResult.overall_risk_level || 
-                            parsedResult.overall_hypercontrol_level ||
-                            parsedResult.overall_triangle_risk ||
-                            parsedResult.overall_trust_in_signals ||
-                            parsedResult.overall_mixed_signal_level ||
-                            parsedResult.overall_exit_pattern_level ||
-                            parsedResult.overall_breakup_pattern_intensity;
-        
-        if (overallLevel) {
-          const tier = getProtocolTier(testSlug, overallLevel);
-          setProtocolTier(tier);
+    // Восстанавливаем result ТОЛЬКО если это возврат с PayPal
+    const paypalReturn = localStorage.getItem(`paypal_return_${testSlug}`);
+    if (paypalReturn === "true") {
+      const savedResult = localStorage.getItem(`lastResult_${testSlug}`);
+      if (savedResult) {
+        try {
+          const parsedResult = JSON.parse(savedResult);
+          setResult(parsedResult);
+          
+          // Определяем protocolTier из результата
+          const overallLevel = parsedResult.overall_trust_recovery_level || 
+                              parsedResult.overall_option_status || 
+                              parsedResult.overall_risk_level || 
+                              parsedResult.overall_hypercontrol_level ||
+                              parsedResult.overall_triangle_risk ||
+                              parsedResult.overall_trust_in_signals ||
+                              parsedResult.overall_mixed_signal_level ||
+                              parsedResult.overall_exit_pattern_level ||
+                              parsedResult.overall_breakup_pattern_intensity;
+          
+          if (overallLevel) {
+            const tier = getProtocolTier(testSlug, overallLevel);
+            setProtocolTier(tier);
+          }
+        } catch (err) {
+          console.error("Failed to restore result:", err);
         }
-      } catch (err) {
-        console.error("Failed to restore result:", err);
       }
+      
+      // Удаляем флаг - он нужен только один раз
+      localStorage.removeItem(`paypal_return_${testSlug}`);
     }
 
     if (isPaid) {
@@ -241,9 +247,10 @@ useEffect(() => {
             throw new Error(json.error || "Payment confirmation failed");
           }
 
-          // Сохраняем result перед reload
+          // Сохраняем result перед reload И ставим флаг что это возврат с PayPal
           if (result) {
             localStorage.setItem(`lastResult_${testSlug}`, JSON.stringify(result));
+            localStorage.setItem(`paypal_return_${testSlug}`, "true");
           }
           localStorage.setItem(`paid_${testSlug}`, "true");
           window.location.reload();
@@ -666,7 +673,7 @@ useEffect(() => {
                     {currentProtocol?.title || 
                       (protocolTier === "hard" ? "Exit Protocol (Hard)" : "Stabilization Protocol (Soft)")}
                   </strong>{" "}
-                  — $15
+                  — $1
                 </p>
 
                 <div style={{ minHeight: "50px" }} ref={paypalSingleRef} />
