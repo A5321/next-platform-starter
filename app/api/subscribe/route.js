@@ -139,6 +139,13 @@ export async function POST(req) {
         }
 
         return NextResponse.json({ success: true });
+      } else {
+        // ❌ КРИТИЧНО: если протокол не найден, останавливаем выполнение
+        console.error("❌ Protocol data not found for:", { protocolScope, protocolTier });
+        return NextResponse.json(
+          { success: false, error: "Protocol not found" },
+          { status: 404 }
+        );
       }
     }
 
