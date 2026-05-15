@@ -47,7 +47,7 @@ export async function POST(req) {
     if (protocolScope && protocolTier) {
       let protocolData = null;
       try {
-        const mod = await import(`../../../lib/protocols/${protocolScope.replace(/-([a-z])/g, (_, c) => c.toUpperCase())}`);
+        const mod = await import(`../../lib/protocols/${protocolScope.replace(/-([a-z])/g, (_, c) => c.toUpperCase())}`);
         const exports = Object.values(mod);
         const protocolsObj = exports[0];
         protocolData = protocolsObj?.[protocolTier] || null;
