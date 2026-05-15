@@ -76,17 +76,19 @@ export function getProtocolTier(scope, result) {
   // emotional_withdrawal_score: 0 = responsive, 1 = withdrawn
   // closure_risk_index:        0 = very unlikely silent end, 1 = high risk
   //
-  // HARD: presence_fade >= 0.70 OR closure_risk >= 0.75 OR emotional_withdrawal >= 0.75
-  // SOFT: presence_fade >= 0.45 OR closure_risk >= 0.45 OR emotional_withdrawal >= 0.50
-  // NONE: everything else
+  // HARD: "High risk" OR presence_fade >= 0.70 OR closure_risk >= 0.75 OR emotional_withdrawal >= 0.75
+  // SOFT: "Moderate risk" OR presence_fade >= 0.45 OR closure_risk >= 0.45 OR emotional_withdrawal >= 0.50
+  // NONE: "Low risk" or everything else
  
   if (scope === "silent-exit") {
+    const riskLevel  = (result.overall_exit_pattern_level || "").toLowerCase().trim();
     const fade       = Number(result.indices.presence_fade_index         || 0);
     const withdrawal = Number(result.indices.emotional_withdrawal_score  || 0);
     const closure    = Number(result.indices.closure_risk_index          || 0);
  
-    if (fade >= 0.70 || withdrawal >= 0.75 || closure >= 0.75) return "hard";
-    if (fade >= 0.45 || withdrawal >= 0.50 || closure >= 0.45) return "soft";
+    if (riskLevel.includes("low")) return "none";
+    if (riskLevel.includes("high") || fade >= 0.70 || withdrawal >= 0.75 || closure >= 0.75) return "hard";
+    if (riskLevel.includes("moderate") || fade >= 0.45 || withdrawal >= 0.50 || closure >= 0.45) return "soft";
     return "none";
   }
   
@@ -166,16 +168,19 @@ export function getProtocolTier(scope, result) {
   // next_cycle_probability:     0 = low, 1 = very likely to repeat
   // post_breakup_fusion_risk:   0 = clean separation, 1 = entangled
   //
-  // HARD: entrenchment >= 0.70 OR next_cycle >= 0.75
-  // SOFT: entrenchment >= 0.35 OR next_cycle >= 0.50 OR fusion >= 0.65
+  // HARD: "Strong pattern" OR entrenchment >= 0.70 OR next_cycle >= 0.75
+  // SOFT: "Emerging pattern" OR entrenchment >= 0.35 OR next_cycle >= 0.50 OR fusion >= 0.65
+  // NONE: "Low pattern" or everything else
  
   if (scope === "repeating-breakup") {
+    const riskLevel    = (result.overall_breakup_pattern_intensity || "").toLowerCase().trim();
     const entrenchment = Number(result.indices.pattern_entrenchment_index || 0);
     const nextCycle    = Number(result.indices.next_cycle_probability     || 0);
     const fusion       = Number(result.indices.post_breakup_fusion_risk   || 0);
  
-    if (entrenchment >= 0.70 || nextCycle >= 0.75) return "hard";
-    if (entrenchment >= 0.35 || nextCycle >= 0.50 || fusion >= 0.65) return "soft";
+    if (riskLevel.includes("low") || riskLevel.includes("minimal")) return "none";
+    if (riskLevel.includes("strong") || entrenchment >= 0.70 || nextCycle >= 0.75) return "hard";
+    if (riskLevel.includes("emerging") || riskLevel.includes("moderate") || entrenchment >= 0.35 || nextCycle >= 0.50 || fusion >= 0.65) return "soft";
     return "none";
   }
   
@@ -187,16 +192,19 @@ export function getProtocolTier(scope, result) {
   // interest_gap_index:   0 = matched, 1 = strong gap
   // ghosting_drift_risk:  0 = unlikely, 1 = high risk
   //
-  // HARD: clarity <= 0.20 OR gap >= 0.75 OR ghosting >= 0.75
-  // SOFT: clarity <= 0.65 OR gap >= 0.45 OR ghosting >= 0.45
+  // HARD: "High ambiguity" OR clarity <= 0.20 OR gap >= 0.75 OR ghosting >= 0.75
+  // SOFT: "Moderate ambiguity" OR clarity <= 0.65 OR gap >= 0.45 OR ghosting >= 0.45
+  // NONE: "Low ambiguity" or everything else
 
   if (scope === "mixed-signals") {
+    const riskLevel = (result.overall_mixed_signal_level || "").toLowerCase().trim();
     const clarity  = Number(result.indices.signal_clarity_index || 1);
     const gap      = Number(result.indices.interest_gap_index   || 0);
     const ghosting = Number(result.indices.ghosting_drift_risk  || 0);
 
-    if (clarity <= 0.20 || gap >= 0.75 || ghosting >= 0.75) return "hard";
-    if (clarity <= 0.65 || gap >= 0.45 || ghosting >= 0.45) return "soft";
+    if (riskLevel.includes("low") || riskLevel.includes("clear")) return "none";
+    if (riskLevel.includes("high") || clarity <= 0.20 || gap >= 0.75 || ghosting >= 0.75) return "hard";
+    if (riskLevel.includes("moderate") || clarity <= 0.65 || gap >= 0.45 || ghosting >= 0.45) return "soft";
     return "none";
   }
 
