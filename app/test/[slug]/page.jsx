@@ -661,7 +661,7 @@ useEffect(() => {
                     {currentProtocol?.title || 
                       (protocolTier === "hard" ? "Exit Protocol (Hard)" : "Stabilization Protocol (Soft)")}
                   </strong>{" "}
-                  — $1
+                  — $15
                 </p>
 
                 <div style={{ minHeight: "50px" }} ref={paypalSingleRef} />
