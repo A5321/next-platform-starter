@@ -59,16 +59,16 @@ export async function POST(req) {
         let blocksHtml = "";
         protocolData.blocks.forEach((block) => {
           blocksHtml += `<div style="margin-top: 28px;">
-            <h3 style="margin: 0 0 8px 0; font-size: 17px; color: #fff;">${block.title}</h3>
-            ${block.goal ? `<p style="margin: 0 0 6px 0; font-size: 14px; color: #888;"><strong style="color: #aaa;">Goal:</strong> ${block.goal}</p>` : ""}
-            ${block.when ? `<p style="margin: 0 0 10px 0; font-size: 14px; color: #888;"><strong style="color: #aaa;">When:</strong> ${block.when}</p>` : ""}
+            <h3 style="margin: 0 0 8px 0; font-size: 17px; color: #1a1a1a;">${block.title}</h3>
+            ${block.goal ? `<p style="margin: 0 0 6px 0; font-size: 14px; color: #4b5563;"><strong style="color: #374151;">Goal:</strong> ${block.goal}</p>` : ""}
+            ${block.when ? `<p style="margin: 0 0 10px 0; font-size: 14px; color: #4b5563;"><strong style="color: #374151;">When:</strong> ${block.when}</p>` : ""}
             ${block.items ? block.items.map(item => {
-              if (item.type === "subheader") return `<p style="margin: 10px 0 4px 0; font-size: 15px; font-weight: 600; color: #ddd;">${item.text}</p>`;
-              if (item.type === "sub") return `<p style="margin: 4px 0; padding-left: 16px; font-size: 14px; color: #aaa;">— ${item.text}</p>`;
-              if (item.type === "quote") return `<div style="margin: 10px 0; padding: 10px 16px; border-left: 3px solid #4ade80; color: #ccc; font-style: italic; font-size: 14px; line-height: 1.6;">${item.text}</div>`;
-              return `<p style="margin: 6px 0; font-size: 14px; color: #ccc;">${item.text}</p>`;
+              if (item.type === "subheader") return `<p style="margin: 10px 0 4px 0; font-size: 15px; font-weight: 600; color: #1a1a1a;">${item.text}</p>`;
+              if (item.type === "sub") return `<p style="margin: 4px 0; padding-left: 16px; font-size: 14px; color: #6b7280;">— ${item.text}</p>`;
+              if (item.type === "quote") return `<div style="margin: 10px 0; padding: 10px 16px; border-left: 3px solid #1565C0; color: #374151; font-style: italic; font-size: 14px; line-height: 1.6; background: #f0f9ff;">${item.text}</div>`;
+              return `<p style="margin: 6px 0; font-size: 14px; color: #374151;">${item.text}</p>`;
             }).join("") : ""}
-            ${block.why ? block.why.map(w => `<p style="margin: 4px 0; font-size: 13px; color: #777; font-style: italic;">→ ${w}</p>`).join("") : ""}
+            ${block.why ? block.why.map(w => `<p style="margin: 4px 0; font-size: 13px; color: #6b7280; font-style: italic;">→ ${w}</p>`).join("") : ""}
           </div>`;
         });
 
@@ -76,27 +76,30 @@ export async function POST(req) {
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
-<body style="margin: 0; padding: 0; background-color: #0a0a0a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0a0a0a; padding: 40px 20px;">
+<body style="margin: 0; padding: 0; background-color: #f5f7fb; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f7fb; padding: 40px 20px;">
     <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%; background-color: #111; border-radius: 12px; overflow: hidden;">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%; background-color: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb;">
         <tr>
-          <td style="padding: 32px 40px 24px 40px; border-bottom: 1px solid #222;">
-            <p style="margin: 0; font-size: 13px; color: #666; text-transform: uppercase; letter-spacing: 1px;">Pattern Index</p>
-            <h1 style="margin: 8px 0 0 0; font-size: 22px; color: #fff; font-weight: 600;">${protocolData.title}</h1>
-            <p style="margin: 8px 0 0 0; font-size: 14px; color: #888;">${protocolData.subtitle}</p>
+          <td style="padding: 32px 40px 24px 40px; border-bottom: 1px solid #e5e7eb;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <img src="https://patternindex.io/logo.png" alt="Pattern Index" width="18" height="18" style="display: block; margin-right: 8px;" />
+              <p style="margin: 0; font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px;">Pattern Index</p>
+            </div>
+            <h1 style="margin: 8px 0 0 0; font-size: 22px; color: #1a1a1a; font-weight: 600;">${protocolData.title}</h1>
+            <p style="margin: 8px 0 0 0; font-size: 14px; color: #6b7280;">${protocolData.subtitle}</p>
           </td>
         </tr>
         <tr>
           <td style="padding: 32px 40px;">
-            <p style="margin: 0 0 24px 0; color: #ccc; font-size: 15px; line-height: 1.7;">${protocolData.intro}</p>
+            <p style="margin: 0 0 24px 0; color: #374151; font-size: 15px; line-height: 1.7;">${protocolData.intro}</p>
             ${blocksHtml}
-            ${protocolData.closing ? `<div style="margin-top: 36px; padding: 16px 20px; background: rgba(255,255,255,0.04); border-left: 4px solid #4ade80; color: #aaa; font-style: italic; font-size: 14px; line-height: 1.6;">${protocolData.closing}</div>` : ""}
+            ${protocolData.closing ? `<div style="margin-top: 36px; padding: 16px 20px; background: #f0f9ff; border-left: 4px solid #1565C0; color: #374151; font-style: italic; font-size: 14px; line-height: 1.6;">${protocolData.closing}</div>` : ""}
           </td>
         </tr>
         <tr>
-          <td style="padding: 24px 40px; border-top: 1px solid #222;">
-            <p style="margin: 0; color: #555; font-size: 13px; line-height: 1.5;">
+          <td style="padding: 24px 40px; border-top: 1px solid #e5e7eb;">
+            <p style="margin: 0; color: #6b7280; font-size: 13px; line-height: 1.5;">
               Questions? Reply to this email.<br />
               You received this because you purchased a protocol on patternindex.io.
             </p>
