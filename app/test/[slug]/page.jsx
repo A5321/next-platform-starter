@@ -90,27 +90,15 @@ useEffect(() => {
         try {
           const parsedResult = JSON.parse(savedResult);
           setResult(parsedResult);
-          
-          // Определяем protocolTier из результата
-          const overallLevel = parsedResult.overall_trust_recovery_level || 
-                              parsedResult.overall_option_status || 
-                              parsedResult.overall_risk_level || 
-                              parsedResult.overall_hypercontrol_level ||
-                              parsedResult.overall_triangle_risk ||
-                              parsedResult.overall_trust_in_signals ||
-                              parsedResult.overall_mixed_signal_level ||
-                              parsedResult.overall_exit_pattern_level ||
-                              parsedResult.overall_breakup_pattern_intensity;
-          
-          if (overallLevel) {
-            const tier = getProtocolTier(testSlug, overallLevel);
-            setProtocolTier(tier);
-          }
+      
+          // Определяем protocolTier из полного объекта результата
+          const tier = getProtocolTier(testSlug, parsedResult);
+          setProtocolTier(tier);
         } catch (err) {
           console.error("Failed to restore result:", err);
         }
       }
-      
+  
       // Удаляем флаг - он нужен только один раз
       localStorage.removeItem(`paypal_return_${testSlug}`);
     }
