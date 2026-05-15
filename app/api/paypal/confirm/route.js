@@ -154,7 +154,7 @@ export async function POST(req) {
         ? order.purchase_units[0].amount.currency_code
         : null;
 
-    if (intent === "single" && amountValue !== "1.00") {
+    if (intent === "single" && amountValue !== "15.00") {
       return NextResponse.json(
         {
           success: false,
@@ -166,7 +166,7 @@ export async function POST(req) {
       );
     }
 
-    if (intent === "full" && amountValue !== "1.00") {
+    if (intent === "full" && amountValue !== "15.00") {
       return NextResponse.json(
         {
           success: false,
