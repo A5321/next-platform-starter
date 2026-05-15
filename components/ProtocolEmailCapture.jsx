@@ -66,6 +66,7 @@ export default function ProtocolEmailCapture({ protocolScope, protocolTier, prot
     <div
       style={{
         marginTop: 24,
+        marginBottom: 24,
         padding: "20px 24px",
         background: "#ffffff",
         border: "1px solid rgba(0,0,0,0.12)",
