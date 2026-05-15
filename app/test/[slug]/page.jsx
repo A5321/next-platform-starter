@@ -681,6 +681,7 @@ useEffect(() => {
                   protocolScope={testData.protocolScope}
                   protocolTier={protocolTier}
                   protocolTitle={currentProtocol?.title}
+                  testName={testData.title}
                 />
 
                 <div
