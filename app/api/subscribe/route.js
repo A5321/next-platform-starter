@@ -86,7 +86,7 @@ export async function POST(req) {
               <img src="https://patternindex.io/logo.png" alt="Pattern Index" width="18" height="18" style="display: inline-block; vertical-align: middle; margin-right: 8px;" />
               <span style="font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; vertical-align: middle;">Pattern Index</span>
             </div>
-            <h1 style="margin: 8px 0 0 0; font-size: 22px; color: #1a1a1a; font-weight: 600;">${protocolData.title}</h1>
+            <h1 style="margin: 8px 0 0 0; font-size: 22px; color: #1a1a1a; font-weight: 600;">${testName}: ${protocolData.title}</h1>
             <p style="margin: 8px 0 0 0; font-size: 14px; color: #6b7280;">${protocolData.subtitle}</p>
           </td>
         </tr>
