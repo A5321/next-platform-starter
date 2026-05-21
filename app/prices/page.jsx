@@ -12,7 +12,6 @@ const plans = [
       "AI-generated result and interpretation",
       "Single purchase, no recurring billing",
     ],
-    cta: "Buy single access",
   },
   {
     name: "Full site subscription",
@@ -25,7 +24,6 @@ const plans = [
       "Unlimited access to all paid materials on the site",
       "Recurring monthly billing until cancelled",
     ],
-    cta: "Start subscription",
     featured: true,
   },
 ];
@@ -90,7 +88,6 @@ const leadStyle = {
   lineHeight: 1.7,
   color: "#4a5568",
   margin: 0,
-  maxWidth: "42rem",
 };
 
 const gridStyle = {
@@ -155,17 +152,6 @@ const listStyle = {
 
 const listItemStyle = {
   marginBottom: "6px",
-};
-
-const buttonStyle = {
-  display: "inline-block",
-  padding: "12px 18px",
-  borderRadius: "999px",
-  background: "#1565C0",
-  color: "#ffffff",
-  textDecoration: "none",
-  fontSize: "14px",
-  fontWeight: 700,
 };
 
 const notesStyle = {
@@ -291,10 +277,6 @@ export default function PricesPage() {
                   </li>
                 ))}
               </ul>
-
-              <Link href="/" style={buttonStyle}>
-                {plan.cta}
-              </Link>
             </div>
           ))}
         </section>
