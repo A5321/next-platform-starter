@@ -317,6 +317,7 @@ export default function TermsOfServicePage() {
             report a concern, you can contact us using the contact details provided
             on the Site.
           </p>
+          </div>
         </div>
       </div>
     </main>
