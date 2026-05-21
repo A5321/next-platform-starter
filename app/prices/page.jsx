@@ -3,7 +3,7 @@ import Link from "next/link";
 const plans = [
   {
     name: "Single protocol access",
-    price: "$3",
+    price: "$15",
     period: "one-time payment",
     description:
       "One-time access to a single AI-generated test protocol.",
@@ -16,7 +16,7 @@ const plans = [
   },
   {
     name: "Full site subscription",
-    price: "$20",
+    price: "$30",
     period: "per month",
     description:
       "Monthly subscription with unrestricted access to all paid materials on the site.",
@@ -32,49 +32,63 @@ const plans = [
 
 const pageStyle = {
   minHeight: "100vh",
-  background:
-    "radial-gradient(circle at top, rgba(77, 113, 255, 0.15), transparent 28%), #0f1115",
-  color: "#f5f7fb",
+  background: "#ffffff",
 };
 
 const containerStyle = {
   width: "100%",
   maxWidth: "1120px",
   margin: "0 auto",
-  padding: "24px 16px 72px",
+  padding: "24px 16px 64px",
   boxSizing: "border-box",
 };
 
-const backStyle = {
-  display: "inline-block",
-  marginBottom: "24px",
-  color: "#cfd6e4",
+const navStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "16px",
+  marginBottom: "56px",
+};
+
+const navLinksStyle = {
+  display: "flex",
+  gap: "12px",
+  flexWrap: "wrap",
+};
+
+const navLinkStyle = {
+  color: "#4a5568",
   textDecoration: "none",
-  fontSize: "13px",
+  fontSize: "14px",
+  padding: "10px 14px",
+  border: "1px solid rgba(0,0,0,0.1)",
+  borderRadius: "999px",
 };
 
 const headerStyle = {
-  marginBottom: "32px",
+  marginBottom: "40px",
 };
 
 const eyebrowStyle = {
   fontSize: "12px",
   letterSpacing: "0.14em",
   textTransform: "uppercase",
-  color: "#9db0ff",
+  color: "#1565C0",
   marginBottom: "12px",
 };
 
 const h1Style = {
-  fontSize: "clamp(38px, 7vw, 64px)",
-  lineHeight: 1,
+  fontSize: "clamp(32px, 5vw, 48px)",
+  lineHeight: 1.1,
   margin: "0 0 16px",
+  color: "#1a1a1a",
 };
 
 const leadStyle = {
   fontSize: "18px",
   lineHeight: 1.7,
-  color: "#d5dbea",
+  color: "#4a5568",
   margin: 0,
   maxWidth: "42rem",
 };
@@ -87,22 +101,22 @@ const gridStyle = {
 };
 
 const cardStyle = {
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(255,255,255,0.08)",
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
   borderRadius: "20px",
   padding: "28px",
-  boxShadow: "0 18px 50px rgba(0,0,0,0.22)",
 };
 
 const featuredCardStyle = {
   ...cardStyle,
-  border: "1px solid rgba(157,176,255,0.34)",
-  background: "rgba(157,176,255,0.08)",
+  border: "1px solid #1565C0",
+  background: "#eff6ff",
 };
 
 const planNameStyle = {
   fontSize: "24px",
   margin: "0 0 10px",
+  color: "#1a1a1a",
 };
 
 const priceRowStyle = {
@@ -116,24 +130,25 @@ const priceStyle = {
   fontSize: "42px",
   fontWeight: 800,
   lineHeight: 1,
+  color: "#1a1a1a",
 };
 
 const periodStyle = {
   fontSize: "14px",
-  color: "#b6c0d4",
+  color: "#6b7280",
 };
 
 const descriptionStyle = {
   fontSize: "15px",
   lineHeight: 1.7,
-  color: "#cfd6e4",
+  color: "#4a5568",
   marginBottom: "18px",
 };
 
 const listStyle = {
   margin: "0 0 20px 18px",
   padding: 0,
-  color: "#dbe2f0",
+  color: "#1a1a1a",
   fontSize: "14px",
   lineHeight: 1.7,
 };
@@ -146,40 +161,103 @@ const buttonStyle = {
   display: "inline-block",
   padding: "12px 18px",
   borderRadius: "999px",
-  background: "#ffffff",
-  color: "#0f1115",
+  background: "#1565C0",
+  color: "#ffffff",
   textDecoration: "none",
   fontSize: "14px",
   fontWeight: 700,
 };
 
 const notesStyle = {
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(255,255,255,0.08)",
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
   borderRadius: "20px",
-  padding: "24px",
+  padding: "28px",
+  marginBottom: "24px",
 };
 
 const sectionTitleStyle = {
   fontSize: "22px",
-  margin: "0 0 12px",
+  margin: "0 0 16px",
+  color: "#1a1a1a",
 };
 
 const noteTextStyle = {
-  fontSize: "14px",
+  fontSize: "15px",
   lineHeight: 1.7,
-  color: "#cfd6e4",
-  margin: "0 0 10px",
+  color: "#4a5568",
+  margin: "0 0 16px",
+};
+
+const footerStyle = {
+  marginTop: "40px",
+  paddingTop: "24px",
+  borderTop: "1px solid rgba(0,0,0,0.1)",
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "16px",
+  justifyContent: "space-between",
+  alignItems: "center",
+  fontSize: "12px",
+  color: "#6b7280",
+};
+
+const footerLinksStyle = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "12px",
+};
+
+const footerLinkStyle = {
+  color: "#4a5568",
+  textDecoration: "none",
 };
 
 export default function PricesPage() {
   return (
     <main style={pageStyle}>
       <div style={containerStyle}>
-        <Link href="/" style={backStyle}>
-          ← Back to home
-        </Link>
+        {/* Навигация */}
+        <header style={navStyle}>
+          <Link 
+            href="/" 
+            style={{ 
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              textDecoration: "none",
+            }}
+          >
+            <img 
+              src="/logo.png" 
+              alt="Pattern Index" 
+              style={{ 
+                width: "32px",
+                height: "32px",
+                display: "block"
+              }} 
+            />
+            <span style={{
+              fontSize: "18px",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              color: "#1565C0"
+            }}>
+              PATTERN INDEX
+            </span>
+          </Link>
 
+          <nav style={navLinksStyle}>
+            <Link href="/tests" style={navLinkStyle}>
+              TESTS
+            </Link>
+            <Link href="/articles" style={navLinkStyle}>
+              ARTICLES
+            </Link>
+          </nav>
+        </header>
+
+        {/* Заголовок */}
         <section style={headerStyle}>
           <div style={eyebrowStyle}>Pricing</div>
           <h1 style={h1Style}>Simple access, clear pricing.</h1>
@@ -190,6 +268,7 @@ export default function PricesPage() {
           </p>
         </section>
 
+        {/* Карточки планов */}
         <section style={gridStyle}>
           {plans.map((plan) => (
             <div
@@ -220,19 +299,19 @@ export default function PricesPage() {
           ))}
         </section>
 
+        {/* Billing notes */}
         <section style={notesStyle}>
           <h2 style={sectionTitleStyle}>Billing notes</h2>
 
           <p style={noteTextStyle}>
             Single protocol access is charged once per purchase. The monthly
             subscription is billed on a recurring monthly basis until cancelled.
-            [web:228][web:236]
           </p>
 
           <p style={noteTextStyle}>
             Prices are shown in USD. Any applicable taxes, currency conversion
             costs, or payment provider fees may depend on your location and
-            payment method. [web:233][web:236]
+            payment method.
           </p>
 
           <p style={noteTextStyle}>
@@ -240,20 +319,39 @@ export default function PricesPage() {
             a paid protocol has already been generated and displayed on screen,
             the digital product is considered delivered and is not eligible for
             a refund, except where mandatory local law provides otherwise.
-            [web:233][web:239]
           </p>
 
           <p style={{ ...noteTextStyle, marginBottom: 0 }}>
             If you have billing questions, please contact{" "}
             <a
               href="mailto:info@patternindex.io"
-              style={{ color: "#ffffff", textDecoration: "underline" }}
+              style={{ color: "#1565C0", textDecoration: "underline" }}
             >
               info@patternindex.io
             </a>
             .
           </p>
         </section>
+
+        {/* Футер */}
+        <footer style={footerStyle}>
+          <div>© {new Date().getFullYear()} Pattern Index</div>
+
+          <nav style={footerLinksStyle}>
+            <Link href="/terms-of-service" style={footerLinkStyle}>
+              Terms of Service
+            </Link>
+            <Link href="/prices" style={footerLinkStyle}>
+              Prices
+            </Link>
+            <Link href="/refund-policy" style={footerLinkStyle}>
+              Refund policy
+            </Link>
+            <Link href="/privacy-policy" style={footerLinkStyle}>
+              Privacy Policy
+            </Link>
+          </nav>
+        </footer>
       </div>
     </main>
   );
