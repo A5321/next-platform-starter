@@ -37,47 +37,46 @@ const navLinkStyle = {
 };
 
 const contentWrapperStyle = {
-  maxWidth: "800px",
-  margin: "0 auto",
+  width: "100%",
 };
 
-const backStyle = {
-  display: "inline-block",
+const cardStyle = {
+  background: "#fafbfc",
+  border: "1px solid rgba(0,0,0,0.08)",
+  borderRadius: "20px",
+  padding: "32px",
   marginBottom: "24px",
-  color: "#6b7280",
-  textDecoration: "none",
-  fontSize: "13px",
 };
 
 const h1Style = {
   fontSize: "32px",
-  margin: "0 0 16px",
+  margin: "0 0 20px",
   color: "#1a1a1a",
 };
 
 const h2Style = {
   fontSize: "20px",
-  margin: "28px 0 10px",
+  margin: "32px 0 12px",
   color: "#1a1a1a",
 };
 
 const paragraphStyle = {
-  fontSize: "14px",
+  fontSize: "15px",
   lineHeight: 1.7,
   color: "#4a5568",
-  margin: "0 0 12px",
+  margin: "0 0 16px",
 };
 
 const listStyle = {
-  margin: "0 0 12px 18px",
+  margin: "0 0 16px 18px",
   padding: 0,
-  fontSize: "14px",
+  fontSize: "15px",
   lineHeight: 1.7,
   color: "#4a5568",
 };
 
 const listItemStyle = {
-  marginBottom: "6px",
+  marginBottom: "8px",
 };
 
 export default function TermsOfServicePage() {
@@ -126,47 +125,44 @@ export default function TermsOfServicePage() {
 
         {/* Контент */}
         <div style={contentWrapperStyle}>
-          <Link href="/" style={backStyle}>
-            ← Back to home
-          </Link>
+          <div style={cardStyle}>
+            <h1 style={h1Style}>Terms of Service</h1>
 
-          <h1 style={h1Style}>Terms of Service</h1>
+            <p style={paragraphStyle}>
+              These Terms of Service (&quot;Terms&quot;) govern your access to and use of
+              Pattern Index (the &quot;Service&quot;), including all tests, articles, and
+              AI-generated protocols made available through patternindex.io (the
+              &quot;Site&quot;). By using the Service, you agree to these Terms.
+            </p>
 
-          <p style={paragraphStyle}>
-            These Terms of Service (&quot;Terms&quot;) govern your access to and use of
-            Pattern Index (the &quot;Service&quot;), including all tests, articles, and
-            AI-generated protocols made available through patternindex.io (the
-            &quot;Site&quot;). By using the Service, you agree to these Terms.
-          </p>
+            <h2 style={h2Style}>1. Nature of the Service</h2>
+            <p style={paragraphStyle}>
+              Pattern Index provides AI-assisted tests and AI-generated written
+              protocols that help users reflect on behavioral and relationship
+              patterns. The Service is designed for informational and educational
+              purposes only.
+            </p>
 
-          <h2 style={h2Style}>1. Nature of the Service</h2>
-          <p style={paragraphStyle}>
-            Pattern Index provides AI-assisted tests and AI-generated written
-            protocols that help users reflect on behavioral and relationship
-            patterns. The Service is designed for informational and educational
-            purposes only.
-          </p>
-
-          <p style={paragraphStyle}>
-            The Service does not provide and must not be treated as:
-          </p>
-          <ul style={listStyle}>
-            <li style={listItemStyle}>
-              medical advice, diagnosis, or treatment;
-            </li>
-            <li style={listItemStyle}>
-              psychological, psychotherapeutic, or psychiatric advice, diagnosis,
-              or treatment;
-            </li>
-            <li style={listItemStyle}>
-              legal, financial, or any other form of professional advice.
-            </li>
-          </ul>
-          <p style={paragraphStyle}>
-            Using the Service does not create any doctor–patient, therapist–client,
-            or other professional relationship between you and Pattern Index or its
-            creators.
-          </p>
+            <p style={paragraphStyle}>
+              The Service does not provide and must not be treated as:
+            </p>
+            <ul style={listStyle}>
+              <li style={listItemStyle}>
+                medical advice, diagnosis, or treatment;
+              </li>
+              <li style={listItemStyle}>
+                psychological, psychotherapeutic, or psychiatric advice, diagnosis,
+                or treatment;
+              </li>
+              <li style={listItemStyle}>
+                legal, financial, or any other form of professional advice.
+              </li>
+            </ul>
+            <p style={paragraphStyle}>
+              Using the Service does not create any doctor–patient, therapist–client,
+              or other professional relationship between you and Pattern Index or its
+              creators.
+            </p>
 
           <h2 style={h2Style}>2. AI-generated content</h2>
           <p style={paragraphStyle}>
