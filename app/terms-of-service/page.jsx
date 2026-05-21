@@ -79,6 +79,30 @@ const listItemStyle = {
   marginBottom: "8px",
 };
 
+const footerStyle = {
+  marginTop: "40px",
+  paddingTop: "24px",
+  borderTop: "1px solid rgba(0,0,0,0.1)",
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "16px",
+  justifyContent: "space-between",
+  alignItems: "center",
+  fontSize: "12px",
+  color: "#6b7280",
+};
+
+const footerLinksStyle = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "12px",
+};
+
+const footerLinkStyle = {
+  color: "#4a5568",
+  textDecoration: "none",
+};
+
 export default function TermsOfServicePage() {
   return (
     <main style={pageStyle}>
@@ -319,6 +343,26 @@ export default function TermsOfServicePage() {
           </p>
           </div>
         </div>
+
+        {/* Футер */}
+        <footer style={footerStyle}>
+          <div>© {new Date().getFullYear()} Pattern Index</div>
+
+          <nav style={footerLinksStyle}>
+            <Link href="/terms-of-service" style={footerLinkStyle}>
+              Terms of Service
+            </Link>
+            <Link href="/prices" style={footerLinkStyle}>
+              Prices
+            </Link>
+            <Link href="/refund-policy" style={footerLinkStyle}>
+              Refund policy
+            </Link>
+            <Link href="/privacy-policy" style={footerLinkStyle}>
+              Privacy Policy
+            </Link>
+          </nav>
+        </footer>
       </div>
     </main>
   );
